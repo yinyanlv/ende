@@ -1,14 +1,25 @@
 import React from 'react';
-import {Button} from 'antd';
+import {Provider} from 'react-redux';
+import {Router, Switch, Route} from 'react-router-dom';
 import './App.module.scss';
-import {PageHome} from '@/pages/Home';
+import store from './store';
+import history from './common/history';
+import {FitLayout} from '@/layouts/FitLayout';
+import {Auth} from '@/components/Auth';
 
 const App: React.FC = () => {
     return (
-        <>
-            <Button>hello react</Button>
-            <PageHome/>
-        </>
+        <Provider store={store}>
+            <Router history={history}>
+                <Auth>
+                    <Switch>
+                        <Route path={'/'}>
+                            <FitLayout />
+                        </Route>
+                    </Switch>
+                </Auth>
+            </Router>
+        </Provider>
     );
 };
 
