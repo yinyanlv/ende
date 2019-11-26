@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import {homeReducer} from '@/pages/Home/reducer';
+import {catalogReducer} from '@/pages/Catalog/reducer';
 
 export const reducers = combineReducers({
-    homeState: homeReducer
+    catalog: catalogReducer
 });

@@ -1,0 +1,14 @@
+@import "src/scss/sdk/index";
+
+:global{
+  html, body {
+    width: 100%;
+    heigth: 100%;
+  }
+}
+
+.container{
+  display: flex;
+  width: 100%;
+  height: calc(100vh - #{$header-height})
+}

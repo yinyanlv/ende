@@ -1,0 +1,7 @@
+@import "src/scss/sdk/index";
+
+.header{
+  display: block;
+  height: $header-height;
+  justify-content: space-between;
+}

@@ -1,14 +1,17 @@
 import React from 'react';
-import {Button} from 'antd';
-import {PageHome} from '@/pages/Home';
+import styles from './FitLayout.module.scss';
+import {Header} from '@/components/Header';
+import {PageCatalog} from '@/pages/Catalog';
 
 export class FitLayout extends React.PureComponent {
 
     render() {
         return (
             <>
-                <Button>hello react</Button>
-                <PageHome/>
+                <Header />
+                <section className={styles.container}>
+
+                </section>
             </>
         );
     }
