@@ -1,7 +1,21 @@
 @import "src/scss/sdk/index";
 
 .header{
-  display: block;
+  display: flex;
   height: $header-height;
   justify-content: space-between;
+  padding: 0 15px;
+  align-items: center;
+
+  :global{
+    .logo-box {
+    }
+
+
+    .nav-box {
+
+    }
+  }
 }
+
+
