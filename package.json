@@ -10,6 +10,7 @@
     "antd": "^3.25.3",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
+    "intl": "^1.2.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-intl": "^3.7.0",
@@ -27,7 +28,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "coverage": "react-app-rewired test --coverage"
+    "coverage": "react-app-rewired test --coverage",
+    "serve": "serve -s build"
   },
   "eslintConfig": {
     "extends": "react-app"

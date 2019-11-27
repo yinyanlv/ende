@@ -1,0 +1,48 @@
+@import "src/scss/sdk/index";
+
+$panel-padding-top: 10px;
+$tabs-header-height: 45px;
+$panel-level-2-width: 185px;
+
+.container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - #{$header-height + $crumbs-height});
+  justify-content: flex-start;
+  padding: 10px 10px 0;
+
+  :global {
+    .panel{
+      height: 100%;
+    }
+
+    .panel-level-1{
+      flex: 1;
+    }
+
+    .panel-level-2{
+      width: 185px;
+      margin-left: 10px;
+      background: green;
+    }
+
+    .panel-level-3{
+      width: 345px;
+      margin-left: 10px;
+      background: red;
+    }
+
+    .ant-tabs{
+      height: 100%;
+    }
+
+    .ant-tabs-bar {
+      margin-bottom: 0;
+    }
+
+    .content {
+      height: calc(100vh - #{$header-height + $crumbs-height + $panel-padding-top + $tabs-header-height});
+      overflow-y: auto;
+    }
+  }
+}

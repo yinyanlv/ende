@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {Provider} from 'react-redux';
 import {Router, Switch, Route} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
+import { ConfigProvider } from 'antd';
 import './App.module.scss';
 import store from './store';
 import history from './common/history';
-import {FitLayout} from '@/layouts/FitLayout';
-import {Auth} from '@/components/Auth';
+import {FitLayout} from '@/layouts/fit-layout';
+import {Auth} from '@/components/auth';
 import {zh_CN} from '@/locales/zh';
 import {en_US} from '@/locales/en';
 
@@ -19,15 +20,17 @@ const App: React.FC = () => {
     return (
         <Provider store={store}>
             <IntlProvider locale={locale} messages={messages}>
-                <Router history={history}>
-                    <Auth>
-                        <Switch>
-                            <Route path={'/'}>
-                                <FitLayout />
-                            </Route>
-                        </Switch>
-                    </Auth>
-                </Router>
+                <ConfigProvider>
+                    <Router history={history}>
+                        <Auth>
+                            <Switch>
+                                <Route path={'/'}>
+                                    <FitLayout />
+                                </Route>
+                            </Switch>
+                        </Auth>
+                    </Router>
+                </ConfigProvider>
             </IntlProvider>
         </Provider>
     );

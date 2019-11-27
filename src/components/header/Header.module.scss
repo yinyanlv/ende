@@ -8,6 +8,11 @@
   align-items: center;
 
   :global{
+
+    .ant-menu-horizontal{
+      border-bottom: 1px solid transparent;
+    }
+
     .logo-box {
     }
 
