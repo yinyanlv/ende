@@ -1,6 +1,8 @@
 import React from 'react';
 import 'd3/d3';
+import 'snapsvg-cjs';
 import './svg-drag-zoom.scss';
+
 import {Loading} from '@/components/loading';
 
 const d3 = window['d3'];
@@ -14,6 +16,8 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
     state = {
         isShowLoading: false
     };
+
+    protected svgId: string = 'svg-' + Date.now();
 
     // 旋转角度
     public degree: number = 0;
@@ -45,7 +49,6 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
     // loading 对象
     protected loading = null;
 
-    protected d3 = window['d3'];
     protected Snap = window['Snap'];
 
     constructor(props) {
@@ -99,15 +102,15 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
 
     // 拿到svg xml, 构建svg
     private buildSVG(xmlStr) {
-        const svgTagStr = xmlStr.match(/<svg[^>]*>/i);
+        const svgTagStr = xmlStr.match(/<svg[^>]*>/i)[0].replace('<svg', `<svg id="${this.svgId}"`);
         const svgTagInnerContent = xmlStr.match(/<svg[^>]*>([\s\S]*?)<\/svg>/i);
         const newXmlStr = svgTagStr + '<g>' + svgTagInnerContent[1] + ' </g> </svg>';
 
         d3.select(this.legendBodyRef.current).html(newXmlStr);
-        this.svg = d3.select('svg');
+        this.svg = d3.select('svg#' + this.svgId);
         this.svg.attr('width', '100%');
         this.svg.attr('height', '100%');
-        this.viewport = d3.select('svg g');
+        this.viewport = this.svg.select('g');
 
         this.disableLegendToolbar(false);
     }
@@ -151,7 +154,6 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
         self.svg.call(self.zoomScale);
 
         self.zoomScale.on('zoom', function () {
-            console.log(11111111);
             self.zoom(self.viewport);
         });
     }

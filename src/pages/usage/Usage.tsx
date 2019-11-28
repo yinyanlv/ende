@@ -15,8 +15,9 @@ export function PageUsage() {
         console.log('onLegendLoaded');
     }
 
-    function selectCalloutHandler() {
-        console.log(arguments);
+
+    function selectCalloutHandler(callout) {
+        console.log(callout);
     }
 
     return (

@@ -39,7 +39,7 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
     // 获取所有的callout 文本对象
     private getTexts() {
         const self = this;
-        const texts = self.d3.selectAll('svg text')
+        const texts = self.svg.selectAll('text')
             .filter(function () {
                 const callout = self.calloutTrim(this.textContent);
 
@@ -309,10 +309,9 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
         self.texts.each(function () {
             const item = self.Snap(this);
             const bbox = item.data('data-bbox');
-
             item.animate({
-                x: bbox.x,
-                y: (bbox.y + 12)
+                x: parseInt(bbox.x),
+                y: parseInt(bbox.y + 12)
             }, 0);
             item.animate({
                 transform: 'r' + (degree > 0 ? -degree : Math.abs(degree)) + ', ' + bbox.cx + ', ' + bbox.cy
