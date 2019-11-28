@@ -9,6 +9,7 @@
       "./typings"
     ],
     "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noImplicitThis": false
   }
 }

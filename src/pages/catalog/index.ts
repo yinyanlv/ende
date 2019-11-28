@@ -1,1 +1,3 @@
-export {PageCatalog} from './Catalog';
+import {PageCatalog} from './Catalog';
+
+export default PageCatalog;

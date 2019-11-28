@@ -36,6 +36,12 @@ tsconfig.base.json增加配置项
 "noImplicitAny": false
 ```
 
+## 允许隐式this
+```text
+tsconfig.base.json增加配置项
+"noImplicitThis": false
+```
+
 ## 需要另行安装.d.ts的部分常用库
 ```text
 @types/react-redux 

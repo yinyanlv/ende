@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './FitLayout.module.scss';
+import {Route} from 'react-router-dom';
 import {Header} from '@/components/header';
-import {PageCatalog} from '@/pages/catalog';
+
+const PageCatalog = React.lazy(() => import('@/pages/catalog'));
+const PageUsage = React.lazy(() => import('@/pages/usage'));
 
 export class FitLayout extends React.PureComponent {
 
@@ -10,7 +13,12 @@ export class FitLayout extends React.PureComponent {
             <>
                 <Header />
                 <section className={styles.container}>
-                    <PageCatalog />
+                    <Route path="/usage" exact>
+                        <PageUsage />
+                    </Route>
+                    <Route path="/" exact>
+                        <PageCatalog />
+                    </Route>
                 </section>
             </>
         );

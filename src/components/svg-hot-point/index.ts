@@ -1,0 +1,1 @@
+export {SvgHotPoint} from './SvgHotPoint';

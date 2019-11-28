@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Suspense} from 'react';
 import {Provider} from 'react-redux';
 import {Router, Switch, Route} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
@@ -8,6 +8,8 @@ import store from './store';
 import history from './common/history';
 import {FitLayout} from '@/layouts/fit-layout';
 import {Auth} from '@/components/auth';
+import {RouteProgress} from '@/components/route-progress';
+
 import {zh_CN} from '@/locales/zh';
 import {en_US} from '@/locales/en';
 
@@ -19,16 +21,19 @@ const App: React.FC = () => {
 
     return (
         <Provider store={store}>
+
             <IntlProvider locale={locale} messages={messages}>
                 <ConfigProvider>
                     <Router history={history}>
-                        <Auth>
-                            <Switch>
-                                <Route path={'/'}>
-                                    <FitLayout />
-                                </Route>
-                            </Switch>
-                        </Auth>
+                        <Suspense fallback={<RouteProgress />}>
+                            <Auth>
+                                <Switch>
+                                    <Route path={'/'}>
+                                        <FitLayout />
+                                    </Route>
+                                </Switch>
+                            </Auth>
+                        </Suspense>
                     </Router>
                 </ConfigProvider>
             </IntlProvider>
