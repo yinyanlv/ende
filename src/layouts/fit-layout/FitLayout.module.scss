@@ -7,9 +7,20 @@
   }
 }
 
-.container{
+.mainContainer{
   display: flex;
   width: 100%;
-  height: calc(100vh - #{$header-height});
+  height: calc(100vh - #{$header-height + $crumbs-height});
   flex-direction: column;
+
+  :global {
+
+    .inner-container {
+      display: flex;
+      width: 100%;
+      height: calc(100vh - #{$header-height + $crumbs-height});
+      justify-content: flex-start;
+      padding: 10px 10px 0;
+    }
+  }
 }

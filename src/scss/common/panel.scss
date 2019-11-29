@@ -1,0 +1,18 @@
+@import "src/scss/sdk/index";
+
+.panel{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .panel-header{
+    height: 45px;
+    line-height: 44px;
+    text-align:center;
+  }
+
+  .panel-content{
+    flex: 1;
+  }
+}
