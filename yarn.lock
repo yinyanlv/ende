@@ -10464,7 +10464,7 @@ snapsvg-cjs@0.0.4:
   dependencies:
     snapsvg "0.4.0"
 
-snapsvg@0.4.0, snapsvg@^0.4.0:
+snapsvg@0.4.0:
   version "0.4.0"
   resolved "https://registry.npm.taobao.org/snapsvg/download/snapsvg-0.4.0.tgz#e0767014167825957de7e125c29b0fa89796ea03"
   integrity sha1-4HZwFBZ4JZV95+ElwpsPqJeW6gM=
