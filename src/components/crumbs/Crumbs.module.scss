@@ -13,5 +13,32 @@
     .crumbs-text{
       color: $primary-color;
     }
+
+    .operator-box{
+      display: flex;
+      flex-direction:row;
+      align-items: center;
+
+      .item{
+        padding: 0 5px;
+
+        &:last-child{
+          padding-right:0;
+        }
+      }
+
+      .item-star{
+        cursor: pointer;
+
+        i{
+          font-size:18px;
+          color: $primary-color;
+        }
+      }
+
+      .item-search{
+        width: 360px;
+      }
+    }
   }
 }
