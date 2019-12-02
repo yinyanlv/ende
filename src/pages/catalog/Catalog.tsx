@@ -117,18 +117,18 @@ export function PageCatalog(props) {
                 </div>
                 <div className="panel panel-year">
                     <div className="panel-header">
-                        <div>年份</div>
+                        <div><Icon type="unordered-list" /> 年份</div>
                     </div>
                     <div className="panel-content">
                         <ul className="text-list">
                             <li className="item active"><span className="icon-wrapper"><i className="dot" /></span><span className="text">全部年份</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">全部年份</span></li>
+                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">2019</span></li>
                         </ul>
                     </div>
                 </div>
                 <div className="panel panel-model">
                     <div className="panel-header">
-                        <div>车型</div>
+                        <div><Icon type="unordered-list" /> 车型</div>
                     </div>
                     <div className="panel-content">
                         <ul className="text-list">

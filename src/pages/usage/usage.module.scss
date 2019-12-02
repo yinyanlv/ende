@@ -19,6 +19,7 @@ $part-list-body-height: calc(100vh - 168px);
 
     .panel-legend{
       flex: 1;
+      margin: 0 10px;
 
       .svg-wrap{
         height: calc(100vh - #{$header-height + $crumbs-height + 10});

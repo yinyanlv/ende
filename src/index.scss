@@ -1,2 +1,6 @@
 @import "scss/common/reset";
 @import "scss/common/panel";
+
+html,body{
+  background: $body-bg-color !important;
+}

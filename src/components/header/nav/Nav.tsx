@@ -1,7 +1,10 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {Menu, Icon, Dropdown, Badge} from 'antd';
+import {Menu, Icon, Dropdown, Badge, Popover, Card, Tabs} from 'antd';
 import styles from './nav.module.scss';
+
+
+const TabPane = Tabs.TabPane;
 
 const SubMenu = Menu.SubMenu;
 
@@ -38,6 +41,21 @@ export function Nav(props) {
         </Menu>
     );
 
+    const cart = (
+        <Card title="购物车" style={{ width: 300 }}>
+        </Card>
+    );
+
+    const message = (
+        <Tabs defaultActiveKey="1" onChange={()=>{}} style={{width: 300}}>
+            <TabPane tab="通知" key="1">
+                通知
+            </TabPane>
+            <TabPane tab="通讯" key="2">
+                通讯
+            </TabPane>
+        </Tabs>
+    );
 
     return (
         <nav className={styles.nav}>
@@ -49,12 +67,10 @@ export function Nav(props) {
             </NavLink>
             <Dropdown overlay={userMenu}>
                 <NavLink to={'/'} className="nav-item">
-                    <Badge count={102} overflowCount={10} showZero={false}>
-                       <span className={'nav-item-inner'}>
-                            <Icon type="user"/>
-                            系统管理员
-                        </span>
-                    </Badge>
+                   <span className={'nav-item-inner'}>
+                        <Icon type="user"/>
+                        系统管理员
+                    </span>
                 </NavLink>
             </Dropdown>
             <Dropdown overlay={bookmarkMenu}>
@@ -73,35 +89,32 @@ export function Nav(props) {
                         </span>
                 </NavLink>
             </Dropdown>
-
-            <Dropdown overlay={userMenu}>
+            <Popover content={cart}>
                 <NavLink to={'/'} className="nav-item">
-                    <Badge count={102} overflowCount={10} showZero={false}>
+                    <Badge count={102} overflowCount={10} showZero={false} offset={[-15, -10]}>
                        <span className={'nav-item-inner'}>
                               <Icon type="shopping-cart"/>
                         购物车
                         </span>
                     </Badge>
                 </NavLink>
-            </Dropdown>
-
+            </Popover>
             <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner'}>
                             <Icon type="file-text"/>
                         订单
                     </span>
             </NavLink>
-
-            <Dropdown overlay={userMenu}>
+            <Popover content={message}>
                 <NavLink to={'/'} className="nav-item">
-                    <Badge count={102} overflowCount={10} showZero={false}>
+                    <Badge count={2} overflowCount={10} showZero={false} offset={[-15, -10]}>
                        <span className={'nav-item-inner'}>
                         <Icon type="bell"/>
                         消息
                         </span>
                     </Badge>
                 </NavLink>
-            </Dropdown>
+            </Popover>
             <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner'}>
                        <Icon type="video-camera"/>

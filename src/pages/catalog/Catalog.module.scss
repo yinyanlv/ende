@@ -95,14 +95,14 @@ $panel-level-2-width: 185px;
         display: flex;
         width:100%;
         font-size: 13px;
-        @include setHeightGroup(26px);
+        @include setHeightGroup(30px);
         cursor: pointer;
         transition: background-color .3s ease-in-out;
 
         .icon-wrapper{
           display: inline-block;
-          width: 26px;
-          @include setHeightGroup(26px);
+          width: 30px;
+          @include setHeightGroup(30px);
           text-align: center;
 
           .dot {
@@ -119,15 +119,14 @@ $panel-level-2-width: 185px;
           padding: 0 5px 0 0;
           transition: margin .3s ease-in-out;
           @extend %textOverflowEllipsis;
-          @include setHeightGroup(26px);
+          @include setHeightGroup(30px);
         }
 
         &:hover{
-          background: lighten($primary-color, 10%);
-          color: #fff;
+          color: $primary-color;
 
           .dot{
-            background-color: #fff;
+            background-color: $primary-color;
           }
 
           .text{
@@ -136,11 +135,11 @@ $panel-level-2-width: 185px;
         }
 
         &.active{
-          background: $primary-color;
-          color: #fff;
+          background: $hover-bg-color;
+          color: $primary-color;
 
           .dot{
-            background-color: #fff;
+            background-color: $primary-color;
           }
         }
       }

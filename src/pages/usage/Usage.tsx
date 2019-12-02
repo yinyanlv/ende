@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, Ref} from 'react';
 import classnames from 'classnames';
-import {Tree, Table} from 'antd';
+import {Tree, Table, Icon} from 'antd';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import styles from './usage.module.scss';
 
@@ -22,35 +22,59 @@ export function PageUsage() {
     function selectCalloutHandler(callout) {
         console.log(callout);
     }
-    
+
     function onSelect() {
-        
+
     }
 
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            width: 150,
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-            width: 150,
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-        },
-    ];
+    const columns = [{
+        title: '#',
+        dataIndex: 'callout',
+        width: 60,
+    }, {
+        title: '零件编号',
+        dataIndex: 'partNumber',
+        width: 120
+    }, {
+        title: '左右',
+        dataIndex: 'age',
+        width: 60
+    }, {
+        title: '名称描述',
+        dataIndex: 'name'
+    }, {
+        title: '年',
+        dataIndex: 'year',
+        width: 80
+    }, {
+        title: '用途',
+        dataIndex: 'usage'
+    }, {
+        title: '量',
+        dataIndex: 'count',
+        width: 40
+    }, {
+        title: '操作',
+        dataIndex: '',
+        width: 70,
+        render: (text, record) => (
+            <span>
+            <a>购买</a>
+            </span>
+        )
+    }];
 
     const data: any = [];
     for (let i = 0; i < 30; i++) {
         data.push({
             key: i,
-            name: `Edward King ${i}`,
+            callout: i,
+            name: `凸轮轴轴承盖螺栓`,
+            year: 2018,
             age: 32,
-            address: `London, Park Lane no. ${i}`,
+            count: 121,
+            partNumber: 23864864,
+            usage: `(DB)(DC)(DD) 36 (LJO M2P)`,
         });
     }
 
@@ -59,35 +83,49 @@ export function PageUsage() {
             <div className={classnames(['inner-container', styles.container])}>
                 <div className="panel panel-tree">
                     <div className="panel-header">
-                        组别
+                        <div>
+                            <Icon type="unordered-list"/> 组别
+                        </div>
                     </div>
                     <div className="panel-content">
                         <Tree showLine defaultExpandedKeys={['0-0-0']} onSelect={onSelect}>
-                            <TreeNode title="parent 1" key="0-0">
-                                <TreeNode title="parent 1-0" key="0-0-0">
-                                    <TreeNode title="leaf" key="0-0-0-0" />
-                                    <TreeNode title="leaf" key="0-0-0-1" />
-                                    <TreeNode title="leaf" key="0-0-0-2" />
-                                </TreeNode>
-                                <TreeNode title="parent 1-1" key="0-0-1">
-                                    <TreeNode title="leaf" key="0-0-1-0" />
-                                </TreeNode>
-                                <TreeNode title="parent 1-2" key="0-0-2">
-                                    <TreeNode title="leaf" key="0-0-2-0" />
-                                    <TreeNode title="leaf" key="0-0-2-1" />
-                                </TreeNode>
+                            <TreeNode title="00 - 发动机-发动机装配-离合器" key="0-0">
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-1"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-2"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-3"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-4"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-5"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-6"></TreeNode>
+                            </TreeNode>
+                            <TreeNode title="00 - 发动机-发动机装配-离合器" key="1-0">
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-0"></TreeNode>
+                            </TreeNode>
+                            <TreeNode title="00 - 发动机-发动机装配-离合器" key="2-0">
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-0"></TreeNode>
+                                <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-0"></TreeNode>
                             </TreeNode>
                         </Tree>
                     </div>
                 </div>
 
                 <div className="panel panel-legend">
-                    <SvgHotPoint ref={svgHotPointRef} onLegendLoaded={legendLoadedHandler} onSelectCallout={selectCalloutHandler} />
+                    <SvgHotPoint ref={svgHotPointRef} onLegendLoaded={legendLoadedHandler}
+                                 onSelectCallout={selectCalloutHandler}/>
                 </div>
 
 
                 <div className="panel panel-part-list">
-                    <Table columns={columns} dataSource={data} size={'small'} scroll={{ y: styles.partsTableBodyHeight}} pagination={false} />
+                    <Table columns={columns} dataSource={data} size={'small'} scroll={{y: styles.partsTableBodyHeight}}
+                           pagination={false}/>
                 </div>
             </div>
         </>
