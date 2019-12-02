@@ -16,11 +16,27 @@ $part-list-body-height: calc(100vh - 168px);
       width: 250px;
       height: 100%;
 
+      .panel-content{
+        overflow: hidden;
+      }
+
       .tree-wrapper{
         padding: 5px;
         width: 100%;
         height: 100%;
         overflow: auto;
+      }
+
+      .ant-tree li .ant-tree-node-content-wrapper{
+        height: auto;
+      }
+
+      .ant-tree-child-tree{
+
+        .ant-tree-node-content-wrapper{
+          width: 196px;
+          white-space: pre-wrap;
+        }
       }
     }
 

@@ -89,7 +89,7 @@ export function PageUsage() {
                     </div>
                     <div className="panel-content">
                         <div className="tree-wrapper">
-                            <Tree showLine defaultExpandedKeys={['0-0-0']} onSelect={onSelect}>
+                            <Tree showLine defaultExpandedKeys={['0-0-0']} onSelect={onSelect} style={{width: '238px'}}>
                                 <TreeNode title="00 - 发动机-发动机装配-离合器" key="0-0">
                                     <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-1"></TreeNode>
                                     <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-2"></TreeNode>
