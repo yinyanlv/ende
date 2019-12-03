@@ -1,154 +1,96 @@
 import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Tabs, Spin, Icon} from 'antd';
 import styles from './Catalog.module.scss';
 import {Link} from "react-router-dom";
+import {loadBrandsActionCreator} from './actions';
+
+const TabPane = Tabs.TabPane;
 
 export function PageCatalog(props) {
 
-    useEffect(() => {
+    const dispatch = useDispatch();
+    const brands = useSelector((state: any) => {
+        return state.catalog.brands;
+    });
 
+    useEffect(() => {
+        dispatch(loadBrandsActionCreator.request());
     }, []);
 
     return (
         <>
             <div className={styles.container}>
                 <div className="panel panel-brand">
-                    <Tabs defaultActiveKey="1">
-                        <Tabs.TabPane tab="五菱" key="1">
-                            <Spin spinning={false}>
-                                <div className="content">
-                                    <ul className="car-list">
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN150M.gif'}/></span>
-                                            <span className="text">CN150M - 五菱宏光PLUS</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </Spin>
-                        </Tabs.TabPane>
-                        <Tabs.TabPane tab="宝骏" key="2">
-                            <Spin spinning={false}>
-                                <div className="content">
-                                    <ul className="car-list">
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                        <li className="item">
-                                            <span className="image-wrapper"><img src={'/images/CN113.gif'}/></span>
-                                            <span className="text">CN113 - 五菱宏光S1</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </Spin>
-                        </Tabs.TabPane>
+                    <Tabs>
+                        {
+                            brands.map((brand) => {
+                                return (
+                                    <TabPane tab={brand.name} key={brand.code}>
+                                        <div className="content">
+                                            <ul className="car-list">
+                                                {
+                                                    brand.list.map((car) => {
+                                                        return (
+                                                            <li className="item" key={car.code}>
+                                                                <span className="image-wrapper"><img
+                                                                    src={car.src}/></span>
+                                                                <span className="text">{car.name}</span>
+                                                            </li>
+                                                        );
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                    </TabPane>
+                                )
+                            })
+                        }
                     </Tabs>
                 </div>
                 <div className="panel panel-year">
                     <div className="panel-header">
-                        <div><Icon type="unordered-list" /> 年份</div>
+                        <div><Icon type="unordered-list"/> 年份</div>
                     </div>
                     <div className="panel-content">
                         <ul className="text-list">
-                            <li className="item active"><span className="icon-wrapper"><i className="dot" /></span><span className="text">全部年份</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">2019</span></li>
+                            <li className="item active"><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">全部年份</span></li>
+                            <li className="item"><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">2019</span></li>
                         </ul>
                     </div>
                 </div>
                 <div className="panel panel-model">
                     <div className="panel-header">
-                        <div><Icon type="unordered-list" /> 车型</div>
+                        <div><Icon type="unordered-list"/> 车型</div>
                     </div>
                     <div className="panel-content">
                         <ul className="text-list">
-                            <li className="item active"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">全部车型</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
-                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item active"><Link to={'/usage'}><span className="icon-wrapper"><i
+                                className="dot"/></span><span className="text">全部车型</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot"/></span><span
+                                className="text">DC - 舒适型(LV1)</span></Link></li>
                         </ul>
                     </div>
                 </div>
