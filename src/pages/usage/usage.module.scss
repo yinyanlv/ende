@@ -1,7 +1,7 @@
 @import "src/scss/sdk/index";
 
 
-$part-list-body-height: calc(100vh - 168px);
+$part-list-body-height: calc(100vh - 160px);
 
 :export{
   partsTableBodyHeight: $part-list-body-height;
@@ -24,7 +24,8 @@ $part-list-body-height: calc(100vh - 168px);
         padding: 5px;
         width: 100%;
         height: 100%;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
       }
 
       .ant-tree li .ant-tree-node-content-wrapper{
@@ -36,6 +37,68 @@ $part-list-body-height: calc(100vh - 168px);
         .ant-tree-node-content-wrapper{
           width: 196px;
           white-space: pre-wrap;
+        }
+      }
+    }
+
+    .panel-legend-list{
+      flex: 1;
+      background: transparent;
+      border-color: transparent;
+      margin-left: 10px;
+      overflow: hidden;
+
+      .panel-content{
+        width: 100%;
+        height:100%;
+        overflow: auto;
+      }
+
+      .legend-list{
+
+        .item {
+          display: block;
+          width: 212px;
+          height: 312px;
+          float:left;
+          margin: 0 10px 10px 0;
+          padding: 5px;
+          cursor: pointer;
+          border: 1px solid $bd-color;
+          transition: border-color .3s ease-in-out;
+          background: #fff;
+
+          &:hover {
+            border: 1px solid $primary-color;
+
+            .text {
+              color: $primary-color;
+            }
+          }
+
+          .image-wrapper{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 280px;
+            overflow: hidden;
+          }
+
+          img{
+            display: block;
+            height: 100%;
+          }
+
+          .text{
+            display: block;
+            width: 100%;
+            font-size: 13px;
+            text-align: center;
+            @include setHeightGroup(20px);
+            @extend %textOverflowEllipsis;
+            transition: color .3s ease-in-out;
+          }
         }
       }
     }

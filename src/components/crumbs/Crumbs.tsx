@@ -46,7 +46,7 @@ export function Crumbs(props) {
                     </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item >
-                    <Link to="/usage">
+                    <Link to="/">
                         <span className="crumbs-text">年份：全部年份</span>
                     </Link>
                 </Breadcrumb.Item>

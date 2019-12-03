@@ -42,8 +42,9 @@ export function Nav(props) {
     );
 
     const cart = (
-        <Card title="购物车" style={{ width: 300 }}>
-        </Card>
+        <div style={{width: 300}}>
+            购物车
+        </div>
     );
 
     const message = (

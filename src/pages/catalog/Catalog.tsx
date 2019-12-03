@@ -1,6 +1,7 @@
 import React from 'react';
 import {Tabs, Spin, Icon} from 'antd';
 import styles from './Catalog.module.scss';
+import {Link} from "react-router-dom";
 
 export function PageCatalog(props) {
 
@@ -132,12 +133,18 @@ export function PageCatalog(props) {
                     </div>
                     <div className="panel-content">
                         <ul className="text-list">
-                            <li className="item active"><span className="icon-wrapper"><i className="dot" /></span><span className="text">全部车型</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></li>
-                            <li className="item"><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></li>
+                            <li className="item active"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">全部车型</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
+                            <li className="item"><Link to={'/usage'}><span className="icon-wrapper"><i className="dot" /></span><span className="text">DC - 舒适型(LV1)</span></Link></li>
                         </ul>
                     </div>
                 </div>

@@ -1,0 +1,37 @@
+@import "src/scss/sdk/index";
+
+.container{
+  display: flex;
+  flex-direction: column;
+
+  :global{
+
+    .part-detail{
+      display: flex;
+      flex-direction: row;
+      padding:10px;
+      background: #fff;
+
+      .magnifier-box{
+        width: 500px;
+      }
+
+      .part-info-box{
+        margin-left: 20px;
+      }
+
+      .btn-line{
+        margin-top:10px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+      }
+    }
+
+    .part-table-tabs{
+      margin-top:10px;
+      padding: 10px;
+      background: #fff;
+    }
+  }
+}
