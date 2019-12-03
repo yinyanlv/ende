@@ -49,3 +49,8 @@ tsconfig.base.json增加配置项
 @types/react-router-config
 @types/react-transition-group
 ```
+
+## Module not found: You attempted to import ../mock which falls outside of the project src/ directory. Relative imports outside of src/ are not supported.
+```text
+config-overrides.js增加配置removeModuleScopePlugin
+```

@@ -132,6 +132,10 @@ $panel-level-2-width: 185px;
         &:hover{
           color: $primary-color;
 
+          a{
+            color: $primary-color;
+          }
+
           .dot{
             background-color: $primary-color;
           }

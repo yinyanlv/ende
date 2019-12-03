@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Tabs, Spin, Icon} from 'antd';
 import styles from './Catalog.module.scss';
 import {Link} from "react-router-dom";
 
 export function PageCatalog(props) {
+
+    useEffect(() => {
+
+    }, []);
 
     return (
         <>

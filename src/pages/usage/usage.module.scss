@@ -65,11 +65,12 @@ $part-list-body-height: calc(100vh - 160px);
           padding: 5px;
           cursor: pointer;
           border: 1px solid $bd-color;
-          transition: border-color .3s ease-in-out;
+          transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out;
           background: #fff;
 
           &:hover {
             border: 1px solid $primary-color;
+            box-shadow: 0 0 3px $primary-color;
 
             .text {
               color: $primary-color;

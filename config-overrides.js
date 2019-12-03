@@ -1,5 +1,5 @@
 const path = require('path');
-const {override, addWebpackAlias, fixBabelImports, addLessLoader} = require('customize-cra');
+const {override, addWebpackAlias, fixBabelImports, addLessLoader, removeModuleScopePlugin} = require('customize-cra');
 
 module.exports = override(
     addWebpackAlias({
@@ -15,5 +15,6 @@ module.exports = override(
         modifyVars: {
             // '@primary-color': 'red'
         }
-    })
+    }),
+    removeModuleScopePlugin()
 );
