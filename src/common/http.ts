@@ -5,7 +5,7 @@ import {API_PREFIX} from '@/config';
 
 export const instance = axios.create({
     baseURL: API_PREFIX,
-    timeout: 10000
+    timeout: 30 * 1000
 });
 
 class Http {
