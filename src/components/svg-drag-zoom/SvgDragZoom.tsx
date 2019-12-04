@@ -14,7 +14,7 @@ export interface SvgDragZoomProps {
 export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> {
 
     state = {
-        isShowLoading: false
+        isLoading: false
     };
 
     protected svgId: string = 'svg-' + Date.now();
@@ -332,19 +332,19 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
 
     public showLoading() {
         this.setState({
-            isShowLoading: true
+            isLoading: true
         });
     }
 
     public hideLoading() {
         this.setState({
-            isShowLoading: false
+            isLoading: false
         });
     }
 
     render() {
         return (
-            <Loading isShow={this.state.isShowLoading}>
+            <Loading isLoading={this.state.isLoading}>
                 <div className="legend-toolbar" ref={this.legendToolbarRef}>
                     <a data-action="zoomin" className="legend-toolbar-zoomin disabled"></a>
                     <a data-action="zoomout" className="legend-toolbar-zoomout disabled"></a>

@@ -1,0 +1,8 @@
+@import 'src/scss/sdk/index';
+
+:global {
+  .ant-spin-nested-loading{
+    width: 100%;
+    height: 100%;
+  }
+}

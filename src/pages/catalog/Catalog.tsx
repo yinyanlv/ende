@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Tabs, Spin, Icon} from 'antd';
-import styles from './Catalog.module.scss';
 import {Link} from "react-router-dom";
+import {Tabs, Icon} from 'antd';
+import {Loading} from '@/components/loading';
+import styles from './Catalog.module.scss';
 import {loadBrandsActionCreator} from './actions';
 
 const TabPane = Tabs.TabPane;
@@ -10,43 +11,57 @@ const TabPane = Tabs.TabPane;
 export function PageCatalog(props) {
 
     const dispatch = useDispatch();
-    const brands = useSelector((state: any) => {
-        return state.catalog.brands;
+    const {
+        brands,
+        isBrandsLoading,
+        years,
+        isYearsLoading,
+        models,
+        isModelsLoading
+    } = useSelector((state: any) => {
+        return state.catalog;
     });
 
     useEffect(() => {
         dispatch(loadBrandsActionCreator.request());
     }, []);
 
+    function loadYears(code) {
+        console.log(code);
+    }
+
     return (
         <>
             <div className={styles.container}>
                 <div className="panel panel-brand">
-                    <Tabs>
-                        {
-                            brands.map((brand) => {
-                                return (
-                                    <TabPane tab={brand.name} key={brand.code}>
-                                        <div className="content">
-                                            <ul className="car-list">
-                                                {
-                                                    brand.list.map((car) => {
-                                                        return (
-                                                            <li className="item" key={car.code}>
-                                                                <span className="image-wrapper"><img
-                                                                    src={car.src}/></span>
-                                                                <span className="text">{car.name}</span>
-                                                            </li>
-                                                        );
-                                                    })
-                                                }
-                                            </ul>
-                                        </div>
-                                    </TabPane>
-                                )
-                            })
-                        }
-                    </Tabs>
+                    <Loading isLoading={isBrandsLoading}>
+                        <Tabs>
+                            {
+                                brands.map((brand) => {
+                                    return (
+                                        <TabPane tab={brand.name} key={brand.code}>
+                                            <div className="content">
+                                                <ul className="car-list">
+                                                    {
+                                                        brand.list.map((car) => {
+                                                            return (
+                                                                <li className="item" key={car.code} onClick={loadYears.bind(null, car.code)}>
+                                                                    <span className="image-wrapper">
+                                                                        <img src={car.src}/>
+                                                                    </span>
+                                                                    <span className="text">{car.name}</span>
+                                                                </li>
+                                                            );
+                                                        })
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </TabPane>
+                                    )
+                                })
+                            }
+                        </Tabs>
+                    </Loading>
                 </div>
                 <div className="panel panel-year">
                     <div className="panel-header">

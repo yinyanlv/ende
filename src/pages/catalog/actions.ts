@@ -1,4 +1,4 @@
-import {createAction} from '@/common/createAction';
+import {createAction} from '@/common/utils';
 
 export const LOAD_BRANDS = 'catalog:load-brands';
 export const LOAD_BRANDS_SUCCESS = 'catalog:load-brands-success';
