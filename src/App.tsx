@@ -21,7 +21,6 @@ const App: React.FC = () => {
 
     return (
         <Provider store={store}>
-
             <IntlProvider locale={locale} messages={messages}>
                 <ConfigProvider>
                     <Router history={history}>

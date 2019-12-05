@@ -2,14 +2,9 @@ import * as actions from './actions';
 
 const initialState = {
     isBrandsLoading: false,
-    isYearsLoading: false,
-    isModelsLoading: false,
     brands: [],
-    years: [{
-        code: '',
-        name: ''
-    }],
-    models: []
+    isConditionsLoading: false,
+    conditions: []
 };
 
 export function catalogReducer(state = initialState, action) {
@@ -30,6 +25,31 @@ export function catalogReducer(state = initialState, action) {
             return {
                 ...state,
                 isBrandsLoading: false
+            };
+        case actions.LOAD_CONDITIONS_BEFORE:
+            return {
+                ...state,
+                isConditionsLoading: true
+            };
+        case actions.LOAD_CONDITIONS:
+            return {
+                ...state,
+                isConditionsLoading: true
+            };
+        case actions.LOAD_CONDITIONS_SUCCESS:
+            return {
+                ...state,
+                isConditionsLoading: false,
+                conditions: action.payload
+            };
+        case actions.LOAD_CONDITIONS_FAILED:
+            return {
+                ...state,
+                isConditionsLoading: false
+            };
+        case actions.RESET_STATE:
+            return {
+                ...initialState
             };
         default:
             return state;

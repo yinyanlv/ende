@@ -27,11 +27,17 @@
     -->
     <title>上汽通用五菱售后信息发布平台</title>
     <style>
-      .page-loading-warp {
-        padding: 120px;
+      .page-loading-wrap {
+        width: 160px;
+        height: 160px;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -80px;
+        margin-top: -80px;
       }
       .ant-spin {
         -webkit-box-sizing: border-box;
@@ -130,6 +136,10 @@
         height: 32px;
       }
 
+      .ant-spin-lg .ant-spin-text{
+        margin-top:5px;
+      }
+
       .ant-spin-lg .ant-spin-dot i {
         width: 14px;
         height: 14px;
@@ -172,7 +182,17 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <div class="page-loading-warp"><div class="ant-spin ant-spin-lg ant-spin-spinning"><span class="ant-spin-dot ant-spin-dot-spin"><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i></span></div>
+      <div class="page-loading-wrap">
+        <div class="ant-spin ant-spin-lg ant-spin-spinning">
+          <span class="ant-spin-dot ant-spin-dot-spin">
+            <i class="ant-spin-dot-item"></i>
+            <i class="ant-spin-dot-item"></i>
+            <i class="ant-spin-dot-item"></i>
+            <i class="ant-spin-dot-item"></i>
+          </span>
+          <div class="ant-spin-text">Loading...</div>
+        </div>
+      </div>
     </div>
     <!--
       This HTML file is a template.

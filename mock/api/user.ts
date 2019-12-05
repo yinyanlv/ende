@@ -1,5 +1,6 @@
-import {mock} from '../mock';
 import jwt from 'jsonwebtoken';
+import {mock} from '../mock';
+import {API_PREFIX} from '@/config';
 
 const jwtConfig = {
     secret: 'xiu',
@@ -12,7 +13,15 @@ const userDb = [{
     role: 'admin'
 }];
 
-mock.onPost('/api/login').reply((req) => {
+const userConfig = {
+    knowledgeJsonpUrl: "",
+    oemCode: "SGMW",
+    stm: 1575527282338,
+    resHost: "http://res2.dev.servision.com.cn/epc",
+    pacUrl: "http://maxus.pac.container.dev.servision.com.cn"
+};
+
+mock.onPost(API_PREFIX + '/login').reply((req) => {
     const params = JSON.parse(req.data);
 
     const users = userDb.filter((item) => {
@@ -41,33 +50,29 @@ mock.onPost('/api/login').reply((req) => {
     return [200, result];
 });
 
-mock.onGet('/api/access-token').reply((req) => {
-    const data = JSON.parse(req.data);
-    const {accessToken} = data;
-
+mock.onGet(API_PREFIX + '/sys/config').reply((req) => {
     try {
-        const info = jwt.verify(accessToken, jwtConfig.secret);
-        const username = info['username'];
         const updatedAccessToken = jwt.sign({
-            username: username
+            username: 'admin'
         }, jwtConfig.secret, {expiresIn: jwtConfig.expiresIn});
 
         const users = userDb.filter((item) => {
-            if (item.username === username) {
+            if (item.username === 'admin') {
                 return true;
             } else {
                 return false;
             }
         });
-        const temp = Object.assign({
-            accessToken: updatedAccessToken
-        }, users[0]);
+        const temp = Object.assign(userConfig, {
+            accessToken: updatedAccessToken,
+            userInfo: users[0]
+        });
 
         return [200, {
             success: true,
             result: temp
         }];
-    } catch(err) {
+    } catch (err) {
         const message = 'Invalid access token!';
 
         return [401, {
