@@ -13,9 +13,10 @@ class JwtService extends EventEmitter{
 
     private _authorize(): boolean {
         const accessToken = this.getAccessToken();
-        this.emit('authorized', true);
 
+        this.emit('authorized', true);
         return true;
+
         if (!accessToken) {
             this.emit('unauthorized', 'Invalid access token!');
             return false;

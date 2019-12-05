@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-
+import classnames from 'classnames';
 import {Tabs, Icon} from 'antd';
 import {Loading} from '@/components/loading';
 import styles from './Catalog.module.scss';
@@ -20,6 +20,12 @@ export function PageCatalog(props) {
     } = useSelector((state: any) => {
         return state.catalog;
     });
+    const {
+        resHost
+    } = useSelector((state: any) => {
+        return state.auth;
+    });
+
     const [years, models] = conditions;
 
     useEffect(() => {
@@ -28,6 +34,7 @@ export function PageCatalog(props) {
     }, []);
 
     function loadConditions(code) {
+        dispatch(loadBrandsCreator.setActive(code));
         dispatch(loadConditionsCreator.request(code));
     }
 
@@ -46,10 +53,12 @@ export function PageCatalog(props) {
                                                     {
                                                         brand.list.map((item) => {
                                                             return (
-                                                                <li className="item" key={item.code}
+                                                                <li className={classnames('item', {
+                                                                    'active': item.active
+                                                                })} key={item.code}
                                                                     onClick={loadConditions.bind(null, item.code)}>
                                                                     <span className="image-wrapper">
-                                                                        <img src={item.src}/>
+                                                                        <img src={resHost + item.src}/>
                                                                     </span>
                                                                     <span className="text">{item.name}</span>
                                                                 </li>

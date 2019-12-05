@@ -50,7 +50,7 @@ $panel-level-2-width: 185px;
         margin: 5px;
         cursor: pointer;
 
-        &:hover {
+        &.active, &:hover {
           .image-wrapper{
             border-color:$primary-color;
           }

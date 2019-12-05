@@ -7,7 +7,7 @@ import './App.module.scss';
 import store from './store';
 import history from './common/history';
 import {FitLayout} from '@/layouts/fit-layout';
-import {Auth} from '@/components/auth';
+import {Auth} from '@/pages/common/auth';
 import {RouteProgress} from '@/components/route-progress';
 
 import {zh_CN} from '@/locales/zh';

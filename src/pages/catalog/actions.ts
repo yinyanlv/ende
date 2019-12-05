@@ -5,6 +5,7 @@ export const RESET_STATE = 'catalog:reset-state';
 export const LOAD_BRANDS = 'catalog:load-brands';
 export const LOAD_BRANDS_SUCCESS = 'catalog:load-brands-success';
 export const LOAD_BRANDS_FAILED = 'catalog:load-brands-failed';
+export const LOAD_BRANDS_SET_ACTIVE = 'catalog:load-brands-set-active';
 
 export const LOAD_CONDITIONS = 'catalog:load-conditions';
 export const LOAD_CONDITIONS_BEFORE = 'catalog:load-conditions-before';
@@ -26,6 +27,9 @@ export const loadBrandsCreator = {
     },
     failed: (message) => {
         return createAction(LOAD_BRANDS_FAILED, message);
+    },
+    setActive: (data) => {
+        return createAction(LOAD_BRANDS_SET_ACTIVE, data);
     }
 };
 

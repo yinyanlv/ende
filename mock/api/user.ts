@@ -14,11 +14,11 @@ const userDb = [{
 }];
 
 const userConfig = {
-    knowledgeJsonpUrl: "",
-    oemCode: "SGMW",
+    knowledgeJsonpUrl: '',
+    oemCode: 'SGMW',
     stm: 1575527282338,
-    resHost: "http://res2.dev.servision.com.cn/epc",
-    pacUrl: "http://maxus.pac.container.dev.servision.com.cn"
+    resHost: '',
+    pacUrl: ''
 };
 
 mock.onPost(API_PREFIX + '/login').reply((req) => {
@@ -51,33 +51,39 @@ mock.onPost(API_PREFIX + '/login').reply((req) => {
 });
 
 mock.onGet(API_PREFIX + '/sys/config').reply((req) => {
-    try {
-        const updatedAccessToken = jwt.sign({
-            username: 'admin'
-        }, jwtConfig.secret, {expiresIn: jwtConfig.expiresIn});
 
-        const users = userDb.filter((item) => {
-            if (item.username === 'admin') {
-                return true;
-            } else {
-                return false;
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            try {
+                const updatedAccessToken = jwt.sign({
+                    username: 'admin'
+                }, jwtConfig.secret, {expiresIn: jwtConfig.expiresIn});
+
+                const users = userDb.filter((item) => {
+                    if (item.username === 'admin') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+                const temp = Object.assign(userConfig, {
+                    accessToken: updatedAccessToken,
+                    userInfo: users[0]
+                });
+
+                resolve([200, {
+                    success: true,
+                    result: temp
+                }]);
+            } catch (err) {
+                const message = 'Invalid access token!';
+
+                reject([401, {
+                    success: false,
+                    message
+                }]);
             }
-        });
-        const temp = Object.assign(userConfig, {
-            accessToken: updatedAccessToken,
-            userInfo: users[0]
-        });
+        }, 1000);
+    });
 
-        return [200, {
-            success: true,
-            result: temp
-        }];
-    } catch (err) {
-        const message = 'Invalid access token!';
-
-        return [401, {
-            success: false,
-            message
-        }];
-    }
 });
