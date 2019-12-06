@@ -60,7 +60,28 @@ mock.onGet(API_PREFIX + '/mapping/main').reply((req) => {
 });
 
 // 加载条件
-mock.onGet(/\/api\/mapping\/next.+/).reply((req) => {
+mock.onPost(API_PREFIX + '/mapping/next').reply((req) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            try {
+                resolve([200, {
+                    success: true,
+                    result: conditions
+                }]);
+            } catch (err) {
+                const message = 'Invalid access token!';
+
+                reject([401, {
+                    success: false,
+                    message
+                }]);
+            }
+        }, 1000);
+    });
+});
+
+// 加载crumbs
+mock.onPost(API_PREFIX + '/mapping/name').reply((req) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {

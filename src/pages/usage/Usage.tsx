@@ -2,8 +2,10 @@ import React, {useEffect, useRef, Ref, useState} from 'react';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
 import {Tree, Table, Icon, Button} from 'antd';
+import {Panel} from '@/components/panel';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import styles from './usage.module.scss';
+import {Loading} from "@/components/loading";
 
 const TreeNode = Tree.TreeNode;
 
@@ -88,53 +90,45 @@ export function PageUsage() {
     return (
         <>
             <div className={classnames(['inner-container', styles.container])}>
-                <div className="panel panel-tree">
-                    <div className="panel-header">
-                        <div>
-                            <Icon type="unordered-list"/> 组别
-                        </div>
-                    </div>
-                    <div className="panel-content">
-                        <div className="tree-wrapper">
-                            <Tree showLine defaultExpandedKeys={['0-0-0']} onSelect={onSelect} style={{width: '238px'}} onClick={()=> {
-                                setIsShowLegend(false)
-                            }}>
-                                <TreeNode title="00 - 发动机-发动机装配-离合器" key="0-0">
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-1"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-2"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-3"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-4"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-5"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-6"></TreeNode>
-                                </TreeNode>
-                                <TreeNode title="00 - 发动机-发动机装配-离合器" key="1-0">
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-1"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-2"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-3"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-4"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-5"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-6"></TreeNode>
-                                </TreeNode>
-                                <TreeNode title="00 - 发动机-发动机装配-离合器" key="2-0">
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-1"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-2"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-3"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-4"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-5"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-6"></TreeNode>
-                                </TreeNode>
-                                <TreeNode title="00 - 发动机-发动机装配-离合器" key="3-0">
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-1"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-2"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-3"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-4"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-5"></TreeNode>
-                                    <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-6"></TreeNode>
-                                </TreeNode>
-                            </Tree>
-                        </div>
-                    </div>
-                </div>
+
+                <Panel isLoading={false} title={'组别'} className={'panel-tree'}>
+                    <Tree showLine defaultExpandedKeys={['0-0-0']} onSelect={onSelect} style={{width: '238px'}} onClick={()=> {
+                        setIsShowLegend(false)
+                    }}>
+                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="0-0">
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-1"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-2"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-3"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-4"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-5"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-6"></TreeNode>
+                        </TreeNode>
+                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="1-0">
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-1"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-2"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-3"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-4"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-5"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-6"></TreeNode>
+                        </TreeNode>
+                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="2-0">
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-1"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-2"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-3"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-4"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-5"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-6"></TreeNode>
+                        </TreeNode>
+                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="3-0">
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-1"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-2"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-3"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-4"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-5"></TreeNode>
+                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-6"></TreeNode>
+                        </TreeNode>
+                    </Tree>
+                </Panel>
                 <div className="panel panel-legend-list" style={{display: isShowLegend ? 'none' : 'flex'}}>
                     <div className="panel-content">
                         <ul className="legend-list">

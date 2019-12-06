@@ -7,11 +7,13 @@ function* loadBrandsController(action) {
         const brands = yield call(loadBrands);
         yield put(actions.loadBrandsCreator.success(brands));
 
-        const brandCode = brands && brands[0] && brands[0].code;
+        const seriesCode = brands && brands[0] && brands[0].list && brands[0].list[0] && brands[0].list[0].code;
 
-        if (brandCode) {
+        if (seriesCode) {
             yield put(actions.loadConditionsCreator.beforeRequest());
-            yield put(actions.loadConditionsCreator.request(brandCode));
+            yield put(actions.loadConditionsCreator.request({
+                m_2: seriesCode
+            }));
         }
 
     } catch (err) {
@@ -38,8 +40,9 @@ export function loadBrands() {
     return http.get('/mapping/main');
 }
 
-export function loadConditions(code) {
+export function loadConditions(params) {
     return () => {
-        return http.get(`/mapping/next?m_2=${code}`);
+
+        return http.post('/mapping/next', params);
     };
 }

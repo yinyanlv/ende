@@ -1,0 +1,17 @@
+@import "src/scss/sdk/index";
+
+.crumbs {
+  display: flex;
+  width: 100%;
+  padding: 0 15px;
+  height: $crumbs-height;
+  justify-content: space-between;
+  align-items: center;
+  background: #e7e7e7;
+
+  :global{
+    .crumbs-text{
+      color: $primary-color;
+    }
+  }
+}

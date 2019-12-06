@@ -37,8 +37,8 @@ export const loadConditionsCreator = {
     beforeRequest: () => {
         return createAction(LOAD_CONDITIONS_BEFORE);
     },
-    request: (brandCode) => {
-        return createAction(LOAD_CONDITIONS, brandCode);
+    request: (params) => {
+        return createAction(LOAD_CONDITIONS, params);
     },
     success: (data) => {
         return createAction(LOAD_CONDITIONS_SUCCESS, data);

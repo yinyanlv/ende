@@ -1,0 +1,30 @@
+@import "src/scss/sdk/index";
+
+.operatorBox{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+
+  :global{
+    .item{
+      padding: 0 5px;
+
+      &:last-child{
+        padding-right:0;
+      }
+    }
+
+    .item-star{
+      cursor: pointer;
+
+      i{
+        font-size:18px;
+        color: $primary-color;
+      }
+    }
+
+    .item-search{
+      width: 360px;
+    }
+  }
+}

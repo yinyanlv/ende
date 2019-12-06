@@ -55,6 +55,24 @@ class Http {
                 });
         });
     }
+
+    post(url, params: any = null) {
+        return new Promise((resolve, reject) => {
+            instance.post(url, params)
+                .then((res) => {
+                    const body = res.data;
+
+                    if (body.success) {
+                        resolve(body.result);
+                    } else {
+                        reject(new Error(body.message));
+                    }
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
+    }
 }
 
 export const http = new Http();

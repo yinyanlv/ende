@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import classnames from 'classnames';
-import {Tabs, Icon} from 'antd';
-import {Loading} from '@/components/loading';
+import cls from 'classnames';
+import {Tabs} from 'antd';
+import {Panel} from '@/components/panel';
 import styles from './Catalog.module.scss';
 import {loadBrandsCreator, loadConditionsCreator} from './actions';
 
@@ -15,6 +15,7 @@ export function PageCatalog(props) {
     const {
         brands,
         isBrandsLoading,
+        activeBrandCode,
         conditions,
         isConditionsLoading
     } = useSelector((state: any) => {
@@ -33,64 +34,39 @@ export function PageCatalog(props) {
         dispatch(loadConditionsCreator.beforeRequest());
     }, []);
 
-    function loadConditions(code) {
-        dispatch(loadBrandsCreator.setActive(code));
-        dispatch(loadConditionsCreator.request(code));
+    function loadConditions(params) {
+        dispatch(loadBrandsCreator.setActive(params.m_2));
+        dispatch(loadConditionsCreator.request(params));
     }
 
     return (
         <>
             <div className={styles.container}>
-                <div className="panel panel-brand">
-                    <Loading isLoading={isBrandsLoading}>
-                        <Tabs>
-                            {
-                                brands.map((brand) => {
-                                    return (
-                                        <TabPane tab={brand.name} key={brand.code}>
-                                            <div className="content">
-                                                <ul className="car-list">
-                                                    {
-                                                        brand.list.map((item) => {
-                                                            return (
-                                                                <li className={classnames('item', {
-                                                                    'active': item.active
-                                                                })} key={item.code}
-                                                                    onClick={loadConditions.bind(null, item.code)}>
-                                                                    <span className="image-wrapper">
-                                                                        <img src={resHost + item.src}/>
-                                                                    </span>
-                                                                    <span className="text">{item.name}</span>
-                                                                </li>
-                                                            );
-                                                        })
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </TabPane>
-                                    )
-                                })
-                            }
-                        </Tabs>
-                    </Loading>
-                </div>
-                <div className="panel panel-year">
-                    <Loading isLoading={isConditionsLoading}>
-                        <>
-                            {
-                                years && (
-                                    <>
-                                        <div className="panel-header">
-                                            <div><Icon type="unordered-list"/> {years.name}</div>
-                                        </div>
-                                        <div className="panel-content">
-                                            <ul className="text-list">
+
+                <Panel isLoading={isBrandsLoading} mode={'empty'} className={'panel-brand'}>
+                    <Tabs>
+                        {
+                            brands && brands.map((brand) => {
+                                return (
+                                    <TabPane tab={brand.name} key={brand.code}>
+                                        <div className="content">
+                                            <ul className="car-list">
                                                 {
-                                                    years.list && years.list.map((item) => {
+                                                    brand.list.map((item) => {
                                                         return (
-                                                            <li className="item" key={item.code}>
-                                                                <span className="icon-wrapper"><i
-                                                                         className="dot"/></span>
+                                                            <li className={
+                                                                cls('item', {
+                                                                    'active': item.active
+                                                                })
+                                                            }
+                                                                key={item.code}
+                                                                onClick={loadConditions.bind(null, {
+                                                                    m_2: item.code
+                                                                })}
+                                                            >
+                                                                <span className="image-wrapper">
+                                                                    <img src={resHost + item.src}/>
+                                                                </span>
                                                                 <span className="text">{item.name}</span>
                                                             </li>
                                                         );
@@ -98,44 +74,52 @@ export function PageCatalog(props) {
                                                 }
                                             </ul>
                                         </div>
-                                    </>
+                                    </TabPane>
                                 )
-                            }
-                        </>
-                    </Loading>
-                </div>
-                <div className="panel panel-model">
-                    <Loading isLoading={isConditionsLoading}>
-                        <>
-                            {
-                                models && (
-                                    <>
-                                        <div className="panel-header">
-                                            <div><Icon type="unordered-list"/> {models.name}</div>
+                            })
+                        }
+                    </Tabs>
+                </Panel>
+                <Panel isLoading={isConditionsLoading} title={years && years.name} className="panel-year">
+                    <ul className="text-list">
+                        {
+                            years && years.list && years.list.map((item) => {
+                                return (
+                                    <li className="item"
+                                        key={item.code}
+                                        onClick={loadConditions.bind(null, {
+                                            m_2: activeBrandCode,
+                                            m_3: item.code
+                                        })}
+                                    >
+                                        <div className="text-wrapper">
+                                            <span className="icon-wrapper"><i className="dot"/></span>
+                                            <span className="text">{item.name}</span>
                                         </div>
-                                        <div className="panel-content">
-                                            <ul className="text-list">
-                                                {
-                                                    models.list && models.list.map((item) => {
-                                                        return (
-                                                            <li className="item" key={item.code}>
-                                                                <Link to={'/usage'}>
-                                                                <span className="icon-wrapper"><i
-                                                                    className="dot"/></span>
-                                                                    <span className="text">{item.name}</span>
-                                                                </Link>
-                                                            </li>
-                                                        );
-                                                    })
-                                                }
-                                            </ul>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </Panel>
+                <Panel isLoading={isConditionsLoading} title={models && models.name} className="panel-model">
+                    <ul className="text-list">
+                        {
+                            models && models.list && models.list.map((item) => {
+                                return (
+                                    <li className="item" key={item.code}>
+                                        <div className="text-wrapper">
+                                            <Link to={'/usage'}>
+                                                <span className="icon-wrapper"><i className="dot"/></span>
+                                                <span className="text">{item.name}</span>
+                                            </Link>
                                         </div>
-                                    </>
-                                )
-                            }
-                        </>
-                    </Loading>
-                </div>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </Panel>
             </div>
         </>
     );

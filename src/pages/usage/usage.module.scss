@@ -3,64 +3,67 @@
 
 $part-list-body-height: calc(100vh - 160px);
 
-:export{
+:export {
   partsTableBodyHeight: $part-list-body-height;
 }
 
 .container {
   display: flex;
 
-  :global{
+  :global {
 
-    .panel-tree{
+    .panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid $bd-color;
+    }
+
+    .panel-tree {
       width: 250px;
       height: 100%;
 
-      .panel-content{
-        overflow: hidden;
-      }
-
-      .tree-wrapper{
+      .panel-content-inner {
         padding: 5px;
-        width: 100%;
-        height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
       }
 
-      .ant-tree li .ant-tree-node-content-wrapper{
+      .ant-tree li .ant-tree-node-content-wrapper {
         height: auto;
       }
 
-      .ant-tree-child-tree{
+      .ant-tree-child-tree {
 
-        .ant-tree-node-content-wrapper{
+        .ant-tree-node-content-wrapper {
           width: 196px;
           white-space: pre-wrap;
         }
       }
     }
 
-    .panel-legend-list{
+    .panel-legend-list {
       flex: 1;
       background: transparent;
       border-color: transparent;
       margin-left: 10px;
       overflow: hidden;
 
-      .panel-content{
+      .panel-content {
         width: 100%;
-        height:100%;
+        height: 100%;
         overflow: auto;
       }
 
-      .legend-list{
+      .legend-list {
 
         .item {
           display: block;
           width: 212px;
           height: 312px;
-          float:left;
+          float: left;
           margin: 0 10px 10px 0;
           padding: 5px;
           cursor: pointer;
@@ -77,7 +80,7 @@ $part-list-body-height: calc(100vh - 160px);
             }
           }
 
-          .image-wrapper{
+          .image-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -86,12 +89,12 @@ $part-list-body-height: calc(100vh - 160px);
             overflow: hidden;
           }
 
-          img{
+          img {
             display: block;
             height: 100%;
           }
 
-          .text{
+          .text {
             display: block;
             width: 100%;
             font-size: 13px;
@@ -104,19 +107,19 @@ $part-list-body-height: calc(100vh - 160px);
       }
     }
 
-    .panel-legend{
+    .panel-legend {
       flex: 1;
       margin: 0 10px;
 
-      .svg-wrap{
+      .svg-wrap {
         height: calc(100vh - #{$header-height + $crumbs-height + 10});
       }
     }
 
-    .panel-part-list{
+    .panel-part-list {
       width: 800px;
 
-      .ant-table-body{
+      .ant-table-body {
         height: $part-list-body-height !important;
         overflow-y: auto !important;
       }

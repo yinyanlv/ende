@@ -3,11 +3,12 @@ import * as actions from './actions';
 const initialState = {
     isBrandsLoading: false,
     brands: [],
+    activeBrandCode: '',
     isConditionsLoading: false,
     conditions: []
 };
 
-export function catalogReducer(state = initialState, action) {
+export function catalogReducer(state = initialState, action: any) {
 
     switch (action.type) {
         case actions.LOAD_BRANDS:
@@ -29,7 +30,8 @@ export function catalogReducer(state = initialState, action) {
         case actions.LOAD_BRANDS_SET_ACTIVE:
             return {
                 ...state,
-                brands: setActiveBrand(action.payload, state.brands)
+                brands: setActiveBrand(action.payload, state.brands),
+                activeBrandCode: action.payload as string || ''
             };
         case actions.LOAD_CONDITIONS_BEFORE:
             return {
