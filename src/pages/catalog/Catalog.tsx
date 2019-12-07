@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import cls from 'classnames';
@@ -15,9 +15,10 @@ export function PageCatalog(props) {
     const {
         brands,
         isBrandsLoading,
-        activeBrandCode,
         conditions,
-        isConditionsLoading
+        isConditionsLoading,
+        activeBrandCode,
+        activeYearCode
     } = useSelector((state: any) => {
         return state.catalog;
     });
@@ -32,10 +33,13 @@ export function PageCatalog(props) {
     useEffect(() => {
         dispatch(loadBrandsCreator.request());
         dispatch(loadConditionsCreator.beforeRequest());
-    }, []);
+    }, [dispatch]);
 
     function loadConditions(params) {
         dispatch(loadBrandsCreator.setActive(params.m_2));
+        if (params.m_3) {
+            dispatch(loadConditionsCreator.setActive(params.m_3));
+        }
         dispatch(loadConditionsCreator.request(params));
     }
 
@@ -56,7 +60,7 @@ export function PageCatalog(props) {
                                                         return (
                                                             <li className={
                                                                 cls('item', {
-                                                                    'active': item.active
+                                                                    'active': item.code === activeBrandCode
                                                                 })
                                                             }
                                                                 key={item.code}
@@ -65,7 +69,7 @@ export function PageCatalog(props) {
                                                                 })}
                                                             >
                                                                 <span className="image-wrapper">
-                                                                    <img src={resHost + item.src}/>
+                                                                    <img src={resHost + item.src} alt={item.name}/>
                                                                 </span>
                                                                 <span className="text">{item.name}</span>
                                                             </li>
@@ -85,7 +89,11 @@ export function PageCatalog(props) {
                         {
                             years && years.list && years.list.map((item) => {
                                 return (
-                                    <li className="item"
+                                    <li className={
+                                            cls('item', {
+                                                'active': item.code === activeYearCode
+                                            })
+                                        }
                                         key={item.code}
                                         onClick={loadConditions.bind(null, {
                                             m_2: activeBrandCode,

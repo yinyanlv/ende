@@ -11,6 +11,7 @@ export const LOAD_CONDITIONS = 'catalog:load-conditions';
 export const LOAD_CONDITIONS_BEFORE = 'catalog:load-conditions-before';
 export const LOAD_CONDITIONS_SUCCESS = 'catalog:load-conditions-success';
 export const LOAD_CONDITIONS_FAILED = 'catalog:load-conditions-failed';
+export const LOAD_CONDITIONS_SET_ACTIVE = 'catalog:load-conditions-set-active'
 
 export const catalogCreator = {
     resetState: () => {
@@ -28,8 +29,8 @@ export const loadBrandsCreator = {
     failed: (message) => {
         return createAction(LOAD_BRANDS_FAILED, message);
     },
-    setActive: (data) => {
-        return createAction(LOAD_BRANDS_SET_ACTIVE, data);
+    setActive: (code) => {
+        return createAction(LOAD_BRANDS_SET_ACTIVE, code);
     }
 };
 
@@ -45,5 +46,8 @@ export const loadConditionsCreator = {
     },
     failed: (message) => {
         return createAction(LOAD_CONDITIONS_FAILED, message);
+    },
+    setActive: (code) => {
+        return createAction(LOAD_CONDITIONS_SET_ACTIVE, code);
     }
 };

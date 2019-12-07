@@ -346,11 +346,11 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
         return (
             <Loading isLoading={this.state.isLoading}>
                 <div className="legend-toolbar" ref={this.legendToolbarRef}>
-                    <a data-action="zoomin" className="legend-toolbar-zoomin disabled"></a>
-                    <a data-action="zoomout" className="legend-toolbar-zoomout disabled"></a>
-                    <a data-action="reset" className="legend-toolbar-reset disabled"></a>
-                    <a data-action="rightrotate" className="legend-toolbar-right-rotate disabled"></a>
-                    <a data-action="leftrotate" className="legend-toolbar-left-rotate disabled"></a>
+                    <span data-action="zoomin" className="legend-toolbar-zoomin disabled"></span>
+                    <span data-action="zoomout" className="legend-toolbar-zoomout disabled"></span>
+                    <span data-action="reset" className="legend-toolbar-reset disabled"></span>
+                    <span data-action="rightrotate" className="legend-toolbar-right-rotate disabled"></span>
+                    <span data-action="leftrotate" className="legend-toolbar-left-rotate disabled"></span>
                 </div>
                 <div className="svg-wrap" ref={this.legendBodyRef}></div>
             </Loading>

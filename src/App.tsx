@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Suspense} from 'react';
+import React, {useState, Suspense} from 'react';
 import {Provider} from 'react-redux';
 import {Router, Switch, Route} from 'react-router-dom';
 import {IntlProvider} from 'react-intl';
@@ -16,7 +16,7 @@ import {en_US} from '@/locales/en';
 const App: React.FC = () => {
 
     const defaultLocale = navigator.language.split('_')[0];
-    const [locale, setLocale] = useState(defaultLocale);
+    const [locale] = useState(defaultLocale);
     const messages = getLocaleMessages(locale);
 
     return (

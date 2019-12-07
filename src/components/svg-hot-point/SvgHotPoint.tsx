@@ -1,4 +1,3 @@
-import React from 'react';
 import {SvgDragZoom, SvgDragZoomProps} from '@/components/svg-drag-zoom';
 
 export interface SvgHotPointProps extends SvgDragZoomProps {
@@ -20,10 +19,6 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
     // callout文本对象集
     private texts: any;
 
-    constructor(props) {
-        super(props);
-    }
-
     // 重写父方法， 预存所有的callout 文本对象，
     // 标记callout原始角度，添加图例事件
     public finishLoaded(xmlStr) {
@@ -43,7 +38,7 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
             .filter(function () {
                 const callout = self.calloutTrim(this.textContent);
 
-                if (self.calloutType == 'N') {
+                if (self.calloutType === 'N') {
                     return self.calloutRegExpN.test(callout);
                 } else {
                     return self.calloutRegExpS.test(callout);
@@ -100,7 +95,6 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
     private calloutIn(target) {
         const flag = 'temp';
         const stroke = '#FFDD02';
-        const callout = this.calloutTrim(target.textContent);
 
         this.appendCircle(target, stroke, flag);
     }
@@ -176,8 +170,6 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
 
     // callout 除去左右空格
     private calloutTrim(callout) {
-        const self = this;
-
         return callout.replace(/[ ]/g, '').replace(/[\r\n]/g, '');
     }
 
@@ -195,8 +187,6 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
     // 激活单个高亮显示callout，并将callout移到可见区域
     public activeSingleCallout(text) {
         const self = this;
-        const stroke = '#E30A0A';
-        const flag = 'selected';
         const texts = self.getCalloutTexts([text]);
 
         if (texts.length && texts.length > 0) {

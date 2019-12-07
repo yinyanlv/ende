@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, Ref, useState} from 'react';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
-import {Tree, Table, Icon, Button} from 'antd';
+import {Tree, Table, Button} from 'antd';
 import {Panel} from '@/components/panel';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import styles from './usage.module.scss';
-import {Loading} from "@/components/loading";
 
 const TreeNode = Tree.TreeNode;
 
@@ -135,67 +134,13 @@ export function PageUsage() {
                             <li className="item" onClick={() => {
                                 setIsShowLegend(true);
                             }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
+                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt="" /></span>
                                 <span className="text">CN150M - 五菱宏光PLUS</span>
                             </li>
                             <li className="item" onClick={() => {
                                 setIsShowLegend(true);
                             }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'}/></span>
+                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt="" /></span>
                                 <span className="text">CN150M - 五菱宏光PLUS</span>
                             </li>
                         </ul>

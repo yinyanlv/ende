@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import {instance, http} from '@/common/http';
+import {instance} from '@/common/http';
 import {EventEmitter} from '@/common/EventEmitter';
 
 class JwtService extends EventEmitter{
@@ -12,25 +12,25 @@ class JwtService extends EventEmitter{
     }
 
     private _authorize(): boolean {
-        const accessToken = this.getAccessToken();
+        // const accessToken = this.getAccessToken();
 
         this.emit('authorized', true);
         return true;
 
-        if (!accessToken) {
-            this.emit('unauthorized', 'Invalid access token!');
-            return false;
-        }
-
-        if (this._isAccessTokenValid(accessToken)) {
-            this.setAccessToken(accessToken);
-            this.emit('authorized', true);
-            return true;
-        } else {
-            this.removeAccessToken();
-            this.emit('unauthorized', 'Invalid access token!');
-            return false;
-        }
+        // if (!accessToken) {
+        //     this.emit('unauthorized', 'Invalid access token!');
+        //     return false;
+        // }
+        //
+        // if (this._isAccessTokenValid(accessToken)) {
+        //     this.setAccessToken(accessToken);
+        //     this.emit('authorized', true);
+        //     return true;
+        // } else {
+        //     this.removeAccessToken();
+        //     this.emit('unauthorized', 'Invalid access token!');
+        //     return false;
+        // }
     }
 
     private _isAccessTokenValid(accessToken: string) {

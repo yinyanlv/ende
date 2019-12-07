@@ -1,10 +1,9 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
-import {Menu, Icon, Dropdown, Badge, Popover, Card, Tabs} from 'antd';
+import {NavLink} from 'react-router-dom';
+import {Menu, Icon, Dropdown, Badge, Popover, Tabs} from 'antd';
 import styles from './nav.module.scss';
 
 const TabPane = Tabs.TabPane;
-const SubMenu = Menu.SubMenu;
 
 export function Nav(props) {
 
