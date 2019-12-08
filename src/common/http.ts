@@ -57,6 +57,7 @@ class Http {
     }
 
     post(url, params: any = null) {
+
         return new Promise((resolve, reject) => {
             instance.post(url, params)
                 .then((res) => {

@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useLocation, useHistory} from 'react-router-dom';
+import queryString from 'query-string';
 import cls from 'classnames';
 import {Tabs} from 'antd';
 import {Panel} from '@/components/panel';
 import styles from './Catalog.module.scss';
+import {crumbsCreator} from '@/pages/common/crumbs/actions';
 import {loadBrandsCreator, loadConditionsCreator} from './actions';
 
 const TabPane = Tabs.TabPane;
@@ -12,6 +14,8 @@ const TabPane = Tabs.TabPane;
 export function PageCatalog(props) {
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
     const {
         brands,
         isBrandsLoading,
@@ -31,6 +35,8 @@ export function PageCatalog(props) {
     const [years, models] = conditions;
 
     useEffect(() => {
+        const queryObj = queryString.parse(location.search);
+        console.log(queryObj);
         dispatch(loadBrandsCreator.request());
         dispatch(loadConditionsCreator.beforeRequest());
     }, [dispatch]);
@@ -38,9 +44,20 @@ export function PageCatalog(props) {
     function loadConditions(params) {
         dispatch(loadBrandsCreator.setActive(params.m_2));
         if (params.m_3) {
+            dispatch(crumbsCreator.request({
+                m_2: activeBrandCode,
+                m_3: params.m_3
+            }));
             dispatch(loadConditionsCreator.setActive(params.m_3));
+        } else {
+            dispatch(crumbsCreator.request({
+                m_2: activeBrandCode
+            }));
         }
         dispatch(loadConditionsCreator.request(params));
+        history.push(Object.assign(location, {
+            search: '?m_1=sgmw'
+        }));
     }
 
     return (

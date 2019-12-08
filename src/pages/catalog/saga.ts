@@ -42,7 +42,6 @@ export function loadBrands() {
 
 export function loadConditions(params) {
     return () => {
-
         return http.post('/mapping/next', params);
     };
 }

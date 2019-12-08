@@ -37,6 +37,13 @@ const conditions = [{
     }]
 }];
 
+const crumbs = {
+    m_1: '五菱',
+    m_2: 'CN150M - 五菱宏光PLUS',
+    m_3: '2019',
+    m_4: '精英型',
+};
+
 // 加载品牌
 mock.onGet(API_PREFIX + '/mapping/main').reply((req) => {
 
@@ -82,12 +89,13 @@ mock.onPost(API_PREFIX + '/mapping/next').reply((req) => {
 
 // 加载crumbs
 mock.onPost(API_PREFIX + '/mapping/name').reply((req) => {
+
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
                 resolve([200, {
                     success: true,
-                    result: conditions
+                    result: crumbs
                 }]);
             } catch (err) {
                 const message = 'Invalid access token!';
@@ -97,6 +105,8 @@ mock.onPost(API_PREFIX + '/mapping/name').reply((req) => {
                     message
                 }]);
             }
-        }, 1000);
+
+        }, 500);
     });
 });
+

@@ -11,7 +11,7 @@ export const LOAD_CONDITIONS = 'catalog:load-conditions';
 export const LOAD_CONDITIONS_BEFORE = 'catalog:load-conditions-before';
 export const LOAD_CONDITIONS_SUCCESS = 'catalog:load-conditions-success';
 export const LOAD_CONDITIONS_FAILED = 'catalog:load-conditions-failed';
-export const LOAD_CONDITIONS_SET_ACTIVE = 'catalog:load-conditions-set-active'
+export const LOAD_CONDITIONS_SET_ACTIVE = 'catalog:load-conditions-set-active';
 
 export const catalogCreator = {
     resetState: () => {
