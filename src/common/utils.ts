@@ -10,11 +10,17 @@ export function createAction(type, payload?) {
 
 export function updateLocationSearch(params = {}, options?) {
 
-    let queryObj = queryString.parse(history.location.search);
+    if (options && options.replacePart) {
+        let queryObj = queryString.parse(history.location.search);
 
-    Object.assign(queryObj, params);
+        Object.assign(queryObj, params);
 
-    history.push(Object.assign(history.location, {
-        search: queryString.stringify(queryObj)
-    }));
+        history.push(Object.assign(history.location, {
+            search: queryString.stringify(queryObj)
+        }));
+    } else {
+        history.push(Object.assign(history.location, {
+            search: queryString.stringify(params)
+        }));
+    }
 }

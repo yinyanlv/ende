@@ -1,5 +1,6 @@
 import * as actions from './actions';
 
+export const defaultCode = '-1';
 export const crumbsText = {
     all: '全部',
     m_1: '品牌',
@@ -9,22 +10,7 @@ export const crumbsText = {
 };
 
 const initialState = {
-    list: [{
-        code: 'm_1',
-        name: '五菱',
-        label: crumbsText['m_1'],
-        url: '',
-    }, {
-        code: 'm_2',
-        name: crumbsText['all'],
-        label: crumbsText['m_2'],
-        url: '',
-    }, {
-        code: 'm_3',
-        name: crumbsText['all'],
-        label: crumbsText['m_3'],
-        url: '',
-    }]
+    list: []
 };
 
 

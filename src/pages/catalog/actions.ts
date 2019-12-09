@@ -6,24 +6,29 @@ export const SET_ACTIVE_CODES = 'catalog:set-active-codes';
 export const LOAD_BRANDS = 'catalog:load-brands';
 export const LOAD_BRANDS_SUCCESS = 'catalog:load-brands-success';
 export const LOAD_BRANDS_FAILED = 'catalog:load-brands-failed';
-export const LOAD_BRANDS_SET_ACTIVE_M1 = 'catalog:load-brands-set-active-m1';
-export const LOAD_BRANDS_SET_ACTIVE_M2 = 'catalog:load-brands-set-active-m2';
 
 export const LOAD_CONDITIONS = 'catalog:load-conditions';
 export const LOAD_CONDITIONS_BEFORE = 'catalog:load-conditions-before';
 export const LOAD_CONDITIONS_SUCCESS = 'catalog:load-conditions-success';
 export const LOAD_CONDITIONS_FAILED = 'catalog:load-conditions-failed';
-export const LOAD_CONDITIONS_SET_ACTIVE_M3 = 'catalog:load-conditions-set-active-m3';
-export const LOAD_CONDITIONS_SET_ACTIVE_M4 = 'catalog:load-conditions-set-active-m4';
 
 export const catalogCreator = {
     resetState: () => {
         return createAction(RESET_STATE);
     },
     setActiveCodes: (params) => {
-        return createAction(SET_ACTIVE_CODES, params);
+        return createAction(SET_ACTIVE_CODES, rebuildActiveCodes(params));
     }
 };
+
+function rebuildActiveCodes(params) {
+    let obj = {};
+    Object.keys(params).forEach((key) => {
+        const newKey = 'activeM'+ key.replace('m_', '') +'Code';
+        obj[newKey] = params[key];
+    });
+    return obj;
+}
 
 export const brandsCreator = {
     request: (params?) => {

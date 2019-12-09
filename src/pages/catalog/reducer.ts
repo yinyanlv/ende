@@ -1,15 +1,15 @@
 import * as actions from './actions';
-import {LOAD_BRANDS_SET_ACTIVE_M2} from "./actions";
+import {defaultCode} from '@/pages/common/crumbs/reducer';
 
 const initialState = {
     isBrandsLoading: false,
     brands: [],
     isConditionsLoading: false,
     conditions: [],
-    activeM1Code: '-1',
-    activeM2Code: '-1',
-    activeM3Code: '-1',
-    activeM4Code: '-1'
+    activeM1Code: defaultCode,
+    activeM2Code: defaultCode,
+    activeM3Code: defaultCode,
+    activeM4Code: defaultCode
 };
 
 export function catalogReducer(state = initialState, action: any) {
@@ -53,13 +53,13 @@ export function catalogReducer(state = initialState, action: any) {
                 isConditionsLoading: false
             };
         case actions.SET_ACTIVE_CODES:
-            const params = action.payload;
             return {
                 ...state,
-                activeM1Code: params.m_1,
-                activeM2Code: params.m_2,
-                activeM3Code: params.m_3,
-                activeM4Code: params.m_4
+                activeM1Code: defaultCode,
+                activeM2Code: defaultCode,
+                activeM3Code: defaultCode,
+                activeM4Code: defaultCode,
+                ...action.payload
             };
         case actions.RESET_STATE:
             return {

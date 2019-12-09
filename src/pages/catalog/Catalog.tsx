@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link, useLocation, useHistory} from 'react-router-dom';
+import {useLocation, useHistory} from 'react-router-dom';
 import queryString from 'query-string';
 import cls from 'classnames';
 import {Tabs} from 'antd';
@@ -8,6 +8,7 @@ import {updateLocationSearch} from '@/common/utils';
 import {Panel} from '@/components/panel';
 import styles from './Catalog.module.scss';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
+import {defaultCode} from '@/pages/common/crumbs/reducer';
 import {catalogCreator, brandsCreator, conditionsCreator} from './actions';
 
 const TabPane = Tabs.TabPane;
@@ -38,26 +39,38 @@ export function PageCatalog(props) {
     const [years, models] = conditions;
 
     useEffect(() => {
-
         if (location.search) {
             const queryObj = queryString.parse(location.search);
-            dispatch(catalogCreator.setActiveCodes(queryObj));
-            dispatch(crumbsCreator.request(queryObj));
             dispatch(brandsCreator.request(queryObj));
-            dispatch(conditionsCreator.beforeRequest());
         } else {
             dispatch(brandsCreator.request());
-            dispatch(conditionsCreator.beforeRequest());
         }
+
+        dispatch(conditionsCreator.beforeRequest());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     function handleTabsChange(m1Code) {
+        const m2Code = getDefaultM2Code(m1Code);
         const params = {
-            m_1: m1Code
+            m_1: m1Code,
+            m_2: m2Code
         };
         dispatch(catalogCreator.setActiveCodes(params));
         dispatch(crumbsCreator.request(params));
+        dispatch(conditionsCreator.request(params));
         updateLocationSearch(params);
+    }
+
+    function getDefaultM2Code(m1Code) {
+        for (let i = 0; i < brands.length; i++) {
+            if (brands[i].code === m1Code) {
+                const list = brands[i].list || [];
+                return list.length ? list[0].code : defaultCode;
+            }
+        }
+        return defaultCode;
     }
 
     function handleClickM2(m2Code) {
@@ -90,10 +103,7 @@ export function PageCatalog(props) {
             m_3: activeM3Code,
             m_4: m4Code
         };
-        dispatch(catalogCreator.setActiveCodes(params));
-        dispatch(crumbsCreator.request(params));
-        dispatch(conditionsCreator.request(params));
-        updateLocationSearch(params);
+
         history.push({
             pathname: '/usage',
             search: queryString.stringify(params)
@@ -104,7 +114,7 @@ export function PageCatalog(props) {
         <>
             <div className={styles.container}>
                 <Panel isLoading={isBrandsLoading} mode={'empty'} className={'panel-brand'}>
-                    <Tabs defaultActiveKey={activeM1Code} onChange={handleTabsChange}>
+                    <Tabs activeKey={activeM1Code} defaultActiveKey={activeM1Code} onChange={handleTabsChange}>
                         {
                             brands && brands.map((brand) => {
                                 return (
@@ -121,6 +131,7 @@ export function PageCatalog(props) {
                                                             }
                                                                 key={item.code}
                                                                 onClick={handleClickM2.bind(null, item.code)}
+                                                                title={item.name}
                                                             >
                                                                 <span className="image-wrapper">
                                                                     <img src={resHost + item.src} alt={item.name}/>
@@ -149,6 +160,7 @@ export function PageCatalog(props) {
                                             })
                                         }
                                         key={item.code}
+                                        title={item.name}
                                         onClick={handleClickM3.bind(null, item.code)}
                                     >
                                         <div className="text-wrapper">
@@ -172,6 +184,7 @@ export function PageCatalog(props) {
                                         })
                                     }
                                         key={item.code}
+                                        title={item.name}
                                         onClick={handleClickM4.bind(null, item.code)}
                                     >
                                         <div className="text-wrapper">
