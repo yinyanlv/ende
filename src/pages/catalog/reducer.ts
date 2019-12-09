@@ -1,12 +1,15 @@
 import * as actions from './actions';
+import {LOAD_BRANDS_SET_ACTIVE_M2} from "./actions";
 
 const initialState = {
     isBrandsLoading: false,
     brands: [],
     isConditionsLoading: false,
     conditions: [],
-    activeBrandCode: '',
-    activeYearCode: ''
+    activeM1Code: '-1',
+    activeM2Code: '-1',
+    activeM3Code: '-1',
+    activeM4Code: '-1'
 };
 
 export function catalogReducer(state = initialState, action: any) {
@@ -27,11 +30,6 @@ export function catalogReducer(state = initialState, action: any) {
             return {
                 ...state,
                 isBrandsLoading: false
-            };
-        case actions.LOAD_BRANDS_SET_ACTIVE:
-            return {
-                ...state,
-                activeBrandCode: action.payload
             };
         case actions.LOAD_CONDITIONS_BEFORE:
             return {
@@ -54,10 +52,14 @@ export function catalogReducer(state = initialState, action: any) {
                 ...state,
                 isConditionsLoading: false
             };
-        case actions.LOAD_CONDITIONS_SET_ACTIVE:
+        case actions.SET_ACTIVE_CODES:
+            const params = action.payload;
             return {
                 ...state,
-                activeYearCode: action.payload
+                activeM1Code: params.m_1,
+                activeM2Code: params.m_2,
+                activeM3Code: params.m_3,
+                activeM4Code: params.m_4
             };
         case actions.RESET_STATE:
             return {

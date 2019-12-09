@@ -1,40 +1,43 @@
 import {createAction} from '@/common/utils';
 
 export const RESET_STATE = 'catalog:reset-state';
+export const SET_ACTIVE_CODES = 'catalog:set-active-codes';
 
 export const LOAD_BRANDS = 'catalog:load-brands';
 export const LOAD_BRANDS_SUCCESS = 'catalog:load-brands-success';
 export const LOAD_BRANDS_FAILED = 'catalog:load-brands-failed';
-export const LOAD_BRANDS_SET_ACTIVE = 'catalog:load-brands-set-active';
+export const LOAD_BRANDS_SET_ACTIVE_M1 = 'catalog:load-brands-set-active-m1';
+export const LOAD_BRANDS_SET_ACTIVE_M2 = 'catalog:load-brands-set-active-m2';
 
 export const LOAD_CONDITIONS = 'catalog:load-conditions';
 export const LOAD_CONDITIONS_BEFORE = 'catalog:load-conditions-before';
 export const LOAD_CONDITIONS_SUCCESS = 'catalog:load-conditions-success';
 export const LOAD_CONDITIONS_FAILED = 'catalog:load-conditions-failed';
-export const LOAD_CONDITIONS_SET_ACTIVE = 'catalog:load-conditions-set-active';
+export const LOAD_CONDITIONS_SET_ACTIVE_M3 = 'catalog:load-conditions-set-active-m3';
+export const LOAD_CONDITIONS_SET_ACTIVE_M4 = 'catalog:load-conditions-set-active-m4';
 
 export const catalogCreator = {
     resetState: () => {
         return createAction(RESET_STATE);
+    },
+    setActiveCodes: (params) => {
+        return createAction(SET_ACTIVE_CODES, params);
     }
 };
 
-export const loadBrandsCreator = {
-    request: () => {
-        return createAction(LOAD_BRANDS);
+export const brandsCreator = {
+    request: (params?) => {
+        return createAction(LOAD_BRANDS, params);
     },
     success: (data) => {
         return createAction(LOAD_BRANDS_SUCCESS, data);
     },
     failed: (message) => {
         return createAction(LOAD_BRANDS_FAILED, message);
-    },
-    setActive: (code) => {
-        return createAction(LOAD_BRANDS_SET_ACTIVE, code);
     }
 };
 
-export const loadConditionsCreator = {
+export const conditionsCreator = {
     beforeRequest: () => {
         return createAction(LOAD_CONDITIONS_BEFORE);
     },
@@ -46,8 +49,5 @@ export const loadConditionsCreator = {
     },
     failed: (message) => {
         return createAction(LOAD_CONDITIONS_FAILED, message);
-    },
-    setActive: (code) => {
-        return createAction(LOAD_CONDITIONS_SET_ACTIVE, code);
     }
 };
