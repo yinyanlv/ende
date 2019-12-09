@@ -36,9 +36,9 @@ function* loadBrandsController(action) {
         };
 
         yield put(actions.catalogCreator.setActiveCodes(params));
-        yield put(crumbsActions.crumbsCreator.request(params));
-        yield put(actions.conditionsCreator.beforeRequest());
-        yield put(actions.conditionsCreator.request(params));
+        yield put(crumbsActions.crumbsCreator.load(params));
+        yield put(actions.conditionsCreator.beforeLoad());
+        yield put(actions.conditionsCreator.load(params));
 
     } catch (err) {
         yield put(actions.brandsCreator.failed(err.message));
@@ -72,17 +72,17 @@ function rebuildConditions(data) {
     return data;
 }
 
-export function* catalogSaga() {
-    yield takeLatest(actions.LOAD_BRANDS, loadBrandsController);
-    yield takeLatest(actions.LOAD_CONDITIONS, loadConditionsController);
-}
-
-export function loadBrands() {
+function loadBrands() {
     return http.get('/mapping/main');
 }
 
-export function loadConditions(params) {
+function loadConditions(params) {
     return () => {
         return http.post('/mapping/next', params);
     };
+}
+
+export function* catalogSaga() {
+    yield takeLatest(actions.LOAD_BRANDS, loadBrandsController);
+    yield takeLatest(actions.LOAD_CONDITIONS, loadConditionsController);
 }

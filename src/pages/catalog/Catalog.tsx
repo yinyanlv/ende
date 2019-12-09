@@ -41,14 +41,14 @@ export function PageCatalog(props) {
     useEffect(() => {
         if (location.search) {
             const queryObj = queryString.parse(location.search);
-            dispatch(brandsCreator.request(queryObj));
+            dispatch(brandsCreator.load(queryObj));
         } else {
-            dispatch(brandsCreator.request());
+            dispatch(brandsCreator.load());
         }
 
-        dispatch(conditionsCreator.beforeRequest());
+        dispatch(conditionsCreator.beforeLoad());
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     function handleTabsChange(m1Code) {
@@ -58,8 +58,8 @@ export function PageCatalog(props) {
             m_2: m2Code
         };
         dispatch(catalogCreator.setActiveCodes(params));
-        dispatch(crumbsCreator.request(params));
-        dispatch(conditionsCreator.request(params));
+        dispatch(crumbsCreator.load(params));
+        dispatch(conditionsCreator.load(params));
         updateLocationSearch(params);
     }
 
@@ -79,8 +79,8 @@ export function PageCatalog(props) {
             m_2: m2Code
         };
         dispatch(catalogCreator.setActiveCodes(params));
-        dispatch(crumbsCreator.request(params));
-        dispatch(conditionsCreator.request(params));
+        dispatch(crumbsCreator.load(params));
+        dispatch(conditionsCreator.load(params));
         updateLocationSearch(params);
     }
 
@@ -91,8 +91,8 @@ export function PageCatalog(props) {
             m_3: m3Code
         };
         dispatch(catalogCreator.setActiveCodes(params));
-        dispatch(crumbsCreator.request(params));
-        dispatch(conditionsCreator.request(params));
+        dispatch(crumbsCreator.load(params));
+        dispatch(conditionsCreator.load(params));
         updateLocationSearch(params);
     }
 

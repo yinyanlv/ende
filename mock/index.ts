@@ -1,6 +1,7 @@
 import {mock} from './mock';
 
-import './api/catalog';
 import './api/user';
+import './api/catalog';
+import './api/usage';
 
 mock.onAny().passThrough();

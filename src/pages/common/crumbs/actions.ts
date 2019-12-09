@@ -5,7 +5,7 @@ export const LOAD_CRUMBS = 'crumbs:load-crumbs';
 export const SET_CRUMBS = 'crumbs:set-crumbs';
 
 export const crumbsCreator = {
-    request: (params) => {
+    load: (params) => {
         return createAction(LOAD_CRUMBS, rebuildParams(params));
     },
     setCrumbs: (data) => {

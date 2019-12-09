@@ -1,7 +1,7 @@
 import {mock} from '../mock';
 import {API_PREFIX} from '@/config';
 
-const brands = [{
+const group = [{
     code: 'sgmw1',
     name: '五菱',
     list: [{
@@ -19,40 +19,14 @@ const brands = [{
     }]
 }];
 
-const conditions = [{
-    code: 'm3',
-    name: '年款',
-    list: [{
-        code: 'abc',
-        name: '2019',
-        lvl: 3
-    }]
-}, {
-    code: 'm4',
-    name: '车型',
-    list: [{
-        code: 'abc',
-        name: 'SD - 精英型(LV2)',
-        lvl: 4
-    }]
-}];
-
-const crumbs = {
-    m_1: '五菱',
-    m_2: 'CN150M - 五菱宏光PLUS',
-    m_3: '2019',
-    m_4: '精英型',
-};
-
-// 加载品牌
-mock.onGet(API_PREFIX + '/mapping/main').reply((req) => {
-
+// 加载分组
+mock.onPost(API_PREFIX + '/usage').reply((req) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
                 resolve([200, {
                     success: true,
-                    result: brands
+                    result: group
                 }]);
             } catch (err) {
                 const message = 'Invalid access token!';
@@ -66,14 +40,15 @@ mock.onGet(API_PREFIX + '/mapping/main').reply((req) => {
     });
 });
 
-// 加载过滤条件
-mock.onPost(API_PREFIX + '/mapping/next').reply((req) => {
+
+// 加载图例
+mock.onPost(API_PREFIX + '/usage/struct/flat-descendant').reply((req) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
                 resolve([200, {
                     success: true,
-                    result: conditions
+                    result: group
                 }]);
             } catch (err) {
                 const message = 'Invalid access token!';
@@ -87,15 +62,15 @@ mock.onPost(API_PREFIX + '/mapping/next').reply((req) => {
     });
 });
 
-// 加载crumbs
-mock.onPost(API_PREFIX + '/mapping/name').reply((req) => {
 
+// 加载配件
+mock.onPost(API_PREFIX + '/usage/parts').reply((req) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
                 resolve([200, {
                     success: true,
-                    result: crumbs
+                    result: group
                 }]);
             } catch (err) {
                 const message = 'Invalid access token!';
@@ -105,8 +80,8 @@ mock.onPost(API_PREFIX + '/mapping/name').reply((req) => {
                     message
                 }]);
             }
-
-        }, 500);
+        }, 1000);
     });
 });
+
 

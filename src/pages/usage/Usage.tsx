@@ -1,9 +1,12 @@
 import React, {useEffect, useRef, Ref, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, useHistory, useLocation} from 'react-router-dom';
+import queryString from 'query-string';
 import classnames from 'classnames';
-import {Link} from 'react-router-dom';
 import {Tree, Table, Button} from 'antd';
 import {Panel} from '@/components/panel';
 import {SvgHotPoint} from '@/components/svg-hot-point';
+import {groupCreator} from './actions';
 import styles from './usage.module.scss';
 
 const TreeNode = Tree.TreeNode;
@@ -11,11 +14,34 @@ const TreeNode = Tree.TreeNode;
 export function PageUsage() {
     const svgHotPointRef: Ref<SvgHotPoint> | null = useRef(null);
     const [isShowLegend, setIsShowLegend] = useState(false);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
+    const {
+        group,
+        isGroupLoading,
+    } = useSelector((state: any) => {
+        return state.usage;
+    });
+    const {
+        resHost
+    } = useSelector((state: any) => {
+        return state.auth;
+    });
 
     useEffect(() => {
-        if (svgHotPointRef && svgHotPointRef.current) {
-            svgHotPointRef.current.loadSVG('/images/A-0001.svg');
+        if (location.search) {
+            const queryObj = queryString.parse(location.search);
+            dispatch(groupCreator.load(queryObj));
+        } else {
+            dispatch(groupCreator.load());
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
+
+    useEffect(() => {
+
     });
 
     function legendLoadedHandler() {

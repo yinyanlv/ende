@@ -31,7 +31,7 @@ function rebuildActiveCodes(params) {
 }
 
 export const brandsCreator = {
-    request: (params?) => {
+    load: (params?) => {
         return createAction(LOAD_BRANDS, params);
     },
     success: (data) => {
@@ -43,10 +43,10 @@ export const brandsCreator = {
 };
 
 export const conditionsCreator = {
-    beforeRequest: () => {
+    beforeLoad: () => {
         return createAction(LOAD_CONDITIONS_BEFORE);
     },
-    request: (params) => {
+    load: (params) => {
         return createAction(LOAD_CONDITIONS, params);
     },
     success: (data) => {

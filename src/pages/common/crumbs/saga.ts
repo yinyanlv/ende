@@ -11,11 +11,6 @@ function* loadCrumbsController(action) {
     yield put(actions.crumbsCreator.setCrumbs(crumbsList));
 }
 
-export function* crumbsSaga() {
-
-    yield takeLatest(actions.LOAD_CRUMBS, loadCrumbsController);
-}
-
 function loadCrumbs(params) {
     return () => {
         return http.post('/mapping/name', params);
@@ -68,4 +63,9 @@ function buildUrl(params, key) {
         default:
             return '';
     }
+}
+
+export function* crumbsSaga() {
+
+    yield takeLatest(actions.LOAD_CRUMBS, loadCrumbsController);
 }
