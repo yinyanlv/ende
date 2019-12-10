@@ -1,12 +1,5 @@
 @import "src/scss/sdk/index";
 
-
-$part-list-body-height: calc(100vh - 160px);
-
-:export {
-  partsTableBodyHeight: $part-list-body-height;
-}
-
 .container {
   display: flex;
 
@@ -31,15 +24,23 @@ $part-list-body-height: calc(100vh - 160px);
         overflow-y: auto;
       }
 
-      .ant-tree li .ant-tree-node-content-wrapper {
-        height: auto;
-      }
+      .ant-tree {
 
-      .ant-tree-child-tree {
-
-        .ant-tree-node-content-wrapper {
-          width: 196px;
+        & > li > .ant-tree-node-content-wrapper{
+          width: 212px;
           white-space: pre-wrap;
+        }
+
+        li .ant-tree-node-content-wrapper {
+          height: auto;
+        }
+
+        .ant-tree-child-tree {
+
+          .ant-tree-node-content-wrapper {
+            width: 196px;
+            white-space: pre-wrap;
+          }
         }
       }
     }
@@ -118,11 +119,6 @@ $part-list-body-height: calc(100vh - 160px);
 
     .panel-part-list {
       width: 800px;
-
-      .ant-table-body {
-        height: $part-list-body-height !important;
-        overflow-y: auto !important;
-      }
     }
   }
 }

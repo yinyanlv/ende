@@ -2,7 +2,7 @@ import {takeLatest, put, call} from 'redux-saga/effects';
 import queryString from 'query-string';
 import {http} from '@/common/http';
 import * as actions from './actions';
-import {crumbsText} from './reducer';
+import {crumbsText, defaultCode} from './reducer';
 
 function* loadCrumbsController(action) {
     const crumbs = yield call(loadCrumbs(action.payload));
@@ -40,18 +40,23 @@ function buildUrl(params, key) {
         case 'm_1':
             return '/?' + queryString.stringify({
                 m_1: params.m_1,
-                m_2: params.m_2
+                m_2: params.m_2,
+                m_3: defaultCode,
+                m_4: defaultCode
             });
         case 'm_2':
             return '/?' +  queryString.stringify({
                 m_1: params.m_1,
-                m_2: params.m_2
+                m_2: params.m_2,
+                m_3: defaultCode,
+                m_4: defaultCode
             });
         case 'm_3':
             return '/?' + queryString.stringify({
                 m_1: params.m_1,
                 m_2: params.m_2,
-                m_3: params.m_3
+                m_3: params.m_3,
+                m_4: defaultCode
             });
         case 'm_4':
             return '/?' + queryString.stringify({

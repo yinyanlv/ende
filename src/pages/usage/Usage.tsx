@@ -6,7 +6,8 @@ import classnames from 'classnames';
 import {Tree, Table, Button} from 'antd';
 import {Panel} from '@/components/panel';
 import {SvgHotPoint} from '@/components/svg-hot-point';
-import {groupCreator} from './actions';
+import {groupsCreator, legendsCreator} from './actions';
+import {Parts} from './parts';
 import styles from './usage.module.scss';
 
 const TreeNode = Tree.TreeNode;
@@ -18,8 +19,9 @@ export function PageUsage() {
     const location = useLocation();
     const history = useHistory();
     const {
-        group,
-        isGroupLoading,
+        groups,
+        isGroupsLoading,
+        activeTreeNodeCode
     } = useSelector((state: any) => {
         return state.usage;
     });
@@ -30,12 +32,8 @@ export function PageUsage() {
     });
 
     useEffect(() => {
-        if (location.search) {
-            const queryObj = queryString.parse(location.search);
-            dispatch(groupCreator.load(queryObj));
-        } else {
-            dispatch(groupCreator.load());
-        }
+        const queryObj = queryString.parse(location.search);
+        dispatch(groupsCreator.load(queryObj));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
@@ -52,106 +50,44 @@ export function PageUsage() {
         console.log(callout);
     }
 
-    function onSelect() {
+    function onSelectTreeNode(codes) {
+        let queryObj = queryString.parse(location.search);
 
+        if (codes.length) {
+            queryObj.s_1 = codes[0];
+            dispatch(legendsCreator.load(queryObj));
+        }
     }
 
-    const columns = [{
-        title: '#',
-        dataIndex: 'callout',
-        width: 40,
-    }, {
-        title: '零件编号',
-        dataIndex: 'partNumber',
-        width: 100,
-        render: (text, record) => (
-            <span>
-            <Link to='/part/111111'>{text}</Link>
-            </span>
-        )
-    }, {
-        title: '左右',
-        dataIndex: 'age',
-        width: 50
-    }, {
-        title: '名称描述',
-        dataIndex: 'name'
-    }, {
-        title: '年',
-        dataIndex: 'year',
-        width: 60
-    }, {
-        title: '用途',
-        dataIndex: 'usage'
-    }, {
-        title: '量',
-        dataIndex: 'count',
-        width: 40
-    }, {
-        title: '操作',
-        dataIndex: '',
-        width: 80,
-        render: (text, record) => (
-            <span>
-            <Button>购买</Button>
-            </span>
-        )
-    }];
-
-    const data: any = [];
-    for (let i = 0; i < 30; i++) {
-        data.push({
-            key: i,
-            callout: i,
-            name: `凸轮轴轴承盖螺栓`,
-            year: 2018,
-            age: 32,
-            count: 121,
-            partNumber: 23864864,
-            usage: `(DB)(DC)(DD) 36 (LJO M2P)`,
+    function renderTreeNodes(list: any) {
+        return list.map(item => {
+            const title = item.code + ' - ' + item.text;
+            if (item.children) {
+                return (
+                    <TreeNode title={title} key={item.code}>
+                        {renderTreeNodes(item.children)}
+                    </TreeNode>
+                );
+            }
+            return <TreeNode title={title} key={item.code}></TreeNode>;
         });
     }
 
     return (
         <>
             <div className={classnames(['inner-container', styles.container])}>
-
-                <Panel isLoading={false} title={'组别'} className={'panel-tree'}>
-                    <Tree showLine defaultExpandedKeys={['0-0-0']} onSelect={onSelect} style={{width: '238px'}} onClick={()=> {
-                        setIsShowLegend(false)
-                    }}>
-                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="0-0">
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-1"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-2"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-3"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-4"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-5"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="0-0-6"></TreeNode>
-                        </TreeNode>
-                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="1-0">
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-1"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-2"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-3"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-4"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-5"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="1-0-6"></TreeNode>
-                        </TreeNode>
-                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="2-0">
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-1"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-2"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-3"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-4"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-5"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="2-0-6"></TreeNode>
-                        </TreeNode>
-                        <TreeNode title="00 - 发动机-发动机装配-离合器" key="3-0">
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-1"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-2"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-3"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-4"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-5"></TreeNode>
-                            <TreeNode title="BQ00-001 - 发动机总成(N15T)" key="3-0-6"></TreeNode>
-                        </TreeNode>
+                <Panel isLoading={isGroupsLoading} title={'组别'} className={'panel-tree'}>
+                    <Tree showLine
+                          onSelect={onSelectTreeNode}
+                          style={{width: '238px'}}
+                          defaultSelectedKeys={[activeTreeNodeCode]}
+                          onClick={() => {
+                              setIsShowLegend(false)
+                          }}
+                    >
+                        {
+                            renderTreeNodes(groups)
+                        }
                     </Tree>
                 </Panel>
                 <div className="panel panel-legend-list" style={{display: isShowLegend ? 'none' : 'flex'}}>
@@ -160,13 +96,13 @@ export function PageUsage() {
                             <li className="item" onClick={() => {
                                 setIsShowLegend(true);
                             }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt="" /></span>
+                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt=""/></span>
                                 <span className="text">CN150M - 五菱宏光PLUS</span>
                             </li>
                             <li className="item" onClick={() => {
                                 setIsShowLegend(true);
                             }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt="" /></span>
+                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt=""/></span>
                                 <span className="text">CN150M - 五菱宏光PLUS</span>
                             </li>
                         </ul>
@@ -179,8 +115,7 @@ export function PageUsage() {
                 </div>
 
                 <div className="panel panel-part-list" style={{display: isShowLegend ? 'flex' : 'none'}}>
-                    <Table columns={columns} dataSource={data} size={'small'} scroll={{y: styles.partsTableBodyHeight}}
-                           pagination={false}/>
+                    <Parts />
                 </div>
             </div>
         </>

@@ -1,28 +1,35 @@
 import * as actions from './actions';
 
 const initialState = {
-    isGroupLoading: false,
-    group: []
+    isGroupsLoading: false,
+    groups: [],
+    activeTreeNodeCode: '00',
+    legends: []
 };
 
 export function usageReducer(state = initialState, action: any) {
 
     switch (action.type) {
-        case actions.LOAD_GROUP:
+        case actions.LOAD_GROUPS:
             return {
                 ...state,
-                isGroupLoading: true
+                isGroupsLoading: true
             };
-        case actions.LOAD_GROUP_SUCCESS:
+        case actions.LOAD_GROUPS_SUCCESS:
             return {
                 ...state,
-                isGroupLoading: false,
-                group: action.payload
+                isGroupsLoading: false,
+                groups: action.payload
             };
-        case actions.LOAD_GROUP_FAILED:
+        case actions.LOAD_GROUPS_FAILED:
             return {
                 ...state,
-                isGroupLoading: false
+                isGroupsLoading: false
+            };
+        case actions.LOAD_LEGENDS_SUCCESS:
+            return {
+                ...state,
+                legends: action.payload
             };
         case actions.SET_ACTIVE_CODES:
             return {
