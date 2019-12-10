@@ -3,7 +3,7 @@ import {Button, Table} from 'antd';
 import {Link} from 'react-router-dom';
 import styles from './Parts.module.scss';
 
-export function Parts() {
+export function Parts(props: any) {
 
     const columns = [{
         title: '#',
@@ -11,59 +11,44 @@ export function Parts() {
         width: 40,
     }, {
         title: '零件编号',
-        dataIndex: 'partNumber',
-        width: 100,
-        render: (text, record) => (
-            <span>
-            <Link to='/part/111111'>{text}</Link>
-            </span>
-        )
+        dataIndex: 'partCode',
+        width: 140,
+        render: (val, record) => {
+            return (
+                <span>
+                    <Link to={'/part/' + val}>{val}</Link>
+                </span>
+            );
+        }
     }, {
         title: '左右',
-        dataIndex: 'age',
-        width: 50
+        dataIndex: 'handName',
+        width: 70
     }, {
         title: '名称描述',
         dataIndex: 'name'
-    }, {
-        title: '年',
-        dataIndex: 'year',
-        width: 60
     }, {
         title: '用途',
         dataIndex: 'usage'
     }, {
         title: '量',
-        dataIndex: 'count',
+        dataIndex: 'formattedQty',
         width: 40
     }, {
         title: '操作',
         dataIndex: '',
         width: 80,
-        render: (text, record) => (
+        render: (val, record) => (
             <span>
             <Button>购买</Button>
             </span>
         )
     }];
 
-    const data: any = [];
-    for (let i = 0; i < 30; i++) {
-        data.push({
-            key: i,
-            callout: i,
-            name: `凸轮轴轴承盖螺栓`,
-            year: 2018,
-            age: 32,
-            count: 121,
-            partNumber: 23864864,
-            usage: `(DB)(DC)(DD) 36 (LJO M2P)`,
-        });
-    }
-
     return (
         <Table columns={columns}
-               dataSource={data}
+               dataSource={props.data || []}
+               rowKey={'partCode'}
                size={'small'}
                scroll={{y: styles.partsTableBodyHeight}}
                className={styles.partList}

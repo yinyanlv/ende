@@ -47,8 +47,6 @@
 
     .panel-legend-list {
       flex: 1;
-      background: transparent;
-      border-color: transparent;
       margin-left: 10px;
       overflow: hidden;
 
@@ -56,6 +54,7 @@
         width: 100%;
         height: 100%;
         overflow: auto;
+        padding: 10px;
       }
 
       .legend-list {

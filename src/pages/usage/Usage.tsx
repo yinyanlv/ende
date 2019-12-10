@@ -1,27 +1,32 @@
 import React, {useEffect, useRef, Ref, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link, useHistory, useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import queryString from 'query-string';
 import classnames from 'classnames';
-import {Tree, Table, Button} from 'antd';
+import {Tree} from 'antd';
+import {API_PREFIX} from '@/config';
 import {Panel} from '@/components/panel';
 import {SvgHotPoint} from '@/components/svg-hot-point';
-import {groupsCreator, legendsCreator} from './actions';
+import {groupsCreator, legendsCreator, partsCreator, usageCreator} from './actions';
 import {Parts} from './parts';
 import styles from './usage.module.scss';
 
 const TreeNode = Tree.TreeNode;
+const imageSuffix = '?/d/300';
+const svgPrefix = '/res';
 
 export function PageUsage() {
-    const svgHotPointRef: Ref<SvgHotPoint> | null = useRef(null);
-    const [isShowLegend, setIsShowLegend] = useState(false);
+    const svgHotPointRef: any = useRef(null);
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
     const {
         groups,
         isGroupsLoading,
-        activeTreeNodeCode
+        activeTreeNodeCode,
+        isShowParts,
+        legends,
+        parts
     } = useSelector((state: any) => {
         return state.usage;
     });
@@ -38,9 +43,55 @@ export function PageUsage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
-    useEffect(() => {
 
-    });
+    function handleClickTreeNode(e, node) {
+        let queryObj = queryString.parse(location.search);
+        let result = {};
+        const nodeCode = node.props.eventKey;
+        // let codes = params.parentCodes;
+
+        dispatch(usageCreator.setActiveCodes({
+            activeTreeNodeCode: nodeCode
+        }));
+
+        if (node.isLeaf()) {
+            handleClickLegend({
+                code: nodeCode,
+                parentCodes: []
+            });
+        } else {
+            let queryObj = queryString.parse(location.search);
+
+            dispatch(usageCreator.setIsShowParts(false));
+            queryObj.s_1 = nodeCode;
+            dispatch(legendsCreator.load(queryObj));
+        }
+
+        return false;
+    }
+
+    function handleClickLegend(params) {
+        const queryObj = queryString.parse(location.search);
+        const codes = params.parentCodes;
+        let result = {};
+
+        dispatch(usageCreator.setActiveCodes({
+            activeTreeNodeCode: params.code
+        }));
+        dispatch(usageCreator.setIsShowParts(true));
+
+        codes.forEach((item, index) => {
+            const key = 's_' + (index + 1);
+            result[key] = item;
+        });
+
+        if (svgHotPointRef && svgHotPointRef.current) {
+            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + params.svgFileUri);
+            // svgHotPointRef.current.loadSVG('/images/A-0001.svg');
+        }
+
+        dispatch(partsCreator.load(Object.assign({}, queryObj, result)));
+    }
 
     function legendLoadedHandler() {
         console.log('onLegendLoaded');
@@ -48,15 +99,6 @@ export function PageUsage() {
 
     function selectCalloutHandler(callout) {
         console.log(callout);
-    }
-
-    function onSelectTreeNode(codes) {
-        let queryObj = queryString.parse(location.search);
-
-        if (codes.length) {
-            queryObj.s_1 = codes[0];
-            dispatch(legendsCreator.load(queryObj));
-        }
     }
 
     function renderTreeNodes(list: any) {
@@ -78,45 +120,54 @@ export function PageUsage() {
             <div className={classnames(['inner-container', styles.container])}>
                 <Panel isLoading={isGroupsLoading} title={'组别'} className={'panel-tree'}>
                     <Tree showLine
-                          onSelect={onSelectTreeNode}
                           style={{width: '238px'}}
                           defaultSelectedKeys={[activeTreeNodeCode]}
-                          onClick={() => {
-                              setIsShowLegend(false)
-                          }}
+                          selectedKeys={[activeTreeNodeCode]}
+                          onClick={handleClickTreeNode}
                     >
                         {
                             renderTreeNodes(groups)
                         }
                     </Tree>
                 </Panel>
-                <div className="panel panel-legend-list" style={{display: isShowLegend ? 'none' : 'flex'}}>
-                    <div className="panel-content">
-                        <ul className="legend-list">
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt=""/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                            <li className="item" onClick={() => {
-                                setIsShowLegend(true);
-                            }}>
-                                <span className="image-wrapper"><img src={'/images/legend_1.gif'} alt=""/></span>
-                                <span className="text">CN150M - 五菱宏光PLUS</span>
-                            </li>
-                        </ul>
+                {
+                    !isShowParts && <div className="panel panel-legend-list">
+                        <div className="panel-content">
+                            <ul className="legend-list">
+                                {
+                                    legends && legends.map((item) => {
+                                        return (
+                                            <li className="item"
+                                                key={item.code}
+                                                onClick={handleClickLegend.bind(null, {
+                                                    code: item.code,
+                                                    parentCodes: item.parentIds,
+                                                    svgFileUri: item.svgFileUri
+                                                })}>
+                                                <span className="image-wrapper"><img src={resHost + item.imageFileUri + imageSuffix} alt={item.text}/></span>
+                                                <span className="text">{item.code} - {item.text}</span>
+                                            </li>
+                                        );
+                                    })
+                                }
+                            </ul>
+                        </div>
                     </div>
+                }
+
+                <div className="panel panel-legend" style={{display: isShowParts ? 'flex' : 'none'}}>
+                    <SvgHotPoint
+                        ref={svgHotPointRef}
+                        onLegendLoaded={legendLoadedHandler}
+                        onSelectCallout={selectCalloutHandler}
+                    />
                 </div>
 
-                <div className="panel panel-legend" style={{display: isShowLegend ? 'flex' : 'none'}}>
-                    <SvgHotPoint ref={svgHotPointRef} onLegendLoaded={legendLoadedHandler}
-                                 onSelectCallout={selectCalloutHandler}/>
-                </div>
-
-                <div className="panel panel-part-list" style={{display: isShowLegend ? 'flex' : 'none'}}>
-                    <Parts />
-                </div>
+                {
+                    isShowParts && <div className="panel panel-part-list">
+                        <Parts data={parts.usages} />
+                    </div>
+                }
             </div>
         </>
     );

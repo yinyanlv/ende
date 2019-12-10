@@ -2,6 +2,7 @@ import {createAction} from '@/common/utils';
 
 export const RESET_STATE = 'usage:reset-state';
 export const SET_ACTIVE_CODES = 'usage:set-active-codes';
+export const CONTROL_LEGEND_SHOW = 'usage:control-legend-show';
 
 export const LOAD_GROUPS = 'usage:load-groups';
 export const LOAD_GROUPS_SUCCESS = 'usage:load-groups-success';
@@ -20,7 +21,10 @@ export const usageCreator = {
         return createAction(RESET_STATE);
     },
     setActiveCodes: (params) => {
-        return createAction(SET_ACTIVE_CODES, rebuildActiveCodes(params));
+        return createAction(SET_ACTIVE_CODES, params);
+    },
+    setIsShowParts: (params) => {
+        return createAction(CONTROL_LEGEND_SHOW, params);
     }
 };
 
