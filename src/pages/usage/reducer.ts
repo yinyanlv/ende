@@ -7,7 +7,9 @@ const initialState = {
     groups: [],
     activeTreeNodeCode: defaultCode,
     isShowParts: false,
+    isLegendsLoading: false,
     legends: [],
+    isPartsLoading: false,
     parts: {
         usages: []
     }
@@ -32,15 +34,37 @@ export function usageReducer(state = initialState, action: any) {
                 ...state,
                 isGroupsLoading: false
             };
+        case actions.LOAD_LEGENDS:
+            return {
+                ...state,
+                isLegendsLoading: true
+            };
         case actions.LOAD_LEGENDS_SUCCESS:
             return {
                 ...state,
-                legends: action.payload
+                isLegendsLoading: false,
+                legends: action.payload,
+            };
+        case actions.LOAD_LEGENDS_FAILED:
+            return {
+                ...state,
+                isLegendsLoading: false
+            };
+        case actions.LOAD_PARTS:
+            return {
+                ...state,
+                isPartsLoading: true
             };
         case actions.LOAD_PARTS_SUCCESS:
             return {
                 ...state,
+                isPartsLoading: false,
                 parts: action.payload
+            };
+        case actions.LOAD_PARTS_FAILED:
+            return {
+                ...state,
+                isPartsLoading: false
             };
         case actions.CONTROL_LEGEND_SHOW:
             return {

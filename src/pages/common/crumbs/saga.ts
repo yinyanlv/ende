@@ -13,23 +13,42 @@ function* loadCrumbsController(action) {
 
 function loadCrumbs(params) {
     return () => {
-        return http.post('/mapping/name', params);
+        return http.post('/dictionary/name', params);
     };
 }
 
 function rebuildCrumbs(codeMap, nameMap) {
     const list: any[] = [];
     const keys = Object.keys(codeMap).sort();
+    const usageCrumbs: string[] = [];
 
     keys.forEach((key, index) => {
-        const temp: any = {};
-        temp.code = codeMap[key];
-        temp.name = nameMap[key];
-        temp.label = crumbsText[key];
-        temp.url = index < keys.length - 1 ? buildUrl(codeMap, key) : '';
 
-        list.push(temp);
+        if (key.startsWith('m_')) {
+            const temp: any = {};
+
+            temp.code = codeMap[key];
+            temp.name = nameMap[key];
+            temp.label = crumbsText[key];
+            temp.url = index < keys.length - 1 ? buildUrl(codeMap, key) : '';
+
+            list.push(temp);
+        } else if (key.startsWith('s_')) {
+            // 收集usage页面自有的crumbs
+            usageCrumbs.push(nameMap[key]);
+        }
     });
+
+    // 合并usage页面自有的crumbs
+    if (usageCrumbs.length) {
+        const usageName = usageCrumbs.join(' : ');
+        list.push({
+            code: defaultCode,
+            name: usageName,
+            label: crumbsText.s_1,
+            url: ''
+        });
+    }
 
     return list;
 }
@@ -59,7 +78,8 @@ function buildUrl(params, key) {
                 m_4: defaultCode
             });
         case 'm_4':
-            return '/?' + queryString.stringify({
+            // TODO，与五菱耦合严重
+            return '/usage?' + queryString.stringify({
                 m_1: params.m_1,
                 m_2: params.m_2,
                 m_3: params.m_3,

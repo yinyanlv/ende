@@ -28,15 +28,6 @@ export const usageCreator = {
     }
 };
 
-function rebuildActiveCodes(params) {
-    let obj = {};
-    Object.keys(params).forEach((key) => {
-        const newKey = 'activeM'+ key.replace('m_', '') +'Code';
-        obj[newKey] = params[key];
-    });
-    return obj;
-}
-
 export const groupsCreator = {
     load: (params) => {
         return createAction(LOAD_GROUPS, params);

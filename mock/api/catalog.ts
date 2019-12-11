@@ -88,7 +88,7 @@ mock.onPost(API_PREFIX + '/mapping/next').reply((req) => {
 });
 
 // 加载crumbs
-mock.onPost(API_PREFIX + '/mapping/name').reply((req) => {
+mock.onPost(API_PREFIX + '/dictionary/name').reply((req) => {
 
     return new Promise((resolve, reject) => {
         setTimeout(() => {

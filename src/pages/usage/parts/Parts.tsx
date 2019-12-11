@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Table} from 'antd';
+import {Button, Table, Icon, Tooltip} from 'antd';
 import {Link} from 'react-router-dom';
 import styles from './Parts.module.scss';
 
@@ -15,9 +15,26 @@ export function Parts(props: any) {
         width: 140,
         render: (val, record) => {
             return (
-                <span>
-                    <Link to={'/part/' + val}>{val}</Link>
-                </span>
+                <div className="operator-wrapper">
+                    <Link to={'/part/' + val} target={'_blank'}>{val}</Link>
+                    <div className="operator-line">
+                        <Tooltip title={'备注'}>
+                            <Icon type={'form'} onClick={handleClickCar} />
+                        </Tooltip>
+                        <Tooltip title={'复制'}>
+                            <Icon type={'copy'} onClick={handleClickCar} />
+                        </Tooltip>
+                        <Tooltip title={'加入购物车'}>
+                            <Icon type={'shopping-cart'} onClick={handleClickCar} />
+                        </Tooltip>
+                        <Tooltip title={'替换关系'}>
+                            <Icon type={'retweet'} onClick={handleClickCar} />
+                        </Tooltip>
+                        <Tooltip title={'配件反查'}>
+                            <Icon type={'car'} onClick={handleClickCar} />
+                        </Tooltip>
+                    </div>
+                </div>
             );
         }
     }, {
@@ -44,6 +61,10 @@ export function Parts(props: any) {
             </span>
         )
     }];
+
+    function handleClickCar() {
+        console.log('clicked car!');
+    }
 
     return (
         <Table columns={columns}

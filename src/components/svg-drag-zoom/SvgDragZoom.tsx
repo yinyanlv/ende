@@ -23,7 +23,7 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
     public degree: number = 0;
 
     // 默认图片路径
-    private noPicPath: string = '';
+    private noPicPath: string;
 
     // 请求svg ajax XHR 对象
     private xhr: any;
@@ -56,6 +56,7 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> 
 
         this.legendToolbarRef = React.createRef();
         this.legendBodyRef = React.createRef();
+        this.noPicPath = props.noPicPath || '';
     }
 
     componentDidMount(): void {

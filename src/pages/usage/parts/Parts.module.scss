@@ -8,9 +8,36 @@
 
   :global {
 
+    .ant-table-header {
+      border-radius: 0 !important;
+    }
+
     .ant-table-body {
       height: $part-list-body-height !important;
       overflow-y: auto !important;
+      border-radius: 0 !important;
+    }
+
+    .operator-wrapper{
+
+      & > a {
+        color: $font-color;
+        text-decoration: underline;
+
+        &:hover{
+          color: $primary-color;
+        }
+      }
+
+      .operator-line{
+        color: $primary-color;
+        margin-top:3px;
+
+        i {
+          cursor: pointer;
+          margin: 0 2px;
+        }
+      }
     }
   }
 }

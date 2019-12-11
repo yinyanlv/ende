@@ -7,6 +7,7 @@ export const crumbsText = {
     m_2: '目录',
     m_3: '年份',
     m_4: '车型',
+    s_1: '组别'
 };
 
 const initialState = {

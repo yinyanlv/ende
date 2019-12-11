@@ -24,30 +24,54 @@
         overflow-y: auto;
       }
 
-      .ant-tree {
+      .ant-tree{
+
+        .ant-tree-treenode-selected{
+
+          & > .ant-tree-switcher{
+            color: $primary-color !important;
+          }
+
+          & > .ant-tree-node-content-wrapper{
+            color: $primary-color !important;
+            background: $hover-bg-color !important;
+          }
+        }
 
         & > li > .ant-tree-node-content-wrapper{
-          width: 212px;
+          width: 214px;
           white-space: pre-wrap;
         }
 
         li .ant-tree-node-content-wrapper {
           height: auto;
+
+          &::before{
+            height: auto !important;
+          }
+
+          .ant-tree-iconEle{
+            text-align: left;
+            width:20px;
+          }
         }
 
         .ant-tree-child-tree {
-
           .ant-tree-node-content-wrapper {
-            width: 196px;
+            width: 200px;
             white-space: pre-wrap;
           }
         }
-      }
 
-      .ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper::before, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper::before{
-        top:0;
-        bottom:0;
-        height:auto;
+        .ant-tree-switcher-noop {
+          display: none;
+        }
+
+        .ant-tree-switcher_open, .ant-tree-switcher_close{
+          & + .ant-tree-node-content-wrapper > .ant-tree-iconEle{
+            display: none;
+          }
+        }
       }
     }
 
