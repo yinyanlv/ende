@@ -2,7 +2,7 @@ import React, {useEffect, useRef, Ref, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory, useLocation} from 'react-router-dom';
 import queryString from 'query-string';
-import classnames from 'classnames';
+import cls from 'classnames';
 import {Tree} from 'antd';
 import {API_PREFIX} from '@/config';
 import {Panel} from '@/components/panel';
@@ -11,6 +11,7 @@ import {groupsCreator, legendsCreator, partsCreator, usageCreator} from './actio
 import {Parts} from './parts';
 import styles from './usage.module.scss';
 
+const DirectoryTree = Tree.DirectoryTree;
 const TreeNode = Tree.TreeNode;
 const imageSuffix = '?/d/300';
 const svgPrefix = '/res';
@@ -45,10 +46,9 @@ export function PageUsage() {
 
 
     function handleClickTreeNode(e, node) {
-        let queryObj = queryString.parse(location.search);
-        let result = {};
         const nodeCode = node.props.eventKey;
-        // let codes = params.parentCodes;
+        const codes = node.props['data-code-path'].split('/');
+        const result = rebuildCodes(codes);
 
         dispatch(usageCreator.setActiveCodes({
             activeTreeNodeCode: nodeCode
@@ -57,40 +57,46 @@ export function PageUsage() {
         if (node.isLeaf()) {
             handleClickLegend({
                 code: nodeCode,
-                parentCodes: []
+                codePathList: codes
             });
         } else {
-            let queryObj = queryString.parse(location.search);
+            const queryObj = queryString.parse(location.search);
 
             dispatch(usageCreator.setIsShowParts(false));
-            queryObj.s_1 = nodeCode;
-            dispatch(legendsCreator.load(queryObj));
+            dispatch(legendsCreator.load(Object.assign({}, queryObj, result)));
         }
-
-        return false;
     }
 
     function handleClickLegend(params) {
         const queryObj = queryString.parse(location.search);
-        const codes = params.parentCodes;
-        let result = {};
+        const codes = params.codePathList;
+        const result = rebuildCodes(codes);
 
         dispatch(usageCreator.setActiveCodes({
             activeTreeNodeCode: params.code
         }));
         dispatch(usageCreator.setIsShowParts(true));
+        loadSvg(params.svgFileUri);
+        dispatch(partsCreator.load(Object.assign({}, queryObj, result)));
+    }
+
+    function loadSvg(svgUrl) {
+        if (svgHotPointRef && svgHotPointRef.current && svgUrl) {
+            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUrl);
+        } else {
+            svgHotPointRef.current.loadSVG('/images/A-0001.svg');
+        }
+    }
+
+    function rebuildCodes(codes) {
+        let result = {};
 
         codes.forEach((item, index) => {
             const key = 's_' + (index + 1);
             result[key] = item;
         });
 
-        if (svgHotPointRef && svgHotPointRef.current) {
-            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + params.svgFileUri);
-            // svgHotPointRef.current.loadSVG('/images/A-0001.svg');
-        }
-
-        dispatch(partsCreator.load(Object.assign({}, queryObj, result)));
+        return result;
     }
 
     function legendLoadedHandler() {
@@ -101,13 +107,14 @@ export function PageUsage() {
         console.log(callout);
     }
 
-    function renderTreeNodes(list: any) {
+    function renderTreeNodes(list: any, codePathStr = '') {
         return list.map(item => {
             const title = item.code + ' - ' + item.text;
             if (item.children) {
+                const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
                 return (
-                    <TreeNode title={title} key={item.code}>
-                        {renderTreeNodes(item.children)}
+                    <TreeNode title={title} key={item.code} data-code-path={tempCodePathStr}>
+                        {renderTreeNodes(item.children, tempCodePathStr)}
                     </TreeNode>
                 );
             }
@@ -117,18 +124,19 @@ export function PageUsage() {
 
     return (
         <>
-            <div className={classnames(['inner-container', styles.container])}>
+            <div className={cls(['inner-container', styles.container])}>
                 <Panel isLoading={isGroupsLoading} title={'组别'} className={'panel-tree'}>
-                    <Tree showLine
-                          style={{width: '238px'}}
-                          defaultSelectedKeys={[activeTreeNodeCode]}
-                          selectedKeys={[activeTreeNodeCode]}
-                          onClick={handleClickTreeNode}
+                    <DirectoryTree
+                        expandAction="click"
+                        style={{width: '238px'}}
+                        defaultSelectedKeys={[activeTreeNodeCode]}
+                        selectedKeys={[activeTreeNodeCode]}
+                        onClick={handleClickTreeNode}
                     >
                         {
                             renderTreeNodes(groups)
                         }
-                    </Tree>
+                    </DirectoryTree>
                 </Panel>
                 {
                     !isShowParts && <div className="panel panel-legend-list">
@@ -141,10 +149,12 @@ export function PageUsage() {
                                                 key={item.code}
                                                 onClick={handleClickLegend.bind(null, {
                                                     code: item.code,
-                                                    parentCodes: item.parentIds,
+                                                    codePathList: item.parentIds,
                                                     svgFileUri: item.svgFileUri
                                                 })}>
-                                                <span className="image-wrapper"><img src={resHost + item.imageFileUri + imageSuffix} alt={item.text}/></span>
+                                                <span className="image-wrapper"><img
+                                                    src={resHost + item.imageFileUri + imageSuffix}
+                                                    alt={item.text}/></span>
                                                 <span className="text">{item.code} - {item.text}</span>
                                             </li>
                                         );
@@ -165,7 +175,7 @@ export function PageUsage() {
 
                 {
                     isShowParts && <div className="panel panel-part-list">
-                        <Parts data={parts.usages} />
+                        <Parts data={parts.usages}/>
                     </div>
                 }
             </div>

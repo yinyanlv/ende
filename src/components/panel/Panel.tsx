@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import cls from 'classnames';
 import {Loading} from '@/components/loading';
 import {Icon} from 'antd';
 import styles from './Panel.module.scss';
@@ -16,7 +16,7 @@ interface PanelProps {
 export function Panel(props: PanelProps) {
 
     return (
-        <div className={classnames(styles.panel, props.className || '')} >
+        <div className={cls(styles.panel, props.className || '')} >
             <Loading isLoading={props.isLoading}>
                 {
                     props.mode && props.mode === 'empty' ? (

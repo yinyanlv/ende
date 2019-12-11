@@ -1,7 +1,7 @@
 import React from 'react';
 import Magnifier  from 'react-magnifier';
 import {Descriptions, Tabs, Button, Table} from 'antd';
-import classnames from 'classnames';
+import cls from 'classnames';
 import styles from './part.module.scss';
 import {Link} from "react-router-dom";
 
@@ -66,7 +66,7 @@ export function PagePart() {
     };
 
     return (
-        <div className={classnames(['inner-container', styles.container])}>
+        <div className={cls(['inner-container', styles.container])}>
             <div className="part-detail">
                 <div className="magnifier-box">
                     <Magnifier src={'/images/part_large.jpg'} width={500} />

@@ -43,6 +43,12 @@
           }
         }
       }
+
+      .ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper::before, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper::before{
+        top:0;
+        bottom:0;
+        height:auto;
+      }
     }
 
     .panel-legend-list {
