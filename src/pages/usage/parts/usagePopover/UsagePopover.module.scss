@@ -1,0 +1,12 @@
+@import "src/scss/sdk/index";
+
+.usageContent {
+  width: 400px;
+
+  :global{
+
+    .ant-table-wrapper{
+      width: 400px;
+    }
+  }
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Button, Table, Icon, Tooltip} from 'antd';
 import {Link} from 'react-router-dom';
+import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
 
 export function Parts(props: any) {
-
     const columns = [{
         title: '#',
         dataIndex: 'callout',
@@ -19,19 +19,19 @@ export function Parts(props: any) {
                     <Link to={'/part/' + val} target={'_blank'}>{val}</Link>
                     <div className="operator-line">
                         <Tooltip title={'备注'}>
-                            <Icon type={'form'} onClick={handleClickCar} />
+                            <Icon type={'form'} onClick={handleClickCar}/>
                         </Tooltip>
                         <Tooltip title={'复制'}>
-                            <Icon type={'copy'} onClick={handleClickCar} />
+                            <Icon type={'copy'} onClick={handleClickCar}/>
                         </Tooltip>
                         <Tooltip title={'加入购物车'}>
-                            <Icon type={'shopping-cart'} onClick={handleClickCar} />
+                            <Icon type={'shopping-cart'} onClick={handleClickCar}/>
                         </Tooltip>
                         <Tooltip title={'替换关系'}>
-                            <Icon type={'retweet'} onClick={handleClickCar} />
+                            <Icon type={'retweet'} onClick={handleClickCar}/>
                         </Tooltip>
                         <Tooltip title={'配件反查'}>
-                            <Icon type={'car'} onClick={handleClickCar} />
+                            <Icon type={'car'} onClick={handleClickCar}/>
                         </Tooltip>
                     </div>
                 </div>
@@ -46,7 +46,12 @@ export function Parts(props: any) {
         dataIndex: 'name'
     }, {
         title: '用途',
-        dataIndex: 'usage'
+        dataIndex: 'usage',
+        render: (val, record) => (
+            <UsagePopover params={{id: record.id}}>
+                <span>abcdefg</span>
+            </UsagePopover>
+        )
     }, {
         title: '量',
         dataIndex: 'formattedQty',
@@ -57,7 +62,7 @@ export function Parts(props: any) {
         width: 80,
         render: (val, record) => (
             <span>
-            <Button>购买</Button>
+                <Button>购买</Button>
             </span>
         )
     }];
