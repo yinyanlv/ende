@@ -5,16 +5,14 @@ import * as actions from './actions';
 import {crumbsText, defaultCode} from './reducer';
 
 function* loadCrumbsController(action) {
-    const crumbs = yield call(loadCrumbs(action.payload));
+    const crumbs = yield call(loadCrumbs, action.payload);
     const crumbsList = rebuildCrumbs(action.payload, crumbs);
 
     yield put(actions.crumbsCreator.setCrumbs(crumbsList));
 }
 
 function loadCrumbs(params) {
-    return () => {
-        return http.post('/dictionary/name', params);
-    };
+    return http.post('/dictionary/name', params);
 }
 
 function rebuildCrumbs(codeMap, nameMap) {

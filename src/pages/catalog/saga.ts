@@ -47,7 +47,7 @@ function* loadBrandsController(action) {
 
 function* loadConditionsController(action) {
     try {
-        const data = yield call(loadConditions(action.payload));
+        const data = yield call(loadConditions, action.payload);
 
         yield put(actions.conditionsCreator.success(rebuildConditions(data)));
     } catch (err) {
@@ -77,9 +77,7 @@ function loadBrands() {
 }
 
 function loadConditions(params) {
-    return () => {
-        return http.post('/mapping/next', params);
-    };
+    return http.post('/mapping/next', params);
 }
 
 export function* catalogSaga() {
