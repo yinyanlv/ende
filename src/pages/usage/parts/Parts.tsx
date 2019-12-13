@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Table, Icon, Tooltip} from 'antd';
 import {Link} from 'react-router-dom';
 import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
 
-export function Parts(props: any) {
+interface PartsProps {
+    data: any[],
+    onSelectParts: Function,
+    activeCallout?: any
+}
+
+export function Parts(props: PartsProps) {
+    const [selectedKeys, setSelectedKeys]: [any[], any] = useState([]);
     const columns = [{
         title: '#',
         dataIndex: 'callout',
@@ -67,18 +74,57 @@ export function Parts(props: any) {
         )
     }];
 
+    useEffect(() => {
+        if (props.activeCallout) {
+            const keys = getKeysByCallout(props.activeCallout);
+            setSelectedKeys(keys);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.activeCallout]);
+
     function handleClickCar() {
         console.log('clicked car!');
+    }
+
+    function handleSelect(record) {
+        const keys = getKeysByCallout(record.callout);
+        props.onSelectParts(record.callout);
+        setSelectedKeys(keys);
+    }
+
+    function getKeysByCallout(callout) {
+        let keys: any[] = [];
+
+        props.data.forEach((record) => {
+            if (record.callout === callout) {
+                keys.push(record.id);
+            }
+        });
+
+        return keys;
     }
 
     return (
         <Table columns={columns}
                dataSource={props.data || []}
-               rowKey={'partCode'}
+               rowKey={'id'}
                size={'small'}
                scroll={{y: styles.partsTableBodyHeight}}
                className={styles.partList}
                pagination={false}
+               onRow={(record) => {
+                    return {
+                      onClick: function () {
+                          handleSelect(record);
+                      }
+                    };
+               }}
+               rowSelection={{
+                   selectedRowKeys: selectedKeys,
+                   onSelect: (record) => {
+                       handleSelect(record);
+                   }
+               }}
         />
     );
 }

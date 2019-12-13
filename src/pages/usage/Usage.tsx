@@ -28,6 +28,8 @@ export function PageUsage() {
         groups,
         isGroupsLoading,
         activeTreeNodeCode,
+        expandedTreeNodeCodes,
+        activeCallout,
         isShowParts,
         isLegendsLoading,
         legends,
@@ -59,9 +61,8 @@ export function PageUsage() {
         if (activeTreeNodeCode === nodeCode) {
             return;
         }
-        dispatch(usageCreator.setActiveCodes({
-            activeTreeNodeCode: nodeCode
-        }));
+
+        dispatch(usageCreator.setActiveTreeNodeCode(nodeCode));
 
         if (node.isLeaf()) {
             handleClickLegend({
@@ -72,6 +73,11 @@ export function PageUsage() {
             const queryObj = getCleanQueryObj();
             const params = Object.assign({}, queryObj, codesMap);
 
+            const expandedCodes = node.props.expanded
+                ? expandedTreeNodeCodes.filter(code => code !== node.props.eventKey)
+                : expandedTreeNodeCodes.concat(node.props.eventKey);
+
+            dispatch(usageCreator.setExpandedTreeNodeCodes(expandedCodes));
             dispatch(usageCreator.setIsShowParts(false));
             dispatch(legendsCreator.load(params));
             dispatch(crumbsCreator.load(params));
@@ -97,9 +103,7 @@ export function PageUsage() {
         const codes = params.codePathList;
         const codesMap = rebuildCodes(codes);
 
-        dispatch(usageCreator.setActiveCodes({
-            activeTreeNodeCode: params.code
-        }));
+        dispatch(usageCreator.setActiveTreeNodeCode(params.code));
         dispatch(usageCreator.setIsShowParts(true));
         loadSvg(params.svgFileUri);
         const temp = Object.assign({}, queryObj, codesMap);
@@ -128,12 +132,8 @@ export function PageUsage() {
         return result;
     }
 
-    function legendLoadedHandler() {
-        console.log('onLegendLoaded');
-    }
-
     function selectCalloutHandler(callout) {
-        console.log(callout);
+        dispatch(usageCreator.setActiveCallout(callout));
     }
 
     function renderTreeNodes(list: any, codePathStr = '') {
@@ -147,9 +147,19 @@ export function PageUsage() {
                     </TreeNode>
                 );
             }
-            return <TreeNode icon={<Icon type="profile"/>} title={title} key={item.code}
-                             data-code-path={tempCodePathStr}></TreeNode>;
+            return (
+                <TreeNode
+                    icon={<Icon type="profile"/>}
+                    title={title}
+                    key={item.code}
+                    data-code-path={tempCodePathStr}
+                />
+            );
         });
+    }
+
+    function handleSelectParts(callout) {
+        svgHotPointRef.current.activeCallout([callout]);
     }
 
     return (
@@ -158,8 +168,10 @@ export function PageUsage() {
                 <Panel isLoading={isGroupsLoading} title={crumbsText.s_1} className={'panel-tree'}>
                     <DirectoryTree
                         expandAction="click"
-                        autoExpandParent={true}
                         style={{width: '238px'}}
+                        defaultExpandAll={true}
+                        defaultExpandedKeys={expandedTreeNodeCodes}
+                        expandedKeys={expandedTreeNodeCodes}
                         defaultSelectedKeys={[activeTreeNodeCode]}
                         selectedKeys={[activeTreeNodeCode]}
                         onClick={handleClickTreeNode}
@@ -204,7 +216,6 @@ export function PageUsage() {
                     <SvgHotPoint
                         ref={svgHotPointRef}
                         noPicPath={'/images/nopic.gif'}
-                        onLegendLoaded={legendLoadedHandler}
                         onSelectCallout={selectCalloutHandler}
                     />
                 </div>
@@ -212,7 +223,11 @@ export function PageUsage() {
                 {
                     isShowParts &&
                     <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
-                        <Parts data={parts.usages}/>
+                        <Parts
+                            data={parts.usages}
+                            activeCallout={activeCallout}
+                            onSelectParts={handleSelectParts}
+                        />
                     </Panel>
                 }
             </div>

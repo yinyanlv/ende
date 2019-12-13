@@ -1,11 +1,12 @@
 import * as actions from './actions';
 import {defaultCode} from '@/pages/common/crumbs/reducer';
 
-
 const initialState = {
     isGroupsLoading: false,
     groups: [],
+    expandedTreeNodeCodes: [],
     activeTreeNodeCode: defaultCode,
+    activeCallout: '',
     isShowParts: false,
     isLegendsLoading: false,
     legends: [],
@@ -71,11 +72,20 @@ export function usageReducer(state = initialState, action: any) {
                 ...state,
                 isShowParts: action.payload
             };
-        case actions.SET_ACTIVE_CODES:
+        case actions.SET_ACTIVE_TREE_NODE_CODE:
             return {
                 ...state,
-                activeTreeNodeCode: defaultCode,
-                ...action.payload
+                activeTreeNodeCode: action.payload
+            };
+        case actions.SET_EXPANDED_TREE_NODE_CODES:
+            return {
+                ...state,
+                expandedTreeNodeCodes: action.payload
+            };
+        case actions.SET_ACTIVE_CALLOUT:
+            return {
+                ...state,
+                activeCallout: action.payload
             };
         case actions.RESET_STATE:
             return {

@@ -1,7 +1,7 @@
 import {SvgDragZoom, SvgDragZoomProps} from '@/components/svg-drag-zoom';
 
 export interface SvgHotPointProps extends SvgDragZoomProps {
-    onLegendLoaded: Function;
+    onLegendLoaded?: Function;
     onSelectCallout: Function;
 }
 
@@ -28,7 +28,7 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
         this.markCalloutOriginalPosition();
         this.addLegendEvents();
         this.hideLoading();
-        this.props.onLegendLoaded();
+        this.props.onLegendLoaded && this.props.onLegendLoaded();
     }
 
     // 获取所有的callout 文本对象

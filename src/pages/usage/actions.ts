@@ -1,7 +1,9 @@
 import {createAction} from '@/common/utils';
 
 export const RESET_STATE = 'usage:reset-state';
-export const SET_ACTIVE_CODES = 'usage:set-active-codes';
+export const SET_ACTIVE_TREE_NODE_CODE = 'usage:set-active-tree-node-code';
+export const SET_EXPANDED_TREE_NODE_CODES = 'usage:set-expanded-tree-node-codes';
+export const SET_ACTIVE_CALLOUT = 'usage:set-active-callout';
 export const CONTROL_LEGEND_SHOW = 'usage:control-legend-show';
 
 export const LOAD_GROUPS = 'usage:load-groups';
@@ -20,8 +22,14 @@ export const usageCreator = {
     resetState: () => {
         return createAction(RESET_STATE);
     },
-    setActiveCodes: (params) => {
-        return createAction(SET_ACTIVE_CODES, params);
+    setActiveTreeNodeCode: (params) => {
+        return createAction(SET_ACTIVE_TREE_NODE_CODE, params);
+    },
+    setExpandedTreeNodeCodes: (params) => {
+        return createAction(SET_EXPANDED_TREE_NODE_CODES, params);
+    },
+    setActiveCallout: (params) => {
+        return createAction(SET_ACTIVE_CALLOUT, params);
     },
     setIsShowParts: (params) => {
         return createAction(CONTROL_LEGEND_SHOW, params);
