@@ -1,18 +1,7 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {all, call, fork, put, takeLatest} from 'redux-saga/effects';
 import {http} from '@/common/http';
 import * as actions from './actions';
-import * as crumbsActions from "@/pages/common/crumbs/actions";
-
-function* loadGroupsController(action) {
-    try {
-        const params = action.payload;
-        const groups = yield call(loadGroup, params);
-        yield put(actions.groupsCreator.success(groups && groups.list));
-        yield put(crumbsActions.crumbsCreator.load(params));
-    } catch (err) {
-        yield put(actions.groupsCreator.failed(err.message));
-    }
-}
+import {groupsSaga} from './groups/saga';
 
 function* loadLegendsController(action) {
     try {
@@ -34,10 +23,6 @@ function* loadPartsController(action) {
     }
 }
 
-function loadGroup(params) {
-    return http.post('/usage', params);
-}
-
 function loadLegends(params) {
     return http.post('/usage/struct/flat-descendant', params);
 }
@@ -47,7 +32,9 @@ function loadParts(params) {
 }
 
 export function* usageSaga() {
-    yield takeLatest(actions.LOAD_GROUPS, loadGroupsController);
+    yield all([
+        fork(groupsSaga)
+    ]);
     yield takeLatest(actions.LOAD_LEGENDS, loadLegendsController);
     yield takeLatest(actions.LOAD_PARTS, loadPartsController);
 }

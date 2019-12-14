@@ -1,0 +1,64 @@
+@import "src/scss/sdk/index";
+
+:global {
+  .panel-tree {
+    width: 250px;
+    height: 100%;
+
+    .panel-content-inner {
+      padding: 5px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .ant-tree{
+
+      .ant-tree-treenode-selected{
+
+        & > .ant-tree-switcher{
+          color: $primary-color !important;
+        }
+
+        & > .ant-tree-node-content-wrapper{
+          color: $primary-color !important;
+          background: $hover-bg-color !important;
+        }
+      }
+
+      & > li > .ant-tree-node-content-wrapper{
+        width: 214px;
+        white-space: pre-wrap;
+      }
+
+      li .ant-tree-node-content-wrapper {
+        height: auto;
+
+        &::before{
+          height: auto !important;
+        }
+
+        .ant-tree-iconEle{
+          text-align: left;
+          width:20px;
+        }
+      }
+
+      .ant-tree-child-tree {
+        .ant-tree-node-content-wrapper {
+          width: 200px;
+          white-space: pre-wrap;
+        }
+      }
+
+      .ant-tree-switcher-noop {
+        display: none;
+      }
+
+      .ant-tree-switcher_open, .ant-tree-switcher_close{
+        & + .ant-tree-node-content-wrapper > .ant-tree-iconEle{
+          display: none;
+        }
+      }
+    }
+  }
+}

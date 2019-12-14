@@ -13,3 +13,16 @@ export function updateLocationSearch(params = {}) {
         search: queryString.stringify(params)
     }));
 }
+
+export function getCleanQueryObj() {
+    const queryObj = queryString.parse(history.location.search);
+    let result = {};
+
+    Object.keys(queryObj).forEach((key) => {
+        if (!key.startsWith('s_')) {
+            result[key] = queryObj[key];
+        }
+    });
+
+    return result;
+}

@@ -1,47 +1,29 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useCallback, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useLocation} from 'react-router-dom';
-import queryString from 'query-string';
 import cls from 'classnames';
-import Img from 'react-image';
-import {Tree, Icon} from 'antd';
 import {API_PREFIX} from '@/config';
-import {updateLocationSearch} from '@/common/utils';
+import {updateLocationSearch, getCleanQueryObj} from '@/common/utils';
 import {Panel} from '@/components/panel';
 import {SvgHotPoint} from '@/components/svg-hot-point';
-import {crumbsText} from '@/pages/common/crumbs/reducer';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
-import {groupsCreator, legendsCreator, partsCreator, usageCreator} from './actions';
+import {groupsCreator, partsCreator, usageCreator} from './actions';
+import {Groups} from './groups';
+import {Legends} from './legends';
 import {Parts} from './parts';
 import styles from './usage.module.scss';
 
-const DirectoryTree = Tree.DirectoryTree;
-const TreeNode = Tree.TreeNode;
-const imageSuffix = '?/d/300';
 const svgPrefix = '/res';
 
 export function PageUsage() {
     const svgHotPointRef: any = useRef(null);
     const dispatch = useDispatch();
-    const location = useLocation();
     const {
-        groups,
-        isGroupsLoading,
-        activeTreeNodeCode,
-        expandedTreeNodeCodes,
         activeCallout,
         isShowParts,
-        isLegendsLoading,
-        legends,
         isPartsLoading,
         parts
     } = useSelector((state: any) => {
         return state.usage;
-    });
-    const {
-        resHost
-    } = useSelector((state: any) => {
-        return state.auth;
     });
 
     useEffect(() => {
@@ -51,54 +33,7 @@ export function PageUsage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
-
-    function handleClickTreeNode(e, node) {
-        const nodeCode = node.props.eventKey;
-        const codes = node.props['data-code-path'].split('/');
-        const codesMap = rebuildCodes(codes);
-
-        e.persist();
-        if (activeTreeNodeCode === nodeCode) {
-            return;
-        }
-
-        dispatch(usageCreator.setActiveTreeNodeCode(nodeCode));
-
-        if (node.isLeaf()) {
-            handleClickLegend({
-                code: nodeCode,
-                codePathList: codes
-            });
-        } else {
-            const queryObj = getCleanQueryObj();
-            const params = Object.assign({}, queryObj, codesMap);
-
-            const expandedCodes = node.props.expanded
-                ? expandedTreeNodeCodes.filter(code => code !== node.props.eventKey)
-                : expandedTreeNodeCodes.concat(node.props.eventKey);
-
-            dispatch(usageCreator.setExpandedTreeNodeCodes(expandedCodes));
-            dispatch(usageCreator.setIsShowParts(false));
-            dispatch(legendsCreator.load(params));
-            dispatch(crumbsCreator.load(params));
-            updateLocationSearch(params);
-        }
-    }
-
-    function getCleanQueryObj() {
-        const queryObj = queryString.parse(location.search);
-        let result = {};
-
-        Object.keys(queryObj).forEach((key) => {
-            if (!key.startsWith('s_')) {
-                result[key] = queryObj[key];
-            }
-        });
-
-        return result;
-    }
-
-    function handleClickLegend(params) {
+    const showParts = useCallback((params) => {
         const queryObj = getCleanQueryObj();
         const codes = params.codePathList;
         const codesMap = rebuildCodes(codes);
@@ -110,7 +45,9 @@ export function PageUsage() {
         dispatch(partsCreator.load(temp));
         dispatch(crumbsCreator.load(temp));
         updateLocationSearch(temp);
-    }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function loadSvg(svgUrl) {
         if (svgHotPointRef && svgHotPointRef.current && svgUrl) {
@@ -136,28 +73,6 @@ export function PageUsage() {
         dispatch(usageCreator.setActiveCallout(callout));
     }
 
-    function renderTreeNodes(list: any, codePathStr = '') {
-        return list.map(item => {
-            const title = item.code + ' - ' + item.text;
-            const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
-            if (item.children && item.children.length) {
-                return (
-                    <TreeNode title={title} key={item.code} data-code-path={tempCodePathStr}>
-                        {renderTreeNodes(item.children, tempCodePathStr)}
-                    </TreeNode>
-                );
-            }
-            return (
-                <TreeNode
-                    icon={<Icon type="profile"/>}
-                    title={title}
-                    key={item.code}
-                    data-code-path={tempCodePathStr}
-                />
-            );
-        });
-    }
-
     function handleSelectParts(callout) {
         svgHotPointRef.current.activeCallout([callout]);
     }
@@ -165,51 +80,9 @@ export function PageUsage() {
     return (
         <>
             <div className={cls(['inner-container', styles.container])}>
-                <Panel isLoading={isGroupsLoading} title={crumbsText.s_1} className={'panel-tree'}>
-                    <DirectoryTree
-                        expandAction="click"
-                        style={{width: '238px'}}
-                        defaultExpandAll={true}
-                        defaultExpandedKeys={expandedTreeNodeCodes}
-                        expandedKeys={expandedTreeNodeCodes}
-                        defaultSelectedKeys={[activeTreeNodeCode]}
-                        selectedKeys={[activeTreeNodeCode]}
-                        onClick={handleClickTreeNode}
-                    >
-                        {
-                            renderTreeNodes(groups)
-                        }
-                    </DirectoryTree>
-                </Panel>
+                <Groups onClickTreeNode={showParts} />
                 {
-                    !isShowParts &&
-                    <Panel isLoading={isLegendsLoading} mode={'empty'} className={'panel-legend-list'}>
-                        <div className="panel-content">
-                            <ul className="legend-list">
-                                {
-                                    legends && legends.map((item) => {
-                                        return (
-                                            <li className="item"
-                                                key={item.code}
-                                                onClick={handleClickLegend.bind(null, {
-                                                    code: item.code,
-                                                    codePathList: item.parentIds,
-                                                    svgFileUri: item.svgFileUri
-                                                })}>
-                                                <span className="image-wrapper">
-                                                    <Img
-                                                        src={[resHost + item.imageFileUri + imageSuffix, '/images/nopic.gif']}
-                                                        alt={item.text}
-                                                    />
-                                                </span>
-                                                <span className="text">{item.code} - {item.text}</span>
-                                            </li>
-                                        );
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    </Panel>
+                    !isShowParts && <Legends onClickImage={showParts}/>
                 }
 
                 <div className="panel panel-legend" style={{display: isShowParts ? 'flex' : 'none'}}>
