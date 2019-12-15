@@ -1,21 +1,20 @@
-import React, {useEffect, useCallback, useRef} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
-import {API_PREFIX} from '@/config';
 import {updateLocationSearch, getCleanQueryObj} from '@/common/utils';
 import {Panel} from '@/components/panel';
-import {SvgHotPoint} from '@/components/svg-hot-point';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
-import {groupsCreator, partsCreator, usageCreator} from './actions';
+import {groupsCreator} from './groups/actions';
+import {legendCreator} from './legend/actions';
+import {partsCreator, usageCreator} from './actions';
 import {Groups} from './groups';
 import {Legends} from './legends';
+import {Legend} from './legend';
 import {Parts} from './parts';
 import styles from './usage.module.scss';
 
-const svgPrefix = '/res';
 
 export function PageUsage() {
-    const svgHotPointRef: any = useRef(null);
     const dispatch = useDispatch();
     const {
         activeCallout,
@@ -38,9 +37,10 @@ export function PageUsage() {
         const codes = params.codePathList;
         const codesMap = rebuildCodes(codes);
 
-        dispatch(usageCreator.setActiveTreeNodeCode(params.code));
         dispatch(usageCreator.setIsShowParts(true));
-        loadSvg(params.svgFileUri);
+        dispatch(groupsCreator.setActiveTreeNodeCode(params.code));
+        dispatch(legendCreator.setSvgUrl(params.svgUri));
+
         const temp = Object.assign({}, queryObj, codesMap);
         dispatch(partsCreator.load(temp));
         dispatch(crumbsCreator.load(temp));
@@ -48,15 +48,6 @@ export function PageUsage() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    function loadSvg(svgUrl) {
-        if (svgHotPointRef && svgHotPointRef.current && svgUrl) {
-            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUrl);
-        } else {
-            // svgHotPointRef.current.loadDefaultImg();
-            svgHotPointRef.current.loadSVG('/images/A-0001.svg');
-        }
-    }
 
     function rebuildCodes(codes) {
         let result = {};
@@ -69,29 +60,15 @@ export function PageUsage() {
         return result;
     }
 
-    function selectCalloutHandler(callout) {
-        dispatch(usageCreator.setActiveCallout(callout));
-    }
-
     function handleSelectParts(callout) {
-        svgHotPointRef.current.activeCallout([callout]);
+       dispatch(usageCreator.setActiveCallout(callout));
     }
 
     return (
         <>
             <div className={cls(['inner-container', styles.container])}>
                 <Groups onClickTreeNode={showParts} />
-                {
-                    !isShowParts && <Legends onClickImage={showParts}/>
-                }
-
-                <div className="panel panel-legend" style={{display: isShowParts ? 'flex' : 'none'}}>
-                    <SvgHotPoint
-                        ref={svgHotPointRef}
-                        noPicPath={'/images/nopic.gif'}
-                        onSelectCallout={selectCalloutHandler}
-                    />
-                </div>
+                <Legend isShow={isShowParts} activeCallout={activeCallout} />
 
                 {
                     isShowParts &&
@@ -102,6 +79,10 @@ export function PageUsage() {
                             onSelectParts={handleSelectParts}
                         />
                     </Panel>
+                }
+
+                {
+                    !isShowParts && <Legends onClickImage={showParts}/>
                 }
             </div>
         </>

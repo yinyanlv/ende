@@ -14,15 +14,6 @@
       border: 1px solid $bd-color;
     }
 
-    .panel-legend {
-      flex: 1;
-      margin: 0 10px;
-
-      .svg-wrap {
-        height: calc(100vh - #{$header-height + $crumbs-height + 10});
-      }
-    }
-
     .panel-part-list {
       width: 800px;
     }

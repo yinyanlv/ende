@@ -39,7 +39,7 @@ export function Legends(props: LegendsProps) {
                                     onClick={handleClickLegend.bind(null, {
                                         code: item.code,
                                         codePathList: item.parentIds,
-                                        svgFileUri: item.svgFileUri
+                                        svgUri: item.svgFileUri
                                     })}>
                                                 <span className="image-wrapper">
                                                     <Img

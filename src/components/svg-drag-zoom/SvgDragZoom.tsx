@@ -11,7 +11,7 @@ export interface SvgDragZoomProps {
     noPicPath?: string;
 }
 
-export class SvgDragZoom<T extends SvgDragZoomProps> extends React.Component<T> {
+export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent<T> {
 
     state = {
         isLoading: false

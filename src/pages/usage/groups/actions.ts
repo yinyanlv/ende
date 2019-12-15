@@ -22,5 +22,5 @@ export const groupsCreator = {
     },
     setExpandedTreeNodeCodes: (params) => {
         return createAction(SET_EXPANDED_TREE_NODE_CODES, params);
-    },
+    }
 };

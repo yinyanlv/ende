@@ -41,10 +41,12 @@ function Groups(props: GroupsProps) {
         dispatch(groupsCreator.setActiveTreeNodeCode(nodeCode));
 
         if (node.isLeaf()) {
+            const svgUrl = node.props['data-svg-url'];
 
             props.onClickTreeNode({
                 code: nodeCode,
-                codePathList: codes
+                codePathList: codes,
+                svgUri: svgUrl
             });
         } else {
             const queryObj = getCleanQueryObj();
@@ -77,7 +79,7 @@ function Groups(props: GroupsProps) {
         return list.map(item => {
             const title = item.code + ' - ' + item.text;
             const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
-            if (item.children && item.children.length) {
+            if (!item.leaf) {
                 return (
                     <TreeNode title={title} key={item.code} data-code-path={tempCodePathStr}>
                         {renderTreeNodes(item.children, tempCodePathStr)}
@@ -90,6 +92,7 @@ function Groups(props: GroupsProps) {
                     title={title}
                     key={item.code}
                     data-code-path={tempCodePathStr}
+                    data-svg-url={item.svgFileUri}
                 />
             );
         });

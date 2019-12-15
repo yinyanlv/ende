@@ -4,11 +4,13 @@ import {crumbsReducer} from '@/pages/common/crumbs/reducer';
 import {catalogReducer} from '@/pages/catalog/reducer';
 import {usageReducer} from '@/pages/usage/reducer';
 import {groupsReducer} from '@/pages/usage/groups/reducer';
+import {legendReducer} from '@/pages/usage/legend/reducer';
 
 export const reducers = combineReducers({
     auth: authReducer,
     crumbs: crumbsReducer,
     catalog: catalogReducer,
     usage: usageReducer,
-    groups: groupsReducer
+    groups: groupsReducer,
+    legend: legendReducer
 });
