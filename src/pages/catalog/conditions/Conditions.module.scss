@@ -1,0 +1,90 @@
+@import "src/scss/sdk/index";
+
+:global {
+
+  .panel-year{
+    width: 185px;
+    margin-left: 10px;
+  }
+
+  .panel-model{
+    width: 345px;
+    margin-left: 10px;
+  }
+
+
+  .text-list{
+    width: 100%;
+
+    .item {
+      display: flex;
+      width:100%;
+      font-size: 13px;
+      @include setHeightGroup(30px);
+      cursor: pointer;
+      transition: background-color .3s ease-in-out;
+      @extend %textOverflowEllipsis;
+
+      .text-wrapper{
+        width: 100%;
+        height: 100%;
+        @extend %textOverflowEllipsis;
+      }
+
+      a{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        color: $font-color;
+        @extend %textOverflowEllipsis;
+      }
+
+      .icon-wrapper{
+        display: inline-block;
+        width: 30px;
+        @include setHeightGroup(30px);
+        text-align: center;
+
+        .dot {
+          display: inline-block;
+          padding:3px;
+          border-radius: 50%;
+          background: $icon-color;
+          transition: background-color .3s ease-in-out;
+        }
+      }
+
+      .text{
+        flex: 1;
+        padding: 0 5px 0 0;
+        transition: margin .3s ease-in-out;
+        @include setHeightGroup(30px);
+      }
+
+      &:hover{
+        color: $primary-color;
+
+        a{
+          color: $primary-color;
+        }
+
+        .dot{
+          background-color: $primary-color;
+        }
+
+        .text{
+          margin-left: -3px;
+        }
+      }
+
+      &.active{
+        background: $hover-bg-color;
+        color: $primary-color;
+
+        .dot{
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+}
