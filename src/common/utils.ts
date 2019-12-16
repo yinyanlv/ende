@@ -5,7 +5,7 @@ export function createAction(type, payload?) {
     return {
         type,
         payload
-    }
+    };
 }
 
 export function updateLocationSearch(params = {}) {

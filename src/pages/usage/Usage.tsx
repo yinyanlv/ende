@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
 import {updateLocationSearch, updateLocationHash, getMQueryObj, getHashObj} from '@/common/utils';
@@ -13,13 +13,12 @@ import {Legend} from './legend';
 import {Parts} from './parts';
 import styles from './usage.module.scss';
 
-
 export function PageUsage() {
     const dispatch = useDispatch();
-    const [isFirstLoad, setIsFirstLoad] = useState(true);
     const {
         activeCallout,
-        isShowParts
+        isShowParts,
+        isFirstLoad
     } = useSelector((state: any) => {
         return state.usage;
     });
@@ -31,7 +30,6 @@ export function PageUsage() {
         if (hashObj && hashObj.callout) {
             dispatch(usageCreator.setActiveCallout(hashObj.callout));
         }
-
 
         dispatch(groupsCreator.load());
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +74,7 @@ export function PageUsage() {
         updateLocationSearch(temp);
 
         if (isFirstLoad) {
-            setIsFirstLoad(false);
+            dispatch(usageCreator.setIsFirstLoad(false));
         } else {
             updateLocationHash();
         }

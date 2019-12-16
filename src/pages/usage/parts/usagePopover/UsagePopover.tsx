@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, PropsWithChildren} from 'react';
 import {Table, Popover, Skeleton} from 'antd';
 import {http} from '@/common/http';
 import styles from './UsagePopover.module.scss';
 
 interface UsagePopoverProps {
-    children: any;
     params: any;
 }
 
-export function UsagePopover(props: UsagePopoverProps) {
+export function UsagePopover(props: PropsWithChildren<UsagePopoverProps>) {
 
     const [isVisible, setIsVisible] = useState(false);
     const [list, setList] = useState([]);

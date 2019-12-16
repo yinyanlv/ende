@@ -2,7 +2,8 @@ import * as actions from './actions';
 
 const initialState = {
     activeCallout: '',
-    isShowParts: false
+    isShowParts: false,
+    isFirstLoad: true
 };
 
 export function usageReducer(state = initialState, action: any) {
@@ -17,6 +18,11 @@ export function usageReducer(state = initialState, action: any) {
             return {
                 ...state,
                 activeCallout: action.payload
+            };
+        case actions.SET_IS_FIRST_LOAD:
+            return {
+                ...state,
+                isFirstLoad: action.payload
             };
         case actions.RESET_STATE:
             return {

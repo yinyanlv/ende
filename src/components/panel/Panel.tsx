@@ -1,22 +1,19 @@
-import React from 'react';
+import React, {PropsWithChildren, HTMLProps} from 'react';
 import cls from 'classnames';
 import {Loading} from '@/components/loading';
 import {Icon} from 'antd';
 import styles from './Panel.module.scss';
 
-interface PanelProps {
-    children: any;
+interface PanelProps extends HTMLProps<HTMLDivElement> {
     isLoading: false;
     title?: string;
-    className?: string;
     mode?: string;
 }
 
-
-export function Panel(props: PanelProps) {
+export function Panel(props: PropsWithChildren<PanelProps>) {
 
     return (
-        <div className={cls(styles.panel, props.className || '')} >
+        <div {...props} className={cls(styles.panel, props.className)}>
             <Loading isLoading={props.isLoading}>
                 {
                     props.mode && props.mode === 'empty' ? (
