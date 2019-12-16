@@ -6,7 +6,7 @@ import {Panel} from '@/components/panel';
 import {usageCreator} from '@/pages/usage/actions';
 import {legendsCreator} from '@/pages/usage/legends/actions';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
-import {updateLocationSearch, getCleanQueryObj} from '@/common/utils';
+import {updateLocationSearch, getMQueryObj} from '@/common/utils';
 import {groupsCreator} from './actions';
 import './Groups.module.scss';
 
@@ -14,6 +14,7 @@ const DirectoryTree = Tree.DirectoryTree;
 const TreeNode = Tree.TreeNode;
 
 interface GroupsProps {
+    isFirstLoad: boolean;
     onClickTreeNode: Function;
 }
 
@@ -40,7 +41,7 @@ function Groups(props: GroupsProps) {
 
         if (node.isLeaf()) {
 
-            if (activeTreeNodeCode === nodeCode) {
+            if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
                 return;
             }
 
@@ -58,11 +59,11 @@ function Groups(props: GroupsProps) {
 
             dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
 
-            if (activeTreeNodeCode === nodeCode) {
+            if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
                 return;
             }
 
-            const queryObj = getCleanQueryObj();
+            const queryObj = getMQueryObj();
             const params = Object.assign({}, queryObj, codesMap);
 
             dispatch(usageCreator.setIsShowParts(false));

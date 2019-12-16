@@ -33,7 +33,13 @@ export function conditionsReducer(state = initialState, action: any) {
                 isConditionsLoading: false
             };
         case actions.SET_ACTIVE_CONDITIONS_CODES:
-            return Object.assign({}, state, action.paylaod);
+            return Object.assign({}, state, action.payload);
+        case actions.RESET_ACTIVE_CONDITIONS_CODES:
+            return {
+                ...state,
+                activeM3Code: defaultCode,
+                activeM4Code: defaultCode
+            };
         default:
             return state;
     }

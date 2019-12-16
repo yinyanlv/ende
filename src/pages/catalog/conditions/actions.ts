@@ -6,6 +6,7 @@ export const LOAD_CONDITIONS_SUCCESS = 'catalog:load-conditions-success';
 export const LOAD_CONDITIONS_FAILED = 'catalog:load-conditions-failed';
 
 export const SET_ACTIVE_CONDITIONS_CODES = 'catalog:set-active-conditions-codes';
+export const RESET_ACTIVE_CONDITIONS_CODES = 'catalog:reset-active-conditions-codes';
 
 export const conditionsCreator = {
     beforeLoad: () => {
@@ -22,6 +23,9 @@ export const conditionsCreator = {
     },
     setActiveConditionsCodes: (params) => {
         return createAction(SET_ACTIVE_CONDITIONS_CODES, rebuildActiveCodes(params));
+    },
+    resetActiveConditionsCodes: () => {
+        return createAction(RESET_ACTIVE_CONDITIONS_CODES);
     }
 };
 

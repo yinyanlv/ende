@@ -62,10 +62,10 @@ function Parts(props: PartsProps) {
         dataIndex: 'name'
     }, {
         title: '用途',
-        dataIndex: 'usage',
+        dataIndex: 'note',
         render: (val, record) => (
             <UsagePopover params={{id: record.id}}>
-                <span>abcdefg</span>
+                <span>{val}</span>
             </UsagePopover>
         )
     }, {
@@ -89,7 +89,7 @@ function Parts(props: PartsProps) {
             setSelectedKeys(keys);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.activeCallout]);
+    }, [props.activeCallout, isPartsLoading]);
 
     function handleClickCar() {
         console.log('clicked car!');

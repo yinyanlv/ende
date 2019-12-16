@@ -38,6 +38,7 @@ function Brands(props: BrandsProps) {
             m_2: m2Code
         };
         dispatch(brandsCreator.setActiveBrandsCodes(params));
+        dispatch(conditionsCreator.resetActiveConditionsCodes());
         dispatch(crumbsCreator.load(params));
         dispatch(conditionsCreator.load(params));
         updateLocationSearch(params);
@@ -59,6 +60,7 @@ function Brands(props: BrandsProps) {
             m_2: m2Code
         };
         dispatch(brandsCreator.setActiveBrandsCodes(params));
+        dispatch(conditionsCreator.resetActiveConditionsCodes());
         dispatch(crumbsCreator.load(params));
         dispatch(conditionsCreator.load(params));
         updateLocationSearch(params);

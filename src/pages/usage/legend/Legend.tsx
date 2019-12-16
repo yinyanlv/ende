@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SvgHotPoint} from '@/components/svg-hot-point';
-import {usageCreator} from '@/pages/usage/actions';
 import {API_PREFIX} from '@/config';
 import './Legend.module.scss';
 
@@ -10,6 +9,7 @@ const svgPrefix = '/res';
 interface LegendProps {
     isShow: boolean;
     activeCallout?: string;
+    onSelectCallout: Function;
 }
 
 function Legend(props: LegendProps) {
@@ -24,10 +24,10 @@ function Legend(props: LegendProps) {
     useEffect(() => {
 
         if (svgHotPointRef && svgHotPointRef.current && svgUri) {
-            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUri);
-        } else {
-            // svgHotPointRef.current.loadDefaultImg();
+            // svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUri);
             svgHotPointRef.current.loadSVG('/images/A-0001.svg');
+        } else {
+            svgHotPointRef.current.loadDefaultImg();
         }
 
     }, [svgUri]);
@@ -38,8 +38,14 @@ function Legend(props: LegendProps) {
         }
     }, [dispatch, props.activeCallout]);
 
-    function selectCalloutHandler(callout) {
-        dispatch(usageCreator.setActiveCallout(callout));
+    function handleSelectCallout(callout) {
+        props.onSelectCallout(callout);
+    }
+
+    function handleLegendLoaded() {
+        if (props.activeCallout) {
+            svgHotPointRef.current.activeCallout([props.activeCallout]);
+        }
     }
 
     return (
@@ -47,7 +53,8 @@ function Legend(props: LegendProps) {
             <SvgHotPoint
                 ref={svgHotPointRef}
                 noPicPath={'/images/nopic.gif'}
-                onSelectCallout={selectCalloutHandler}
+                onSelectCallout={handleSelectCallout}
+                onLegendLoaded={handleLegendLoaded}
             />
         </div>
     );

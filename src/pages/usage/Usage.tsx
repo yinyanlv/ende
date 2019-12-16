@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
-import {updateLocationSearch, getCleanQueryObj} from '@/common/utils';
+import {updateLocationSearch, updateLocationHash, getMQueryObj, getHashObj} from '@/common/utils';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
 import {usageCreator} from './actions';
 import {legendCreator} from '@/pages/usage/legend/actions';
@@ -16,6 +16,7 @@ import styles from './usage.module.scss';
 
 export function PageUsage() {
     const dispatch = useDispatch();
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
     const {
         activeCallout,
         isShowParts
@@ -24,9 +25,15 @@ export function PageUsage() {
     });
 
     useEffect(() => {
-        const queryObj = getCleanQueryObj();
-        dispatch(groupsCreator.load(queryObj));
 
+        const hashObj = getHashObj();
+
+        if (hashObj && hashObj.callout) {
+            dispatch(usageCreator.setActiveCallout(hashObj.callout));
+        }
+
+
+        dispatch(groupsCreator.load());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
@@ -35,16 +42,27 @@ export function PageUsage() {
         showParts(params);
     }
 
-    function handleSelectParts(callout) {
-        dispatch(usageCreator.setActiveCallout(callout));
-    }
-
     function handleClickImage(params) {
         showParts(params);
     }
 
+    function handleSelectParts(callout) {
+        updateCallout(callout);
+    }
+
+    function handleSelectCallout(callout) {
+        updateCallout(callout);
+    }
+
+    function updateCallout(callout) {
+        dispatch(usageCreator.setActiveCallout(callout));
+        updateLocationHash({
+            callout
+        });
+    }
+
     function showParts(params) {
-        const queryObj = getCleanQueryObj();
+        const queryObj = getMQueryObj();
         const codes = params.codePathList;
         const codesMap = rebuildCodes(codes);
 
@@ -56,6 +74,12 @@ export function PageUsage() {
         dispatch(partsCreator.load(temp));
         dispatch(crumbsCreator.load(temp));
         updateLocationSearch(temp);
+
+        if (isFirstLoad) {
+            setIsFirstLoad(false);
+        } else {
+            updateLocationHash();
+        }
     }
 
     function rebuildCodes(codes) {
@@ -72,9 +96,8 @@ export function PageUsage() {
     return (
         <>
             <div className={cls(['inner-container', styles.container])}>
-                <Groups onClickTreeNode={handleClickTreeNode} />
-                <Legend isShow={isShowParts} activeCallout={activeCallout} />
-
+                <Groups onClickTreeNode={handleClickTreeNode} isFirstLoad={isFirstLoad} />
+                <Legend isShow={isShowParts} activeCallout={activeCallout} onSelectCallout={handleSelectCallout} />
                 {
                     isShowParts &&  <Parts activeCallout={activeCallout} onSelectParts={handleSelectParts} />
                 }
