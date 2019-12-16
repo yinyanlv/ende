@@ -5,7 +5,9 @@ import {brandsReducer} from '@/pages/catalog/brands/reducer';
 import {conditionsReducer} from '@/pages/catalog/conditions/reducer';
 import {usageReducer} from '@/pages/usage/reducer';
 import {groupsReducer} from '@/pages/usage/groups/reducer';
+import {legendsReducer} from '@/pages/usage/legends/reducer';
 import {legendReducer} from '@/pages/usage/legend/reducer';
+import {partsReducer} from '@/pages/usage/parts/reducer';
 
 export const reducers = combineReducers({
     auth: authReducer,
@@ -14,5 +16,7 @@ export const reducers = combineReducers({
     conditions: conditionsReducer,
     usage: usageReducer,
     groups: groupsReducer,
-    legend: legendReducer
+    legends: legendsReducer,
+    legend: legendReducer,
+    parts: partsReducer
 });

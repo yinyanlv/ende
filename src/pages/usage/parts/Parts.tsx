@@ -1,17 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Table, Icon, Tooltip} from 'antd';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {Panel} from '@/components/panel';
 import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
 
 interface PartsProps {
-    data: any[],
     onSelectParts: Function,
     activeCallout?: any
 }
 
-export function Parts(props: PartsProps) {
+function Parts(props: PartsProps) {
+    const {
+        isPartsLoading,
+        parts
+    } = useSelector((state: any) => {
+        return state.parts;
+    });
+    const usages = parts.usages || [];
     const [selectedKeys, setSelectedKeys]: [any[], any] = useState([]);
+
     const columns = [{
         title: '#',
         dataIndex: 'callout',
@@ -95,7 +104,7 @@ export function Parts(props: PartsProps) {
     function getKeysByCallout(callout) {
         let keys: any[] = [];
 
-        props.data.forEach((record) => {
+        usages.forEach((record) => {
             if (record.callout === callout) {
                 keys.push(record.id);
             }
@@ -105,26 +114,30 @@ export function Parts(props: PartsProps) {
     }
 
     return (
-        <Table columns={columns}
-               dataSource={props.data || []}
-               rowKey={'id'}
-               size={'small'}
-               scroll={{y: styles.partsTableBodyHeight}}
-               className={styles.partList}
-               pagination={false}
-               onRow={(record) => {
-                    return {
-                      onClick: function () {
-                          handleSelect(record);
-                      }
-                    };
-               }}
-               rowSelection={{
-                   selectedRowKeys: selectedKeys,
-                   onSelect: (record) => {
-                       handleSelect(record);
-                   }
-               }}
-        />
+        <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
+            <Table columns={columns}
+                   dataSource={usages}
+                   rowKey={'id'}
+                   size={'small'}
+                   scroll={{y: styles.partsTableBodyHeight}}
+                   className={styles.partList}
+                   pagination={false}
+                   onRow={(record) => {
+                       return {
+                           onClick: function () {
+                               handleSelect(record);
+                           }
+                       };
+                   }}
+                   rowSelection={{
+                       selectedRowKeys: selectedKeys,
+                       onSelect: (record) => {
+                           handleSelect(record);
+                       }
+                   }}
+            />
+        </Panel>
     );
 }
+
+export default React.memo(Parts);

@@ -1,12 +1,12 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
 import {updateLocationSearch, getCleanQueryObj} from '@/common/utils';
-import {Panel} from '@/components/panel';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
+import {usageCreator} from './actions';
+import {legendCreator} from '@/pages/usage/legend/actions';
+import {partsCreator} from '@/pages/usage/parts/actions';
 import {groupsCreator} from './groups/actions';
-import {legendCreator} from './legend/actions';
-import {partsCreator, usageCreator} from './actions';
 import {Groups} from './groups';
 import {Legends} from './legends';
 import {Legend} from './legend';
@@ -18,9 +18,7 @@ export function PageUsage() {
     const dispatch = useDispatch();
     const {
         activeCallout,
-        isShowParts,
-        isPartsLoading,
-        parts
+        isShowParts
     } = useSelector((state: any) => {
         return state.usage;
     });
@@ -32,7 +30,20 @@ export function PageUsage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
-    const showParts = useCallback((params) => {
+
+    function handleClickTreeNode(params) {
+        showParts(params);
+    }
+
+    function handleSelectParts(callout) {
+        dispatch(usageCreator.setActiveCallout(callout));
+    }
+
+    function handleClickImage(params) {
+        showParts(params);
+    }
+
+    function showParts(params) {
         const queryObj = getCleanQueryObj();
         const codes = params.codePathList;
         const codesMap = rebuildCodes(codes);
@@ -45,9 +56,7 @@ export function PageUsage() {
         dispatch(partsCreator.load(temp));
         dispatch(crumbsCreator.load(temp));
         updateLocationSearch(temp);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }
 
     function rebuildCodes(codes) {
         let result = {};
@@ -60,29 +69,18 @@ export function PageUsage() {
         return result;
     }
 
-    function handleSelectParts(callout) {
-       dispatch(usageCreator.setActiveCallout(callout));
-    }
-
     return (
         <>
             <div className={cls(['inner-container', styles.container])}>
-                <Groups onClickTreeNode={showParts} />
+                <Groups onClickTreeNode={handleClickTreeNode} />
                 <Legend isShow={isShowParts} activeCallout={activeCallout} />
 
                 {
-                    isShowParts &&
-                    <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
-                        <Parts
-                            data={parts.usages}
-                            activeCallout={activeCallout}
-                            onSelectParts={handleSelectParts}
-                        />
-                    </Panel>
+                    isShowParts &&  <Parts activeCallout={activeCallout} onSelectParts={handleSelectParts} />
                 }
 
                 {
-                    !isShowParts && <Legends onClickImage={showParts}/>
+                    !isShowParts && <Legends onClickImage={handleClickImage}/>
                 }
             </div>
         </>

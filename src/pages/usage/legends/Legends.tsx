@@ -10,12 +10,12 @@ interface LegendsProps {
     onClickImage: Function;
 }
 
-export function Legends(props: LegendsProps) {
+function Legends(props: LegendsProps) {
     const {
         isLegendsLoading,
         legends
     } = useSelector((state: any) => {
-        return state.usage;
+        return state.legends;
     });
     const {
         resHost
@@ -57,3 +57,5 @@ export function Legends(props: LegendsProps) {
         </Panel>
     );
 }
+
+export default React.memo(Legends);

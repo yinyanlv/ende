@@ -1,1 +1,1 @@
-export {Parts} from './Parts';
+export {default as Parts} from './Parts';

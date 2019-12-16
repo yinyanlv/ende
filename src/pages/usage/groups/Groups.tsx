@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Icon, Tree} from 'antd';
 import {crumbsText} from '@/pages/common/crumbs/reducer';
 import {Panel} from '@/components/panel';
-import {legendsCreator, usageCreator} from '@/pages/usage/actions';
+import {usageCreator} from '@/pages/usage/actions';
+import {legendsCreator} from '@/pages/usage/legends/actions';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
 import {updateLocationSearch, getCleanQueryObj} from '@/common/utils';
 import {groupsCreator} from './actions';
@@ -34,13 +35,15 @@ function Groups(props: GroupsProps) {
         const codesMap = rebuildCodes(codes);
 
         e.persist();
-        if (activeTreeNodeCode === nodeCode) {
-            return;
-        }
 
         dispatch(groupsCreator.setActiveTreeNodeCode(nodeCode));
 
         if (node.isLeaf()) {
+
+            if (activeTreeNodeCode === nodeCode) {
+                return;
+            }
+
             const svgUrl = node.props['data-svg-url'];
 
             props.onClickTreeNode({
@@ -49,14 +52,19 @@ function Groups(props: GroupsProps) {
                 svgUri: svgUrl
             });
         } else {
-            const queryObj = getCleanQueryObj();
-            const params = Object.assign({}, queryObj, codesMap);
-
             const expandedCodes = node.props.expanded
                 ? expandedTreeNodeCodes.filter(code => code !== node.props.eventKey)
                 : expandedTreeNodeCodes.concat(node.props.eventKey);
 
             dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
+
+            if (activeTreeNodeCode === nodeCode) {
+                return;
+            }
+
+            const queryObj = getCleanQueryObj();
+            const params = Object.assign({}, queryObj, codesMap);
+
             dispatch(usageCreator.setIsShowParts(false));
             dispatch(legendsCreator.load(params));
             dispatch(crumbsCreator.load(params));
