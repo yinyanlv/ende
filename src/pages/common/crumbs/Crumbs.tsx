@@ -23,10 +23,10 @@ export function Crumbs(props) {
                                 {
                                     item.url ? (
                                         <Link to={item.url}>
-                                            <span className="crumbs-text">{item.label}：{item.name}</span>
+                                            <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
                                         </Link>
                                     ) : (
-                                        <span className="crumbs-text">{item.label}：{item.name}</span>
+                                        <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
                                     )
                                 }
                             </CrumbItem>

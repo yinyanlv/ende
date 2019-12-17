@@ -12,8 +12,11 @@ interface PanelProps extends HTMLProps<HTMLDivElement> {
 
 export function Panel(props: PropsWithChildren<PanelProps>) {
 
+    const innerProps = Object.assign({}, props);
+    delete innerProps.isLoading;
+
     return (
-        <div {...props} className={cls(styles.panel, props.className)}>
+        <div {...innerProps} className={cls(styles.panel, props.className)}>
             <Loading isLoading={props.isLoading}>
                 {
                     props.mode && props.mode === 'empty' ? (

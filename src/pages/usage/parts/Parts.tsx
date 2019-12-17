@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Button, Table, Icon, Tooltip} from 'antd';
+import {Button, Table, Icon, Tooltip, message} from 'antd';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Panel} from '@/components/panel';
@@ -35,19 +35,16 @@ function Parts(props: PartsProps) {
                     <Link to={'/part/' + val} target={'_blank'}>{val}</Link>
                     <div className="operator-line">
                         <Tooltip title={'备注'}>
-                            <Icon type={'form'} onClick={handleClickCar}/>
+                            <Icon type={'form'} onClick={handleClickNote}/>
                         </Tooltip>
                         <Tooltip title={'复制'}>
-                            <Icon type={'copy'} onClick={handleClickCar}/>
-                        </Tooltip>
-                        <Tooltip title={'加入购物车'}>
-                            <Icon type={'shopping-cart'} onClick={handleClickCar}/>
+                            <Icon type={'copy'} onClick={handleClickCopy}/>
                         </Tooltip>
                         <Tooltip title={'替换关系'}>
-                            <Icon type={'retweet'} onClick={handleClickCar}/>
+                            <Icon type={'retweet'} onClick={handleClickReplace}/>
                         </Tooltip>
                         <Tooltip title={'配件反查'}>
-                            <Icon type={'car'} onClick={handleClickCar}/>
+                            <Icon type={'car'} onClick={handleClickSearch}/>
                         </Tooltip>
                     </div>
                 </div>
@@ -75,10 +72,12 @@ function Parts(props: PartsProps) {
     }, {
         title: '操作',
         dataIndex: '',
-        width: 80,
+        width: 60,
         render: (val, record) => (
             <span>
-                <Button>购买</Button>
+                <Tooltip title={'加入购物车'}>
+                    <Button type="primary" icon="shopping-cart" size={'small'} onClick={handleClickCart} />
+                </Tooltip>
             </span>
         )
     }];
@@ -91,8 +90,24 @@ function Parts(props: PartsProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.activeCallout, isPartsLoading]);
 
-    function handleClickCar() {
-        console.log('clicked car!');
+    function handleClickCart() {
+        message.success('加入购物车');
+    }
+
+    function handleClickNote() {
+        message.success('备注');
+    }
+
+    function handleClickCopy() {
+        message.success('复制');
+    }
+
+    function handleClickReplace() {
+        message.success('替换关系');
+    }
+
+    function handleClickSearch() {
+        message.success('配件反查');
     }
 
     function handleSelect(record) {

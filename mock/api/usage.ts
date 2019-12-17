@@ -2610,6 +2610,26 @@ const parts = {
     }], "existsInVinSize": 0, "hasVin": false
 };
 
+const usageOptions = [{
+    "id": "48",
+    "name": "4门4窗二厢轿车"
+}, {
+    "id": "XB",
+    "name": "超値型(LV0)"
+}, {
+    "id": "XC",
+    "name": "时尚型(LV1)"
+}, {
+    "id": "XD",
+    "name": "豪华型(LV2)"
+}, {
+    "id": "XI",
+    "name": "舒适型(LV0+)"
+}, {
+    "id": "LMH",
+    "name": "1.2L，直列四缸、双顶置凸轮轴、多点电喷式汽油机"
+}];
+
 // 加载分组
 mock.onPost(API_PREFIX + '/usage').reply((req) => {
     return new Promise((resolve, reject) => {
@@ -2673,4 +2693,23 @@ mock.onPost(API_PREFIX + '/usage/parts').reply((req) => {
     });
 });
 
+// 加载配件用途
+mock.onPost(API_PREFIX + '/usage/options').reply((req) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            try {
+                resolve([200, {
+                    success: true,
+                    result: usageOptions
+                }]);
+            } catch (err) {
+                const message = 'Invalid access token!';
 
+                reject([401, {
+                    success: false,
+                    message
+                }]);
+            }
+        }, 1000);
+    });
+});

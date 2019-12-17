@@ -1,13 +1,16 @@
-import React from 'react';
-import Magnifier  from 'react-magnifier';
-import {Descriptions, Tabs, Button, Table} from 'antd';
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import {Descriptions, Tabs, Button, Table, message} from 'antd';
 import cls from 'classnames';
+import {crumbsCreator} from '@/pages/common/crumbs/actions';
+import {ImageGallery} from '@/components/image-gallery';
 import styles from './part.module.scss';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 const TabPane = Tabs.TabPane;
 
 export function PagePart() {
+    const dispatch = useDispatch();
 
     const columns = [{
         title: '#',
@@ -63,19 +66,59 @@ export function PagePart() {
             partNumber: 23864864,
             usage: `(DB)(DC)(DD) 36 (LJO M2P)`,
         });
-    };
+    }
+
+    useEffect(() => {
+        dispatch(crumbsCreator.setCrumbs([{
+            code: 'part-detail',
+            name: '配件详情'
+        }]));
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    function handleClickBuy() {
+        message.success('购买');
+    }
 
     return (
         <div className={cls(['inner-container', styles.container])}>
             <div className="part-detail">
                 <div className="magnifier-box">
-                    <Magnifier src={'/images/part_large.jpg'} width={500} />
+                    <ImageGallery items={[{
+                        thumbnail: '/images/parts/part_1_small.jpg',
+                        original: '/images/parts/part_1_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_2_small.jpg',
+                        original: '/images/parts/part_2_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_3_small.jpg',
+                        original: '/images/parts/part_3_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_1_small.jpg',
+                        original: '/images/parts/part_1_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_2_small.jpg',
+                        original: '/images/parts/part_2_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_3_small.jpg',
+                        original: '/images/parts/part_3_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_1_small.jpg',
+                        original: '/images/parts/part_1_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_2_small.jpg',
+                        original: '/images/parts/part_2_large.jpg'
+                    }, {
+                        thumbnail: '/images/parts/part_3_small.jpg',
+                        original: '/images/parts/part_3_large.jpg'
+                    }]}/>
                 </div>
                 <div className="part-info-box">
                     <Descriptions
                         title="配件详情"
                         bordered
-                        column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+                        column={{xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1}}
                         style={{width: '500px'}}
                     >
                         <Descriptions.Item label="零件编号">24565891</Descriptions.Item>
@@ -87,22 +130,26 @@ export function PagePart() {
                         <Descriptions.Item label="备注">''</Descriptions.Item>
                     </Descriptions>
                     <div className="btn-line">
-                        <Button type="primary">购买</Button>
+                        <Button type="primary" icon={'shopping-cart'} onClick={handleClickBuy}>购买</Button>
                     </div>
                 </div>
             </div>
             <div className="part-table-tabs">
-                <Tabs defaultActiveKey="1" onChange={()=>{}} style={{width: '100%'}}>
+                <Tabs defaultActiveKey="1" onChange={() => {
+                }} style={{width: '100%'}}>
                     <TabPane tab="替换关系" key="1">
-                        <Table columns={columns} dataSource={data} size={'small'} scroll={{y: styles.partsTableBodyHeight}}
+                        <Table columns={columns} dataSource={data} size={'small'}
+                               scroll={{y: styles.partsTableBodyHeight}}
                                pagination={false}/>
                     </TabPane>
                     <TabPane tab="用户备注" key="2">
-                        <Table columns={columns} dataSource={data} size={'small'} scroll={{y: styles.partsTableBodyHeight}}
+                        <Table columns={columns} dataSource={data} size={'small'}
+                               scroll={{y: styles.partsTableBodyHeight}}
                                pagination={false}/>
                     </TabPane>
                     <TabPane tab="通讯" key="3">
-                        <Table columns={columns} dataSource={data} size={'small'} scroll={{y: styles.partsTableBodyHeight}}
+                        <Table columns={columns} dataSource={data} size={'small'}
+                               scroll={{y: styles.partsTableBodyHeight}}
                                pagination={false}/>
                     </TabPane>
                 </Tabs>
