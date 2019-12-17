@@ -35,7 +35,6 @@ export function PageUsage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
-
     function handleClickTreeNode(params) {
         showParts(params);
     }

@@ -97,21 +97,6 @@ export function PagePart() {
                     }, {
                         thumbnail: '/images/parts/part_1_small.jpg',
                         original: '/images/parts/part_1_large.jpg'
-                    }, {
-                        thumbnail: '/images/parts/part_2_small.jpg',
-                        original: '/images/parts/part_2_large.jpg'
-                    }, {
-                        thumbnail: '/images/parts/part_3_small.jpg',
-                        original: '/images/parts/part_3_large.jpg'
-                    }, {
-                        thumbnail: '/images/parts/part_1_small.jpg',
-                        original: '/images/parts/part_1_large.jpg'
-                    }, {
-                        thumbnail: '/images/parts/part_2_small.jpg',
-                        original: '/images/parts/part_2_large.jpg'
-                    }, {
-                        thumbnail: '/images/parts/part_3_small.jpg',
-                        original: '/images/parts/part_3_large.jpg'
                     }]}/>
                 </div>
                 <div className="part-info-box">
