@@ -1,8 +1,8 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {http} from '@/common/http';
-import {crumbsText} from '@/pages/common/crumbs/reducer';
 import {defaultCode} from '@/pages/common/crumbs/reducer';
 import * as actions from './actions';
+import {intl} from '@/pages/common/intl';
 
 function* loadConditionsController(action) {
     try {
@@ -22,7 +22,7 @@ function rebuildConditions(data) {
                 item.list.unshift({
                     id: defaultCode,
                     code: defaultCode,
-                    name: crumbsText.all
+                    name: intl.formatMessage({id: 'crumbs.all'})
                 });
             }
         });

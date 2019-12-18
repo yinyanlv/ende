@@ -1,8 +1,9 @@
 import {takeLatest, put, call} from 'redux-saga/effects';
 import queryString from 'query-string';
 import {http} from '@/common/http';
+import {intl} from '@/pages/common/intl';
 import * as actions from './actions';
-import {crumbsText, defaultCode} from './reducer';
+import {defaultCode} from './reducer';
 
 function* loadCrumbsController(action) {
     const crumbs = yield call(loadCrumbs, action.payload);
@@ -27,7 +28,7 @@ function rebuildCrumbs(codeMap, nameMap) {
 
             temp.code = codeMap[key];
             temp.name = nameMap[key];
-            temp.label = crumbsText[key];
+            temp.label = intl.formatMessage({id: 'crumbs.' + key});
             temp.url = index < keys.length - 1 ? buildUrl(codeMap, key) : '';
 
             list.push(temp);
@@ -43,7 +44,7 @@ function rebuildCrumbs(codeMap, nameMap) {
         list.push({
             code: defaultCode,
             name: usageName,
-            label: crumbsText.s_1,
+            label: intl.formatMessage({id: 'crumbs.s_1'}),
             url: ''
         });
     }
@@ -62,7 +63,7 @@ function buildUrl(params, key) {
                 m_4: defaultCode
             });
         case 'm_2':
-            return '/?' +  queryString.stringify({
+            return '/?' + queryString.stringify({
                 m_1: params.m_1,
                 m_2: params.m_2,
                 m_3: defaultCode,

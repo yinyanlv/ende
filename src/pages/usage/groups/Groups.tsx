@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useIntl} from 'react-intl';
 import {Icon, Tree} from 'antd';
-import {crumbsText} from '@/pages/common/crumbs/reducer';
 import {Panel} from '@/components/panel';
 import {usageCreator} from '@/pages/usage/actions';
 import {legendsCreator} from '@/pages/usage/legends/actions';
@@ -21,6 +21,7 @@ interface GroupsProps {
 function Groups(props: GroupsProps) {
 
     const dispatch = useDispatch();
+    const intl = useIntl();
     const {
         groups,
         isGroupsLoading,
@@ -108,7 +109,9 @@ function Groups(props: GroupsProps) {
     }
 
     return (
-        <Panel isLoading={isGroupsLoading} title={crumbsText.s_1} className={'panel-tree'}>
+        <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
+            id: 'crumbs.s_1'
+        })} className={'panel-tree'}>
             <DirectoryTree
                 expandAction="click"
                 style={{width: '238px'}}

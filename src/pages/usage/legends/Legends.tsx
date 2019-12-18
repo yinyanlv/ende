@@ -20,7 +20,7 @@ function Legends(props: LegendsProps) {
     const {
         resHost
     } = useSelector((state: any) => {
-        return state.auth;
+        return state.config;
     });
 
     function handleClickLegend(params) {

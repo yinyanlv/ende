@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {jwtService} from './jwtService';
 import {http} from '@/common/http';
 import {Loading} from '@/components/loading';
-import {authCreator} from './actions';
+import {configCreator} from '@/store/config/actions';
 
 interface AuthProps {
     dispatch: any;
@@ -25,7 +25,7 @@ class InnerAuth extends PureComponent<AuthProps> {
         jwtService.on('authorized', () => {
             http.get('/sys/config')
                 .then((data) => {
-                   this.props.dispatch(authCreator.setUserData(data));
+                   this.props.dispatch(configCreator.setConfig(data));
                    this.setState({
                        isLoading: false
                    });

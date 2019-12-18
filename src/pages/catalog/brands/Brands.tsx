@@ -28,7 +28,7 @@ function Brands(props: BrandsProps) {
     const {
         resHost
     } = useSelector((state: any) => {
-        return state.auth;
+        return state.config;
     });
 
     function handleTabsChange(m1Code) {

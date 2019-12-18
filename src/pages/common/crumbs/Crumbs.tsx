@@ -8,10 +8,11 @@ import styles from './Crumbs.module.scss';
 const CrumbItem = Breadcrumb.Item;
 
 export function Crumbs(props) {
-
     const {list} = useSelector((state: any) => {
         return state.crumbs;
     });
+
+    console.log(list);
 
     return (
         <div className={styles.crumbs}>

@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {authReducer} from '@/pages/common/auth/reducer';
+import {configReducer} from './config/reducer';
 import {crumbsReducer} from '@/pages/common/crumbs/reducer';
 import {brandsReducer} from '@/pages/catalog/brands/reducer';
 import {conditionsReducer} from '@/pages/catalog/conditions/reducer';
@@ -10,7 +10,7 @@ import {legendReducer} from '@/pages/usage/legend/reducer';
 import {partsReducer} from '@/pages/usage/parts/reducer';
 
 export const reducers = combineReducers({
-    auth: authReducer,
+    config: configReducer,
     crumbs: crumbsReducer,
     brands: brandsReducer,
     conditions: conditionsReducer,
