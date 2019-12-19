@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {Menu, Icon, Dropdown, Badge, Popover, Tabs} from 'antd';
 import {configCreator} from '@/store/config/actions';
 import styles from './nav.module.scss';
+import {Cart} from './cart';
 
 const TabPane = Tabs.TabPane;
 const MenuItem = Menu.Item;
@@ -42,11 +43,7 @@ export function Nav(props) {
         </Menu>
     );
 
-    const cart = (
-        <div style={{width: 300}}>
-            购物车
-        </div>
-    );
+    const cart = <Cart />;
 
     const message = (
         <Tabs defaultActiveKey="1" onChange={() => {

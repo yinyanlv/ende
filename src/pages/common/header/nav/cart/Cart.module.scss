@@ -1,0 +1,77 @@
+@import "src/scss/sdk/index";
+
+.cart {
+  width: 320px;
+
+  :global {
+
+    .cart-panel{
+      border: 1px solid $bd-color;
+
+      .header {
+        height: 31px;
+        line-height: 30px;
+        padding: 0 10px;
+        font-weight: bold;
+        border-bottom: 1px solid $bg-color;
+      }
+
+      .content{
+        max-height: 300px;
+        overflow: auto;
+      }
+
+      .footer{
+        padding:0 10px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .cart-list{
+      width: 100%;
+
+      li {
+        display: flex;
+        padding: 5px;
+        border-bottom: 1px solid $bd-color;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      .part-box{
+        width: 150px;
+
+        .part-code{
+          display: block;
+        }
+      }
+
+      .input-box{
+        flex: 1;
+        padding-left:10px;
+      }
+
+      .btn-box{
+        width: 40px;
+        text-align: center;
+
+        span{
+          padding: 5px;
+          cursor: pointer;
+
+          &:hover{
+            i{
+              color: $primary-color;
+            }
+          }
+        }
+
+        i {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
