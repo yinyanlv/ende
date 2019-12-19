@@ -1,63 +1,68 @@
 @import "src/scss/sdk/index";
 
-:global{
-  .panel-legend-list {
-    flex: 1;
-    margin-left: 10px;
-    overflow: hidden;
+.legends{
+  position: relative;
+  margin-left: 10px;
+  flex: 1;
 
-    .panel-content {
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      padding: 10px;
-    }
+  :global{
+    .panel-legend-list {
+      flex: 1;
+      overflow: hidden;
 
-    .legend-list {
+      .panel-content {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding: 10px;
+      }
 
-      .item {
-        display: block;
-        width: 212px;
-        height: 312px;
-        float: left;
-        margin: 0 10px 10px 0;
-        padding: 5px;
-        cursor: pointer;
-        border: 1px solid $bd-color;
-        transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out;
-        background: #fff;
+      .legend-list {
 
-        &:hover {
-          border: 1px solid $primary-color;
-          box-shadow: 0 0 3px $primary-color;
+        .item {
+          display: block;
+          width: 212px;
+          height: 312px;
+          float: left;
+          margin: 0 10px 10px 0;
+          padding: 5px;
+          cursor: pointer;
+          border: 1px solid $bd-color;
+          transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out;
+          background: #fff;
+
+          &:hover {
+            border: 1px solid $primary-color;
+            box-shadow: 0 0 3px $primary-color;
+
+            .text {
+              color: $primary-color;
+            }
+          }
+
+          .image-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 280px;
+            overflow: hidden;
+          }
+
+          img {
+            display: block;
+            height: 100%;
+          }
 
           .text {
-            color: $primary-color;
+            display: block;
+            width: 100%;
+            font-size: 13px;
+            text-align: center;
+            @include setHeightGroup(20px);
+            @extend %textOverflowEllipsis;
+            transition: color .3s ease-in-out;
           }
-        }
-
-        .image-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 200px;
-          height: 280px;
-          overflow: hidden;
-        }
-
-        img {
-          display: block;
-          height: 100%;
-        }
-
-        .text {
-          display: block;
-          width: 100%;
-          font-size: 13px;
-          text-align: center;
-          @include setHeightGroup(20px);
-          @extend %textOverflowEllipsis;
-          transition: color .3s ease-in-out;
         }
       }
     }

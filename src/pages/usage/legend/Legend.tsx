@@ -2,14 +2,18 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import {API_PREFIX} from '@/config';
-import './Legend.module.scss';
+import styles from './Legend.module.scss';
+import {Icon} from "antd";
 
 const svgPrefix = '/res';
 
 interface LegendProps {
-    isShow: boolean;
+    isShowLegend: boolean;
+    isShowGroups: boolean;
     activeCallout?: string;
     onSelectCallout: Function;
+    onClickLeftArrow?: Function;
+    onClickRightArrow?: Function;
 }
 
 function Legend(props: LegendProps) {
@@ -48,14 +52,32 @@ function Legend(props: LegendProps) {
         }
     }
 
+    function handleClickLeftArrow() {
+        props.onClickLeftArrow && props.onClickLeftArrow();
+    }
+
+    function handleClickRightArrow() {
+        props.onClickRightArrow && props.onClickRightArrow();
+    }
+
     return (
-        <div className="panel panel-legend" style={{display: props.isShow ? 'flex' : 'none'}}>
-            <SvgHotPoint
-                ref={svgHotPointRef}
-                noPicPath={'/images/nopic.gif'}
-                onSelectCallout={handleSelectCallout}
-                onLegendLoaded={handleLegendLoaded}
-            />
+        <div className={styles.legendWrapper} style={{display: props.isShowLegend ? 'flex' : 'none'}}>
+            <div className="panel panel-legend">
+                <SvgHotPoint
+                    ref={svgHotPointRef}
+                    noPicPath={'/images/nopic.gif'}
+                    onSelectCallout={handleSelectCallout}
+                    onLegendLoaded={handleLegendLoaded}
+                />
+
+            </div>
+            {
+                props.isShowGroups ? (
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><Icon type="left" /></span>
+                ) : (
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><Icon type="right" /></span>
+                )
+            }
         </div>
     );
 }

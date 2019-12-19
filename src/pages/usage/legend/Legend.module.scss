@@ -1,13 +1,19 @@
 @import "src/scss/sdk/index";
 
-:global {
+.legendWrapper {
+  position: relative;
+  flex: 1;
+  margin-left:10px;
 
-  .panel-legend {
-    flex: 1;
-    margin: 0 10px;
+  :global {
 
-    .svg-wrap {
-      height: calc(100vh - #{$header-height + $crumbs-height + 10});
+    .panel-legend {
+      flex: 1;
+
+      .svg-wrap {
+        height: calc(100vh - #{$header-height + $crumbs-height + 10});
+      }
     }
   }
 }
+

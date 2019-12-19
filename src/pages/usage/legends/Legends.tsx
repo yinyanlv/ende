@@ -1,13 +1,17 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import Img from 'react-image';
+import {Icon} from 'antd';
 import {Panel} from '@/components/panel';
-import './Legends.module.scss';
+import styles from  './Legends.module.scss';
 
 const imageSuffix = '?/d/300';
 
 interface LegendsProps {
+    isShowGroups: boolean;
     onClickImage: Function;
+    onClickLeftArrow?: Function;
+    onClickRightArrow?: Function;
 }
 
 function Legends(props: LegendsProps) {
@@ -27,34 +31,51 @@ function Legends(props: LegendsProps) {
         props.onClickImage(params);
     }
 
+    function handleClickLeftArrow() {
+        props.onClickLeftArrow && props.onClickLeftArrow();
+    }
+
+    function handleClickRightArrow() {
+        props.onClickRightArrow && props.onClickRightArrow();
+    }
+
     return (
-        <Panel isLoading={isLegendsLoading} mode={'empty'} className={'panel-legend-list'}>
-            <div className="panel-content">
-                <ul className="legend-list">
-                    {
-                        legends && legends.map((item) => {
-                            return (
-                                <li className="item"
-                                    key={item.code}
-                                    onClick={handleClickLegend.bind(null, {
-                                        code: item.code,
-                                        codePathList: item.parentIds,
-                                        svgUri: item.svgFileUri
-                                    })}>
+        <div className={styles.legends}>
+            <Panel isLoading={isLegendsLoading} mode={'empty'} className={'panel-legend-list'}>
+                <div className="panel-content">
+                    <ul className="legend-list">
+                        {
+                            legends && legends.map((item) => {
+                                return (
+                                    <li className="item"
+                                        key={item.code}
+                                        onClick={handleClickLegend.bind(null, {
+                                            code: item.code,
+                                            codePathList: item.parentIds,
+                                            svgUri: item.svgFileUri
+                                        })}>
                                                 <span className="image-wrapper">
                                                     <Img
                                                         src={[resHost + item.imageFileUri + imageSuffix, '/images/nopic.gif']}
                                                         alt={item.text}
                                                     />
                                                 </span>
-                                    <span className="text">{item.code} - {item.text}</span>
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
-            </div>
-        </Panel>
+                                        <span className="text">{item.code} - {item.text}</span>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </div>
+            </Panel>
+            {
+                props.isShowGroups ? (
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><Icon type="left" /></span>
+                ) : (
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><Icon type="right" /></span>
+                )
+            }
+        </div>
     );
 }
 

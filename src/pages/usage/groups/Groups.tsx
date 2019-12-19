@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {HTMLProps} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIntl} from 'react-intl';
 import {Icon, Tree} from 'antd';
@@ -13,8 +13,9 @@ import './Groups.module.scss';
 const DirectoryTree = Tree.DirectoryTree;
 const TreeNode = Tree.TreeNode;
 
-interface GroupsProps {
+interface GroupsProps extends HTMLProps<HTMLDivElement> {
     isFirstLoad: boolean;
+    isShowGroups: boolean;
     onClickTreeNode: Function;
 }
 
@@ -67,7 +68,7 @@ function Groups(props: GroupsProps) {
             const queryObj = getMQueryObj();
             const params = Object.assign({}, queryObj, codesMap);
 
-            dispatch(usageCreator.setIsShowParts(false));
+            dispatch(usageCreator.setIsShowLegendParts(false));
             dispatch(legendsCreator.load(params));
             dispatch(crumbsCreator.load(params));
             updateLocationSearch(params);
@@ -111,7 +112,7 @@ function Groups(props: GroupsProps) {
     return (
         <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
             id: 'crumbs.s_1'
-        })} className={'panel-tree'}>
+        })} className={'panel-tree'} style={{marginLeft: props.isShowGroups ? '0' : '-260px'}}>
             <DirectoryTree
                 expandAction="click"
                 style={{width: '238px'}}

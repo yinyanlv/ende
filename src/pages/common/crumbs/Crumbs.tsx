@@ -12,8 +12,6 @@ export function Crumbs(props) {
         return state.crumbs;
     });
 
-    console.log(list);
-
     return (
         <div className={styles.crumbs}>
             <Breadcrumb separator={<Icon type="double-right" />}>

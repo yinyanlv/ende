@@ -4,6 +4,7 @@
   .panel-tree {
     width: 250px;
     height: 100%;
+    transition: margin .3s ease-in-out;
 
     .panel-content-inner {
       padding: 5px;

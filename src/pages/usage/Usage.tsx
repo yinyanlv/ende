@@ -16,9 +16,11 @@ import styles from './usage.module.scss';
 export function PageUsage() {
     const dispatch = useDispatch();
     const {
-        activeCallout,
+        isFirstLoad,
+        isShowGroups,
+        isShowLegendParts,
         isShowParts,
-        isFirstLoad
+        activeCallout,
     } = useSelector((state: any) => {
         return state.usage;
     });
@@ -36,11 +38,11 @@ export function PageUsage() {
     }, [dispatch]);
 
     function handleClickTreeNode(params) {
-        showParts(params);
+        loadParts(params);
     }
 
     function handleClickImage(params) {
-        showParts(params);
+        loadParts(params);
     }
 
     function handleSelectParts(callout) {
@@ -58,12 +60,12 @@ export function PageUsage() {
         });
     }
 
-    function showParts(params) {
+    function loadParts(params) {
         const queryObj = getMQueryObj();
         const codes = params.codePathList;
         const codesMap = rebuildCodes(codes);
 
-        dispatch(usageCreator.setIsShowParts(true));
+        dispatch(usageCreator.setIsShowLegendParts(true));
         dispatch(groupsCreator.setActiveTreeNodeCode(params.code));
         dispatch(legendCreator.setSvgUrl(params.svgUri));
 
@@ -90,17 +92,53 @@ export function PageUsage() {
         return result;
     }
 
+    function showGroups() {
+        dispatch(usageCreator.setIsShowGroups(true));
+    }
+
+    function hideGroups() {
+        dispatch(usageCreator.setIsShowGroups(false));
+    }
+
+    function showParts() {
+        dispatch(usageCreator.setIsShowParts(true));
+    }
+
+    function hideParts() {
+        dispatch(usageCreator.setIsShowParts(false));
+    }
+
     return (
         <>
             <div className={cls(['inner-container', styles.container])}>
-                <Groups onClickTreeNode={handleClickTreeNode} isFirstLoad={isFirstLoad} />
-                <Legend isShow={isShowParts} activeCallout={activeCallout} onSelectCallout={handleSelectCallout} />
+                <Groups onClickTreeNode={handleClickTreeNode} isFirstLoad={isFirstLoad} isShowGroups={isShowGroups} />
+                <Legend
+                    isShowLegend={isShowLegendParts}
+                    isShowGroups={isShowGroups}
+                    activeCallout={activeCallout}
+                    onSelectCallout={handleSelectCallout}
+                    onClickLeftArrow={hideGroups}
+                    onClickRightArrow={showGroups}
+                />
                 {
-                    isShowParts &&  <Parts activeCallout={activeCallout} onSelectParts={handleSelectParts} />
+                    isShowLegendParts &&
+                    <Parts
+                        isShowParts={isShowParts}
+                        activeCallout={activeCallout}
+                        onSelectParts={handleSelectParts}
+                        onClickLeftArrow={showParts}
+                        onClickRightArrow={hideParts}
+                    />
                 }
 
                 {
-                    !isShowParts && <Legends onClickImage={handleClickImage}/>
+                    !isShowLegendParts &&
+                    <Legends
+                        isShowGroups={isShowGroups}
+                        onClickImage={handleClickImage}
+                        onClickLeftArrow={hideGroups}
+                        onClickRightArrow={showGroups}
+                    />
                 }
             </div>
         </>

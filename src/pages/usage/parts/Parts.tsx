@@ -7,8 +7,11 @@ import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
 
 interface PartsProps {
-    onSelectParts: Function,
-    activeCallout?: any
+    isShowParts: boolean;
+    activeCallout?: any;
+    onSelectParts: Function;
+    onClickLeftArrow?: Function;
+    onClickRightArrow?: Function;
 }
 
 function Parts(props: PartsProps) {
@@ -76,7 +79,7 @@ function Parts(props: PartsProps) {
         render: (val, record) => (
             <span>
                 <Tooltip title={'加入购物车'}>
-                    <Button type="primary" icon="shopping-cart" size={'small'} onClick={handleClickCart} />
+                    <Button type="primary" icon="shopping-cart" size={'small'} onClick={handleClickCart}/>
                 </Tooltip>
             </span>
         )
@@ -128,30 +131,47 @@ function Parts(props: PartsProps) {
         return keys;
     }
 
+    function handleClickLeftArrow() {
+        props.onClickLeftArrow && props.onClickLeftArrow();
+    }
+
+    function handleClickRightArrow() {
+        props.onClickRightArrow && props.onClickRightArrow();
+    }
+
     return (
-        <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
-            <Table columns={columns}
-                   dataSource={usages}
-                   rowKey={'id'}
-                   size={'small'}
-                   scroll={{y: styles.partsTableBodyHeight}}
-                   className={styles.partList}
-                   pagination={false}
-                   onRow={(record) => {
-                       return {
-                           onClick: function () {
+        <div className={styles.parts} style={{marginRight: props.isShowParts ? '0' : '-730px'}}>
+            <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
+                <Table columns={columns}
+                       dataSource={usages}
+                       rowKey={'id'}
+                       size={'small'}
+                       scroll={{y: styles.partsTableBodyHeight}}
+                       className={'part-list'}
+                       pagination={false}
+                       onRow={(record) => {
+                           return {
+                               onClick: function () {
+                                   handleSelect(record);
+                               }
+                           };
+                       }}
+                       rowSelection={{
+                           selectedRowKeys: selectedKeys,
+                           onSelect: (record) => {
                                handleSelect(record);
                            }
-                       };
-                   }}
-                   rowSelection={{
-                       selectedRowKeys: selectedKeys,
-                       onSelect: (record) => {
-                           handleSelect(record);
-                       }
-                   }}
-            />
-        </Panel>
+                       }}
+                />
+            </Panel>
+            {
+                props.isShowParts ? (
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><Icon type="right"/></span>
+                ) : (
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><Icon type="left"/></span>
+                )
+            }
+        </div>
     );
 }
 

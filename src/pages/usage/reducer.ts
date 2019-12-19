@@ -1,15 +1,27 @@
 import * as actions from './actions';
 
 const initialState = {
+    isFirstLoad: true,
     activeCallout: '',
-    isShowParts: false,
-    isFirstLoad: true
+    isShowGroups: true,
+    isShowLegendParts: false,
+    isShowParts: true
 };
 
 export function usageReducer(state = initialState, action: any) {
 
     switch (action.type) {
-        case actions.CONTROL_PARTS_SHOW:
+        case actions.SET_IS_SHOW_GROUPS:
+            return {
+                ...state,
+                isShowGroups: action.payload
+            };
+        case actions.SET_IS_LEGEND_PARTS_SHOW:
+            return {
+                ...state,
+                isShowLegendParts: action.payload
+            };
+        case actions.SET_IS_SHOW_PARTS:
             return {
                 ...state,
                 isShowParts: action.payload

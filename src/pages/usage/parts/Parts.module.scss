@@ -4,46 +4,53 @@
   partsTableBodyHeight: $part-list-body-height;
 }
 
-.partList{
+.parts {
+  position: relative;
+  width: 720px;
+  margin-left: 10px;
+  transition: margin .3s ease-in-out;
 
   :global {
 
-    .ant-table-header {
-      border-radius: 0 !important;
+    .panel-part-list {
+      width: 100%;
     }
 
-    .ant-table-body {
-      height: $part-list-body-height !important;
-      overflow-y: auto !important;
-      border-radius: 0 !important;
-    }
+    .part-list {
 
-    .operator-wrapper{
+      .ant-table-header {
+        border-radius: 0 !important;
+      }
 
-      & > a {
-        color: $font-color;
-        text-decoration: underline;
+      .ant-table-body {
+        height: $part-list-body-height !important;
+        overflow-y: auto !important;
+        border-radius: 0 !important;
+      }
 
-        &:hover{
+      .operator-wrapper {
+
+        & > a {
+          color: $font-color;
+          text-decoration: underline;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+
+        .operator-line {
           color: $primary-color;
-        }
-      }
+          margin-top: 3px;
 
-      .operator-line{
-        color: $primary-color;
-        margin-top:3px;
-
-        i {
-          cursor: pointer;
-          margin: 0 2px;
+          i {
+            cursor: pointer;
+            margin: 0 2px;
+          }
         }
       }
     }
   }
 }
 
-:global {
-  .panel-part-list {
-    width: 720px;
-  }
-}
+
