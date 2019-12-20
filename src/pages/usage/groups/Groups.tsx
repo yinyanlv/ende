@@ -87,9 +87,11 @@ function Groups(props: GroupsProps) {
     }
 
     function renderTreeNodes(list: any, codePathStr = '') {
+
         return list.map(item => {
             const title = item.code + ' - ' + item.text;
             const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
+
             if (!item.leaf) {
                 return (
                     <TreeNode title={title} key={item.code} data-code-path={tempCodePathStr}>

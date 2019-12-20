@@ -7,6 +7,7 @@ import {Crumbs} from '@/pages/common/crumbs';
 const PageCatalog = React.lazy(() => import('@/pages/catalog'));
 const PageUsage = React.lazy(() => import('@/pages/usage'));
 const PagePart = React.lazy(() => import('@/pages/part'));
+const PageShoppingCart = React.lazy(() => import('@/pages/shopping-cart'));
 
 export function FitLayout(props) {
 
@@ -20,6 +21,9 @@ export function FitLayout(props) {
                 </Route>
                 <Route path="/part/:id" exact>
                     <PagePart />
+                </Route>
+                <Route path="/shopping-cart" exact>
+                    <PageShoppingCart />
                 </Route>
                 <Route path="/" exact>
                     <PageCatalog />
