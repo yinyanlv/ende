@@ -23,6 +23,10 @@ export function legendsReducer(state = initialState, action: any) {
                 ...state,
                 isLegendsLoading: false
             };
+        case actions.RESET_LEGENDS:
+            return {
+                ...initialState
+            };
         default:
             return state;
     }

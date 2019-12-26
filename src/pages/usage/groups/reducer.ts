@@ -11,6 +11,10 @@ const initialState = {
 export function groupsReducer(state = initialState, action: any) {
 
     switch (action.type) {
+        case actions.RESET_GROUPS:
+            return {
+                ...initialState
+            };
         case actions.LOAD_GROUPS:
             return {
                 ...state,

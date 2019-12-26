@@ -36,7 +36,7 @@ export function usageReducer(state = initialState, action: any) {
                 ...state,
                 isFirstLoad: action.payload
             };
-        case actions.RESET_STATE:
+        case actions.RESET_USAGE:
             return {
                 ...initialState
             };

@@ -4,10 +4,14 @@ export const LOAD_GROUPS = 'usage:load-groups';
 export const LOAD_GROUPS_SUCCESS = 'usage:load-groups-success';
 export const LOAD_GROUPS_FAILED = 'usage:load-groups-failed';
 
+export const RESET_GROUPS = 'usage:reset-groups';
 export const SET_ACTIVE_TREE_NODE_CODE = 'usage:set-active-tree-node-code';
 export const SET_EXPANDED_TREE_NODE_CODES = 'usage:set-expanded-tree-node-codes';
 
 export const groupsCreator = {
+    resetGroups: function () {
+        return createAction(RESET_GROUPS);
+    },
     load: () => {
         return createAction(LOAD_GROUPS);
     },
