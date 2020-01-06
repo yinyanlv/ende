@@ -7,15 +7,23 @@
   height: $crumbs-height;
   justify-content: space-between;
   align-items: center;
-  background: #e7e7e7;
+  background: #fff;
 
   :global{
-    .crumbs-text{
-      color: $primary-color;
-    }
 
     a{
       cursor: pointer;
+
+      .crumbs-text{
+        color: $lightest-font-color;
+      }
+    }
+
+    .crumbs-text{
+
+      &span{
+        color: $font-color;
+      }
     }
   }
 }

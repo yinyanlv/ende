@@ -14,7 +14,7 @@ export function Crumbs(props) {
 
     return (
         <div className={styles.crumbs}>
-            <Breadcrumb separator={<Icon type="double-right" />}>
+            <Breadcrumb>
                 {
                     list && list.map((item, index) => {
                         return (

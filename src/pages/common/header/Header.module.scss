@@ -4,9 +4,10 @@
   display: flex;
   height: $header-height;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 10px;
   align-items: center;
   background:#fff;
+  box-shadow:0 0 10px #000;
 
   :global{
 
@@ -15,6 +16,23 @@
     }
 
     .logo-box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      img {
+        display: block;
+        height: 30px;
+      }
+
+      .title {
+        font-size:14px;
+        margin-left: 20px;
+        padding-left: 20px;
+        border-left: 1px solid $bd-color;
+        display: inline-block;
+        @include setHeightGroup(18px);
+      }
     }
 
     .nav-box {

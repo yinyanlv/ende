@@ -11,6 +11,9 @@ export function Header(props) {
                 <Link to={'/'}>
                     <img src={'/images/logo.png'} alt="logo" />
                 </Link>
+                <span className="title">
+                    EPC售后信息发布平台
+                </span>
             </div>
             <div className="nav-box">
                 <Nav />
