@@ -3,11 +3,13 @@
 .crumbs {
   display: flex;
   width: 100%;
-  padding: 0 15px;
+  padding: 0 10px;
   height: $crumbs-height;
+  line-height: $crumbs-height - 2;
   justify-content: space-between;
   align-items: center;
   background: #fff;
+  border-top: 2px solid $bd-color;
 
   :global{
 

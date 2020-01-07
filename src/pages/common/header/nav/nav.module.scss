@@ -8,14 +8,10 @@
   :global {
     .nav-item{
       cursor: pointer;
-      height:48px;
-      border-bottom: 2px solid transparent;
-      transition: border-bottom-color .3s ease-in-out;
-      line-height: 46px;
+      transition: color .3s ease-in-out;
 
       &:hover, &:active{
         color: $primary-color;
-        border-bottom: 2px solid $primary-color;
 
         .nav-item-inner{
           color: $primary-color;
@@ -26,11 +22,17 @@
     .nav-item-inner{
       font-size: 14px;
       color: $font-color;
-      padding: 0 20px;
+      padding: 5px 9px;
 
       i{
-        font-size:14px;
-        margin-right: 10px;
+        font-size:16px;
+      }
+
+      &.item-user{
+
+        i {
+          margin-left: 3px;
+        }
       }
     }
   }

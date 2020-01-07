@@ -41,32 +41,30 @@ function Legends(props: LegendsProps) {
 
     return (
         <div className={styles.legends}>
-            <Panel isLoading={isLegendsLoading} mode={'empty'} className={'panel-legend-list'}>
-                <div className="panel-content">
-                    <ul className="legend-list">
-                        {
-                            legends && legends.map((item) => {
-                                return (
-                                    <li className="item"
-                                        key={item.code}
-                                        onClick={handleClickLegend.bind(null, {
-                                            code: item.code,
-                                            codePathList: item.parentIds,
-                                            svgUri: item.svgFileUri
-                                        })}>
+            <Panel isLoading={isLegendsLoading} className={'panel-legend-list'} title={'图例'}>
+                <ul className="legend-list">
+                    {
+                        legends && legends.map((item) => {
+                            return (
+                                <li className="item"
+                                    key={item.code}
+                                    onClick={handleClickLegend.bind(null, {
+                                        code: item.code,
+                                        codePathList: item.parentIds,
+                                        svgUri: item.svgFileUri
+                                    })}>
                                                 <span className="image-wrapper">
                                                     <Img
                                                         src={[resHost + item.imageFileUri + imageSuffix, '/images/nopic.gif']}
                                                         alt={item.text}
                                                     />
                                                 </span>
-                                        <span className="text">{item.code} - {item.text}</span>
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                </div>
+                                    <span className="text">{item.code} - {item.text}</span>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
             </Panel>
             {
                 props.isShowGroups ? (

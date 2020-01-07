@@ -88,7 +88,6 @@ function Conditions(props: ConditionsProps) {
                         }
                     </ul>
                 </Panel>
-                <span className="condition-guide-arrow"><Icon type="arrow-right" /></span>
             </div>
             <div className={styles.condition}>
                 <Panel isLoading={isConditionsLoading} title={models && models.name} className="panel-model">
@@ -115,7 +114,6 @@ function Conditions(props: ConditionsProps) {
                         }
                     </ul>
                 </Panel>
-                <span className="condition-guide-arrow"><Icon type="arrow-right" /></span>
             </div>
         </>
     );

@@ -19,11 +19,16 @@
 
     .panel-header {
       height: 41px;
-      line-height: 40px;
-      text-align: center;
+      line-height: 45px;
+      text-align: left;
       font-size: 14px;
       border-bottom: 1px solid $bd-color;
-      color: $primary-color;
+      color: $font-color;
+      font-weight: bold;
+
+      & > div {
+        padding: 0 15px;
+      }
 
       i {
         margin-right: 3px;

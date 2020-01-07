@@ -28,7 +28,7 @@ export function Panel(props: PropsWithChildren<PanelProps>) {
                     ) : (
                         <>
                             <div className="panel-header">
-                                <div><Icon type="unordered-list"/> {props.title}</div>
+                                <div>{props.title}</div>
                             </div>
                             <div className="panel-content">
                                 <div className="panel-content-inner">

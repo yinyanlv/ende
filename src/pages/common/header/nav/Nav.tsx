@@ -17,13 +17,6 @@ export function Nav(props) {
         </Menu>
     );
 
-    const bookmarkMenu = (
-        <Menu>
-            <MenuItem>书签管理</MenuItem>
-            <MenuItem>历史管理</MenuItem>
-        </Menu>
-    );
-
     const langMenu = (
         <Menu>
             <MenuItem onClick={changeLang.bind(null, 'zh-CN')}>中文</MenuItem>
@@ -64,21 +57,35 @@ export function Nav(props) {
         <nav className={styles.nav}>
             <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner'}>
-                        <Icon type="appstore"/>
+                        <Icon type="search"/>
+                    </span>
+            </NavLink>
+            <NavLink to={'/'} className="nav-item">
+                   <span className={'nav-item-inner'}>
+                        <Icon type="home"/>
                     </span>
             </NavLink>
             <Dropdown overlay={userMenu}>
                 <NavLink to={'/'} className="nav-item">
-                   <span className={'nav-item-inner'}>
+                   <span className={'nav-item-inner item-user'}>
                         <Icon type="user"/>
                         系统管理员
                     </span>
                 </NavLink>
             </Dropdown>
-            <Dropdown overlay={bookmarkMenu}>
+            <Popover content={message}>
+                <NavLink to={'/'} className="nav-item">
+                    <Badge count={2} overflowCount={10} showZero={false} offset={[-5, -2]}>
+                       <span className={'nav-item-inner'}>
+                        <Icon type="bell"/>
+                        </span>
+                    </Badge>
+                </NavLink>
+            </Popover>
+            <Dropdown overlay={helpMenu}>
                 <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
-                        <Icon type="star"/>
+                         <Icon type="question-circle"/>
                         </span>
                 </NavLink>
             </Dropdown>
@@ -91,30 +98,9 @@ export function Nav(props) {
             </Dropdown>
             <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner'}>
-                            <Icon type="file-text"/>
+                        <Icon type="more"/>
                     </span>
             </NavLink>
-            <Popover content={message}>
-                <NavLink to={'/'} className="nav-item">
-                    <Badge count={2} overflowCount={10} showZero={false} offset={[-15, -10]}>
-                       <span className={'nav-item-inner'}>
-                        <Icon type="bell"/>
-                        </span>
-                    </Badge>
-                </NavLink>
-            </Popover>
-            <NavLink to={'/'} className="nav-item">
-                   <span className={'nav-item-inner'}>
-                       <Icon type="video-camera"/>
-                    </span>
-            </NavLink>
-            <Dropdown overlay={helpMenu}>
-                <NavLink to={'/'} className="nav-item">
-                       <span className={'nav-item-inner'}>
-                         <Icon type="question-circle"/>
-                        </span>
-                </NavLink>
-            </Dropdown>
         </nav>
     );
 }
