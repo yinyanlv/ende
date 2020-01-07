@@ -17,28 +17,20 @@
 
     .btn-arrow{
       position: absolute;
-      left: -10px;
+      left: -17px;
       top: 50%;
-      width: 10px;
-      height: 80px;
-      line-height: 80px;
-      background: $primary-color;
+      line-height: 24px;
+      background: #fff;
+      width: 14px;
+      height: 24px;
       cursor: pointer;
-      margin-top:-40px;
-
-      &.left-arrow{
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-      }
-
-      &.right-arrow{
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-      }
+      margin-top:-12px;
+      border-radius: 12px;
+      text-align: center;
 
       i{
         margin-left:-1px;
-        color: #fff;
+        color: $font-color;
         font-size:12px;
       }
     }

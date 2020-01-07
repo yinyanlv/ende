@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import {configReducer} from './config/reducer';
+import {advanceSearchReducer} from '@/pages/common/advance-search/reducer';
 import {crumbsReducer} from '@/pages/common/crumbs/reducer';
 import {brandsReducer} from '@/pages/catalog/brands/reducer';
 import {conditionsReducer} from '@/pages/catalog/conditions/reducer';
@@ -11,6 +12,7 @@ import {partsReducer} from '@/pages/usage/parts/reducer';
 
 export const reducers = combineReducers({
     config: configReducer,
+    advanceSearch: advanceSearchReducer,
     crumbs: crumbsReducer,
     brands: brandsReducer,
     conditions: conditionsReducer,

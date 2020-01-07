@@ -1,8 +1,9 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {Menu, Icon, Dropdown, Badge, Popover, Tabs} from 'antd';
+import {Menu, Icon, Dropdown, Badge, Popover, Tabs, Drawer} from 'antd';
 import {configCreator} from '@/store/config/actions';
+import {advanceSearchCreator} from '@/pages/common/advance-search/actions';
 import styles from './nav.module.scss';
 
 const TabPane = Tabs.TabPane;
@@ -53,54 +54,78 @@ export function Nav(props) {
         }));
     }
 
+    function handleClickSearch() {
+        dispatch(advanceSearchCreator.setIsShowAdvanceSearch({
+            isShow: true
+        }));
+    }
+
     return (
-        <nav className={styles.nav}>
-            <NavLink to={'/'} className="nav-item">
-                   <span className={'nav-item-inner'}>
-                        <Icon type="search"/>
-                    </span>
-            </NavLink>
-            <NavLink to={'/'} className="nav-item">
+        <>
+            <nav className={styles.nav}>
+                <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner'}>
                         <Icon type="home"/>
                     </span>
-            </NavLink>
-            <Dropdown overlay={userMenu}>
-                <NavLink to={'/'} className="nav-item">
+                </NavLink>
+                <Popover content={message}>
+                    <NavLink to={'/'} className="nav-item">
+                        <Badge count={2} overflowCount={10} showZero={false} offset={[-5, -2]}>
+                       <span className={'nav-item-inner'}>
+                        <Icon type="bell"/>
+                        </span>
+                        </Badge>
+                    </NavLink>
+                </Popover>
+                <Dropdown overlay={langMenu}>
+                    <NavLink to={'/'} className="nav-item">
+                       <span className={'nav-item-inner'}>
+                       <Icon type="global"/>
+                        </span>
+                    </NavLink>
+                </Dropdown>
+                <Dropdown overlay={userMenu}>
+                    <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner item-user'}>
                         <Icon type="user"/>
                         系统管理员
                     </span>
-                </NavLink>
-            </Dropdown>
-            <Popover content={message}>
-                <NavLink to={'/'} className="nav-item">
-                    <Badge count={2} overflowCount={10} showZero={false} offset={[-5, -2]}>
-                       <span className={'nav-item-inner'}>
-                        <Icon type="bell"/>
-                        </span>
-                    </Badge>
-                </NavLink>
-            </Popover>
-            <Dropdown overlay={helpMenu}>
-                <NavLink to={'/'} className="nav-item">
+                    </NavLink>
+                </Dropdown>
+                <Dropdown overlay={helpMenu}>
+                    <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
                          <Icon type="question-circle"/>
                         </span>
-                </NavLink>
-            </Dropdown>
-            <Dropdown overlay={langMenu}>
-                <NavLink to={'/'} className="nav-item">
-                       <span className={'nav-item-inner'}>
-                       <Icon type="global"/>
-                        </span>
-                </NavLink>
-            </Dropdown>
-            <NavLink to={'/'} className="nav-item">
+                    </NavLink>
+                </Dropdown>
+                <span className="nav-item">
                    <span className={'nav-item-inner'}>
                         <Icon type="more"/>
                     </span>
-            </NavLink>
-        </nav>
+                </span>
+                <span className="nav-item">
+                   <span className={'nav-item-inner'} onClick={handleClickSearch}>
+                        <Icon type="search"/>
+                    </span>
+                </span>
+                <NavLink to={'/'} className="nav-item">
+                   <span className={'nav-item-inner'}>
+                        <Icon type="star"/>
+                    </span>
+                </NavLink>
+                <NavLink to={'/'} className="nav-item">
+                   <span className={'nav-item-inner'}>
+                        <Icon type="shopping-cart"/>
+                    </span>
+                </NavLink>
+                <NavLink to={'/'} className="nav-item">
+                   <span className={'nav-item-inner'}>
+                        <Icon type="file-text"/>
+                    </span>
+                </NavLink>
+            </nav>
+        </>
+
     );
 }

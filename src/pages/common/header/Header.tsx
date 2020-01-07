@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Header.module.scss';
+import {AdvanceSearch} from '@/pages/common/advance-search';
 import {Nav} from './nav';
 
 export function Header(props) {
@@ -18,6 +19,7 @@ export function Header(props) {
             <div className="nav-box">
                 <Nav />
             </div>
+            <AdvanceSearch isShow={true} />
         </section>
     );
 }

@@ -41,15 +41,7 @@ export function Search(props: SearchProps) {
 
     return (
         <div className={styles.operatorBox}>
-            <div className="item">
-                <Icon type="star" /><span className="text">收藏</span>
-            </div>
-            <div className="item">
-                <Icon type="shopping-cart" /><span className="text">购物车(<span className="number">10</span>)</span>
-            </div>
-            <div className="item">
-                <Icon type="file-text" /><span className="text">订单</span>
-            </div>
+
             <div className="item item-search">
                 <AntdSearch placeholder="请输入VIN码,VSN码,零件编号或零件描述" onSearch={()=>{}} />
             </div>
