@@ -6,6 +6,12 @@
   justify-content: flex-start;
 
   :global {
+    .common-nav {
+      border-right: 1px solid $bd-color;
+      padding-right: 10px;
+      margin-right: 10px;
+    }
+
     .nav-item{
       cursor: pointer;
       transition: color .3s ease-in-out;

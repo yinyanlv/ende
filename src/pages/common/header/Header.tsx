@@ -10,16 +10,16 @@ export function Header(props) {
         <section className={styles.header}>
             <div className="logo-box">
                 <Link to={'/'}>
-                    <img src={'/images/logo.png'} alt="logo" />
+                    <img src={'/images/logo.png'} alt="logo"/>
                 </Link>
                 <span className="title">
                     EPC售后信息发布平台
                 </span>
             </div>
             <div className="nav-box">
-                <Nav />
+                <Nav/>
             </div>
-            <AdvanceSearch isShow={true} />
+            <AdvanceSearch isShow={true}/>
         </section>
     );
 }
