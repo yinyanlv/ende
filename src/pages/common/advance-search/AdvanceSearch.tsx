@@ -1,10 +1,11 @@
 import React from 'react';
-import {Drawer, Tabs, Table, Form, Button, Row, Col, Input} from 'antd';
-import {useSelector, useDispatch} from 'react-redux';
+import { Drawer, Tabs, Table, Form, Button, Row, Col, Input, Cascader, Pagination} from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './AdvanceSearch.module.scss';
-import {advanceSearchCreator} from './actions';
+import { advanceSearchCreator } from './actions';
 
 const TabPane = Tabs.TabPane;
+const FormItem = Form.Item;
 
 export function AdvanceSearch(props) {
     const dispatch = useDispatch();
@@ -17,51 +18,87 @@ export function AdvanceSearch(props) {
             isShow: false
         }));
     }
-
+    const options = [
+        {
+            value: 'zhejiang',
+            label: 'Zhejiang',
+            children: [
+                {
+                    value: 'hangzhou',
+                    label: 'Hangzhou',
+                    children: [
+                        {
+                            value: 'xihu',
+                            label: 'West Lake',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            value: 'jiangsu',
+            label: 'Jiangsu',
+            children: [
+                {
+                    value: 'nanjing',
+                    label: 'Nanjing',
+                    children: [
+                        {
+                            value: 'zhonghuamen',
+                            label: 'Zhong Hua Men',
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
 
     const columns = [
         {
-            title: 'Name',
+            title: '目录',
             dataIndex: 'name',
-            key: 'name',
-            render: text => <a>{text}</a>,
+            key: 'name'
         },
         {
-            title: 'Age',
+            title: '零件号',
             dataIndex: 'age',
             key: 'age',
         },
         {
-            title: 'Address',
+            title: '零件描述',
             dataIndex: 'address',
             key: 'address',
         },
         {
-            title: 'Tags',
+            title: '年',
             key: 'tags',
-            dataIndex: 'tags',
-            render: tags => (
-                <span>
-        {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-                color = 'volcano';
-            }
-            return '';
-        })}
-      </span>
-            ),
+            dataIndex: 'tags'
         },
         {
-            title: 'Action',
+            title: '左右',
             key: 'action',
-            render: (text, record) => (
-                <span>
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </span>
-            ),
+            dataIndex: 'abc'
         },
+        {
+            title: '用途',
+            key: 'action',
+            dataIndex: 'abc'
+        },
+        {
+            title: '图例描述',
+            key: 'action',
+            dataIndex: 'abc'
+        },
+        {
+            title: '用量',
+            key: 'action',
+            dataIndex: 'abc'
+        },
+        {
+            title: '主组描述',
+            key: 'action',
+            dataIndex: 'abc'
+        }
     ];
 
     const data = [
@@ -88,28 +125,6 @@ export function AdvanceSearch(props) {
         },
     ];
 
-   function getFields() {
-        const count =  6;
-        const { getFieldDecorator } = this.props.form;
-        const children = [];
-        for (let i = 0; i < 10; i++) {
-            children.push(
-                <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
-                    <Form.Item label={`Field ${i}`}>
-                        {getFieldDecorator(`field-${i}`, {
-                            rules: [
-                                {
-                                    required: true,
-                                    message: 'Input something!',
-                                },
-                            ],
-                        })(<Input placeholder="placeholder" />)}
-                    </Form.Item>
-                </Col>,
-            );
-        }
-        return children;
-    }
     return (
         <Drawer
             placement="right"
@@ -118,6 +133,7 @@ export function AdvanceSearch(props) {
             onClose={handleClose}
             visible={advanceSearch.isShow}
             width="900px"
+            className={styles.advanceSearch}
         >
             <Tabs
                 tabPosition="left"
@@ -126,16 +142,56 @@ export function AdvanceSearch(props) {
                     <div>
                         <div className="title">高级查询</div>
                         <div className="query">
-                            <Form className="ant-advanced-search-form" >
-                                <Row gutter={24}>{this.getFields()}</Row>
+                            <Form className="ant-advanced-search-form" layout="inline" labelAlign="left"> 
                                 <Row>
-                                    <Col span={24} style={{ textAlign: 'right' }}>
-                                        <Button type="primary" htmlType="submit">
-                                            Search
-                                        </Button>
-                                        <Button style={{ marginLeft: 8 }} >
-                                            Clear
-                                        </Button>
+                                    <Col span={8}>
+                                        <div className="vin-wrapper">
+                                            <FormItem label="VIN/VSN">
+                                                <Input placeholder="请输入" />
+                                            </FormItem>
+                                            <span className="btn">详细</span>
+                                        </div>
+                                    </Col>
+                                    <Col span={16}> 
+                                        <FormItem label="车型">  
+                                            <Cascader options={options} placeholder="品牌/目录/年份/车型" /> 
+                                        </FormItem> 
+                                    </Col>
+                                    <Col span={8}>
+                                        <FormItem label="主组">
+                                            <Input placeholder="请输入" />
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={8}>
+                                        <FormItem label="图例编号">
+                                            <Input placeholder="请输入" />
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={8}>
+                                        <FormItem label="图例描述">
+                                            <Input placeholder="请输入" />
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={8}>
+                                        <FormItem label="图例备注">
+                                            <Input placeholder="请输入" />
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={8}>
+                                        <FormItem label="零件编号">
+                                            <Input placeholder="请输入" />
+                                        </FormItem>
+                                    </Col>
+                                    <Col span={8}>
+                                        <FormItem label="零件描述">
+                                            <Input placeholder="请输入" />
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={24} style={{ textAlign: 'center' }}>
+                                        <Button type="primary" htmlType="submit">搜索</Button>
+                                        <Button style={{ marginLeft: 8 }}>清空</Button>
                                     </Col>
                                 </Row>
                             </Form>
@@ -143,10 +199,57 @@ export function AdvanceSearch(props) {
                         <div className="grid">
                             <Tabs defaultActiveKey="applicable-list">
                                 <TabPane tab="适用性清单(10)" key="applicable-list">
-                                    <Table columns={columns} dataSource={data}/>
+                                    <Table columns={columns} dataSource={data} />
                                 </TabPane>
-                                <TabPane tab="零件清单(0)" key="part-list"></TabPane>
-                                <TabPane tab="图例清单(0)" key="legend-list"></TabPane>
+                                <TabPane tab="零件清单(0)" key="part-list">
+                                    <div className="part-list-container">
+                                        <div className="part-list">
+                                            <div className="item">
+                                                <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
+                                                <ul>
+                                                    <li><span className="btn">3444322</span> - <span>零件名称</span> <span>(<span>零件备注</span>)</span> </li>
+                                                    <li>
+                                                        <span>
+                                                            <label>最小包装数：</label>3
+                                                        </span>
+                                                        <span>
+                                                            <label>库位：</label>PA333
+                                                        </span>
+                                                        <span>
+                                                            <label>运输方式：</label>海运
+                                                        </span>
+                                                        <span>
+                                                            <label>价格：</label>海运
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                                <div>
+                                                    <Button type="primary">购买</Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                             <Pagination size="small" total={50} showSizeChanger showQuickJumper />
+                                        </div>
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="图例清单(0)" key="legend-list">
+                                    <div className="legend-list-container">
+                                        <div className="legend-list">
+                                            <div className="item">
+                                                <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
+                                                <ul>
+                                                    <li><span className="btn">3444322</span> - <span>图例名称</span> <span>-<span>图例备注</span></span> </li>
+                                                    <li>ccccc - 名称</li>
+                                                    <li>ccccc - 名称</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div>
+                                             <Pagination size="small" total={50} showSizeChanger showQuickJumper />
+                                        </div>
+                                    </div>
+                                </TabPane>
                             </Tabs>
                         </div>
                     </div>
