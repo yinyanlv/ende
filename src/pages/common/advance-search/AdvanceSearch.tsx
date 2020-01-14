@@ -128,8 +128,7 @@ export function AdvanceSearch(props) {
     return (
         <Drawer
             placement="right"
-            closable={true}
-            mask={false}
+            closable={false}
             onClose={handleClose}
             visible={advanceSearch.isShow}
             width="900px"

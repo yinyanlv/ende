@@ -1,0 +1,1 @@
+export {VinDetail} from './VinDetail';
