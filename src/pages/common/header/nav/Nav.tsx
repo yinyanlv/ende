@@ -3,8 +3,9 @@ import {useDispatch} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {Menu, Icon, Dropdown, Badge, Popover, Tabs, Drawer} from 'antd';
 import {configCreator} from '@/store/config/actions';
-import {advanceSearchCreator} from '@/pages/common/advance-search/actions';
+import {searchCreator} from '@/pages/common/search/actions';
 import styles from './nav.module.scss';
+import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 
 const TabPane = Tabs.TabPane;
 const MenuItem = Menu.Item;
@@ -62,7 +63,13 @@ export function Nav(props) {
     }
 
     function handleClickSearch() {
-        dispatch(advanceSearchCreator.setIsShowAdvanceSearch({
+        dispatch(searchCreator.setIsShowSearch({
+            isShow: true
+        }));
+    }
+
+    function handleClickShoppingCart() {
+        dispatch(shoppingCartCreator.setIsShowShoppingCart({
             isShow: true
         }));
     }
@@ -120,8 +127,8 @@ export function Nav(props) {
                         </span>
                     </NavLink>
                     <NavLink to={'/'} className="nav-item">
-                       <span className={'nav-item-inner'}>
-                            <Icon type="shopping-cart"/>
+                       <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
+                            <Icon type="shopping-cart"/> <span>(<span>11</span>)</span>
                         </span>
                     </NavLink>
                     <NavLink to={'/'} className="nav-item">

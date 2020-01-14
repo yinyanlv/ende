@@ -1,55 +1,43 @@
 import React from 'react';
-import {Button, Dropdown, Icon, Input, Menu} from 'antd';
+import { Drawer, Tabs, Table, Form, Button, Row, Col, Input, Cascader, Pagination} from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './Search.module.scss';
+import { searchCreator } from './actions';
+import {AdvanceSearch} from './advance-search'
+import {Replace} from './replace'
 
-const MenuItem = Menu.Item;
-const AntdSearch = Input.Search;
+const TabPane = Tabs.TabPane;
 
-interface SearchProps {
-}
+export function Search(props) {
+    const dispatch = useDispatch();
+    const search = useSelector((state: any) => {
+        return state.search;
+    });
 
-export function Search(props: SearchProps) {
+    function handleClose() {
+        dispatch(searchCreator.setIsShowSearch({
+            isShow: false
+        }));
+    }
 
-    const menu = (
-        <Menu>
-            <MenuItem>
-                <span>VSN查询</span>
-            </MenuItem>
-            <MenuItem>
-                <span>VIN查询</span>
-            </MenuItem>
-            <MenuItem>
-                <span>零件查询</span>
-            </MenuItem>
-            <MenuItem>
-                <span>图例编号查询</span>
-            </MenuItem>
-            <MenuItem>
-                <span>高级查询</span>
-            </MenuItem>
-            <MenuItem>
-                <span>替换查询</span>
-            </MenuItem>
-            <MenuItem>
-                <span>信息检索</span>
-            </MenuItem>
-            <MenuItem>
-                <span>用户备注查询</span>
-            </MenuItem>
-        </Menu>
-    );
 
     return (
-        <div className={styles.operatorBox}>
-
-            <div className="item item-search">
-                <AntdSearch placeholder="请输入VIN码,VSN码,零件编号或零件描述" onSearch={()=>{}} />
-            </div>
-            <div className="item">
-                <Dropdown overlay={menu} >
-                    <Button type="primary">更多查询</Button>
-                </Dropdown>
-            </div>
-        </div>
+        <Drawer
+            closable={false}
+            onClose={handleClose}
+            visible={search.isShow}
+            width="900px"
+            className={styles.search}
+        >
+            <Tabs
+                defaultActiveKey="1">
+                <TabPane tab="高级查询" key="1">
+                    <AdvanceSearch />
+                </TabPane>
+                <TabPane tab="替换关系" key="2">
+                    <Replace />
+                </TabPane>
+            </Tabs>,
+        </Drawer>
     );
 }

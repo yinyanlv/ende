@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {Breadcrumb, Icon} from 'antd';
-import {Search} from '@/pages/common/search';
+import {VinSearch} from '@/pages/common/vin-search';
 import styles from './Crumbs.module.scss';
 
 const CrumbItem = Breadcrumb.Item;
@@ -33,7 +33,7 @@ export function Crumbs(props) {
                     })
                 }
             </Breadcrumb>
-            <Search />
+            <VinSearch />
         </div>
     );
 }

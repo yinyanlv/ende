@@ -1,29 +1,17 @@
 @import "src/scss/sdk/index";
 
-.operatorBox{
-  display: flex;
-  flex-direction:row;
-  align-items: center;
+.search {
 
-  :global{
-    .item{
-      color: $font-color;
-      cursor: pointer;
-      margin-left: 15px;
+    :global {
 
-      &:last-child{
-        padding-right:0;
-        margin-left: 10px;
-      }
+        .ant-form-item{
+            margin-bottom: 0;
+            display: flex;
 
-      i{
-        font-size: 16px;
-        margin-right:4px;
-      }
+            .ant-form-item-label {
+                width: 75px;
+                flex-basis: 75px;
+            }
+        }
     }
-
-    .item-search{
-      width: 300px;
-    }
-  }
 }

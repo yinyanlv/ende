@@ -4,15 +4,13 @@ const initialState = {
     isShow: false
 };
 
-export function advanceSearchReducer(state = initialState, action) {
-    switch (action.type) {
-        case actions.IS_SHOW_ADVANCE_SEARCH:
+export function partDetailReducer(state = initialState, action) {
+    switch(action.type) {
+        case actions.IS_SHOW_PART_DETAIL:
             return {
-                ...state,
                 isShow: action.payload.isShow
             };
         default:
             return state;
     }
-
 }

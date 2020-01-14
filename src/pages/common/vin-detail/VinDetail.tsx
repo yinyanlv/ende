@@ -1,17 +1,26 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button} from 'antd';
+import {vinDetailCreator} from './actions'
 
 export function VinDetail(props) {
 
+    const dispatch = useDispatch();
     const vinDetail = useSelector((state: any) => {
         return state.vinDetail;
     });
 
+    function handleClose() {
+        dispatch(vinDetailCreator.setIsShowVinDetail({
+            isShow: false
+        }));
+    }
+
     return (
         <Drawer
-            placement="right"
+            closable={false}
             visible={vinDetail.isShow}
+            onClose={handleClose}
         >
            <div className="vinDetailContainer">
                <div>
