@@ -121,16 +121,16 @@ export function Nav(props) {
                             <Icon type="search"/>
                         </span>
                     </span>
-                    <NavLink to={'/'} className="nav-item">
+                    <span className="nav-item">
                        <span className={'nav-item-inner'}>
                             <Icon type="star"/>
                         </span>
-                    </NavLink>
-                    <NavLink to={'/'} className="nav-item">
+                    </span>
+                    <span className="nav-item">
                        <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
                             <Icon type="shopping-cart"/> <span>(<span>11</span>)</span>
                         </span>
-                    </NavLink>
+                    </span>
                     <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
                             <Icon type="file-text"/>
