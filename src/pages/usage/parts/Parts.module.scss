@@ -12,6 +12,11 @@
 
   :global {
 
+    .link-button {
+      color: $primary-color;
+      cursor: pointer;
+    }
+
     .panel-part-list {
       width: 100%;
     }

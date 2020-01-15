@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Drawer, Button, Form, Row, Col, Input, Table} from 'antd';
+import {Drawer, Button, Form, Row, Col, Input, Table, InputNumber, Tooltip} from 'antd';
 import {shoppingCartCreator} from './actions';
 
 const FormItem = Form.Item;
@@ -16,12 +16,40 @@ export function ShoppingCart(props) {
         {
             title: '零件信息',
             dataIndex: 'name',
-            key: 'name'
+            key: 'name',
+            render: () => {
+                return (
+                    <div>
+                        <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
+                        <ul>
+                            <li><span className="btn">3444322</span> - <span>零件名称</span>
+                                <span>(<span>零件备注</span>)</span></li>
+                            <li>
+                                <span>
+                                    <label>最小包装数：</label>3
+                                </span>
+                                <span>
+                                    <label>价格：</label>海运
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <label>适用车型:</label>
+                                    diejijeieji
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                );
+            }
         },
         {
             title: '量',
             dataIndex: 'age',
             key: 'age',
+            render: () => {
+                return <InputNumber defaultValue={1} onChange={() => {}} />;
+            }
         },
         {
             title: '小计(元)',
@@ -31,7 +59,16 @@ export function ShoppingCart(props) {
         {
             title: '操作',
             key: 'tags',
-            dataIndex: 'tags'
+            dataIndex: 'tags',
+            render: () => {
+                return (
+                    <div>
+                    <Tooltip title={'删除'}>
+                        <Button type="primary" icon="delete" size={'small'} />
+                    </Tooltip>
+                    </div>
+                );
+            }
         }
     ];
 

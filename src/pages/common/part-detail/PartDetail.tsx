@@ -1,6 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, Drawer, Tabs} from 'antd';
+import {partDetailCreator} from './actions';
+import {PartInfo} from './part-info';
+import {Applicability} from './applicability';
+import {Replace} from './replace';
+import {Communication} from './communication';
+import {Remark} from './remark';
 
 const TabPane = Tabs.TabPane;
 
@@ -11,90 +17,43 @@ export function PartDetail() {
     });
 
     function handleClose() {
-
+        dispatch(partDetailCreator.setIsShowPartDetail({
+            isShow: false
+        }));
     }
     return (
         <Drawer
             closable={false}
             visible={partDetail.isShow}
             onClose={handleClose}
+            width={900}
         >
             <div className="vinDetailContainer">
                 <div>
-                    VIN详情
-                </div>
-                <div>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>品种代码:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>车辆型号:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>车型:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>车型平台:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>发动机代码:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>发动机名称:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>排量:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>功率:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>生产厂家:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>生产日期:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>备注:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>变速器:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>面漆颜色:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>空调:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>批次号:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        <tr>
-                            <td>识别码:</td>
-                            <td>品种代码</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div>
+                    零件详情
                     <Button type="primary">打开高级查询</Button>
+                </div>
+                <div>
+                    <div>
+                        <PartInfo/>
+                    </div>
+                    <div>
+                        <Tabs
+                            defaultActiveKey="1">
+                            <TabPane tab="适用性" key="1">
+                                <Applicability/>
+                            </TabPane>
+                            <TabPane tab="替换关系" key="2">
+                                <Replace />
+                            </TabPane>
+                            <TabPane tab="配件通讯(2)" key="3">
+                                <Communication />
+                            </TabPane>
+                            <TabPane tab="用户备注(2)" key="4">
+                                <Remark />
+                            </TabPane>
+                        </Tabs>
+                    </div>
                 </div>
             </div>
         </Drawer>

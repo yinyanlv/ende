@@ -37,7 +37,7 @@ export function Search(props) {
                 <TabPane tab="替换关系" key="2">
                     <Replace />
                 </TabPane>
-            </Tabs>,
+            </Tabs>
         </Drawer>
     );
 }

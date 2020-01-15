@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Table, Icon, Tooltip, message} from 'antd';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Panel} from '@/components/panel';
 import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 interface PartsProps {
     isShowParts: boolean;
@@ -15,6 +16,8 @@ interface PartsProps {
 }
 
 function Parts(props: PartsProps) {
+
+    const dispatch = useDispatch();
     const {
         isPartsLoading,
         parts
@@ -35,7 +38,9 @@ function Parts(props: PartsProps) {
         render: (val, record) => {
             return (
                 <div className="operator-wrapper">
-                    <Link to={'/part/' + val} target={'_blank'}>{val}</Link>
+                    <div><span className="link-button" onClick={() => {
+                        showPartDetail(val);
+                    }}>{val}</span></div>
                     <div className="operator-line">
                         <Tooltip title={'备注'}>
                             <Icon type={'form'} onClick={handleClickNote}/>
@@ -92,6 +97,13 @@ function Parts(props: PartsProps) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.activeCallout, isPartsLoading]);
+
+    function showPartDetail(partCode) {
+        dispatch(partDetailCreator.setIsShowPartDetail({
+            isShow: true,
+            partCode: partCode
+        }));
+    }
 
     function handleClickCart() {
         message.success('加入购物车');

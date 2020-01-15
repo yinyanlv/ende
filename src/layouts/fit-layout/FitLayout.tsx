@@ -6,6 +6,7 @@ import {Crumbs} from '@/pages/common/crumbs';
 import {Search} from '@/pages/common/search';
 import {VinDetail} from '@/pages/common/vin-detail';
 import {ShoppingCart} from '@/pages/common/shopping-cart';
+import {PartDetail} from '@/pages/common/part-detail';
 
 const PageCatalog = React.lazy(() => import('@/pages/catalog'));
 const PageUsage = React.lazy(() => import('@/pages/usage'));
@@ -31,6 +32,7 @@ export function FitLayout(props) {
             <Search/>
             <VinDetail/>
             <ShoppingCart/>
+            <PartDetail/>
         </>
     );
 }
