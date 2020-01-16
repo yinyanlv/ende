@@ -14,25 +14,38 @@ export function Crumbs(props) {
 
     return (
         <div className={styles.crumbs}>
-            <Breadcrumb>
-                {
-                    list && list.map((item, index) => {
-                        return (
-                            <CrumbItem key={item.code}>
-                                {
-                                    item.url ? (
-                                        <Link to={item.url}>
+            <div className="left-box">
+                <Breadcrumb>
+                    <CrumbItem key="home">
+                        <Link to="/">
+                            <span className="crumbs-text">产品大全</span>
+                        </Link>
+                    </CrumbItem>
+                    <CrumbItem key="home">
+                        <Link to="/">
+                            <span className="crumbs-text">EPC</span>
+                        </Link>
+                    </CrumbItem>
+                    {
+                        list && list.map((item, index) => {
+                            return (
+                                <CrumbItem key={item.code}>
+                                    {
+                                        item.url ? (
+                                            <Link to={item.url}>
+                                                <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
+                                            </Link>
+                                        ) : (
                                             <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
-                                        </Link>
-                                    ) : (
-                                        <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
-                                    )
-                                }
-                            </CrumbItem>
-                        );
-                    })
-                }
-            </Breadcrumb>
+                                        )
+                                    }
+                                </CrumbItem>
+                            );
+                        })
+                    }
+                </Breadcrumb>
+                <div className="operator-wrapper"><Icon type={'star'}/></div>
+            </div>
             <VinSearch />
         </div>
     );
