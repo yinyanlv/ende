@@ -1,15 +1,13 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {Table} from 'antd';
-import {searchCreator} from '@/pages/common/search/actions';
+import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
 
-    function handleClickRow() {
-        dispatch(searchCreator.setIsShowSearch({
-            isShow: true
-        }))
+    function handleClickRow(record) {
+        dispatch(vinSearchCreator.doVsnSearch(record));
     }
 
     const columns = [

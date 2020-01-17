@@ -42,17 +42,11 @@ function Parts(props: PartsProps) {
                         showPartDetail(val);
                     }}>{val}</span></div>
                     <div className="operator-line">
-                        <Tooltip title={'备注'}>
-                            <Icon type={'form'} onClick={handleClickNote}/>
-                        </Tooltip>
                         <Tooltip title={'复制'}>
                             <Icon type={'copy'} onClick={handleClickCopy}/>
                         </Tooltip>
                         <Tooltip title={'替换关系'}>
                             <Icon type={'retweet'} onClick={handleClickReplace}/>
-                        </Tooltip>
-                        <Tooltip title={'配件反查'}>
-                            <Icon type={'car'} onClick={handleClickSearch}/>
                         </Tooltip>
                     </div>
                 </div>
