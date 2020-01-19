@@ -3,14 +3,15 @@ import {http} from '@/common/http';
 import * as actions from './actions';
 
 export function* replaceSaga() {
-    yield takeLatest(actions.REPLACE_SEARCH, replaceSearchController);
+    yield takeLatest(actions.QUERY_REPLACE, queryReplaceController);
 }
 
-function* replaceSearchController(action) {
-    const data = yield call(searchReplace, action.payload);
+function* queryReplaceController(action) {
+    const data = yield call(queryReplace, action.payload);
+    put(actions.replaceCreator.setReplaceList(data));
 }
 
-function searchReplace(params) {
+function queryReplace(params) {
     return http.post('supersession', {
         partCode: params.value
     });

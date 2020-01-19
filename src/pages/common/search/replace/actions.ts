@@ -1,9 +1,13 @@
 import {createAction} from '@/common/utils';
 
-export const REPLACE_SEARCH = 'search:replace:replace-search';
+export const QUERY_REPLACE = 'search:replace:query-replace';
+export const SET_REPLACE_LIST = 'search:replace:set-replace-list';
 
 export const replaceCreator = {
-    searchReplace: (params) => {
-        return createAction(REPLACE_SEARCH, params);
+    queryReplace: (params) => {
+        return createAction(QUERY_REPLACE, params);
+    },
+    setReplaceList: (params) => {
+        return createAction(SET_REPLACE_LIST, params);
     }
 };

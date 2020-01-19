@@ -1,9 +1,14 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {Button, Cascader, Col, Form, Input, Pagination, Row, Table, Tabs} from 'antd';
 
 const FormItem = Form.Item;
 
 export function Replace() {
+
+    const {replace} = useSelector((state: any) => {
+        return state.replace;
+    });
 
     const columns = [
         {
