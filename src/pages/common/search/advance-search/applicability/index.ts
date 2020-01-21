@@ -1,0 +1,1 @@
+export {Applicability} from './Applicability';
