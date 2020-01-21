@@ -20,7 +20,6 @@ export function Search(props) {
         }));
     }
 
-
     return (
         <Drawer
             closable={false}

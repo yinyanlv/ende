@@ -1,0 +1,21 @@
+@import "src/scss/sdk/index";
+
+.query {
+
+  :global {
+
+    .vin-wrapper {
+      display: flex;
+      align-items: center;
+
+      .ant-form-item {
+        margin-right:0;
+      }
+
+      .btn {
+        width: 44px;
+        color: $primary-color;
+      }
+    }
+  }
+}
