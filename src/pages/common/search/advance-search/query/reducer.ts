@@ -1,10 +1,12 @@
 import * as actions from './actions';
 
-const initialState = {};
+export const initialState = {
 
-export function replaceReducer(state = initialState, action) {
+};
+
+export function advanceSearchQueryReducer(state = initialState, action) {
     switch(action.type) {
-        case actions.SET_REPLACE_LIST:
+        case actions.ADVANCE_SEARCH_QUERY:
             return action.payload;
         default:
             return state;

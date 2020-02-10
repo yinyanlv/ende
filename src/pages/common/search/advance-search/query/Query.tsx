@@ -1,8 +1,9 @@
 import React from 'react';
-import {Button, Cascader, Col, Form, Input, Row} from 'antd';
+import {Button, Cascader, Col, Form, Input, Row, DatePicker} from 'antd';
 import styles from './Query.module.scss';
 
 const FormItem = Form.Item;
+const {RangePicker} = DatePicker;
 
 export function InnerQuery(props: any) {
     const {getFieldDecorator} = props.form;
@@ -19,6 +20,10 @@ export function InnerQuery(props: any) {
 
     function doReset() {
         console.log(222);
+    }
+
+    function onOk(value) {
+        console.log(value);
     }
 
     return (
@@ -39,37 +44,79 @@ export function InnerQuery(props: any) {
                     </Col>
                     <Col span={16}>
                         <FormItem label="车型">
-                            <Cascader options={options} placeholder="品牌/目录/年份/车型"/>
+                            {
+                                getFieldDecorator('model', [])(
+                                    <Cascader options={options} placeholder="品牌/目录/年份/车型"/>
+                                )
+                            }
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="主组">
-                            <Input placeholder="请输入"/>
+                            {
+                                getFieldDecorator('group', [])(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="图例编号">
-                            <Input placeholder="请输入"/>
+                            {
+                                getFieldDecorator('legendNumber', [])(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="图例描述">
-                            <Input placeholder="请输入"/>
+                            {
+                                getFieldDecorator('legendDesc', [])(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="图例备注">
-                            <Input placeholder="请输入"/>
+                            {
+                                getFieldDecorator('legendNote', [])(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="零件编号">
-                            <Input placeholder="请输入"/>
+                            {
+                                getFieldDecorator('partCode', [])(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="零件描述">
-                            <Input placeholder="请输入"/>
+                            {
+                                getFieldDecorator('partDesc', [])(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                    <Col>
+                        <FormItem label="日期">
+                            {
+                                getFieldDecorator('dateRange', [])(
+                                    <RangePicker
+                                        showTime={{ format: 'HH:mm' }}
+                                        format="YYYY-MM-DD HH:mm"
+                                        placeholder={['Start Time', 'End Time']}
+                                        onOk={onOk}
+                                    />
+                                )
+                            }
                         </FormItem>
                     </Col>
                 </Row>
