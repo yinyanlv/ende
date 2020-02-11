@@ -11,7 +11,7 @@ const TabPane = Tabs.TabPane;
 export function Search(props) {
     const dispatch = useDispatch();
     const search = useSelector((state: any) => {
-        return state.search;
+        return state.search.self;
     });
 
     function handleClose() {
@@ -29,11 +29,11 @@ export function Search(props) {
             className={styles.search}
         >
             <Tabs
-                defaultActiveKey="1">
-                <TabPane tab="高级查询" key="1">
+                defaultActiveKey="advance-search">
+                <TabPane tab="高级查询" key="advance-search">
                     <AdvanceSearch />
                 </TabPane>
-                <TabPane tab="替换关系" key="2">
+                <TabPane tab="替换关系" key="replace">
                     <Replace />
                 </TabPane>
             </Tabs>

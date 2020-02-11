@@ -7,47 +7,38 @@ export function Applicability() {
         {
             title: '目录',
             dataIndex: 'name',
-            key: 'name'
         },
         {
             title: '零件号',
             dataIndex: 'age',
-            key: 'age',
         },
         {
             title: '零件描述',
             dataIndex: 'address',
-            key: 'address',
         },
         {
             title: '年',
-            key: 'tags',
             dataIndex: 'tags'
         },
         {
             title: '左右',
-            key: 'action',
             dataIndex: 'abc'
         },
         {
             title: '用途',
-            key: 'action',
-            dataIndex: 'abc'
+            dataIndex: 'abc1'
         },
         {
             title: '图例描述',
-            key: 'action',
-            dataIndex: 'abc'
+            dataIndex: 'abc2'
         },
         {
             title: '用量',
-            key: 'action',
-            dataIndex: 'abc'
+            dataIndex: 'abc3'
         },
         {
             title: '主组描述',
-            key: 'action',
-            dataIndex: 'abc'
+            dataIndex: 'abc4'
         }
     ];
 
@@ -76,6 +67,6 @@ export function Applicability() {
     ];
 
     return (
-        <Table columns={columns} dataSource={data}/>
+        <Table columns={columns} dataSource={data} rowKey={'key'}/>
     );
 }

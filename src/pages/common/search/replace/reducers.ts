@@ -1,8 +1,9 @@
+import {combineReducers} from 'redux';
 import * as actions from './actions';
 
 const initialState = {};
 
-export function replaceReducer(state = initialState, action) {
+function replaceReducer(state = initialState, action) {
     switch(action.type) {
         case actions.SET_REPLACE_LIST:
             return action.payload;
@@ -10,3 +11,7 @@ export function replaceReducer(state = initialState, action) {
             return state;
     }
 }
+
+export const replaceReducers = combineReducers({
+    self: replaceReducer
+});
