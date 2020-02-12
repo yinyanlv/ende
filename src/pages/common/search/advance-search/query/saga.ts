@@ -5,8 +5,7 @@ import * as actions from './actions';
 function* loadGroupController() {
     try {
         const list = yield call(loadGroup);
-        console.log(list);
-        put(actions.queryCreator.setGroup(list));
+        yield put(actions.queryCreator.setGroup(list));
     } catch(err) {
 
     }

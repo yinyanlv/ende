@@ -67,7 +67,7 @@ export function InnerQuery(props: any) {
                             <FormItem label="主组">
                                 {
                                     getFieldDecorator('legendGroupCode', [])(
-                                        <Select placeholder={'请选择'}>
+                                        <Select placeholder={'请选择'} dropdownMatchSelectWidth={false}>
                                             {
                                                 groupList.map((item) => {
                                                     return <Option value={item.code}>{item.name}</Option>;
