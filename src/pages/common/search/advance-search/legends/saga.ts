@@ -5,13 +5,13 @@ import {http} from '@/common/http';
 function* doQueryController(action) {
     const data = yield call(doQuery, action.payload);
 
-    yield put(actions.applicabilityCreator.setApplicability(data));
+    yield put(actions.legendsCreator.setLegends(data));
 }
 
 function doQuery(params) {
-    return http.post('/search/apply/page', params);
+    return http.post('/search/legend/page', params);
 }
 
-export function* applicabilitySaga() {
+export function* legendsSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
 }

@@ -3,6 +3,8 @@ import {http} from '@/common/http';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 import {applicabilitySaga} from './applicability/saga';
+import {partsSaga} from './parts/saga';
+import {legendsSaga} from './legends/saga';
 import {applicabilityCreator} from './applicability/actions';
 import {partsCreator} from './parts/actions';
 import {legendsCreator} from './legends/actions';
@@ -22,7 +24,6 @@ function* loadCountController(action) {
 }
 
 function loadCount(params) {
-    console.log(params);
     return http.post('/search/statics', params);
 }
 
@@ -35,6 +36,8 @@ export function* advanceSearchSagas() {
     yield all([
         fork(advanceSearchSaga),
         fork(querySaga),
-        fork(applicabilitySaga)
+        fork(applicabilitySaga),
+        fork(partsSaga),
+        fork(legendsSaga)
     ]);
 }

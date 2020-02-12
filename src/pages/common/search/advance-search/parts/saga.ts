@@ -5,13 +5,13 @@ import {http} from '@/common/http';
 function* doQueryController(action) {
     const data = yield call(doQuery, action.payload);
 
-    yield put(actions.applicabilityCreator.setApplicability(data));
+    yield put(actions.partsCreator.setParts(data));
 }
 
 function doQuery(params) {
-    return http.post('/search/apply/page', params);
+    return http.post('/search/part/page', params);
 }
 
-export function* applicabilitySaga() {
+export function* partsSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
 }

@@ -1,6 +1,9 @@
 import {combineReducers} from 'redux';
 import * as actions from './actions';
 import {queryReducer} from './query/reducer';
+import {applicabilityReducer} from './applicability/reducer';
+import {partsReducer} from './parts/reducer';
+import {legendsReducer} from './legends/reducer';
 
 const initialState = {
     queryParams: {},
@@ -30,6 +33,9 @@ function advanceSearchReducer(state = initialState, action) {
 
 export const advanceSearchReducers = combineReducers({
     self: advanceSearchReducer,
-    query: queryReducer
+    query: queryReducer,
+    applicability: applicabilityReducer,
+    parts: partsReducer,
+    legends: legendsReducer,
 });
 

@@ -1,14 +1,14 @@
 import * as actions from './actions';
 
 const initialState = {
-    isShow: false
+    list: []
 };
 
-export function partDetailReducer(state = initialState, action) {
+export function replaceReducer(state = initialState, action) {
     switch(action.type) {
-        case actions.IS_SHOW_PART_DETAIL:
+        case actions.SET_REPLACE:
             return {
-                isShow: action.payload.isShow
+                list: action.payload
             };
         default:
             return state;

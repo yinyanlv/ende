@@ -7,9 +7,9 @@ const initialState = {
     pageSize: 10
 };
 
-export function applicabilityReducer(state = initialState, action) {
+export function partsReducer(state = initialState, action) {
     switch(action.type) {
-        case actions.SET_APPLICABILITY:
+        case actions.SET_PARTS:
             return {
                 ...action.payload
             };

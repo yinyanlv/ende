@@ -1,4 +1,4 @@
-import {takeLatest, call, put} from 'redux-saga/effects';
+import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
 import {http} from '@/common/http';
 import * as actions from './actions';
 import {advanceSearchCreator} from '../actions';

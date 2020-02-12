@@ -3,8 +3,8 @@ import {Button, Pagination} from 'antd';
 
 export function Parts() {
     return (
-        <div className="list-wrapper">
-            <div className="list">
+        <div className="parts-wrapper">
+            <div className="parts">
                 <div className="item">
                     <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
                     <ul>

@@ -4,15 +4,15 @@ import * as actions from './actions';
 
 function* replaceQueryController(action) {
     const data = yield call(replaceQuery, action.payload);
-    put(actions.replaceCreator.setReplaceList(data));
+    put(actions.replaceCreator.setReplace(data));
 }
 
-function replaceQuery(params) {
+function replaceQuery(partCode) {
     return http.post('/supersession', {
-        partCode: params.value
+        partCode
     });
 }
 
 export function* replaceSaga() {
-    yield takeLatest(actions.REPLACE_QUERY, replaceQueryController);
+    yield takeLatest(actions.DO_QUERY, replaceQueryController);
 }

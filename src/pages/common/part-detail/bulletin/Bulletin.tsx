@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Pagination} from "antd";
 
-export function Communication() {
+export function Bulletin() {
     return (
         <div>
             <div>

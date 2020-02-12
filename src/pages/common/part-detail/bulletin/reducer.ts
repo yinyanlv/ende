@@ -1,15 +1,11 @@
 import * as actions from './actions';
 
 const initialState = {
-    list: [],
-    total: 0,
-    pageNo: 1,
-    pageSize: 10
 };
 
-export function applicabilityReducer(state = initialState, action) {
+export function bulletinReducer(state = initialState, action) {
     switch(action.type) {
-        case actions.SET_APPLICABILITY:
+        case actions.SET_BULLETIN:
             return {
                 ...action.payload
             };

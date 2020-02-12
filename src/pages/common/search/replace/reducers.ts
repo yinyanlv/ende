@@ -1,11 +1,19 @@
 import {combineReducers} from 'redux';
 import * as actions from './actions';
+import {queryReducer} from './query/reducer';
 
-const initialState = {};
+const initialState = {
+    queryParams: {
+    },
+    list: [],
+    total: 0,
+    pageNo: 1,
+    pageSize: 10
+};
 
 function replaceReducer(state = initialState, action) {
     switch(action.type) {
-        case actions.SET_REPLACE_LIST:
+        case actions.SET_REPLACE:
             return action.payload;
         default:
             return state;
@@ -13,5 +21,6 @@ function replaceReducer(state = initialState, action) {
 }
 
 export const replaceReducers = combineReducers({
-    self: replaceReducer
+    self: replaceReducer,
+    query: queryReducer
 });

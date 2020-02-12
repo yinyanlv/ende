@@ -5,8 +5,7 @@ import {partDetailCreator} from './actions';
 import {PartInfo} from './part-info';
 import {Applicability} from './applicability';
 import {Replace} from './replace';
-import {Communication} from './communication';
-import {Remark} from './remark';
+import {Bulletin} from './bulletin';
 
 const TabPane = Tabs.TabPane;
 
@@ -47,10 +46,7 @@ export function PartDetail() {
                                 <Replace />
                             </TabPane>
                             <TabPane tab="配件通讯(2)" key="3">
-                                <Communication />
-                            </TabPane>
-                            <TabPane tab="用户备注(2)" key="4">
-                                <Remark />
+                                <Bulletin />
                             </TabPane>
                         </Tabs>
                     </div>

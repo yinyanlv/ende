@@ -3,8 +3,8 @@ import {Pagination} from 'antd';
 
 export function Legends() {
     return (
-        <div className="legend-list-container">
-            <div className="legend-list">
+        <div className="legends-container">
+            <div className="legends">
                 <div className="item">
                     <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
                     <ul>
