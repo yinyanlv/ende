@@ -14,6 +14,6 @@ function applicabilityQuery(params) {
     return http.post('/search/apply/page', args);
 }
 
-export function* searchApplicabilitySaga() {
-    yield takeLatest(actions.SEARCH_APPLICABILITY_QUERY, applicabilityQueryController);
+export function* applicabilitySaga() {
+    yield takeLatest(actions.APPLICABILITY_QUERY, applicabilityQueryController);
 }

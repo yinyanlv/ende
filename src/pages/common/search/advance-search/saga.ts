@@ -1,9 +1,10 @@
 import {all, fork} from 'redux-saga/effects';
-import * as actions from './actions';
-import {searchApplicabilitySaga} from './applicability/saga';
+import {querySaga} from './query/saga';
+import {applicabilitySaga} from './applicability/saga';
 
 export function* advanceSearchSaga() {
     yield all([
-            fork(searchApplicabilitySaga)
+            fork(querySaga),
+            fork(applicabilitySaga)
         ]);
 }

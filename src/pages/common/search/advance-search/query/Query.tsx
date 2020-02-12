@@ -1,10 +1,18 @@
-import React from 'react';
-import {Button, Cascader, Col, Form, Input, Row} from 'antd';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Select, Button, Cascader, Col, Form, Input, Row} from 'antd';
 import styles from './Query.module.scss';
+import {queryCreator} from './actions';
+import {http} from '@/common/http';
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 export function InnerQuery(props: any) {
+    const dispatch = useDispatch();
+    const {groupList} = useSelector((state: any) => {
+       return state.search.advanceSearch.query;
+    });
     const {getFieldDecorator} = props.form;
 
     const options = [];
@@ -16,6 +24,10 @@ export function InnerQuery(props: any) {
            }
        });
     }
+
+    useEffect(() => {
+        dispatch(queryCreator.loadGroup());
+    }, []);
 
     function doReset() {
         console.log(222);
@@ -33,7 +45,7 @@ export function InnerQuery(props: any) {
                         <div className="first-column vin-wrapper">
                             <FormItem label="VIN/VSN">
                                 {
-                                    getFieldDecorator('vin', {})(
+                                    getFieldDecorator('vinVsn', {})(
                                         <Input placeholder="请输入"/>
                                     )
                                 }
@@ -54,8 +66,14 @@ export function InnerQuery(props: any) {
                         <div className="first-column">
                             <FormItem label="主组">
                                 {
-                                    getFieldDecorator('group', [])(
-                                        <Input placeholder="请输入"/>
+                                    getFieldDecorator('legendGroupCode', [])(
+                                        <Select placeholder={'请选择'}>
+                                            {
+                                                groupList.map((item) => {
+                                                    return <Option value={item.code}>{item.name}</Option>;
+                                                })
+                                            }
+                                        </Select>
                                     )
                                 }
                             </FormItem>
