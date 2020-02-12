@@ -3,7 +3,7 @@ import * as actions from './actions';
 import {http} from '@/common/http';
 
 function* doQueryController(action) {
-    const data = call(doQuery, action.payload);
+    const data = yield call(doQuery, action.payload);
 
     console.log(data);
     put(actions.applicabilityCreator.setApplicability(data));

@@ -17,11 +17,12 @@ function* doQueryController(action) {
 }
 
 function* loadCountController(action) {
-    const data = yield call(loadCount, action.params);
+    const data = yield call(loadCount, action.payload);
     yield put(actions.advanceSearchCreator.setCount(data));
 }
 
 function loadCount(params) {
+    console.log(params);
     return http.post('/search/statics', params);
 }
 
