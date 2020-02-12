@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Select, Button, Cascader, Col, Form, Input, Row} from 'antd';
+import {buildQueryParams} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
-import {http} from '@/common/http';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-export function InnerQuery(props: any) {
+export function QueryForm(props: any) {
     const dispatch = useDispatch();
     const {groupList} = useSelector((state: any) => {
        return state.search.advanceSearch.query;
@@ -20,7 +20,8 @@ export function InnerQuery(props: any) {
     function doQuery() {
        props.form.validateFields((err, values) => {
            if (!err) {
-               console.log(values);
+               const params = buildQueryParams(values);
+               dispatch(queryCreator.doQuery(params));
            }
        });
     }
@@ -30,11 +31,7 @@ export function InnerQuery(props: any) {
     }, []);
 
     function doReset() {
-        console.log(222);
-    }
-
-    function onOk(value) {
-        console.log(value);
+        props.form.resetFields();
     }
 
     return (
@@ -67,7 +64,7 @@ export function InnerQuery(props: any) {
                             <FormItem label="主组">
                                 {
                                     getFieldDecorator('legendGroupCode', [])(
-                                        <Select placeholder={'请选择'} dropdownMatchSelectWidth={false}>
+                                        <Select placeholder={'请选择'} dropdownMatchSelectWidth={false} allowClear={true}>
                                             {
                                                 groupList.map((item) => {
                                                     return <Option value={item.code}>{item.name}</Option>;
@@ -82,7 +79,7 @@ export function InnerQuery(props: any) {
                     <Col span={8}>
                         <FormItem label="图例编号">
                             {
-                                getFieldDecorator('legendNumber', [])(
+                                getFieldDecorator('legendCode', [])(
                                     <Input placeholder="请输入"/>
                                 )
                             }
@@ -91,7 +88,7 @@ export function InnerQuery(props: any) {
                     <Col span={8}>
                         <FormItem label="图例描述">
                             {
-                                getFieldDecorator('legendDesc', [])(
+                                getFieldDecorator('legendName', [])(
                                     <Input placeholder="请输入"/>
                                 )
                             }
@@ -120,7 +117,7 @@ export function InnerQuery(props: any) {
                     <Col span={8}>
                         <FormItem label="零件描述">
                             {
-                                getFieldDecorator('partDesc', [])(
+                                getFieldDecorator('partName', [])(
                                     <Input placeholder="请输入"/>
                                 )
                             }
@@ -138,4 +135,4 @@ export function InnerQuery(props: any) {
     );
 }
 
-export const Query = Form.create()(InnerQuery);
+export const Query = Form.create()(QueryForm);

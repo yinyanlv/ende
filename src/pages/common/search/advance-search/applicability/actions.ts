@@ -1,13 +1,13 @@
 import {createAction} from '@/common/utils';
 
-export const APPLICABILITY_QUERY = 'search:applicability:query';
-export const SET_APPLICABILITY_LIST = 'search:applicability:set-applicability-list';
+export const DO_QUERY = 'search:advance-search:applicability:do-query';
+export const SET_APPLICABILITY = 'search:advance-search:applicability:set-applicability';
 
-export const searchApplicabilityCreator = {
-    applicabilityQuery: (params) => {
-        return createAction(APPLICABILITY_QUERY, params);
+export const applicabilityCreator = {
+    doQuery: (params) => {
+        return createAction(DO_QUERY, params);
     },
-    setApplicabilityList: (params) => {
-        return createAction(SET_APPLICABILITY_LIST, params);
+    setApplicability: (params) => {
+        return createAction(SET_APPLICABILITY, params);
     }
 };

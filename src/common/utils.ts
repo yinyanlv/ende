@@ -60,14 +60,16 @@ export function getHashObj() {
 }
 
 /**
+ *  filters: [{name: 'abc', value: ''}],
+ *  sorts: [{field: 'abc', asc: true}],
+ *  paging: {page: 1, size: 10}
+ *
  *  {total: 111, list: [{}], pageSize: 0, totalPage: 1, pageNo: 0}
  */
 export function buildQueryParams(params) {
     return {
-        args: {
-            filters: [{name: 'abc', value: ''}],
-            sorts: [{field: 'abc', asc: true}],
-            paging: {page: 1, size: 10}
-        }
+        filters: [{name: 'partName', value: '螺栓'}],
+        sorts: [],
+        paging: {page: 1, size: 10}
     }
 }

@@ -1,11 +1,11 @@
 import {fork, all} from 'redux-saga/effects';
-import {advanceSearchSaga} from './advance-search/saga';
+import {advanceSearchSagas} from './advance-search/sagas';
 import {replaceSaga} from './replace/saga';
 
-export function* searchSaga() {
+export function* searchSagas() {
     yield all(
         [
-            fork(advanceSearchSaga),
+            fork(advanceSearchSagas),
             fork(replaceSaga)
         ]
     );

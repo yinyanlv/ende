@@ -1,19 +1,18 @@
 import {call, takeLatest, put} from 'redux-saga/effects';
 import * as actions from './actions';
-import {buildQueryParams} from '@/common/utils';
 import {http} from '@/common/http';
 
-function* applicabilityQueryController(action) {
-    const data = call(applicabilityQuery, action.payload);
+function* doQueryController(action) {
+    const data = call(doQuery, action.payload);
 
-    put(actions.searchApplicabilityCreator.setApplicabilityList(data));
+    console.log(data);
+    put(actions.applicabilityCreator.setApplicability(data));
 }
 
-function applicabilityQuery(params) {
-    const args = buildQueryParams(params);
-    return http.post('/search/apply/page', args);
+function doQuery(params) {
+    return http.post('/search/apply/page', params);
 }
 
 export function* applicabilitySaga() {
-    yield takeLatest(actions.APPLICABILITY_QUERY, applicabilityQueryController);
+    yield takeLatest(actions.DO_QUERY, doQueryController);
 }
