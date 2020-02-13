@@ -1,1 +1,84 @@
 @import "src/scss/sdk/index";
+
+.legends{
+
+  :global {
+
+    .item {
+      height: 127px;
+      border-top:1px dotted $bd-color;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      &:last-child{
+        height: 128px;
+        border-bottom: 1px dotted $bd-color;
+      }
+
+      .image-box {
+        width: 78px;
+        height: 110px;
+        border: 1px solid $bd-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        @include transition(border-color .3s ease-in-out);
+
+        &:hover {
+          border: 1px solid $primary-color;
+        }
+
+        img {
+          max-width:66px;
+          max-height: 98px;
+        }
+      }
+    }
+
+    .info-box{
+      margin: 0 0 0 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 110px;
+
+      .title-line {
+        height: 26px;
+        line-height: 26px;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary-color;
+        }
+
+        & > span {
+          margin-right: 5px;
+        }
+      }
+
+      .content-line{
+        height: 26px;
+        line-height: 26px;
+
+        & > span {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  padding: 8px 0 16px;
+
+  :global {
+
+    .ant-pagination {
+      float:right;
+    }
+  }
+}

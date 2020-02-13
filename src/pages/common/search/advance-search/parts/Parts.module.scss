@@ -1,1 +1,101 @@
 @import "src/scss/sdk/index";
+
+.parts{
+
+  :global {
+
+    .item {
+      height: 99px;
+      border-top:1px dotted $bd-color;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      &:last-child{
+        height: 100px;
+        border-bottom: 1px dotted $bd-color;
+      }
+
+      .image-box {
+        width: 92px;
+        height: 78px;
+        border: 1px solid $bd-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        @include transition(border-color .3s ease-in-out);
+
+        &:hover {
+          border: 1px solid $primary-color;
+        }
+
+        img {
+          max-width:80px;
+          max-height: 66px;
+        }
+      }
+    }
+
+    .info-box{
+      margin: 0 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 78px;
+
+      .title-line {
+        height: 26px;
+        padding-top: 2px;
+        line-height: 24px;
+
+        & > span {
+          margin-right: 5px;
+        }
+        .btn {
+          text-decoration: underline;
+          cursor: pointer;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+
+      .content-line{
+        margin-top: 2px;
+        line-height: 24px;
+
+        & > span {
+          display: inline-block;
+          width: 33.33%;
+          padding-right: 2px;
+          float:left;
+          @extend %textOverflowEllipsis;
+        }
+      }
+    }
+
+    .btn-box {
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .ant-btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.pagination {
+  padding: 8px 0 16px;
+
+  :global {
+
+    .ant-pagination {
+      float:right;
+    }
+  }
+}

@@ -1,43 +1,76 @@
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {Button, Pagination} from 'antd';
+import styles from './Parts.module.scss';
+import {partsCreator} from './actions';
 
 export function Parts() {
+
+    const dispatch = useDispatch();
+    const {list, total, pageNo, pageSize} = useSelector((state: any) => {
+        return state.search.advanceSearch.parts;
+    });
+    const {queryParams} = useSelector((state: any) => {
+        return state.search.advanceSearch.self;
+    });
+
+    function handleClickPartCode(code) {
+        console.log(code);
+    }
+
+    function doQuery(page, size) {
+        queryParams.paging = {
+            page,
+            size
+        };
+
+        dispatch(partsCreator.doQuery(queryParams));
+    }
+
     return (
         <div className="parts-wrapper">
-            <div className="parts">
-                <div className="item">
-                    <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
-                    <ul>
-                        <li>
-                            <span className="btn">3444322</span>-<span>零件名称</span>
-                            <span>
-                                (<span>零件备注</span>)
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                <label>最小包装数：</label>3
-                            </span>
-                            <span>
-                                 <label>库位：</label>PA333
-                            </span>
-                            <span>
-                                <label>运输方式：</label>海运
-                            </span>
-                            <span>
-                                <label>价格：</label>海运
-                            </span>
-                        </li>
-                    </ul>
-                    <div>
-                        <Button type="primary">购买</Button>
-                    </div>
+            <div className={styles.parts}>
+                <div className="inner-wrapper">
+                    {
+                        list && list.map((item) => {
+                            return (
+                                <div className="item" key={item.code}>
+                                    <div className="image-box" onClick={handleClickPartCode.bind(null, item.code)}><img src={item.coverImageUri || '/images/logo.png'} alt={item.name}/></div>
+                                    <div className="info-box">
+                                        <div className="title-line">
+                                            <span className="btn" onClick={handleClickPartCode.bind(null, item.code)}>{item.code}</span>
+                                            <span className="gap">-</span>
+                                            <span>{item.name}</span>
+                                            <span>(<span>{item.name}</span>)</span>
+                                        </div>
+                                        <div className="content-line">
+                                            <span><label>最小包装数：</label>{item.unitPkgQty}</span>
+                                            <span><label>库位：</label>{item.position}</span>
+                                            <span><label>运输方式：</label>{item.transportRestrict}</span>
+                                            <span><label>价格：</label>{item.price}</span>
+                                        </div>
+                                    </div>
+                                    <div className="btn-box">
+                                        <Button type="primary" icon="shopping-cart">购买</Button>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
                 </div>
             </div>
-            <div>
-                <Pagination size="small" total={50} showSizeChanger showQuickJumper/>
+            <div className={styles.pagination}>
+                <Pagination
+                    total={total}
+                    current={pageNo}
+                    pageSize={pageSize}
+                    pageSizeOptions={['5', '10', '20']}
+                    showSizeChanger
+                    showQuickJumper
+                    onChange={doQuery}
+                    onShowSizeChange={doQuery}
+                />
             </div>
         </div>
-
     );
 }
