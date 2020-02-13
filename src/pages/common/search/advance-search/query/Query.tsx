@@ -126,7 +126,7 @@ export function QueryForm(props: any) {
                 </Row>
                 <Row>
                     <Col span={24} style={{textAlign: 'center'}}>
-                        <Button type="primary" htmlType="submit" onClick={doQuery}>搜索</Button>
+                        <Button type="primary" onClick={doQuery}>搜索</Button>
                         <Button style={{marginLeft: 8}} onClick={doReset}>清空</Button>
                     </Col>
                 </Row>

@@ -1,6 +1,7 @@
-import {put, call, takeLatest} from 'redux-saga/effects';
+import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {http} from '@/common/http';
 import * as actions from './actions';
+import {querySaga} from './query/saga';
 
 function* replaceQueryController(action) {
     const data = yield call(replaceQuery, action.payload);
@@ -13,6 +14,13 @@ function replaceQuery(partCode) {
     });
 }
 
-export function* replaceSaga() {
+function* replaceSaga() {
     yield takeLatest(actions.DO_QUERY, replaceQueryController);
+}
+
+export function* replaceSagas() {
+    yield all([
+        fork(querySaga),
+        fork(replaceSaga)
+    ]);
 }

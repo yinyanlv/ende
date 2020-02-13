@@ -3,9 +3,12 @@ import * as actions from './actions';
 import {http} from '@/common/http';
 
 function* doQueryController(action) {
-    const data = yield call(doQuery, action.payload);
+    try {
+        const data = yield call(doQuery, action.payload);
+        yield put(actions.applicabilityCreator.setApplicability(data));
+    } catch(err) {
 
-    yield put(actions.applicabilityCreator.setApplicability(data));
+    }
 }
 
 function doQuery(params) {

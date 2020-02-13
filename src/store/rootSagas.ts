@@ -3,8 +3,8 @@ import {crumbsSaga} from '@/pages/common/crumbs/saga';
 import {vinSearchSaga} from '@/pages/common/vin-search/saga';
 import {searchSagas} from '@/pages/common/search/sagas';
 import {partDetailSagas} from '@/pages/common/part-detail/sagas';
-import {catalogSaga} from '@/pages/catalog/saga';
-import {usageSaga} from '@/pages/usage/saga';
+import {catalogSagas} from '@/pages/catalog/sagas';
+import {usageSagas} from '@/pages/usage/sagas';
 
 export function* rootSagas() {
     yield all([
@@ -12,7 +12,7 @@ export function* rootSagas() {
         fork(vinSearchSaga),
         fork(searchSagas),
         fork(partDetailSagas),
-        fork(catalogSaga),
-        fork(usageSaga)
+        fork(catalogSagas),
+        fork(usageSagas)
     ]);
 }

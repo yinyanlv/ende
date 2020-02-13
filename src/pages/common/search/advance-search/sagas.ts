@@ -11,6 +11,7 @@ import {legendsCreator} from './legends/actions';
 
 function* doQueryController(action) {
     const params = action.payload;
+
     yield put(actions.advanceSearchCreator.setQueryParams(params));
     yield put(actions.advanceSearchCreator.loadCount(params));
     yield put(applicabilityCreator.doQuery(params));
@@ -19,8 +20,12 @@ function* doQueryController(action) {
 }
 
 function* loadCountController(action) {
-    const data = yield call(loadCount, action.payload);
-    yield put(actions.advanceSearchCreator.setCount(data));
+    try {
+        const data = yield call(loadCount, action.payload);
+        yield put(actions.advanceSearchCreator.setCount(data));
+    } catch(err) {
+
+    }
 }
 
 function loadCount(params) {
@@ -34,8 +39,8 @@ function* advanceSearchSaga() {
 
 export function* advanceSearchSagas() {
     yield all([
-        fork(advanceSearchSaga),
         fork(querySaga),
+        fork(advanceSearchSaga),
         fork(applicabilitySaga),
         fork(partsSaga),
         fork(legendsSaga)

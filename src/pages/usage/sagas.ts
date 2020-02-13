@@ -3,7 +3,7 @@ import {groupsSaga} from './groups/saga';
 import {legendsSaga} from './legends/saga';
 import {partsSaga} from './parts/saga';
 
-export function* usageSaga() {
+export function* usageSagas() {
     yield all([
         fork(groupsSaga),
         fork(legendsSaga),
