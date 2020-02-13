@@ -1,1 +1,35 @@
 @import "src/scss/sdk/index";
+
+.partInfo {
+  display: flex;
+  margin-top:10px;
+
+  :global {
+
+    .magnifier-box{
+      width: 350px;
+    }
+
+    .info-box {
+      flex: 1;
+      margin-left: 20px;
+
+      td {
+        line-height: 30px;
+
+        &:first-child {
+          font-weight: bold;
+          padding-right: 20px;
+        }
+      }
+
+      .btn-line {
+        margin-top: 10px;
+
+        .ant-btn {
+          width: 170px;
+        }
+      }
+    }
+  }
+}

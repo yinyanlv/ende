@@ -37,11 +37,9 @@ export function QueryForm(props: any) {
                             }
                         </FormItem>
                     </Col>
-                </Row>
-                <Row>
-                    <Col span={24} style={{textAlign: 'center'}}>
-                        <Button type="primary" onClick={doQuery}>搜索</Button>
-                        <Button style={{marginLeft: 8}} onClick={doReset}>清空</Button>
+                    <Col span={16} className="btn-line">
+                        <Button type="primary" onClick={doQuery}>查询</Button>
+                        <Button onClick={doReset}>清空</Button>
                     </Col>
                 </Row>
             </Form>

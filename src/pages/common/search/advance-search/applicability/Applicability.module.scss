@@ -1,1 +1,22 @@
 @import "src/scss/sdk/index";
+
+.applicability {
+
+  :global {
+
+    .btn {
+      text-decoration: underline;
+    }
+  }
+}
+
+.pagination {
+  padding: 8px 0 16px;
+
+  :global {
+
+    .ant-pagination {
+      float:right;
+    }
+  }
+}

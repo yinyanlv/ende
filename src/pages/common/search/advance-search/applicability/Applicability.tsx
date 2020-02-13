@@ -1,72 +1,125 @@
 import React from 'react';
-import {Table} from 'antd';
+import {Pagination, Table} from 'antd';
+import {useSelector, useDispatch} from 'react-redux';
+import {applicabilityCreator} from './actions';
+import styles from './Applicability.module.scss';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Applicability() {
+
+    const dispatch = useDispatch();
+    const {list, total, pageNo, pageSize} = useSelector((state: any) => {
+        return state.search.advanceSearch.applicability;
+    });
+    const {queryParams} = useSelector((state: any) => {
+        return state.search.advanceSearch.self;
+    });
+
+    function handleClickPartCode(partCode) {
+        dispatch(partDetailCreator.setIsShowPartDetail({
+            isShow: true,
+            partCode: partCode
+        }));
+    }
 
     const columns = [
         {
             title: '目录',
-            dataIndex: 'name',
+            dataIndex: 'catalogueCode',
+            ellipsis: true,
+            width: 80
         },
         {
             title: '零件号',
-            dataIndex: 'age',
+            dataIndex: 'partCode',
+            width: 120,
+            ellipsis: true,
+            render: (val, record) => {
+                return (
+                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                );
+            }
         },
         {
             title: '零件描述',
-            dataIndex: 'address',
-        },
-        {
-            title: '年',
-            dataIndex: 'tags'
+            dataIndex: 'partName',
+            ellipsis: true,
+            width: 140
         },
         {
             title: '左右',
-            dataIndex: 'abc'
+            dataIndex: 'hand',
+            ellipsis: true,
+            width: 80
         },
         {
             title: '用途',
-            dataIndex: 'abc1'
+            dataIndex: 'note',
+            ellipsis: true,
+            width: 100
         },
         {
             title: '图例描述',
-            dataIndex: 'abc2'
+            dataIndex: 'legendName',
+            ellipsis: true,
+            width: 140
+        },
+        {
+            title: '图例备注',
+            dataIndex: 'legendNote',
+            ellipsis: true,
+            width: 140
         },
         {
             title: '用量',
-            dataIndex: 'abc3'
+            dataIndex: 'qty',
+            ellipsis: true,
+            width: 80
         },
         {
             title: '主组描述',
-            dataIndex: 'abc4'
+            dataIndex: 'legendGroupName',
+            ellipsis: true,
+            width: 140
         }
     ];
 
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
+    function doQuery(page, size) {
+        queryParams.paging = {
+            page,
+            size
+        };
+
+        dispatch(applicabilityCreator.doQuery(queryParams));
+    }
 
     return (
-        <Table columns={columns} dataSource={data} rowKey={'key'}/>
+        <div>
+            <div className={styles.applicability}>
+                <Table
+                    columns={columns}
+                    dataSource={list}
+                    rowKey={'id'}
+                    tableLayout={'fixed'}
+                    pagination={false}
+                    scroll={{
+                        x: true,
+                        y: true
+                    }}
+                />
+            </div>
+            <div className={styles.pagination}>
+                <Pagination
+                    total={total}
+                    current={pageNo}
+                    pageSize={pageSize}
+                    pageSizeOptions={['5', '10', '20']}
+                    showSizeChanger
+                    showQuickJumper
+                    onChange={doQuery}
+                    onShowSizeChange={doQuery}
+                />
+            </div>
+        </div>
     );
 }

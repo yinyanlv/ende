@@ -1,73 +1,85 @@
 import React from 'react';
-import {Table} from "antd";
+import {useSelector, useDispatch} from 'react-redux';
+import {Table} from 'antd';
+import styles from './Replace.module.scss';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Replace() {
+    const dispatch = useDispatch();
+    const {list} = useSelector((state: any) => {
+        return state.partDetail.replace;
+    });
+
+    function handleClickPartCode(partCode) {
+        dispatch(partDetailCreator.setIsShowPartDetail({
+            isShow: true,
+            partCode: partCode
+        }));
+    }
 
     const columns = [
         {
             title: '老件编号',
-            dataIndex: 'name',
-            key: 'name'
+            dataIndex: 'oldPartCode',
+            width: 120,
+            ellipsis: true,
+            render: (val, record) => {
+                return (
+                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                );
+            }
         },
         {
             title: '适用车型',
-            dataIndex: 'age',
-            key: 'age',
+            width: 120,
+            ellipsis: true,
+            dataIndex: 'oldApplyCode'
         },
         {
             title: '新件编号',
-            dataIndex: 'address',
-            key: 'address',
+            dataIndex: 'newPartCode',
+            width: 120,
+            ellipsis: true,
+            render: (val, record) => {
+                return (
+                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                );
+            }
         },
         {
             title: '适用车型',
-            key: 'tags',
-            dataIndex: 'tags'
+            width: 120,
+            ellipsis: true,
+            dataIndex: 'newApplyCode'
         },
         {
             title: '替换类型',
-            key: 'tags',
-            dataIndex: 'tags'
+            width: 120,
+            ellipsis: true,
+            dataIndex: 'typeName'
         },
         {
             title: '断点',
-            key: 'tags',
-            dataIndex: 'tags'
+            width: 140,
+            ellipsis: true,
+            dataIndex: 'formattedDateTime'
         },
         {
             title: '备注',
-            key: 'tags',
-            dataIndex: 'tags'
+            ellipsis: true,
+            dataIndex: 'note'
         }
     ];
 
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
-
     return (
-        <div>
-            <Table columns={columns} dataSource={data}/>
+        <div className={styles.replace}>
+            <Table
+                columns={columns}
+                dataSource={list}
+                pagination={false}
+                rowKey={'key'}
+                tableLayout={'fixed'}
+            />
         </div>
     );
 }

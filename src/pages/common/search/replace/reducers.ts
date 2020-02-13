@@ -3,18 +3,26 @@ import * as actions from './actions';
 import {queryReducer} from './query/reducer';
 
 const initialState = {
-    queryParams: {
-    },
-    list: [],
-    total: 0,
-    pageNo: 1,
-    pageSize: 10
+    queryParams: {},
+    list: [{
+        "oldPartCode": "23955244",
+        "oldApplyCode": null,
+        "newPartCode": "23520614",
+        "newApplyCode": "CN180S",
+        "typeName": "test",
+        "dateTime": 1479398400000,
+        "note": " 2016-11-18 前用:23955244",
+        "formattedDateTime": "2016-11-18"
+    }]
 };
 
 function replaceReducer(state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case actions.SET_REPLACE:
-            return action.payload;
+            return {
+                ...state,
+                list: action.payload
+            };
         default:
             return state;
     }

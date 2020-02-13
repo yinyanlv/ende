@@ -1,57 +1,87 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {Button, Col, Form, Input, Pagination, Row, Table, Tabs} from 'antd';
+import {useSelector, useDispatch} from 'react-redux';
+import {Table} from 'antd';
 import {Query} from './query';
-
-const FormItem = Form.Item;
+import styles from './Replace.module.scss';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Replace() {
-
-    const {self} = useSelector((state: any) => {
-        return state.search.replace;
+    const dispatch = useDispatch();
+    const {list} = useSelector((state: any) => {
+        return state.search.replace.self;
     });
+
+    function handleClickPartCode(partCode) {
+        dispatch(partDetailCreator.setIsShowPartDetail({
+            isShow: true,
+            partCode: partCode
+        }));
+    }
 
     const columns = [
         {
             title: '老件编号',
-            dataIndex: 'name'
+            dataIndex: 'oldPartCode',
+            width: 120,
+            ellipsis: true,
+            render: (val, record) => {
+                return (
+                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                );
+            }
         },
         {
             title: '适用车型',
-            dataIndex: 'age'
+            width: 120,
+            ellipsis: true,
+            dataIndex: 'oldApplyCode'
         },
         {
             title: '新件编号',
-            dataIndex: 'address'
+            dataIndex: 'newPartCode',
+            width: 120,
+            ellipsis: true,
+            render: (val, record) => {
+                return (
+                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                );
+            }
         },
         {
             title: '适用车型',
-            dataIndex: 'tags'
+            width: 120,
+            ellipsis: true,
+            dataIndex: 'newApplyCode'
         },
         {
             title: '替换类型',
-            dataIndex: 'abc1'
+            width: 120,
+            ellipsis: true,
+            dataIndex: 'typeName'
         },
         {
             title: '断点',
-            dataIndex: 'abc2'
+            width: 140,
+            ellipsis: true,
+            dataIndex: 'formattedDateTime'
         },
         {
             title: '备注',
-            dataIndex: 'abc3'
+            ellipsis: true,
+            dataIndex: 'note'
         }
-    ];
-
-    const data = [
     ];
 
     return (
         <div>
             <Query />
-            <div className="grid">
-                <div>
-                    <Table columns={columns} dataSource={data} rowKey={'key'}/>
-                </div>
+            <div className={styles.replace}>
+                <Table
+                    columns={columns}
+                    dataSource={list}
+                    pagination={false}
+                    rowKey={'key'}
+                />
             </div>
         </div>
     );

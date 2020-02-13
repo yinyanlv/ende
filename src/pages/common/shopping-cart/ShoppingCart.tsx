@@ -107,7 +107,7 @@ export function ShoppingCart(props) {
             closable={false}
             visible={shoppingCart.isShow}
             onClose={handleClose}
-            width={'700px'}
+            width={850}
         >
            <div className="vinDetailContainer">
                <div>

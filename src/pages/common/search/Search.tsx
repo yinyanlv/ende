@@ -25,11 +25,10 @@ export function Search(props) {
             closable={false}
             onClose={handleClose}
             visible={search.isShow}
-            width="900px"
+            width={900}
             className={styles.search}
         >
-            <Tabs
-                defaultActiveKey="advance-search">
+            <Tabs defaultActiveKey="advance-search" type={'card'}>
                 <TabPane tab="高级查询" key="advance-search">
                     <AdvanceSearch />
                 </TabPane>

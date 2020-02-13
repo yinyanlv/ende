@@ -1,1 +1,11 @@
 @import "src/scss/sdk/index";
+
+.replace{
+
+  :global {
+
+    .btn {
+      text-decoration: underline;
+    }
+  }
+}

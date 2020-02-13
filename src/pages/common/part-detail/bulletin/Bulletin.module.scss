@@ -1,1 +1,44 @@
 @import "src/scss/sdk/index";
+
+.bulletin {
+
+  :global {
+
+    .item {
+      height: 81px;
+      border-top:1px dotted $bd-color;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+
+      &:last-child{
+        height: 82px;
+        border-bottom: 1px dotted $bd-color;
+      }
+
+      table {
+        td {
+          line-height: 22px;
+
+          &:first-child{
+            font-weight: bold;
+            padding-right: 25px;
+            text-align: right;
+          }
+
+          &:last-child {
+            flex: 1;
+          }
+        }
+      }
+
+      .date {
+        position: absolute;
+        right: 0;
+        top: 7px;
+        line-height: 22px;
+      }
+    }
+  }
+}

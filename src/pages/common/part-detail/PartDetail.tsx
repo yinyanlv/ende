@@ -6,13 +6,14 @@ import {PartInfo} from './part-info';
 import {Applicability} from './applicability';
 import {Replace} from './replace';
 import {Bulletin} from './bulletin';
+import styles from './PartDetail.module.scss';
 
 const TabPane = Tabs.TabPane;
 
 export function PartDetail() {
     const dispatch = useDispatch();
     const partDetail = useSelector((state: any) => {
-        return state.partDetail;
+        return state.partDetail.self;
     });
 
     function handleClose() {
@@ -25,31 +26,28 @@ export function PartDetail() {
             closable={false}
             visible={partDetail.isShow}
             onClose={handleClose}
-            width={900}
+            width={850}
+            destroyOnClose={true}
         >
-            <div className="vinDetailContainer">
-                <div>
-                    零件详情
-                    <Button type="primary">打开高级查询</Button>
+            <div className={styles.partDetail}>
+                <div className="drawer-title">
+                    <span>零件详情</span>
+                    <Button type="primary">在新页面打开</Button>
                 </div>
+                <PartInfo/>
                 <div>
-                    <div>
-                        <PartInfo/>
-                    </div>
-                    <div>
-                        <Tabs
-                            defaultActiveKey="1">
-                            <TabPane tab="适用性" key="1">
-                                <Applicability/>
-                            </TabPane>
-                            <TabPane tab="替换关系" key="2">
-                                <Replace />
-                            </TabPane>
-                            <TabPane tab="配件通讯(2)" key="3">
-                                <Bulletin />
-                            </TabPane>
-                        </Tabs>
-                    </div>
+                    <Tabs
+                        defaultActiveKey="applicability">
+                        <TabPane tab="适用性" key="applicability">
+                            <Applicability/>
+                        </TabPane>
+                        <TabPane tab="替换关系" key="replace">
+                            <Replace />
+                        </TabPane>
+                        <TabPane tab={`配件通讯(${partDetail.bulletinCount})`} key="bulletin">
+                            <Bulletin />
+                        </TabPane>
+                    </Tabs>
                 </div>
             </div>
         </Drawer>

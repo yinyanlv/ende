@@ -21,14 +21,14 @@ export function AdvanceSearch(props: any) {
         <div className={styles.advanceSearch}>
             <Query/>
             <div className="grid">
-                <Tabs defaultActiveKey="applicable-list">
-                    <TabPane tab={`适用性清单(${count.applyCount})`} key="applicable-list">
+                <Tabs defaultActiveKey="applicability">
+                    <TabPane tab={`适用性清单(${count.applyCount})`} key="applicability">
                         <Applicability/>
                     </TabPane>
-                    <TabPane tab={`零件清单(${count.partCount})`} key="part-list">
+                    <TabPane tab={`零件清单(${count.partCount})`} key="parts">
                         <Parts/>
                     </TabPane>
-                    <TabPane tab={`图例清单(${count.legendCount})`} key="legend-list">
+                    <TabPane tab={`图例清单(${count.legendCount})`} key="legends">
                         <Legends/>
                     </TabPane>
                 </Tabs>
