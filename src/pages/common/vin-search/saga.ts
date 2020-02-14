@@ -9,13 +9,18 @@ function* vinSearchController(action) {
     try {
         const data = yield call(doVinSearch, action.payload);
 
-        vinDetailCreator.setIsShowVinDetail({
+        yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vin',
             data: data,
             isShow: true
-        });
+        }));
     } catch (err) {
-        message.error(err.message);
+        yield put(vinDetailCreator.setIsShowVinDetail({
+            type: 'vin',
+            data: {},
+            isShow: true
+        }));
+        // message.error(err.message);
     }
 }
 
@@ -42,6 +47,10 @@ function* vsnSelectModelController(action) {
             }));
         }
     } catch(err) {
+
+        yield put(vsnSelectorCreator.setIsShowVsnSelector({
+            isShow: true
+        }));
         message.error(err.message);
     }
 }
@@ -56,11 +65,11 @@ function* vsnSearchController(action) {
     try {
         const data = call(doVsnSearch, action.payload);
 
-        vinDetailCreator.setIsShowVinDetail({
+        yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vsn',
             data: data,
             isShow: true
-        });
+        }));
     } catch(err) {
 
     }

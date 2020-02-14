@@ -33,7 +33,7 @@ export function vsnSelectorReducer(state = initialState, action) {
         case actions.IS_SHOW_VSN_SELECTOR:
             return {
                 isShow: action.payload.isShow,
-                list: action.payload.list || []
+                list: action.payload.list || initialState.list
             };
         default:
             return state;

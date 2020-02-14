@@ -50,6 +50,7 @@ export function VsnSelector() {
             visible={isShow}
             onClose={handleClose}
             destroyOnClose={true}
+            width={500}
         >
             <div className={styles.vsnSelector}>
                 <div className="drawer-title">

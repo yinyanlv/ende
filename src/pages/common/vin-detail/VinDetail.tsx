@@ -1,7 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button} from 'antd';
-import {vinDetailCreator} from './actions'
+import {vinDetailCreator} from './actions';
+import styles from './VinDetail.module.scss';
 
 export function VinDetail(props) {
 
@@ -23,8 +24,9 @@ export function VinDetail(props) {
             visible={vinDetail.isShow}
             onClose={handleClose}
             destroyOnClose={true}
+            width={500}
         >
-           <div className="vinDetailContainer">
+           <div className={styles.vinDetail}>
                <div className="drawer-title">
                    <span>VIN/VSN详情</span>
                    <Button type="primary">打开高级查询</Button>
@@ -46,11 +48,11 @@ export function VinDetail(props) {
                        </tr>
                        <tr>
                            <td>车型:</td>
-                           <td>{data.vsnVariety && data.vsnVariety.modelName}</td>
+                           <td>{data.vsnVariety && data.vsnVariety.model} - {data.vsnVariety && data.vsnVariety.modelName}</td>
                        </tr>
                        <tr>
                            <td>车型平台:</td>
-                           <td>{data.vsnVariety && data.vsnVariety.catalogName}</td>
+                           <td>{data.vsnVariety && data.vsnVariety.catalog} - {data.vsnVariety && data.vsnVariety.catalogName}</td>
                        </tr>
                        <tr>
                            <td>发动机代码:</td>
@@ -58,7 +60,7 @@ export function VinDetail(props) {
                        </tr>
                        <tr>
                            <td>发动机名称:</td>
-                           <td>{data.vsnEngine && data.vsnVariety.name}</td>
+                           <td>{data.vsnEngine && data.vsnEngine.name}</td>
                        </tr>
                        <tr>
                            <td>排量:</td>
