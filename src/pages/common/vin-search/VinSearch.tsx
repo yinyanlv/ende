@@ -33,12 +33,12 @@ export function VinSearch(props: VinSearchProps) {
         switch(searchType) {
             case SearchType.VIN:
                 dispatch(vinSearchCreator.doVinSearch({
-                    value: val
+                    code: val
                 }));
                 break;
             case SearchType.VSN:
                 dispatch(vinSearchCreator.doVsnSelectModel({
-                    value: val
+                    code: val
                 }));
                 break;
             case SearchType.PART_CODE:

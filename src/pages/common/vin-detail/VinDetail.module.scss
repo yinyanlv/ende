@@ -3,5 +3,13 @@
 .vinDetailContainer{
   :global{
 
+    td {
+      line-height: 38px;
+
+      &:first-child{
+        padding-right: 10px;
+        font-weight: bold;
+      }
+    }
   }
 }

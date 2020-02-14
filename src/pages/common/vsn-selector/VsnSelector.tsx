@@ -1,65 +1,69 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
-import {Table} from 'antd';
+import {useDispatch, useSelector} from 'react-redux';
+import {Drawer, Table} from 'antd';
+import {vsnSelectorCreator} from './actions';
 import {vinSearchCreator} from '@/pages/common/vin-search/actions';
+import styles from './VsnSelector.module.scss';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
+    const {isShow, list} = useSelector((state: any) => {
+        return state.vsnSelector;
+    });
 
     function handleClickRow(record) {
-        dispatch(vinSearchCreator.doVsnSearch(record));
+        dispatch(vinSearchCreator.doVsnSearch({
+            code: record.code,
+            model: record.name
+        }));
+    }
+
+    function handleClose() {
+        dispatch(vsnSelectorCreator.setIsShowVsnSelector({
+            isShow: false,
+            list: []
+        }));
     }
 
     const columns = [
         {
             title: '车型',
-            dataIndex: 'name',
-            key: 'name'
+            dataIndex: 'model'
         },
         {
             title: '目录',
-            dataIndex: 'age',
-            key: 'age',
+            dataIndex: 'catalog'
         },
         {
             title: '开始时间',
-            dataIndex: 'address',
-            key: 'address',
+            dataIndex: 'beginDate'
         },
         {
             title: '结束时间',
-            key: 'tags',
-            dataIndex: 'tags'
+            key: 'endDate'
         }
     ];
 
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
-
     return (
-        <div>
-            <Table columns={columns} dataSource={data} onRowClick={handleClickRow}/>
-        </div>
+        <Drawer
+            closable={false}
+            visible={isShow}
+            onClose={handleClose}
+            destroyOnClose={true}
+        >
+            <div className={styles.vsnSelector}>
+                <div className="drawer-title">
+                    <span>VIN/VSN详情</span>
+                </div>
+                <div>
+                    <Table
+                        columns={columns}
+                        dataSource={list}
+                        onRowClick={handleClickRow}
+                        pagination={false}
+                    />
+                </div>
+            </div>
+        </Drawer>
     );
 }

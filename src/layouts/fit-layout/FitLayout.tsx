@@ -4,6 +4,7 @@ import {Route} from 'react-router-dom';
 import {Header} from '@/pages/common/header';
 import {Crumbs} from '@/pages/common/crumbs';
 import {Search} from '@/pages/common/search';
+import {VsnSelector} from '@/pages/common/vsn-selector';
 import {VinDetail} from '@/pages/common/vin-detail';
 import {ShoppingCart} from '@/pages/common/shopping-cart';
 import {PartDetail} from '@/pages/common/part-detail';
@@ -30,6 +31,7 @@ export function FitLayout(props) {
                 </Route>
             </section>
             <Search/>
+            <VsnSelector />
             <VinDetail/>
             <ShoppingCart/>
             <PartDetail/>

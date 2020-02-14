@@ -5,15 +5,15 @@ import * as actions from './actions';
 import {vsnSelectorCreator} from '@/pages/common/vsn-selector/actions';
 import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
 
-export function* vinSearchSaga() {
-    yield takeLatest(actions.VIN_SEARCH, vinSearchController);
-    yield takeLatest(actions.VSN_SEARCH, vsnSearchController);
-    yield takeLatest(actions.VSN_SELECT_MODEL, vsnSelectModelController);
-}
-
 function* vinSearchController(action) {
     try {
         const data = yield call(doVinSearch, action.payload);
+
+        vinDetailCreator.setIsShowVinDetail({
+            type: 'vin',
+            data: data,
+            isShow: true
+        });
     } catch (err) {
         message.error(err.message);
     }
@@ -21,37 +21,60 @@ function* vinSearchController(action) {
 
 function doVinSearch(params) {
     return http.post('/vin/detail', {
-        code: params.value
+        code: params.code
     });
 }
 
 function* vsnSelectModelController(action) {
-    const data = yield call(doVsnSelectModel, action.payload);
+    try {
+        const list = yield call(doVsnSelectModel, action.payload);
 
-    put(vsnSelectorCreator.setIsShowVsnSelector({
-        isShow: true,
-        models: data
-    }));
+        if (list.length === 1) {
+
+            yield put(actions.vinSearchCreator.doVsnSearch({
+                code: list[0].code,
+                model: list[0].model
+            }));
+        } else if (list.length > 1) {
+            yield put(vsnSelectorCreator.setIsShowVsnSelector({
+                isShow: true,
+                list
+            }));
+        }
+    } catch(err) {
+        message.error(err.message);
+    }
 }
 
 function doVsnSelectModel(params) {
     return http.post('/vsn/select', {
-        code: params.value
+        code: params.code
     });
 }
 
 function* vsnSearchController(action) {
-    const data = call(doVsnSearch, action.payload);
-    vinDetailCreator.setIsShowVinDetail({
-        isShow: true,
-        type: 'vsn',
-        data: data
-    })
+    try {
+        const data = call(doVsnSearch, action.payload);
+
+        vinDetailCreator.setIsShowVinDetail({
+            type: 'vsn',
+            data: data,
+            isShow: true
+        });
+    } catch(err) {
+
+    }
 }
 
 function doVsnSearch(params) {
     return http.post('/vsn/detail', {
-        code: params.value,
+        code: params.code,
         model: params.model
     });
+}
+
+export function* vinSearchSaga() {
+    yield takeLatest(actions.VIN_SEARCH, vinSearchController);
+    yield takeLatest(actions.VSN_SELECT_MODEL, vsnSelectModelController);
+    yield takeLatest(actions.VSN_SEARCH, vsnSearchController);
 }

@@ -13,7 +13,7 @@ export function Bulletin() {
             {
                 list && list.map((item) => {
                     return (
-                        <div className="item">
+                        <div className="item" key="code">
                             <table>
                                 <tbody>
                                 <tr>
