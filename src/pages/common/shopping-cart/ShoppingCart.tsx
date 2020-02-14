@@ -1,99 +1,103 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Drawer, Button, Form, Row, Col, Input, Table, InputNumber, Tooltip} from 'antd';
+import {Drawer, Button, Form, Row, Col, Input, Table, InputNumber, Tooltip, Pagination} from 'antd';
 import {shoppingCartCreator} from './actions';
-
-const FormItem = Form.Item;
+import styles from './ShoppingCart.module.scss';
+import {Query} from './query';
 
 export function ShoppingCart(props) {
 
     const dispatch = useDispatch();
-    const shoppingCart = useSelector((state: any) => {
-        return state.shoppingCart;
+    const {total, list, pageNo, pageSize, isShow, queryParams} = useSelector((state: any) => {
+        return state.shoppingCart.self;
     });
+
+    function doQuery(page, size) {
+        queryParams.paging = {
+            page,
+            size
+        };
+
+        dispatch(shoppingCartCreator.doQuery(queryParams));
+    }
+
+    function handleClickPartCode(code) {
+        console.log(code);
+    }
+
+    function getModelsString(list) {
+        if (!list || list.length === 0) {
+            return '';
+        }
+
+        if (list.length > 5) {
+            return list.slice(0, 5).map((item) => {
+                return `${item.code} - ${item.name}`;
+            }).join(', ');
+        } else {
+            return list.map((item) => {
+                return `${item.code} - ${item.name}`;
+            }).join(', ');
+        }
+    }
 
     const columns = [
         {
             title: '零件信息',
-            dataIndex: 'name',
-            key: 'name',
-            render: () => {
+            dataIndex: 'partCode',
+            width: 450,
+            render: (val, record) => {
+
+                const modelsString = getModelsString(record.applyList);
                 return (
-                    <div>
-                        <div className="image-box"><img src={'/images/logo.png'} alt="logo"/></div>
-                        <ul>
-                            <li><span className="btn">3444322</span> - <span>零件名称</span>
-                                <span>(<span>零件备注</span>)</span></li>
-                            <li>
-                                <span>
-                                    <label>最小包装数：</label>3
-                                </span>
-                                <span>
-                                    <label>价格：</label>海运
-                                </span>
-                            </li>
-                            <li>
-                                <span>
-                                    <label>适用车型:</label>
-                                    diejijeieji
-                                </span>
-                            </li>
-                        </ul>
+                    <div className="item">
+                        <div className="image-box" onClick={handleClickPartCode.bind(null, record.partCode)}><img src={record.coverImageUri || '/images/logo.png'} alt={record.partName}/></div>
+                        <div className="info-box">
+                            <div className="title-line">
+                                <span className="btn" onClick={handleClickPartCode.bind(null, record.partCode)}>{record.partCode}</span>
+                                <span className="gap">-</span>
+                                <span>{record.partName}</span>
+                                <span>(<span>{record.partNote}</span>)</span>
+                            </div>
+                            <div className="content-line">
+                                <span><label>最小包装数：</label>{record.unitPkgPackage}</span>
+                                <span><label>配件价格：</label>{record.price && record.price.formatString}</span>
+                                <span style={{width: '100%'}}><label>适用车型：</label>{modelsString}</span>
+                            </div>
+                        </div>
                     </div>
                 );
             }
         },
         {
             title: '量',
-            dataIndex: 'age',
-            key: 'age',
-            render: () => {
-                return <InputNumber defaultValue={1} onChange={() => {}} />;
+            dataIndex: 'qty',
+            render: (val) => {
+                return (
+                    <div>
+                        <InputNumber defaultValue={val} onChange={() => {}} />
+                    </div>
+                );
             }
         },
         {
             title: '小计(元)',
-            dataIndex: 'address',
-            key: 'address',
+            dataIndex: 'amount',
+            render: (val) => {
+               return val && val.formatString;
+            }
         },
         {
             title: '操作',
-            key: 'tags',
-            dataIndex: 'tags',
+            dataIndex: 'operator',
             render: () => {
                 return (
                     <div>
-                    <Tooltip title={'删除'}>
-                        <Button type="primary" icon="delete" size={'small'} />
-                    </Tooltip>
+                        <a className={'btn'}>删除</a>
                     </div>
                 );
             }
         }
-    ];
-
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
     ];
 
     function handleClose() {
@@ -105,44 +109,49 @@ export function ShoppingCart(props) {
     return (
         <Drawer
             closable={false}
-            visible={shoppingCart.isShow}
+            visible={isShow}
             onClose={handleClose}
             width={850}
         >
-           <div className="vinDetailContainer">
-               <div>
-                  购物车
+           <div className={styles.shoppingCart}>
+               <div className="drawer-title">
+                  <span>购物车</span>
                </div>
+               <Query />
                <div>
-                   <div className="query">
-                       <Form className="ant-advanced-search-form" layout="inline" labelAlign="left">
-                           <Row>
-                               <Col span={8}>
-                                   <div className="vin-wrapper">
-                                       <FormItem label="零件编号">
-                                           <Input placeholder="请输入"/>
-                                       </FormItem>
-                                   </div>
-                               </Col>
-                           </Row>
-                           <Row>
-                               <Col span={24} style={{textAlign: 'center'}}>
-                                   <Button type="primary" htmlType="submit">搜索</Button>
-                                   <Button style={{marginLeft: 8}}>清空</Button>
-                               </Col>
-                           </Row>
-                       </Form>
-                   </div>
-                   <div className="grid">
-                       <div className="part-list-container">
-                           <div className="part-list">
-                               <Table columns={columns} dataSource={data}/>
-                           </div>
-                       </div>
-                   </div>
+                   <Table
+                       columns={columns}
+                       dataSource={list}
+                       rowKey={'id'}
+                       tableLayout={'fixed'}
+                       pagination={false}
+                       rowSelection={{
+                           onChange: () => {
+
+                           }
+                       }}
+                       scroll={{
+                           x: true,
+                           y: true
+                       }}
+                   />
                </div>
-               <div>
-                   <Button type="primary">生成订单</Button>
+               <div className={styles.pagination}>
+                   <div className="operators">
+                       <Button>删除</Button>
+                       <Button type="primary">生成订单</Button>
+                   </div>
+                   <Pagination
+                       total={total}
+                       current={pageNo}
+                       pageSize={pageSize}
+                       pageSizeOptions={['10', '20']}
+                       showSizeChanger
+                       showQuickJumper
+                       onChange={doQuery}
+                       showLessItems={true}
+                       onShowSizeChange={doQuery}
+                   />
                </div>
            </div>
         </Drawer>

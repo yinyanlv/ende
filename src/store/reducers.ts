@@ -4,7 +4,7 @@ import {vinSearchReducer} from '@/pages/common/vin-search/reducer';
 import {vsnSelectorReducer} from '@/pages/common/vsn-selector/reducer';
 import {vinDetailReducer} from '@/pages/common/vin-detail/reducer';
 import {searchReducers} from '@/pages/common/search/reducers';
-import {shoppingCartReducer} from '@/pages/common/shopping-cart/reducer';
+import {shoppingCartReducers} from '@/pages/common/shopping-cart/reducers';
 import {partDetailReducers} from '@/pages/common/part-detail/reducers';
 import {crumbsReducer} from '@/pages/common/crumbs/reducer';
 import {brandsReducer} from '@/pages/catalog/brands/reducer';
@@ -21,7 +21,7 @@ export const reducers = combineReducers({
     vsnSelector: vsnSelectorReducer,
     vinDetail: vinDetailReducer,
     search: searchReducers,
-    shoppingCart: shoppingCartReducer,
+    shoppingCart: shoppingCartReducers,
     partDetail: partDetailReducers,
     crumbs: crumbsReducer,
     brands: brandsReducer,
