@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {Menu, Icon, Dropdown, Badge, Popover, Tabs, Drawer} from 'antd';
 import {configCreator} from '@/store/config/actions';
@@ -12,6 +12,9 @@ const MenuItem = Menu.Item;
 
 export function Nav(props) {
     const dispatch = useDispatch();
+    const {cartCount} = useSelector((state: any) => {
+        return state.nav;
+    });
 
     const userMenu = (
         <Menu>
@@ -128,7 +131,7 @@ export function Nav(props) {
                     </span>
                     <span className="nav-item">
                        <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
-                            <Icon type="shopping-cart"/> <span>(<span>11</span>)</span>
+                            <Icon type="shopping-cart"/> <span>(<span>{cartCount}</span>)</span>
                         </span>
                     </span>
                     <NavLink to={'/'} className="nav-item">

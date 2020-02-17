@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import {configReducer} from './config/reducer';
+import {navReducer} from '@/pages/common/header/nav/reducer';
 import {vinSearchReducer} from '@/pages/common/vin-search/reducer';
 import {vsnSelectorReducer} from '@/pages/common/vsn-selector/reducer';
 import {vinDetailReducer} from '@/pages/common/vin-detail/reducer';
@@ -17,6 +18,7 @@ import {partsReducer} from '@/pages/usage/parts/reducer';
 
 export const reducers = combineReducers({
     config: configReducer,
+    nav: navReducer,
     vinSearch: vinSearchReducer,
     vsnSelector: vsnSelectorReducer,
     vinDetail: vinDetailReducer,
