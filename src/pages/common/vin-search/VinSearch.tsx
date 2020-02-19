@@ -1,12 +1,9 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {Button, Dropdown, Input, Menu, message} from 'antd';
+import {Input, Menu, message} from 'antd';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator, VSN_SELECT_MODEL} from '@/pages/common/vin-search/actions';
-import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
 
-
-const MenuItem = Menu.Item;
 const AntdSearch = Input.Search;
 
 interface VinSearchProps {

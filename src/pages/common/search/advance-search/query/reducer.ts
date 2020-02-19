@@ -1,7 +1,8 @@
 import * as actions from './actions';
 
 export const initialState = {
-    groupList: []
+    groupList: [],
+    fieldValues: {}
 };
 
 export function queryReducer(state = initialState, action) {
