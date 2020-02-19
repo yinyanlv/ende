@@ -42,8 +42,14 @@ function insertModelOptions(options, targetLevel, currentLevel, parentValue, pat
 
     if (targetLevel === currentLevel) {
         for (let i = 0; i < options.length; i++) {
-            if (options[i].value === path[currentLevel]) {
-                options[i].children = list;
+            if (targetLevel === 0) {
+                if (options[i].value === path[currentLevel]) {
+                    options[i].children = list;
+                }
+            } else if (parentValue === path[currentLevel -1]) {
+                if (options[i].value === path[currentLevel]) {
+                    options[i].children = list;
+                }
             }
         }
     } else {
@@ -55,5 +61,4 @@ function insertModelOptions(options, targetLevel, currentLevel, parentValue, pat
     }
 
     return options;
-
 }
