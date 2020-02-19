@@ -73,3 +73,12 @@ export function buildQueryParams(params) {
         paging: {page: 1, size: 10}
     }
 }
+
+export function rebuildList(list) {
+    return list.map((item) => {
+        return {
+            value: item.code,
+            label: item.name
+        };
+    });
+}

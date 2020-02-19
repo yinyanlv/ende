@@ -1,5 +1,6 @@
 import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
 import {http} from '@/common/http';
+import {rebuildList} from '@/common/utils';
 import * as actions from './actions';
 import {advanceSearchCreator} from '../actions';
 
@@ -19,7 +20,8 @@ function loadGroup() {
 function* loadM1Controller() {
     try {
         const list = yield call(loadM1);
-        yield put(actions.queryCreator.setM1(list));
+        const options = rebuildList(list);
+        yield put(actions.queryCreator.setM1(options));
     } catch(err) {
 
     }
@@ -31,8 +33,14 @@ function loadM1() {
 
 function* loadM2Controller(action) {
     try {
-        const list = yield call(loadM2, action.pyload);
-        yield put(actions.queryCreator.setM2(list));
+        const list = yield call(loadM2, action.payload);
+        const params = action.payload;
+        const options = rebuildList(list);
+
+        yield put(actions.queryCreator.setM2({
+            path: [params.m1],
+            list: options
+        }));
     } catch(err) {
 
     }
@@ -44,8 +52,14 @@ function loadM2(params) {
 
 function* loadM3Controller(action) {
     try {
-        const list = yield call(loadM3, action.pyload);
-        yield put(actions.queryCreator.setM3(list));
+        const list = yield call(loadM3, action.payload);
+        const params = action.payload;
+        const options = rebuildList(list);
+
+        yield put(actions.queryCreator.setM3({
+            path: [params.m1, params.m2],
+            list: options
+        }));
     } catch(err) {
 
     }
@@ -57,10 +71,16 @@ function loadM3(params) {
 
 function* loadM4Controller(action) {
     try {
-        const list = yield call(loadM4, action.pyload);
-        yield put(actions.queryCreator.setM4(list));
-    } catch(err) {
+        const list = yield call(loadM4, action.payload);
+        const params = action.payload;
+        const options = rebuildList(list);
 
+        yield put(actions.queryCreator.setM4({
+            path: [params.m1, params.m2, params.m3],
+            list: options
+        }));
+    } catch(err) {
+        console.log(err);
     }
 }
 

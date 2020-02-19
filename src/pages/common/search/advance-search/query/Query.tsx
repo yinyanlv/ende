@@ -10,12 +10,10 @@ const Option = Select.Option;
 
 export function QueryForm(props: any) {
     const dispatch = useDispatch();
-    const {groupList} = useSelector((state: any) => {
+    const {groupList, modelOptions} = useSelector((state: any) => {
        return state.search.advanceSearch.query;
     });
     const {getFieldDecorator} = props.form;
-
-    const options = [];
 
     function doQuery() {
        props.form.validateFields((err, values) => {
@@ -28,10 +26,32 @@ export function QueryForm(props: any) {
 
     useEffect(() => {
         dispatch(queryCreator.loadGroup());
+        dispatch(queryCreator.loadM1());
     }, []);
 
     function doReset() {
         props.form.resetFields();
+    }
+
+    function handleModelChange(value, selectedOptions) {
+        if (value.length === 1) {
+            return dispatch(queryCreator.loadM2({
+                m1: value[0]
+            }));
+        } else if (value.length === 2) {
+
+            return dispatch(queryCreator.loadM3({
+                m1: value[0],
+                m2: value[1]
+            }));
+        } else if (value.length === 3) {
+
+            return dispatch(queryCreator.loadM4({
+                m1: value[0],
+                m2: value[1],
+                m3: value[2]
+            }));
+        }
     }
 
     return (
@@ -54,7 +74,7 @@ export function QueryForm(props: any) {
                         <FormItem label="车型">
                             {
                                 getFieldDecorator('model', [])(
-                                    <Cascader options={options} placeholder="品牌/目录/年份/车型"/>
+                                    <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
                                 )
                             }
                         </FormItem>
@@ -67,7 +87,7 @@ export function QueryForm(props: any) {
                                         <Select placeholder={'请选择'} dropdownMatchSelectWidth={false} allowClear={true}>
                                             {
                                                 groupList.map((item) => {
-                                                    return <Option value={item.code}>{item.name}</Option>;
+                                                    return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                                 })
                                             }
                                         </Select>
