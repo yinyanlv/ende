@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Select, Button, Cascader, Col, Form, Input, Row} from 'antd';
-import {buildQueryParams} from '@/common/utils';
+import {buildQueryParams, rebuildFields} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
@@ -18,10 +18,24 @@ export function QueryForm(props: any) {
     function doQuery() {
        props.form.validateFields((err, values) => {
            if (!err) {
-               const params = buildQueryParams(values);
+               values = rebuildModelField(values);
+               let params = rebuildFields(values);
+               params = buildQueryParams(params);
                dispatch(queryCreator.doQuery(params));
            }
        });
+    }
+
+    function rebuildModelField(values) {
+        const models = values.model;
+        if (models && models.length) {
+            models.forEach((item, index) => {
+                values[`m${index + 1}`] = item;
+            });
+        }
+        delete values.model;
+
+        return values;
     }
 
     useEffect(() => {
@@ -74,7 +88,6 @@ export function QueryForm(props: any) {
                         <FormItem label="车型">
                             {
                                 getFieldDecorator('model', {
-                                    initialValue: ["BAOJUN", "CN180C"]
                                 })(
                                     <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
                                 )

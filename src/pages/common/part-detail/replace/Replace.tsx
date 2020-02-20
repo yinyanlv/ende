@@ -77,7 +77,7 @@ export function Replace() {
                 columns={columns}
                 dataSource={list}
                 pagination={false}
-                rowKey={'key'}
+                rowKey={'newPartCode'}
                 tableLayout={'fixed'}
             />
         </div>

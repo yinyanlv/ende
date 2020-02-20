@@ -80,7 +80,7 @@ export function Replace() {
                     columns={columns}
                     dataSource={list}
                     pagination={false}
-                    rowKey={'key'}
+                    rowKey={'newPartCode'}
                 />
             </div>
         </div>

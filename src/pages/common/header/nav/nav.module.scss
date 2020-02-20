@@ -15,19 +15,20 @@
     .nav-item{
       cursor: pointer;
       transition: color .3s ease-in-out;
+      color: #fff;
 
       &:hover, &:active{
-        color: $primary-color;
+        color: #fff;
 
         .nav-item-inner{
-          color: $primary-color;
+          color: #fff;
         }
       }
     }
 
     .nav-item-inner{
       font-size: 14px;
-      color: $font-color;
+      color: #fff;
       padding: 5px 9px;
 
       i{

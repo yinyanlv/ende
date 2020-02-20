@@ -8,7 +8,7 @@ export function Header(props) {
     return (
         <section className={styles.header}>
             <div className="logo-box">
-                <Link to={'/'}>
+                <Link to={'/'} className={'logo-wrapper'}>
                     <img src={'/images/logo.png'} alt="logo"/>
                 </Link>
                 <span className="title">

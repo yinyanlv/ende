@@ -8,12 +8,12 @@ module.exports = override(
     fixBabelImports('import', {
         libraryName: 'antd',
         libraryDirectory: 'es',
-        style: 'css'  // 设置为true时，将导入less而不是css
+        style: true  // 设置为true时，将导入less而不是css
     }),
     addLessLoader({
         javascriptEnabled: true,
         modifyVars: {
-            // '@primary-color': 'red'
+            '@primary-color': '#a61f38'
         }
     }),
     removeModuleScopePlugin()

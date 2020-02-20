@@ -59,7 +59,7 @@ export function Applicability() {
                 columns={columns}
                 dataSource={list}
                 pagination={false}
-                rowKey={'key'}
+                rowKey={'id'}
                 tableLayout={'fixed'}
             />
         </div>

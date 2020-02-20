@@ -66,12 +66,30 @@ export function getHashObj() {
  *
  *  {total: 111, list: [{}], pageSize: 0, totalPage: 1, pageNo: 0}
  */
-export function buildQueryParams(params) {
+export function buildQueryParams(params = [], page = 1, size = 10) {
     return {
-        filters: [{name: 'partName', value: '螺栓'}],
+        filters: params,
         sorts: [],
-        paging: {page: 1, size: 10}
+        paging: {
+            page,
+            size
+        }
     }
+}
+
+export function rebuildFields(fieldsObj) {
+    const list: any = [];
+
+    Object.keys(fieldsObj).forEach((key) => {
+        if (fieldsObj[key] !== undefined) {
+            list.push({
+                name: key,
+                value: fieldsObj[key]
+            });
+        }
+    });
+
+    return list;
 }
 
 export function rebuildList(list, isLeaf = false) {

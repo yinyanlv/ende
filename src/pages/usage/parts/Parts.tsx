@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Table, Icon, Tooltip, message} from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
-import {Link} from 'react-router-dom';
 import {Panel} from '@/components/panel';
 import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
@@ -31,37 +30,42 @@ function Parts(props: PartsProps) {
         title: '#',
         dataIndex: 'callout',
         width: 40,
+        ellipsis: true
     }, {
         title: '零件编号',
         dataIndex: 'partCode',
-        width: 140,
+        width: 150,
+        ellipsis: true,
         render: (val, record) => {
             return (
                 <div className="operator-wrapper">
-                    <div><span className="link-button" onClick={() => {
+                    <span className="link-button" onClick={() => {
                         showPartDetail(val);
-                    }}>{val}</span></div>
-                    <div className="operator-line">
-                        <Tooltip title={'复制'}>
+                    }}>{val}</span>
+                    <span className={'operator-btns'}>
+                          <Tooltip title={'复制'}>
                             <Icon type={'copy'} onClick={handleClickCopy}/>
-                        </Tooltip>
+                          </Tooltip>
                         <Tooltip title={'替换关系'}>
                             <Icon type={'retweet'} onClick={handleClickReplace}/>
                         </Tooltip>
-                    </div>
+                    </span>
                 </div>
             );
         }
     }, {
         title: '左右',
         dataIndex: 'handName',
+        ellipsis: true,
         width: 70
     }, {
         title: '名称描述',
-        dataIndex: 'name'
+        dataIndex: 'name',
+        ellipsis: true
     }, {
         title: '用途',
         dataIndex: 'note',
+        ellipsis: true,
         render: (val, record) => (
             <UsagePopover params={{id: record.id}}>
                 <span>{val}</span>
@@ -70,17 +74,16 @@ function Parts(props: PartsProps) {
     }, {
         title: '量',
         dataIndex: 'formattedQty',
+        ellipsis: true,
         width: 40
     }, {
         title: '操作',
-        dataIndex: '',
+        ellipsis: true,
         width: 60,
         render: (val, record) => (
-            <span>
-                <Tooltip title={'加入购物车'}>
-                    <Button type="primary" icon="shopping-cart" size={'small'} onClick={handleClickCart}/>
-                </Tooltip>
-            </span>
+            <Tooltip title={'加入购物车'}>
+                <Button type="primary" icon="shopping-cart" size={'small'} onClick={handleClickCart}/>
+            </Tooltip>
         )
     }];
 
@@ -103,20 +106,14 @@ function Parts(props: PartsProps) {
         message.success('加入购物车');
     }
 
-    function handleClickNote() {
-        message.success('备注');
-    }
-
-    function handleClickCopy() {
+    function handleClickCopy(e) {
+        e.stopPropagation();
         message.success('复制');
     }
 
-    function handleClickReplace() {
+    function handleClickReplace(e) {
+        e.stopPropagation();
         message.success('替换关系');
-    }
-
-    function handleClickSearch() {
-        message.success('配件反查');
     }
 
     function handleSelect(record) {
@@ -154,6 +151,7 @@ function Parts(props: PartsProps) {
                        size={'small'}
                        scroll={{y: styles.partsTableBodyHeight}}
                        className={'part-list'}
+                       tableLayout={'fixed'}
                        pagination={false}
                        onRow={(record) => {
                            return {
