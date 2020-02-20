@@ -73,7 +73,9 @@ export function QueryForm(props: any) {
                     <Col span={16} className="model-wrapper">
                         <FormItem label="车型">
                             {
-                                getFieldDecorator('model', [])(
+                                getFieldDecorator('model', {
+                                    initialValue: ["BAOJUN", "CN180C"]
+                                })(
                                     <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
                                 )
                             }

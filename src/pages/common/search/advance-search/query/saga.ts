@@ -73,7 +73,7 @@ function* loadM4Controller(action) {
     try {
         const list = yield call(loadM4, action.payload);
         const params = action.payload;
-        const options = rebuildList(list);
+        const options = rebuildList(list, true);
 
         yield put(actions.queryCreator.setM4({
             path: [params.m1, params.m2, params.m3],

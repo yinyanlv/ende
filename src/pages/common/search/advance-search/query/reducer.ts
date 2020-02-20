@@ -44,11 +44,16 @@ function insertModelOptions(options, targetLevel, currentLevel, parentValue, pat
         for (let i = 0; i < options.length; i++) {
             if (targetLevel === 0) {
                 if (options[i].value === path[currentLevel]) {
-                    options[i].children = list;
+                    if (!options[i].children) {
+                        options[i].children = list;
+                    }
                 }
+
             } else if (parentValue === path[currentLevel -1]) {
                 if (options[i].value === path[currentLevel]) {
-                    options[i].children = list;
+                    if (!options[i].children) {
+                        options[i].children = list;
+                    }
                 }
             }
         }

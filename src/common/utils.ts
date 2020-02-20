@@ -74,11 +74,12 @@ export function buildQueryParams(params) {
     }
 }
 
-export function rebuildList(list) {
+export function rebuildList(list, isLeaf = false) {
     return list.map((item) => {
         return {
             value: item.code,
-            label: item.name
+            label: item.name,
+            isLeaf: isLeaf
         };
     });
 }
