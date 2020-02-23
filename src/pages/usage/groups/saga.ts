@@ -63,6 +63,12 @@ function getActiveTreeNodeInfo(params) {
     }
 }
 
+const LOAD_GROUP_URL_MAP = {
+    normal: '/usage',
+    vin: '/vin-usage/vin/struct',
+    vsn: '/vin-usage/vsn/struct'
+};
+
 function loadGroup(params) {
     return http.post('/usage', params);
 }

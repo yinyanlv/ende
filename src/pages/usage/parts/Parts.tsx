@@ -5,6 +5,7 @@ import {Panel} from '@/components/panel';
 import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import copy from 'copy-to-clipboard';
 
 interface PartsProps {
     isShowParts: boolean;
@@ -44,7 +45,9 @@ function Parts(props: PartsProps) {
                     }}>{val}</span>
                     <span className={'operator-btns'}>
                           <Tooltip title={'复制'}>
-                            <Icon type={'copy'} onClick={handleClickCopy}/>
+                            <Icon type={'copy'} onClick={(e) => {
+                                handleClickCopy(e, val);
+                            }}/>
                           </Tooltip>
                         <Tooltip title={'替换关系'}>
                             <Icon type={'retweet'} onClick={handleClickReplace}/>
@@ -106,9 +109,10 @@ function Parts(props: PartsProps) {
         message.success('加入购物车');
     }
 
-    function handleClickCopy(e) {
+    function handleClickCopy(e, val) {
         e.stopPropagation();
-        message.success('复制');
+        copy(val);
+        message.success('已复制到剪贴板');
     }
 
     function handleClickReplace(e) {

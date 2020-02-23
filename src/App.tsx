@@ -5,6 +5,7 @@ import './App.module.scss';
 import store from './store';
 import history from './common/history';
 import {FitLayout} from '@/layouts/fit-layout';
+import {AutoLayout} from '@/layouts/auto-layout';
 import {Auth} from '@/pages/common/auth';
 import {RouteProgress} from '@/components/route-progress';
 import {Intl} from '@/pages/common/intl';
@@ -18,6 +19,9 @@ const App: React.FC = () => {
                     <Suspense fallback={<RouteProgress />}>
                         <Auth>
                             <Switch>
+                                <Route path={['/print-legend']}>
+                                    <AutoLayout />
+                                </Route>
                                 <Route path={'/'}>
                                     <FitLayout />
                                 </Route>

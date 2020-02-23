@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
+import {useHistory, useLocation} from 'react-router'
 import {Input, Menu, message} from 'antd';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator, VSN_SELECT_MODEL} from '@/pages/common/vin-search/actions';
@@ -18,6 +19,8 @@ enum SearchType {
 
 export function VinSearch(props: VinSearchProps) {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
 
     function doVinSearch(val: string) {
         val = val.trim();
@@ -26,8 +29,9 @@ export function VinSearch(props: VinSearchProps) {
             return;
         }
         const searchType = getSearchType(val);
+        const isNeedChangePage = location.pathname === '/usage' ? false : true;
 
-        switch(searchType) {
+        switch (searchType) {
             case SearchType.VIN:
                 dispatch(vinSearchCreator.doVinSearch({
                     code: val
@@ -43,7 +47,6 @@ export function VinSearch(props: VinSearchProps) {
             case SearchType.PART_NAME:
                 break;
             default:
-
         }
     }
 

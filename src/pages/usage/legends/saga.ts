@@ -12,6 +12,12 @@ function* loadLegendsController(action) {
     }
 }
 
+const LOAD_LEGENDS_URL_MAP = {
+    normal: '/usage/struct/flat-descendant',
+    vin: '/vin-usage/vin/struct/flat-descendant',
+    vsn: '/vin-usage/vsn/struct/flat-descendant'
+};
+
 function loadLegends(params) {
     return http.post('/usage/struct/flat-descendant', params);
 }

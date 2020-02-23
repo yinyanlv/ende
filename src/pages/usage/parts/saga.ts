@@ -12,6 +12,12 @@ function* loadPartsController(action) {
     }
 }
 
+const LOAD_PARTS_URL_MAP = {
+    normal: '/usage/parts',
+    vin: '/vin-usage/vin/parts',
+    vsn: '/vin-usage/vsn/parts'
+};
+
 function loadParts(params) {
     return http.post('/usage/parts', params);
 }

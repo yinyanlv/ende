@@ -15,12 +15,7 @@ function* vinSearchController(action) {
             isShow: true
         }));
     } catch (err) {
-        yield put(vinDetailCreator.setIsShowVinDetail({
-            type: 'vin',
-            data: {},
-            isShow: true
-        }));
-        // message.error(err.message);
+        message.error(err.message);
     }
 }
 
