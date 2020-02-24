@@ -9,8 +9,7 @@ export function navReducer(state = initialState, action) {
     switch(action.type) {
         case actions.SET_CART_COUNT:
             return {
-                ...state,
-                cartCount: action.payload
+                cartCount: action.payload.cartCount
             };
         default:
             return state;

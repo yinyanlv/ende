@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {Menu, Icon, Dropdown, Badge, Popover, Tabs, Drawer} from 'antd';
+import {Menu, Icon, Dropdown, Badge, Popover, Tabs} from 'antd';
+import {buildQueryParams} from '@/common/utils';
 import {configCreator} from '@/store/config/actions';
 import {searchCreator} from '@/pages/common/search/actions';
+import {navCreator} from './actions';
 import styles from './nav.module.scss';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 
@@ -15,6 +17,10 @@ export function Nav(props) {
     const {cartCount} = useSelector((state: any) => {
         return state.nav;
     });
+
+    useEffect(() => {
+        dispatch(navCreator.loadCartCount());
+    }, []);
 
     const userMenu = (
         <Menu>
@@ -72,9 +78,11 @@ export function Nav(props) {
     }
 
     function handleClickShoppingCart() {
+        const params = buildQueryParams();
         dispatch(shoppingCartCreator.setIsShowShoppingCart({
             isShow: true
         }));
+        dispatch(shoppingCartCreator.doQuery(params));
     }
 
     return (

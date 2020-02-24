@@ -6,6 +6,7 @@ function* loadCartCountController() {
     try {
         const data = yield call(loadCartCount);
 
+        yield put(actions.navCreator.setCartCount({cartCount: data.num}))
     } catch (err) {
 
     }

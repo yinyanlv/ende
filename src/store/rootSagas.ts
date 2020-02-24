@@ -1,4 +1,5 @@
 import {all, fork} from 'redux-saga/effects';
+import {navSaga} from '@/pages/common/header/nav/saga';
 import {crumbsSaga} from '@/pages/common/crumbs/saga';
 import {vinSearchSaga} from '@/pages/common/vin-search/saga';
 import {searchSagas} from '@/pages/common/search/sagas';
@@ -9,6 +10,7 @@ import {usageSagas} from '@/pages/usage/sagas';
 
 export function* rootSagas() {
     yield all([
+        fork(navSaga),
         fork(crumbsSaga),
         fork(vinSearchSaga),
         fork(searchSagas),

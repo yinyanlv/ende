@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Table, Icon, Tooltip, message} from 'antd';
+import copy from 'copy-to-clipboard';
 import {useSelector, useDispatch} from 'react-redux';
 import {Panel} from '@/components/panel';
+import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {UsagePopover} from './usagePopover';
 import styles from './Parts.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
-import copy from 'copy-to-clipboard';
 
 interface PartsProps {
     isShowParts: boolean;
@@ -87,7 +88,9 @@ function Parts(props: PartsProps) {
         width: 60,
         render: (val, record) => (
             <Tooltip title={'加入购物车'}>
-                <Button type="primary" icon="shopping-cart" size={'small'} onClick={handleClickCart}/>
+                <Button type="primary" icon="shopping-cart" size={'small'} onClick={(e) => {
+                    handleClickCart(e, record.partCode);
+                }}/>
             </Tooltip>
         )
     }];
@@ -107,8 +110,11 @@ function Parts(props: PartsProps) {
         }));
     }
 
-    function handleClickCart() {
-        message.success('加入购物车');
+    function handleClickCart(e, partCode) {
+        e.stopPropagation();
+        dispatch(shoppingCartCreator.addAndShowShoppingCart({
+            partCode: partCode
+        }));
     }
 
     function handleClickCopy(e, val) {
