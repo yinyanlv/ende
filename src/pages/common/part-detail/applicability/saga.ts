@@ -8,9 +8,9 @@ function* loadApplicabilityController(action) {
     yield put(actions.applicabilityCreator.setApplicability(list));
 }
 
-function loadApplicability(partCode) {
+function loadApplicability(params) {
     return http.post('/part/apply', {
-        partCode
+        partCode: params.partCode
     });
 }
 

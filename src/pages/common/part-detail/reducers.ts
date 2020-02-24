@@ -16,7 +16,8 @@ function partDetailReducer(state = initialState, action) {
         case actions.IS_SHOW_PART_DETAIL:
             return {
                 ...state,
-                isShow: action.payload.isShow
+                isShow: action.payload.isShow,
+                activeTab: action.payload.activeTab || initialState.activeTab
             };
         case actions.SET_COUNT:
             return {

@@ -5,14 +5,13 @@ import {partDetailCreator} from './actions';
 import {PartInfo} from './part-info';
 import {Applicability} from './applicability';
 import {Replace} from './replace';
-import {Bulletin} from './bulletin';
 import styles from './PartDetail.module.scss';
 
 const TabPane = Tabs.TabPane;
 
 export function PartDetail() {
     const dispatch = useDispatch();
-    const {isShow, bulletinCount, activeTab} = useSelector((state: any) => {
+    const {isShow, activeTab} = useSelector((state: any) => {
         return state.partDetail.self;
     });
 
@@ -21,6 +20,7 @@ export function PartDetail() {
             isShow: false
         }));
     }
+
     return (
         <Drawer
             closable={false}
@@ -32,7 +32,7 @@ export function PartDetail() {
             <div className={styles.partDetail}>
                 <div className="drawer-title">
                     <span>零件详情</span>
-                    <Button type="primary">在新页面打开</Button>
+                    {/*<Button type="primary">在新页面打开</Button>*/}
                 </div>
                 <PartInfo/>
                 <div>
@@ -43,9 +43,6 @@ export function PartDetail() {
                         </TabPane>
                         <TabPane tab="替换关系" key="replace">
                             <Replace />
-                        </TabPane>
-                        <TabPane tab={`配件通讯(${bulletinCount})`} key="bulletin">
-                            <Bulletin />
                         </TabPane>
                     </Tabs>
                 </div>

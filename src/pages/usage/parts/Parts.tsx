@@ -40,8 +40,8 @@ function Parts(props: PartsProps) {
         render: (val, record) => {
             return (
                 <div className="operator-wrapper">
-                    <span className="link-button" onClick={() => {
-                        showPartDetail(val);
+                    <span className="link-button" onClick={(e) => {
+                        showPartDetail(e, val);
                     }}>{val}</span>
                     <span className={'operator-btns'}>
                           <Tooltip title={'复制'}>
@@ -50,7 +50,9 @@ function Parts(props: PartsProps) {
                             }}/>
                           </Tooltip>
                         <Tooltip title={'替换关系'}>
-                            <Icon type={'retweet'} onClick={handleClickReplace}/>
+                            <Icon type={'retweet'} onClick={(e) => {
+                                handleClickReplace(e, val);
+                            }}/>
                         </Tooltip>
                     </span>
                 </div>
@@ -98,9 +100,9 @@ function Parts(props: PartsProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.activeCallout, isPartsLoading]);
 
-    function showPartDetail(partCode) {
-        dispatch(partDetailCreator.setIsShowPartDetail({
-            isShow: true,
+    function showPartDetail(e, partCode) {
+        e.stopPropagation();
+        dispatch(partDetailCreator.loadPartDetail({
             partCode: partCode
         }));
     }
@@ -115,9 +117,12 @@ function Parts(props: PartsProps) {
         message.success('已复制到剪贴板');
     }
 
-    function handleClickReplace(e) {
+    function handleClickReplace(e, partCode) {
         e.stopPropagation();
-        message.success('替换关系');
+        dispatch(partDetailCreator.loadPartDetail({
+            partCode: partCode,
+            activeTab: 'replace'
+        }));
     }
 
     function handleSelect(record) {

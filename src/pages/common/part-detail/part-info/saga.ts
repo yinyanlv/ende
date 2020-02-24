@@ -8,9 +8,9 @@ function* loadPartInfoController(action) {
     yield put(actions.partInfoCreator.setPartInfo(list));
 }
 
-function loadPartInfo(partCode) {
+function loadPartInfo(params) {
     return http.post('/part/detail', {
-        partCode
+        partCode: params.partCode
     });
 }
 

@@ -6,15 +6,20 @@ import styles from './PartInfo.module.scss';
 
 export function PartInfo() {
     const dispatch = useDispatch();
-    const partInfo = useSelector((state: any) => {
+    const {info} = useSelector((state: any) => {
         return state.partDetail.partInfo;
+    });
+    const {
+        resHost
+    } = useSelector((state: any) => {
+        return state.config;
     });
 
     function handleClickBuy() {
 
     }
 
-    const imageList = getImageList(partInfo.imageUris);
+    const imageList = getImageList(info.imageUris);
 
     function getImageList(list) {
         if (!list) {
@@ -23,8 +28,8 @@ export function PartInfo() {
 
         return list.map((item) => {
             return {
-                thumbnail: '/images/parts/part_1_small.jpg' || item.fileUri,
-                original: '/images/parts/part_1_large.jpg' || item.fileUri
+                thumbnail: resHost + item.fileUri,
+                original: resHost + item.fileUri
             }
         });
     }
@@ -39,36 +44,36 @@ export function PartInfo() {
                     <tbody>
                     <tr>
                         <td>零件编号:</td>
-                        <td>{partInfo.code}</td>
+                        <td>{info.code}</td>
                     </tr>
                     <tr>
                         <td>零件名称:</td>
-                        <td>{partInfo.name}</td>
+                        <td>{info.name}</td>
                     </tr>
                     <tr>
                         <td>最小包装数:</td>
-                        <td>{partInfo.unitPkgQty}</td>
+                        <td>{info.unitPkgQty}</td>
                     </tr>
                     <tr>
                         <td>库位:</td>
-                        <td>{partInfo.position}</td>
+                        <td>{info.position}</td>
                     </tr>
                     <tr>
                         <td>运输方式:</td>
-                        <td>{partInfo.transportRestrict}</td>
+                        <td>{info.transportRestrict}</td>
                     </tr>
                     <tr>
                         <td>备注:</td>
-                        <td>{partInfo.note}</td>
+                        <td>{info.note}</td>
                     </tr>
                     <tr>
                         <td>价格:</td>
-                        <td>{partInfo.saleProps && partInfo.saleProps.price.formatString}</td>
+                        <td>{info.saleProps && info.saleProps.price.formatString}</td>
                     </tr>
                     </tbody>
                 </table>
                 {
-                    partInfo.saleProps && partInfo.saleProps.canSale && (
+                    info.saleProps && info.saleProps.canSale && (
                         <div className="btn-line">
                             <Button type="primary" size={'large'} icon={'shopping-cart'} onClick={handleClickBuy}>购买</Button>
                         </div>

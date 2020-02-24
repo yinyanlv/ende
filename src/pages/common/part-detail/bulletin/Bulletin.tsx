@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {NoData} from '@/components/no-data';
 import styles from './Bulletin.module.scss';
 
 export function Bulletin() {
@@ -11,7 +12,7 @@ export function Bulletin() {
     return (
         <div className={styles.bulletin}>
             {
-                list && list.map((item) => {
+                list && list.length > 0 ? list.map((item) => {
                     return (
                         <div className="item" key="code">
                             <table>
@@ -33,7 +34,8 @@ export function Bulletin() {
                             <div className="date">{item.date}</div>
                         </div>
                     );
-                })
+                }) :
+                <NoData text={'暂无数据'} />
             }
         </div>
     );

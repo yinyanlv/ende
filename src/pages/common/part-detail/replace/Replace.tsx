@@ -11,8 +11,7 @@ export function Replace() {
     });
 
     function handleClickPartCode(partCode) {
-        dispatch(partDetailCreator.setIsShowPartDetail({
-            isShow: true,
+        dispatch(partDetailCreator.loadPartDetail({
             partCode: partCode
         }));
     }
