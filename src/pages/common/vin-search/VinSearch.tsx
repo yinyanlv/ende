@@ -19,8 +19,6 @@ enum SearchType {
 
 export function VinSearch(props: VinSearchProps) {
     const dispatch = useDispatch();
-    const location = useLocation();
-    const history = useHistory();
 
     function doVinSearch(val: string) {
         val = val.trim();
@@ -29,7 +27,6 @@ export function VinSearch(props: VinSearchProps) {
             return;
         }
         const searchType = getSearchType(val);
-        const isNeedChangePage = location.pathname === '/usage' ? false : true;
 
         switch (searchType) {
             case SearchType.VIN:
@@ -43,8 +40,14 @@ export function VinSearch(props: VinSearchProps) {
                 }));
                 break;
             case SearchType.PART_CODE:
+                dispatch(vinSearchCreator.doPartCodeSearch({
+                    code: val
+                }));
                 break;
             case SearchType.PART_NAME:
+                dispatch(vinSearchCreator.doPartNameSearch({
+                    code: val
+                }));
                 break;
             default:
         }

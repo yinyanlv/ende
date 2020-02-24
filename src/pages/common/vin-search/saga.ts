@@ -1,19 +1,41 @@
 import {put, takeLatest, call} from 'redux-saga/effects';
 import {message} from 'antd';
+import queryString from 'query-string';
+import history from '@/common/history';
 import {http} from '@/common/http';
 import * as actions from './actions';
 import {vsnSelectorCreator} from '@/pages/common/vsn-selector/actions';
 import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
 
+function isNeedRedirect(): boolean {
+    return window.location.pathname === '/usage' ? false : true;
+}
+
+function redirectToUsage(params) {
+    return history.push({
+        pathname: '/usage',
+        search: queryString.stringify(params)
+    });
+}
+
 function* vinSearchController(action) {
     try {
         const data = yield call(doVinSearch, action.payload);
-
-        yield put(vinDetailCreator.setIsShowVinDetail({
+        const needRedirect = isNeedRedirect();
+        const mappings = Object.assign({}, data.mappings, {
             type: 'vin',
-            data: data,
-            isShow: true
-        }));
+            code: action.payload.code
+        });
+        if (needRedirect) {
+            redirectToUsage(mappings)
+        } else {
+            // TODO, refresh usage
+            yield put(vinDetailCreator.setIsShowVinDetail({
+                type: 'vin',
+                data: data,
+                isShow: true
+            }));
+        }
     } catch (err) {
         message.error(err.message);
     }
@@ -32,20 +54,17 @@ function* vsnSelectModelController(action) {
         if (list.length === 1) {
 
             yield put(actions.vinSearchCreator.doVsnSearch({
-                code: list[0].code,
-                model: list[0].model
+                code: action.payload.code,
+                model: list[0].modelId
             }));
         } else if (list.length > 1) {
             yield put(vsnSelectorCreator.setIsShowVsnSelector({
                 isShow: true,
+                vsnCode: action.payload.code,
                 list
             }));
         }
     } catch(err) {
-
-        yield put(vsnSelectorCreator.setIsShowVsnSelector({
-            isShow: true
-        }));
         message.error(err.message);
     }
 }
@@ -58,15 +77,25 @@ function doVsnSelectModel(params) {
 
 function* vsnSearchController(action) {
     try {
-        const data = call(doVsnSearch, action.payload);
-
-        yield put(vinDetailCreator.setIsShowVinDetail({
+        const data: any = yield call(doVsnSearch, action.payload);
+        const needRedirect = isNeedRedirect();
+        const mappings = Object.assign({}, data.mappings, {
             type: 'vsn',
-            data: data,
-            isShow: true
-        }));
+            code: action.payload.code
+        });
+        if (needRedirect) {
+            redirectToUsage(mappings);
+        } else {
+            // TODO, refresh usage
+            yield put(vinDetailCreator.setIsShowVinDetail({
+                type: 'vsn',
+                data: data,
+                isShow: true
+            }));
+        }
     } catch(err) {
 
+        message.error(err.message);
     }
 }
 

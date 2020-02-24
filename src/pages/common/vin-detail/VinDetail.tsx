@@ -84,7 +84,7 @@ export function VinDetail(props) {
                        </tr>
                        <tr>
                            <td>变速器:</td>
-                           <td>{data.vsnTransmission}</td>
+                           <td>{data.vsnTransmission && data.vsnTransmission.name}</td>
                        </tr>
                        <tr>
                            <td>面漆颜色:</td>

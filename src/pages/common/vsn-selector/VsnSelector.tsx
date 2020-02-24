@@ -7,14 +7,14 @@ import styles from './VsnSelector.module.scss';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
-    const {isShow, list} = useSelector((state: any) => {
+    const {isShow, list, vsnCode} = useSelector((state: any) => {
         return state.vsnSelector;
     });
 
     function handleClickRow(record) {
         dispatch(vinSearchCreator.doVsnSearch({
-            code: record.code,
-            model: record.name
+            code: vsnCode,
+            model: record.modelId
         }));
     }
 
@@ -60,6 +60,7 @@ export function VsnSelector() {
                     <Table
                         columns={columns}
                         dataSource={list}
+                        rowKey={'modelId'}
                         onRowClick={handleClickRow}
                         pagination={false}
                     />
