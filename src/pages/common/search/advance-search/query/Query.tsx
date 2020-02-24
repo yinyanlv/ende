@@ -10,7 +10,7 @@ const Option = Select.Option;
 
 export function QueryForm(props: any) {
     const dispatch = useDispatch();
-    const {groupList, modelOptions} = useSelector((state: any) => {
+    const {groupList, modelOptions, fieldValues} = useSelector((state: any) => {
        return state.search.advanceSearch.query;
     });
     const {getFieldDecorator} = props.form;
@@ -76,7 +76,9 @@ export function QueryForm(props: any) {
                         <div className="first-column vin-wrapper">
                             <FormItem label="VIN/VSN">
                                 {
-                                    getFieldDecorator('vinVsn', {})(
+                                    getFieldDecorator('vinVsn', {
+                                        initialValue: fieldValues.vinVsn
+                                    })(
                                         <Input placeholder="请输入"/>
                                     )
                                 }
@@ -88,6 +90,7 @@ export function QueryForm(props: any) {
                         <FormItem label="车型">
                             {
                                 getFieldDecorator('model', {
+                                    initialValue: fieldValues.model
                                 })(
                                     <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
                                 )
@@ -98,7 +101,9 @@ export function QueryForm(props: any) {
                         <div className="first-column">
                             <FormItem label="主组">
                                 {
-                                    getFieldDecorator('legendGroupCode', [])(
+                                    getFieldDecorator('legendGroupCode', {
+                                        initialValue: fieldValues.legendGroupCode
+                                    })(
                                         <Select placeholder={'请选择'} dropdownMatchSelectWidth={false} allowClear={true}>
                                             {
                                                 groupList.map((item) => {
@@ -114,7 +119,9 @@ export function QueryForm(props: any) {
                     <Col span={8}>
                         <FormItem label="图例编号">
                             {
-                                getFieldDecorator('legendCode', [])(
+                                getFieldDecorator('legendCode', {
+                                    initialValue: fieldValues.legendCode
+                                })(
                                     <Input placeholder="请输入"/>
                                 )
                             }
@@ -123,7 +130,9 @@ export function QueryForm(props: any) {
                     <Col span={8}>
                         <FormItem label="图例描述">
                             {
-                                getFieldDecorator('legendName', [])(
+                                getFieldDecorator('legendName', {
+                                    initialValue: fieldValues.legendName
+                                })(
                                     <Input placeholder="请输入"/>
                                 )
                             }
@@ -133,7 +142,9 @@ export function QueryForm(props: any) {
                         <div className="first-column">
                             <FormItem label="图例备注">
                                 {
-                                    getFieldDecorator('legendNote', [])(
+                                    getFieldDecorator('legendNote', {
+                                        initialValue: fieldValues.legendNote
+                                    })(
                                         <Input placeholder="请输入"/>
                                     )
                                 }
@@ -143,7 +154,9 @@ export function QueryForm(props: any) {
                     <Col span={8}>
                         <FormItem label="零件编号">
                             {
-                                getFieldDecorator('partCode', [])(
+                                getFieldDecorator('partCode', {
+                                    initialValue: fieldValues.partCode
+                                })(
                                     <Input placeholder="请输入"/>
                                 )
                             }
@@ -152,7 +165,9 @@ export function QueryForm(props: any) {
                     <Col span={8}>
                         <FormItem label="零件描述">
                             {
-                                getFieldDecorator('partName', [])(
+                                getFieldDecorator('partName', {
+                                    initialValue: fieldValues.partName
+                                })(
                                     <Input placeholder="请输入"/>
                                 )
                             }

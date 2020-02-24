@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 
 export function Search(props) {
     const dispatch = useDispatch();
-    const search = useSelector((state: any) => {
+    const {isShow, activeTab} = useSelector((state: any) => {
         return state.search.self;
     });
 
@@ -24,11 +24,11 @@ export function Search(props) {
         <Drawer
             closable={false}
             onClose={handleClose}
-            visible={search.isShow}
+            visible={isShow}
             width={900}
             className={styles.search}
         >
-            <Tabs defaultActiveKey="advance-search" type={'card'}>
+            <Tabs defaultActiveKey={activeTab} type={'card'}>
                 <TabPane tab="高级查询" key="advance-search">
                     <AdvanceSearch />
                 </TabPane>

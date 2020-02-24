@@ -7,6 +7,7 @@ import {bulletinReducer} from './bulletin/reducer';
 
 const initialState = {
     isShow: false,
+    activeTab: 'applicability',
     bulletinCount: 0
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Col, Form, Input, Row} from 'antd';
 import {buildQueryParams} from '@/common/utils';
 import styles from './Query.module.scss';
@@ -10,6 +10,9 @@ const FormItem = Form.Item;
 export function QueryForm(props: any) {
     const dispatch = useDispatch();
     const {getFieldDecorator} = props.form;
+    const {fieldValues} = useSelector((state: any) => {
+        return state.search.replace.query;
+    });
 
     function doQuery() {
        props.form.validateFields((err, values) => {
@@ -31,7 +34,9 @@ export function QueryForm(props: any) {
                     <Col span={8}>
                         <FormItem label="零件编号">
                             {
-                                getFieldDecorator('partCode', {})(
+                                getFieldDecorator('partCode', {
+                                    initialValue: fieldValues.partCode
+                                })(
                                     <Input placeholder="请输入"/>
                                 )
                             }

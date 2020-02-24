@@ -4,7 +4,8 @@ import {advanceSearchReducers} from './advance-search/reducers'
 import {replaceReducers} from './replace/reducers';
 
 const initialState = {
-    isShow: false
+    isShow: false,
+    activeTab: 'advance-search',
 };
 
 function searchReducer(state = initialState, action) {

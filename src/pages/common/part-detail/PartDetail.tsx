@@ -12,7 +12,7 @@ const TabPane = Tabs.TabPane;
 
 export function PartDetail() {
     const dispatch = useDispatch();
-    const partDetail = useSelector((state: any) => {
+    const {isShow, bulletinCount, activeTab} = useSelector((state: any) => {
         return state.partDetail.self;
     });
 
@@ -24,7 +24,7 @@ export function PartDetail() {
     return (
         <Drawer
             closable={false}
-            visible={partDetail.isShow}
+            visible={isShow}
             onClose={handleClose}
             width={850}
             destroyOnClose={true}
@@ -37,14 +37,14 @@ export function PartDetail() {
                 <PartInfo/>
                 <div>
                     <Tabs
-                        defaultActiveKey="applicability">
+                        defaultActiveKey={activeTab}>
                         <TabPane tab="适用性" key="applicability">
                             <Applicability/>
                         </TabPane>
                         <TabPane tab="替换关系" key="replace">
                             <Replace />
                         </TabPane>
-                        <TabPane tab={`配件通讯(${partDetail.bulletinCount})`} key="bulletin">
+                        <TabPane tab={`配件通讯(${bulletinCount})`} key="bulletin">
                             <Bulletin />
                         </TabPane>
                     </Tabs>

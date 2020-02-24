@@ -1,8 +1,8 @@
 import * as actions from './actions';
 
 export const initialState = {
-    groupList: [],
     fieldValues: {},
+    groupList: [],
     modelOptions: []
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {useHistory, useLocation} from 'react-router'
-import {Input, Menu, message} from 'antd';
+import {Input, message} from 'antd';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator, VSN_SELECT_MODEL} from '@/pages/common/vin-search/actions';
 
