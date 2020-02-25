@@ -7,5 +7,10 @@
     .btn {
       text-decoration: underline;
     }
+
+    .current{
+      color: $primary-color;
+      font-weight: bold;
+    }
   }
 }

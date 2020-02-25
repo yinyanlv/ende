@@ -13,13 +13,15 @@ import {replaceCreator} from './replace/actions';
 function* loadPartDetailController(action) {
     try {
         const partCode = action.payload.partCode;
+
         yield put(partInfoCreator.loadPartInfo({partCode}));
-        yield put(applicabilityCreator.loadApplicability({partCode}));
-        yield put(replaceCreator.loadReplace({partCode}));
         yield put(actions.partDetailCreator.setIsShowPartDetail({
             isShow: true,
-            activeTab: action.payload.activeTab
+            activeTab: action.payload.activeTab,
+            partCode
         }));
+        yield put(applicabilityCreator.loadApplicability({partCode}));
+        yield put(replaceCreator.loadReplace({partCode}));
     } catch(err) {
         message.error(err.message);
     }

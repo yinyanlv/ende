@@ -11,7 +11,7 @@ const TabPane = Tabs.TabPane;
 
 export function PartDetail() {
     const dispatch = useDispatch();
-    const {isShow, activeTab} = useSelector((state: any) => {
+    const {isShow, activeTab, partCode} = useSelector((state: any) => {
         return state.partDetail.self;
     });
 
@@ -42,7 +42,7 @@ export function PartDetail() {
                             <Applicability/>
                         </TabPane>
                         <TabPane tab="替换关系" key="replace">
-                            <Replace />
+                            <Replace partCode={partCode} />
                         </TabPane>
                     </Tabs>
                 </div>

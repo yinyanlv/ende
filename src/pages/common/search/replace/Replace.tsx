@@ -7,13 +7,14 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Replace() {
     const dispatch = useDispatch();
-    const {list} = useSelector((state: any) => {
+    const {list, partCode} = useSelector((state: any) => {
         return state.search.replace.self;
     });
 
     function handleClickPartCode(partCode) {
         dispatch(partDetailCreator.loadPartDetail({
-            partCode: partCode
+            partCode: partCode,
+            activeTab: 'replace'
         }));
     }
 
@@ -24,9 +25,19 @@ export function Replace() {
             width: 120,
             ellipsis: true,
             render: (val, record) => {
-                return (
-                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
-                );
+                if (record.hasOldPartDetail) {
+                    if (val === partCode) {
+                        return (
+                            <span className="current">{val}</span>
+                        );
+                    } else {
+                        return (
+                            <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                        );
+                    }
+                } else  {
+                    return val;
+                }
             }
         },
         {
@@ -41,9 +52,19 @@ export function Replace() {
             width: 120,
             ellipsis: true,
             render: (val, record) => {
-                return (
-                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
-                );
+                if (record.hasNewPartDetail) {
+                    if (val === partCode) {
+                        return (
+                            <span className="current">{val}</span>
+                        );
+                    } else {
+                        return (
+                            <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                        );
+                    }
+                } else  {
+                    return val;
+                }
             }
         },
         {

@@ -1,4 +1,5 @@
 import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
+import {message} from 'antd';
 import {http} from '@/common/http';
 import {rebuildList} from '@/common/utils';
 import * as actions from './actions';
@@ -9,7 +10,7 @@ function* loadGroupController() {
         const list = yield call(loadGroup);
         yield put(actions.queryCreator.setGroup(list));
     } catch(err) {
-
+        message.error(err.message);
     }
 }
 
@@ -23,7 +24,7 @@ function* loadM1Controller() {
         const options = rebuildList(list);
         yield put(actions.queryCreator.setM1(options));
     } catch(err) {
-
+        message.error(err.message);
     }
 }
 
@@ -42,7 +43,7 @@ function* loadM2Controller(action) {
             list: options
         }));
     } catch(err) {
-
+        message.error(err.message);
     }
 }
 
@@ -61,7 +62,7 @@ function* loadM3Controller(action) {
             list: options
         }));
     } catch(err) {
-
+        message.error(err.message);
     }
 }
 
@@ -80,7 +81,7 @@ function* loadM4Controller(action) {
             list: options
         }));
     } catch(err) {
-        console.log(err);
+        message.error(err.messsage);
     }
 }
 
@@ -89,7 +90,11 @@ function loadM4(params) {
 }
 
 function* doQueryController(action) {
-    yield put(advanceSearchCreator.doQuery(action.payload));
+    try {
+        yield put(advanceSearchCreator.doQuery(action.payload));
+    } catch(err) {
+        message.error(err.message);
+    }
 }
 
 export function* querySaga() {

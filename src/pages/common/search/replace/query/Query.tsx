@@ -1,7 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, Col, Form, Input, Row} from 'antd';
-import {buildQueryParams} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
@@ -17,8 +16,7 @@ export function QueryForm(props: any) {
     function doQuery() {
        props.form.validateFields((err, values) => {
            if (!err) {
-               const params = buildQueryParams(values);
-               dispatch(queryCreator.doQuery(params));
+               dispatch(queryCreator.doQuery(values));
            }
        });
     }

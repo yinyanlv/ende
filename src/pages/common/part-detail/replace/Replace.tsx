@@ -4,7 +4,11 @@ import {Table} from 'antd';
 import styles from './Replace.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
-export function Replace() {
+interface ReplaceProps {
+    partCode: any;
+}
+
+export function Replace(props: ReplaceProps) {
     const dispatch = useDispatch();
     const {list} = useSelector((state: any) => {
         return state.partDetail.replace;
@@ -12,7 +16,8 @@ export function Replace() {
 
     function handleClickPartCode(partCode) {
         dispatch(partDetailCreator.loadPartDetail({
-            partCode: partCode
+            partCode: partCode,
+            activeTab: 'replace'
         }));
     }
 
@@ -23,9 +28,19 @@ export function Replace() {
             width: 120,
             ellipsis: true,
             render: (val, record) => {
-                return (
-                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
-                );
+                if (record.hasOldPartDetail) {
+                    if (val === props.partCode) {
+                        return (
+                            <span className="current">{val}</span>
+                        );
+                    } else {
+                        return (
+                            <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                        );
+                    }
+                } else  {
+                    return val;
+                }
             }
         },
         {
@@ -40,9 +55,19 @@ export function Replace() {
             width: 120,
             ellipsis: true,
             render: (val, record) => {
-                return (
-                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
-                );
+                if (record.hasNewPartDetail) {
+                    if (val === props.partCode) {
+                        return (
+                            <span className="current">{val}</span>
+                        );
+                    } else {
+                        return (
+                            <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                        );
+                    }
+                } else  {
+                    return val;
+                }
             }
         },
         {

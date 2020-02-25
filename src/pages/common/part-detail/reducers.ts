@@ -8,16 +8,19 @@ import {bulletinReducer} from './bulletin/reducer';
 const initialState = {
     isShow: false,
     activeTab: 'applicability',
-    bulletinCount: 0
+    bulletinCount: 0,
+    partCode: null
 };
 
 function partDetailReducer(state = initialState, action) {
     switch(action.type) {
         case actions.IS_SHOW_PART_DETAIL:
+            const payload = action.payload;
             return {
                 ...state,
-                isShow: action.payload.isShow,
-                activeTab: action.payload.activeTab || initialState.activeTab
+                isShow: payload.isShow,
+                activeTab: payload.activeTab || initialState.activeTab,
+                partCode: payload.partCode
             };
         case actions.SET_COUNT:
             return {

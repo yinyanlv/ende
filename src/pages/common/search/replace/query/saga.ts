@@ -1,9 +1,14 @@
 import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
+import {message} from 'antd';
 import * as actions from './actions';
 import {replaceCreator} from '../actions';
 
 function* doQueryController(action) {
-    yield put(replaceCreator.doQuery(action.payload));
+    try {
+        yield put(replaceCreator.doQuery(action.payload));
+    } catch(err) {
+        message.error(err.message);
+    }
 }
 
 export function* querySaga() {
