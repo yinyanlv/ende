@@ -1,21 +1,31 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Button, Pagination} from 'antd';
+import {Loading} from '@/components/loading';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 
 export function Parts() {
-
     const dispatch = useDispatch();
-    const {list, total, pageNo, pageSize} = useSelector((state: any) => {
+    const {list, total, pageNo, pageSize, isLoading} = useSelector((state: any) => {
         return state.search.advanceSearch.parts;
     });
     const {queryParams} = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
 
-    function handleClickPartCode(code) {
-        console.log(code);
+    function handleClickPartCode(partCode) {
+        dispatch(partDetailCreator.loadAndShowPartDetail({
+            partCode
+        }));
+    }
+
+    function handleClickBuy(partCode) {
+        dispatch(shoppingCartCreator.addAndShowShoppingCart({
+            partCode
+        }));
     }
 
     function doQuery(page, size) {
@@ -28,7 +38,7 @@ export function Parts() {
     }
 
     return (
-        <div className="parts-wrapper">
+        <Loading isLoading={isLoading}>
             <div className={styles.parts}>
                 <div className="inner-wrapper">
                     {
@@ -51,7 +61,7 @@ export function Parts() {
                                         </div>
                                     </div>
                                     <div className="btn-box">
-                                        <Button type="primary" icon="shopping-cart">购买</Button>
+                                        <Button type="primary" icon="shopping-cart" onClick={handleClickBuy.bind(null, item.code)}>购买</Button>
                                     </div>
                                 </div>
                             );
@@ -71,6 +81,6 @@ export function Parts() {
                     onShowSizeChange={doQuery}
                 />
             </div>
-        </div>
+        </Loading>
     );
 }

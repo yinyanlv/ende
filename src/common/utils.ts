@@ -77,14 +77,15 @@ export function buildQueryParams(params = [], page = 1, size = 10) {
     }
 }
 
-export function rebuildFields(fieldsObj) {
+export function rebuildFieldsToFilters(fieldsObj) {
     const list: any = [];
 
     Object.keys(fieldsObj).forEach((key) => {
-        if (fieldsObj[key] !== undefined) {
+        const value = fieldsObj[key];
+        if (value !== undefined && value !== null && value !== '') {
             list.push({
                 name: key,
-                value: fieldsObj[key]
+                value
             });
         }
     });
@@ -92,7 +93,7 @@ export function rebuildFields(fieldsObj) {
     return list;
 }
 
-export function rebuildList(list, isLeaf = false) {
+export function rebuildListToOptions(list, isLeaf = false) {
     return list.map((item) => {
         return {
             value: item.code,

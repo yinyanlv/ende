@@ -5,6 +5,7 @@ import {queryReducer} from './query/reducer';
 const initialState = {
     isShow: false,
     queryParams: {},
+    isLoading: false,
     list: [],
     total: 0,
     pageNo: 1,
@@ -17,6 +18,11 @@ function shoppingCartReducer(state = initialState, action) {
             return {
                 ...state,
                 isShow: action.payload.isShow
+            };
+        case actions.IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload.isLoading
             };
         case actions.SET_SHOPPING_CART:
             const payload = action.payload;

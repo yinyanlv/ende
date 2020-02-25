@@ -1,7 +1,8 @@
-import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
+import {takeLatest, all, call, put} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
-import {rebuildList} from '@/common/utils';
+import {rebuildListToOptions} from '@/common/utils';
+import {insertModelOptions} from './reducer';
 import * as actions from './actions';
 import {advanceSearchCreator} from '../actions';
 
@@ -21,7 +22,7 @@ function loadGroup() {
 function* loadM1Controller() {
     try {
         const list = yield call(loadM1);
-        const options = rebuildList(list);
+        const options = rebuildListToOptions(list);
         yield put(actions.queryCreator.setM1(options));
     } catch(err) {
         message.error(err.message);
@@ -36,7 +37,7 @@ function* loadM2Controller(action) {
     try {
         const list = yield call(loadM2, action.payload);
         const params = action.payload;
-        const options = rebuildList(list);
+        const options = rebuildListToOptions(list);
 
         yield put(actions.queryCreator.setM2({
             path: [params.m1],
@@ -55,7 +56,7 @@ function* loadM3Controller(action) {
     try {
         const list = yield call(loadM3, action.payload);
         const params = action.payload;
-        const options = rebuildList(list);
+        const options = rebuildListToOptions(list);
 
         yield put(actions.queryCreator.setM3({
             path: [params.m1, params.m2],
@@ -74,7 +75,7 @@ function* loadM4Controller(action) {
     try {
         const list = yield call(loadM4, action.payload);
         const params = action.payload;
-        const options = rebuildList(list, true);
+        const options = rebuildListToOptions(list, true);
 
         yield put(actions.queryCreator.setM4({
             path: [params.m1, params.m2, params.m3],
@@ -97,9 +98,41 @@ function* doQueryController(action) {
     }
 }
 
+function* loadModelOptionsController(action) {
+    const path = action.payload;
+
+    try {
+        const list = yield all([
+            loadM1(),
+            loadM2({
+                m1: path[0]
+            }),
+            loadM3({
+                m1: path[0],
+                m2: path[1]
+            }),
+            loadM4({
+                m1: path[0],
+                m2: path[1],
+                m3: path[2]
+            })
+        ]);
+        let modelOptions = rebuildListToOptions(list[0]);
+
+        insertModelOptions(modelOptions, 0, 0, null, path, rebuildListToOptions(list[1]));
+        insertModelOptions(modelOptions, 1, 0, null, path, rebuildListToOptions(list[2]));
+        insertModelOptions(modelOptions, 2, 0, null, path, rebuildListToOptions(list[3]));
+
+        yield put(actions.queryCreator.setModelOptions(modelOptions));
+    } catch(err) {
+        message.error(err.message);
+    }
+}
+
 export function* querySaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.LOAD_GROUP, loadGroupController);
+    yield takeLatest(actions.LOAD_MODEL_OPTIONS, loadModelOptionsController);
     yield takeLatest(actions.LOAD_M1, loadM1Controller);
     yield takeLatest(actions.LOAD_M2, loadM2Controller);
     yield takeLatest(actions.LOAD_M3, loadM3Controller);

@@ -4,24 +4,30 @@ import {http} from '@/common/http';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
-function* replaceQueryController(action) {
+function* doQueryController(action) {
     try {
+        yield put(actions.replaceCreator.setIsLoading({
+            isLoading: true
+        }));
         yield put(actions.replaceCreator.setPartCode(action.payload));
-        const list = yield call(replaceQuery, action.payload);
+        const list = yield call(doQuery, action.payload);
         yield put(actions.replaceCreator.setReplace(list));
+        yield put(actions.replaceCreator.setIsLoading({
+            isLoading: false
+        }));
     } catch(err) {
         message.error(err.message);
     }
 }
 
-function replaceQuery(params) {
+function doQuery(params) {
     return http.post('/supersession', {
         partCode: params.partCode
     });
 }
 
 function* replaceSaga() {
-    yield takeLatest(actions.DO_QUERY, replaceQueryController);
+    yield takeLatest(actions.DO_QUERY, doQueryController);
 }
 
 export function* replaceSagas() {

@@ -4,6 +4,7 @@ import {queryReducer} from './query/reducer';
 
 const initialState = {
     partCode: null,
+    isLoading: false,
     list: []
 };
 
@@ -13,6 +14,11 @@ function replaceReducer(state = initialState, action) {
             return {
                 ...state,
                 partCode: action.payload.partCode
+            };
+        case actions.IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload.isLoading
             };
         case actions.SET_REPLACE:
             return {

@@ -7,7 +7,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Replace() {
     const dispatch = useDispatch();
-    const {list, partCode} = useSelector((state: any) => {
+    const {list, partCode, isLoading} = useSelector((state: any) => {
         return state.search.replace.self;
     });
 
@@ -100,6 +100,7 @@ export function Replace() {
                     columns={columns}
                     dataSource={list}
                     pagination={false}
+                    loading={isLoading}
                     rowKey={'newPartCode'}
                 />
             </div>

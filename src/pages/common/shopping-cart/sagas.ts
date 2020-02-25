@@ -2,13 +2,16 @@ import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import {buildQueryParams} from '@/common/utils';
+import {navCreator} from '@/pages/common/header/nav/actions';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
 function* doQueryController(action) {
     try {
+        yield put(actions.shoppingCartCreator.setIsLoading({isLoading: true}));
         const data = yield call(doQuery, action.payload);
         yield put(actions.shoppingCartCreator.setShoppingCart(data));
+        yield put(actions.shoppingCartCreator.setIsLoading({isLoading: false}));
     } catch(err) {
         message.error(err.message);
     }
@@ -20,8 +23,9 @@ function doQuery(params) {
 
 function* addToCartController(action) {
     try {
-        const data = yield call(addToCart, action.payload);
-        message.success('成功加入购物车');
+        yield call(addToCart, action.payload);
+        yield put(navCreator.loadCartCount());
+        message.success('加入成功');
     } catch(err) {
         message.error(err.message);
     }
@@ -35,7 +39,10 @@ function addToCart(params) {
 
 function* deleteFromCartController(action) {
     try {
-        const data = yield call(deleteFromCart, action.payload);
+        yield call(deleteFromCart, action.payload);
+        yield put(navCreator.loadCartCount());
+        yield put(actions.shoppingCartCreator.doQuery(buildQueryParams()));
+        message.success('删除成功');
     } catch(err) {
         message.error(err.message);
     }

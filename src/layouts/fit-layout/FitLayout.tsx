@@ -39,10 +39,10 @@ export function FitLayout(props) {
                 </Route>
             </section>
             <Search/>
-            <VsnSelector />
-            <VinDetail/>
             <ShoppingCart/>
             <PartDetail/>
+            <VsnSelector />
+            <VinDetail/>
         </>
     );
 }

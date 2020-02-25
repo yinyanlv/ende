@@ -1,18 +1,9 @@
 import * as actions from './actions';
 
 const initialState = {
-    list: [{
-        "catalogueCode": "CN185M",
-        "catalogueName": "宝骏360",
-        "legendCode": "BC04-009",
-        "legendGroupCode": "04",
-        "legendGroupName": "变速器和控制-制动系统",
-        "legendName": "制动管路总成",
-        "legendNote": "",
-        "legendSubGroupCode": null,
-        "legendSubGroupName": null
-    }],
-    total: 50,
+    isLoading: false,
+    list: [],
+    total: 0,
     pageNo: 1,
     pageSize: 10
 };
@@ -20,8 +11,18 @@ const initialState = {
 export function legendsReducer(state = initialState, action) {
     switch(action.type) {
         case actions.SET_LEGENDS:
+            const payload = action.payload;
             return {
-                ...action.payload
+                ...state,
+                list: payload.list,
+                pageNo: payload.pageNo,
+                pageSize: payload.pageSize,
+                total: payload.total
+            };
+        case actions.IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload.isLoading
             };
         default:
             return state;

@@ -1,14 +1,14 @@
 import React from 'react';
 import {Pagination, Table} from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {applicabilityCreator} from './actions';
 import styles from './Applicability.module.scss';
-import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Applicability() {
 
     const dispatch = useDispatch();
-    const {list, total, pageNo, pageSize} = useSelector((state: any) => {
+    const {list, total, pageNo, pageSize, isLoading} = useSelector((state: any) => {
         return state.search.advanceSearch.applicability;
     });
     const {queryParams} = useSelector((state: any) => {
@@ -100,25 +100,35 @@ export function Applicability() {
                     dataSource={list}
                     rowKey={'id'}
                     tableLayout={'fixed'}
-                    pagination={false}
+                    pagination={{
+                        total: total,
+                        current: pageNo,
+                        pageSize: pageSize,
+                        pageSizeOptions: ['5', '10', '20'],
+                        showSizeChanger: true,
+                        showQuickJumper: true,
+                        onChange: doQuery,
+                        onShowSizeChange: doQuery
+                    }}
+                    loading={isLoading}
                     scroll={{
                         x: true,
                         y: true
                     }}
                 />
             </div>
-            <div className={styles.pagination}>
-                <Pagination
-                    total={total}
-                    current={pageNo}
-                    pageSize={pageSize}
-                    pageSizeOptions={['5', '10', '20']}
-                    showSizeChanger
-                    showQuickJumper
-                    onChange={doQuery}
-                    onShowSizeChange={doQuery}
-                />
-            </div>
+            {/*<div className={styles.pagination}>*/}
+            {/*    <Pagination*/}
+            {/*        total={total}*/}
+            {/*        current={pageNo}*/}
+            {/*        pageSize={pageSize}*/}
+            {/*        pageSizeOptions={['5', '10', '20']}*/}
+            {/*        showSizeChanger*/}
+            {/*        showQuickJumper*/}
+            {/*        onChange={doQuery}*/}
+            {/*        onShowSizeChange={doQuery}*/}
+            {/*    />*/}
+            {/*</div>*/}
         </div>
     );
 }

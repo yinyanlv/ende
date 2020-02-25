@@ -6,7 +6,7 @@ import {partsReducer} from './parts/reducer';
 import {legendsReducer} from './legends/reducer';
 
 const initialState = {
-    fieldValues: {},
+    fieldsValue: {},
     queryParams: {},
     count: {
         applyCount: 0,

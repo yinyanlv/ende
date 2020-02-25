@@ -1,16 +1,16 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button} from 'antd';
+import {searchCreator} from '@/pages/common/search/actions';
 import {vinDetailCreator} from './actions';
 import styles from './VinDetail.module.scss';
 
 export function VinDetail(props) {
 
     const dispatch = useDispatch();
-    const vinDetail = useSelector((state: any) => {
+    const {data, type, isShow} = useSelector((state: any) => {
         return state.vinDetail;
     });
-    const data = vinDetail.data;
 
     function handleClose() {
         dispatch(vinDetailCreator.setIsShowVinDetail({
@@ -18,10 +18,20 @@ export function VinDetail(props) {
         }));
     }
 
+    function doAdvanceQuery() {
+        const mappings = data.mappings;
+
+        dispatch(searchCreator.queryAndShowSearch({
+            vinVsn: data.code,
+            model: [mappings.m_1, mappings.m_2, mappings.m_3, mappings.m_4]
+        }));
+        handleClose();
+    }
+
     return (
         <Drawer
             closable={false}
-            visible={vinDetail.isShow}
+            visible={isShow}
             onClose={handleClose}
             destroyOnClose={true}
             width={500}
@@ -29,7 +39,7 @@ export function VinDetail(props) {
            <div className={styles.vinDetail}>
                <div className="drawer-title">
                    <span>VIN/VSN详情</span>
-                   <Button type="primary">打开高级查询</Button>
+                   <Button type="primary" onClick={doAdvanceQuery}>打开高级查询</Button>
                </div>
                <div>
                    <table>

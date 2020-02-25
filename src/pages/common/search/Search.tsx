@@ -27,6 +27,7 @@ export function Search(props) {
             visible={isShow}
             width={900}
             className={styles.search}
+            destroyOnClose={true}
         >
             <Tabs defaultActiveKey={activeTab} type={'card'}>
                 <TabPane tab="高级查询" key="advance-search">

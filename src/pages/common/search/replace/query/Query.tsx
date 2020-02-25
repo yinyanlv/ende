@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, Col, Form, Input, Row} from 'antd';
+import {message, Button, Col, Form, Input, Row} from 'antd';
+import {rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
@@ -9,14 +10,20 @@ const FormItem = Form.Item;
 export function QueryForm(props: any) {
     const dispatch = useDispatch();
     const {getFieldDecorator} = props.form;
-    const {fieldValues} = useSelector((state: any) => {
+    const {fieldsValue} = useSelector((state: any) => {
         return state.search.replace.query;
     });
 
     function doQuery() {
        props.form.validateFields((err, values) => {
            if (!err) {
-               dispatch(queryCreator.doQuery(values));
+               const filters = rebuildFieldsToFilters(values);
+
+               if (filters.length > 0) {
+                   dispatch(queryCreator.doQuery(values));
+               } else {
+                   message.error('请输入零件编号');
+               }
            }
        });
     }
@@ -33,7 +40,7 @@ export function QueryForm(props: any) {
                         <FormItem label="零件编号">
                             {
                                 getFieldDecorator('partCode', {
-                                    initialValue: fieldValues.partCode
+                                    initialValue: fieldsValue.partCode
                                 })(
                                     <Input placeholder="请输入"/>
                                 )

@@ -1,13 +1,14 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Pagination} from 'antd';
+import {Loading} from '@/components/loading';
 import styles from './Legends.module.scss';
 import {legendsCreator} from './actions';
 
 export function Legends() {
 
     const dispatch = useDispatch();
-    const {list, total, pageNo, pageSize} = useSelector((state: any) => {
+    const {list, total, pageNo, pageSize, isLoading} = useSelector((state: any) => {
         return state.search.advanceSearch.legends;
     });
     const {queryParams} = useSelector((state: any) => {
@@ -28,13 +29,13 @@ export function Legends() {
     }
 
     return (
-        <div className="parts-wrapper">
+        <Loading isLoading={isLoading}>
             <div className={styles.legends}>
                 <div className="inner-wrapper">
                     {
                         list && list.map((item) => {
                             return (
-                                <div className="item" key={item.legendCode}>
+                                <div className="item" key={item.catalogueCode + item.legendCode}>
                                     <div className="image-box" onClick={handleClickLegend.bind(null, item.legendCode)}><img src={item.legendFileUri || '/images/logo.png'} alt={item.name}/></div>
                                     <div className="info-box">
                                         <div className="title-line" onClick={handleClickLegend.bind(null, item.legendCode)}>
@@ -73,6 +74,6 @@ export function Legends() {
                     onShowSizeChange={doQuery}
                 />
             </div>
-        </div>
+        </Loading>
     );
 }

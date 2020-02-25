@@ -9,7 +9,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 export function ShoppingCart(props) {
 
     const dispatch = useDispatch();
-    const {total, list, pageNo, pageSize, isShow, queryParams} = useSelector((state: any) => {
+    const {total, list, pageNo, pageSize, isShow, queryParams, isLoading} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
 
@@ -32,14 +32,14 @@ export function ShoppingCart(props) {
         e.stopPropagation();
         dispatch(shoppingCartCreator.deleteFromCart({
             codes: [partCode]
-        }))
+        }));
     }
 
     function handleEditPartCartCount(partCode, qty) {
          dispatch(shoppingCartCreator.editPartCartCount({
              partCode,
              qty
-         }))
+         }));
     }
 
     function getModelsString(list) {
@@ -138,6 +138,7 @@ export function ShoppingCart(props) {
                <Query />
                <div>
                    <Table
+                       loading={isLoading}
                        columns={columns}
                        dataSource={list}
                        rowKey={'id'}

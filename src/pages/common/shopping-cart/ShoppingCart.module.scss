@@ -43,6 +43,9 @@
         height: 26px;
         padding-top: 2px;
         line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         & > span {
           margin-right: 5px;

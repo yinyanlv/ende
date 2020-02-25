@@ -1,7 +1,7 @@
 import * as actions from './actions';
 
 export const initialState = {
-    fieldValues: {}
+    fieldsValue: {}
 };
 
 export function queryReducer(state = initialState, action) {

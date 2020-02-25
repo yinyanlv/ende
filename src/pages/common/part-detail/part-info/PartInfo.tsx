@@ -1,9 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button} from 'antd';
+import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {ImageGallery} from '@/components/image-gallery';
 import styles from './PartInfo.module.scss';
-import {shoppingCartCreator} from "@/pages/common/shopping-cart/actions";
 
 export function PartInfo() {
     const dispatch = useDispatch();

@@ -1,8 +1,9 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {Input, message} from 'antd';
+import {searchCreator} from '@/pages/common/search/actions';
 import styles from './VinSearch.module.scss';
-import {vinSearchCreator, VSN_SELECT_MODEL} from '@/pages/common/vin-search/actions';
+import {vinSearchCreator} from './actions';
 
 const AntdSearch = Input.Search;
 
@@ -39,13 +40,13 @@ export function VinSearch(props: VinSearchProps) {
                 }));
                 break;
             case SearchType.PART_CODE:
-                dispatch(vinSearchCreator.doPartCodeSearch({
-                    code: val
+                dispatch(searchCreator.queryAndShowSearch({
+                    partCode: val
                 }));
                 break;
             case SearchType.PART_NAME:
-                dispatch(vinSearchCreator.doPartNameSearch({
-                    code: val
+                dispatch(searchCreator.queryAndShowSearch({
+                    partName: val
                 }));
                 break;
             default:

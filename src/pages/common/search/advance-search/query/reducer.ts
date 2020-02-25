@@ -1,17 +1,27 @@
 import * as actions from './actions';
 
 export const initialState = {
-    fieldValues: {},
+    fieldsValue: {},
     groupList: [],
     modelOptions: []
 };
 
 export function queryReducer(state = initialState, action) {
     switch(action.type) {
+        case actions.SET_FIELDS_VALUE:
+            return {
+                ...state,
+                fieldsValue: action.payload
+            };
         case actions.SET_GROUP:
             return {
                 ...state,
                 groupList: action.payload
+            };
+        case actions.SET_MODEL_OPTIONS:
+            return {
+                ...state,
+                modelOptions: action.payload
             };
         case actions.SET_M1:
             return {
@@ -38,7 +48,7 @@ export function queryReducer(state = initialState, action) {
     }
 }
 
-function insertModelOptions(options, targetLevel, currentLevel, parentValue, path, list) {
+export function insertModelOptions(options, targetLevel, currentLevel, parentValue, path, list) {
 
     if (targetLevel === currentLevel) {
         for (let i = 0; i < options.length; i++) {
