@@ -11,7 +11,6 @@ import {PartDetail} from '@/pages/common/part-detail';
 
 const PageCatalog = React.lazy(() => import('@/pages/catalog'));
 const PageUsage = React.lazy(() => import('@/pages/usage'));
-const PagePart = React.lazy(() => import('@/pages/part'));
 const PageOrders = React.lazy(() => import('@/pages/orders'));
 const PageOrderDetail = React.lazy(() => import('@/pages/order-detail'));
 
@@ -24,9 +23,6 @@ export function FitLayout(props) {
             <section className={styles.mainContainer}>
                 <Route path="/usage" exact>
                     <PageUsage />
-                </Route>
-                <Route path="/part/:id" exact>
-                    <PagePart />
                 </Route>
                 <Route path="/orders" exact>
                     <PageOrders />
