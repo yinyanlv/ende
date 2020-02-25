@@ -123,18 +123,19 @@ export function getPageSearchType(): any {
 export function getUrlAndParams(urlMap, params) {
 
     const searchType = getPageSearchType();
+    const newParams = Object.assign({}, params);
     let url = urlMap.normal;
 
     if (searchType.type === 'vin') {
         url = urlMap.vin;
-        params.vin = searchType.code;
+        newParams.vin = searchType.code;
     } else if (searchType.type === 'vsn') {
         url = urlMap.vsn;
-        params.vsn = searchType.code;
+        newParams.vsn = searchType.code;
     }
 
     return {
         url,
-        params
+        params: newParams
     };
 }
