@@ -12,7 +12,7 @@ export function Replace() {
     });
 
     function handleClickPartCode(partCode) {
-        dispatch(partDetailCreator.loadPartDetail({
+        dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
             activeTab: 'replace'
         }));

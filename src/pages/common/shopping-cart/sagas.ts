@@ -76,7 +76,7 @@ function* shoppingCartSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.ADD_TO_CART, addToCartController);
     yield takeLatest(actions.DELETE_FROM_CART, deleteFromCartController);
-    yield takeLatest(actions.EDIT_PART_CART_COUNT, doQueryController);
+    yield takeLatest(actions.EDIT_PART_CART_COUNT, editPartCartCountController);
     yield takeLatest(actions.ADD_AND_SHOW_SHOPPING_CART, addAndShowShoppingCart);
 }
 

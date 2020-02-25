@@ -10,7 +10,7 @@ import {partInfoCreator} from './part-info/actions';
 import {applicabilityCreator} from './applicability/actions';
 import {replaceCreator} from './replace/actions';
 
-function* loadPartDetailController(action) {
+function* loadAndShowPartDetailController(action) {
     try {
         const partCode = action.payload.partCode;
 
@@ -41,7 +41,7 @@ function loadCount(params) {
 }
 
 function* partDetailSaga() {
-    yield takeLatest(actions.LOAD_PART_DETAIL, loadPartDetailController);
+    yield takeLatest(actions.LOAD_AND_SHOW_PART_DETAIL, loadAndShowPartDetailController);
     yield takeLatest(actions.LOAD_COUNT, loadCountController);
 }
 

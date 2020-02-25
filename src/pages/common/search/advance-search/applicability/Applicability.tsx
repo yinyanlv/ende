@@ -16,7 +16,7 @@ export function Applicability() {
     });
 
     function handleClickPartCode(partCode) {
-        dispatch(partDetailCreator.loadPartDetail({
+        dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode
         }));
     }

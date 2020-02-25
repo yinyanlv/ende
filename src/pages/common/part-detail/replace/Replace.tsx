@@ -15,7 +15,7 @@ export function Replace(props: ReplaceProps) {
     });
 
     function handleClickPartCode(partCode) {
-        dispatch(partDetailCreator.loadPartDetail({
+        dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
             activeTab: 'replace'
         }));

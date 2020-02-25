@@ -105,7 +105,7 @@ function Parts(props: PartsProps) {
 
     function showPartDetail(e, partCode) {
         e.stopPropagation();
-        dispatch(partDetailCreator.loadPartDetail({
+        dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode
         }));
     }
@@ -125,7 +125,7 @@ function Parts(props: PartsProps) {
 
     function handleClickReplace(e, partCode) {
         e.stopPropagation();
-        dispatch(partDetailCreator.loadPartDetail({
+        dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
             activeTab: 'replace'
         }));

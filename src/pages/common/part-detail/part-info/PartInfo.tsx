@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Button} from 'antd';
 import {ImageGallery} from '@/components/image-gallery';
 import styles from './PartInfo.module.scss';
+import {shoppingCartCreator} from "@/pages/common/shopping-cart/actions";
 
 export function PartInfo() {
     const dispatch = useDispatch();
@@ -15,8 +16,11 @@ export function PartInfo() {
         return state.config;
     });
 
-    function handleClickBuy() {
-
+    function handleClickBuy(e, partCode) {
+        e.stopPropagation();
+        dispatch(shoppingCartCreator.addAndShowShoppingCart({
+            partCode: partCode
+        }));
     }
 
     const imageList = getImageList(info.imageUris);
@@ -75,7 +79,9 @@ export function PartInfo() {
                 {
                     info.saleProps && info.saleProps.canSale && (
                         <div className="btn-line">
-                            <Button type="primary" size={'large'} icon={'shopping-cart'} onClick={handleClickBuy}>购买</Button>
+                            <Button type="primary" size={'large'} icon={'shopping-cart'} onClick={(e) => {
+                                handleClickBuy(e, info.code);
+                            }}>购买</Button>
                         </div>
                     )
                 }

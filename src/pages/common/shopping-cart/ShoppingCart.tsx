@@ -4,6 +4,7 @@ import {Drawer, Button, Form, Row, Col, Input, Table, InputNumber, Tooltip, Pagi
 import {shoppingCartCreator} from './actions';
 import styles from './ShoppingCart.module.scss';
 import {Query} from './query';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function ShoppingCart(props) {
 
@@ -21,8 +22,24 @@ export function ShoppingCart(props) {
         dispatch(shoppingCartCreator.doQuery(queryParams));
     }
 
-    function handleClickPartCode(code) {
-        console.log(code);
+    function handleClickPartCode(partCode) {
+        dispatch(partDetailCreator.loadAndShowPartDetail({
+            partCode: partCode
+        }));
+    }
+
+    function handleClickDelete(e, partCode) {
+        e.stopPropagation();
+        dispatch(shoppingCartCreator.deleteFromCart({
+            codes: [partCode]
+        }))
+    }
+
+    function handleEditPartCartCount(partCode, qty) {
+         dispatch(shoppingCartCreator.editPartCartCount({
+             partCode,
+             qty
+         }))
     }
 
     function getModelsString(list) {
@@ -47,7 +64,6 @@ export function ShoppingCart(props) {
             dataIndex: 'partCode',
             width: 450,
             render: (val, record) => {
-
                 const modelsString = getModelsString(record.applyList);
                 return (
                     <div className="item">
@@ -72,10 +88,10 @@ export function ShoppingCart(props) {
         {
             title: '量',
             dataIndex: 'qty',
-            render: (val) => {
+            render: (val, record) => {
                 return (
                     <div>
-                        <InputNumber defaultValue={val} onChange={() => {}} />
+                        <InputNumber defaultValue={val} onChange={handleEditPartCartCount.bind(null, record.partCode, val)} />
                     </div>
                 );
             }
@@ -90,10 +106,12 @@ export function ShoppingCart(props) {
         {
             title: '操作',
             dataIndex: 'operator',
-            render: () => {
+            render: (val, record) => {
                 return (
                     <div>
-                        <a className={'btn'}>删除</a>
+                        <a className={'btn'} onClick={(e) => {
+                            handleClickDelete(e, record.partCode);
+                        }}>删除</a>
                     </div>
                 );
             }
