@@ -72,6 +72,7 @@ export function PageUsage() {
         const temp = Object.assign({}, queryObj, codesMap);
         dispatch(partsCreator.load(temp));
         dispatch(crumbsCreator.load(temp));
+        debugger;
         updateLocationSearch(temp);
 
         if (isFirstLoad) {

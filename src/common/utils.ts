@@ -9,9 +9,17 @@ export function createAction(type, payload?) {
 }
 
 export function updateLocationSearch(params = {}) {
-    history.push(Object.assign(history.location, {
-        search: queryString.stringify(params)
-    }));
+    const pageSearchType = getPageSearchType();
+
+    if (pageSearchType.type === 'vin' || pageSearchType.type === 'vsn') {
+        history.push(Object.assign(history.location, {
+            search: queryString.stringify(Object.assign(params, pageSearchType))
+        }));
+    } else {
+        history.push(Object.assign(history.location, {
+            search: queryString.stringify(params)
+        }));
+    }
 }
 
 export function updateLocationHash(params = {}) {
@@ -101,4 +109,32 @@ export function rebuildListToOptions(list, isLeaf = false) {
             isLeaf: isLeaf
         };
     });
+}
+
+export function getPageSearchType(): any {
+    const queryObj = queryString.parse(history.location.search);
+
+    return {
+        type: queryObj.type || 'normal',
+        code: queryObj.code || null
+    };
+}
+
+export function getUrlAndParams(urlMap, params) {
+
+    const searchType = getPageSearchType();
+    let url = urlMap.normal;
+
+    if (searchType.type === 'vin') {
+        url = urlMap.vin;
+        params.vin = searchType.code;
+    } else if (searchType.type === 'vsn') {
+        url = urlMap.vsn;
+        params.vsn = searchType.code;
+    }
+
+    return {
+        url,
+        params
+    };
 }

@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {http} from '@/common/http';
-import {getQueryObj, getMQueryObj, getSQueryObj} from '@/common/utils';
+import {getQueryObj, getMQueryObj, getSQueryObj, getUrlAndParams} from '@/common/utils';
 import * as actions from './actions';
 import * as crumbsActions from '@/pages/common/crumbs/actions';
 import {usageCreator} from '@/pages/usage/actions';
@@ -70,7 +70,9 @@ const LOAD_GROUP_URL_MAP = {
 };
 
 function loadGroup(params) {
-    return http.post('/usage', params);
+    const result = getUrlAndParams(LOAD_GROUP_URL_MAP, params);
+
+    return http.post(result.url, result.params);
 }
 
 export function* groupsSaga() {

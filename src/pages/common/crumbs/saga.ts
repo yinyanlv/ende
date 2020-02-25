@@ -1,6 +1,7 @@
 import {takeLatest, put, call} from 'redux-saga/effects';
 import queryString from 'query-string';
 import {http} from '@/common/http';
+import {getPageSearchType} from '@/common/utils';
 import {intl} from '@/pages/common/intl';
 import * as actions from './actions';
 import {defaultCode} from './reducer';
@@ -8,6 +9,23 @@ import {defaultCode} from './reducer';
 function* loadCrumbsController(action) {
     const crumbs = yield call(loadCrumbs, action.payload);
     const crumbsList = rebuildCrumbs(action.payload, crumbs);
+    const pageSearchType = getPageSearchType();
+
+    if (pageSearchType.type === 'vin') {
+        crumbsList.unshift({
+            code: defaultCode,
+            name: pageSearchType.code,
+            label: 'VIN',
+            url: ''
+        });
+    } else if (pageSearchType.type === 'vsn') {
+        crumbsList.unshift({
+            code: defaultCode,
+            name: pageSearchType.code,
+            label: 'VSN',
+            url: ''
+        });
+    }
 
     yield put(actions.crumbsCreator.setCrumbs(crumbsList));
 }

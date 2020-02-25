@@ -1,5 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {http} from '@/common/http';
+import {getUrlAndParams} from '@/common/utils';
 import * as actions from './actions';
 
 function* loadPartsController(action) {
@@ -19,7 +20,9 @@ const LOAD_PARTS_URL_MAP = {
 };
 
 function loadParts(params) {
-    return http.post('/usage/parts', params);
+    const result = getUrlAndParams(LOAD_PARTS_URL_MAP, params);
+
+    return http.post(result.url, result.params);
 }
 
 export function* partsSaga() {
