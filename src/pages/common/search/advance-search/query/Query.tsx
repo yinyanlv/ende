@@ -91,11 +91,13 @@ export function QueryForm(props: any) {
         if (result.isValid) {
            if (result.type === 'vin') {
                dispatch(vinSearchCreator.doVinSearch({
-                   code
+                   code,
+                   doNotRedirect: true
                }));
            } else if (result.type === 'vsn') {
                dispatch(vinSearchCreator.doVsnSelectModel({
-                   code
+                   code,
+                   doNotRedirect: true
                }));
            }
         } else {

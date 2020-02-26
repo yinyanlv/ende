@@ -7,14 +7,15 @@ import styles from './VsnSelector.module.scss';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
-    const {isShow, list, vsnCode} = useSelector((state: any) => {
+    const {isShow, list, vsnCode, doNotRedirect} = useSelector((state: any) => {
         return state.vsnSelector;
     });
 
     function handleClickRow(record) {
         dispatch(vinSearchCreator.doVsnSearch({
             code: vsnCode,
-            model: record.modelId
+            model: record.modelId,
+            doNotRedirect
         }));
     }
 

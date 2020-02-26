@@ -36,7 +36,7 @@ export function Legends() {
                         list && list.map((item) => {
                             return (
                                 <div className="item" key={item.catalogueCode + item.legendCode}>
-                                    <div className="image-box" onClick={handleClickLegend.bind(null, item.legendCode)}><img src={item.legendFileUri || '/images/logo.png'} alt={item.name}/></div>
+                                    <div className="image-box" onClick={handleClickLegend.bind(null, item.legendCode)}><img src={item.legendFileUri || '/images/nopic.gif'} alt={item.name}/></div>
                                     <div className="info-box">
                                         <div className="title-line" onClick={handleClickLegend.bind(null, item.legendCode)}>
                                             <span>{item.legendCode}</span>

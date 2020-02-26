@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 import history from '@/common/history';
+import {defaultCode} from '@/pages/common/crumbs/reducer';
 
 export function createAction(type, payload?) {
     return {
@@ -137,5 +138,19 @@ export function getUrlAndParams(urlMap, params) {
     return {
         url,
         params: newParams
+    };
+}
+
+export function getQueryObjFromRecord(record) {
+    if (!record) {
+        record = {};
+    }
+    return {
+        m_1: record.m1 || defaultCode,
+        m_2: record.m2 || defaultCode,
+        m_3: record.m3 || defaultCode,
+        m_4: record.m4 || defaultCode,
+        s_1: record.s1 || defaultCode,
+        s_2: record.s2 || defaultCode
     };
 }

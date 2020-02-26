@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pagination, Table} from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
+import {getQueryObjFromRecord} from '@/common/utils';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {applicabilityCreator} from './actions';
 import styles from './Applicability.module.scss';
@@ -92,6 +93,12 @@ export function Applicability() {
         dispatch(applicabilityCreator.doQuery(queryParams));
     }
 
+
+    function handelClickRow(record) {
+        const queryObj = getQueryObjFromRecord(record);
+
+    }
+
     return (
         <div>
             <div className={styles.applicability}>
@@ -100,6 +107,7 @@ export function Applicability() {
                     dataSource={list}
                     rowKey={'id'}
                     tableLayout={'fixed'}
+                    onRowClick={handelClickRow}
                     pagination={{
                         total: total,
                         current: pageNo,

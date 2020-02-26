@@ -23,18 +23,19 @@ function redirectToUsage(params) {
 function* vinSearchController(action) {
     try {
         const data = yield call(doVinSearch, action.payload);
-        const needRedirect = isNeedRedirect();
         const mappings = Object.assign({}, data.mappings, {
             type: 'vin',
             code: action.payload.code
         });
-        if (needRedirect) {
-            redirectToUsage(mappings);
-        } else {
-            updateLocationSearch(mappings);
-            updateLocationHash();
+
+        if (!action.payload.doNotRedirect) {
+            history.push({
+                pathname: '/usage',
+                search: queryString.stringify(mappings)
+            });
             yield put(usageCreator.initUsage());
         }
+
         yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vin',
             data: data,
@@ -59,12 +60,14 @@ function* vsnSelectModelController(action) {
 
             yield put(actions.vinSearchCreator.doVsnSearch({
                 code: action.payload.code,
-                model: list[0].modelId
+                model: list[0].modelId,
+                doNotRedirect: !!action.payload.doNotRedirect
             }));
         } else if (list.length > 1) {
             yield put(vsnSelectorCreator.setIsShowVsnSelector({
                 isShow: true,
                 vsnCode: action.payload.code,
+                doNotRedirect: !!action.payload.doNotRedirect,
                 list
             }));
         }
@@ -82,16 +85,15 @@ function doVsnSelectModel(params) {
 function* vsnSearchController(action) {
     try {
         const data: any = yield call(doVsnSearch, action.payload);
-        const needRedirect = isNeedRedirect();
         const mappings = Object.assign({}, data.mappings, {
             type: 'vsn',
             code: action.payload.code
         });
-        if (needRedirect) {
-            redirectToUsage(mappings);
-        } else {
-            updateLocationSearch(mappings);
-            updateLocationHash();
+        if (!action.payload.doNotRedirect) {
+            history.push({
+                pathname: '/usage',
+                search: queryString.stringify(mappings)
+            });
             yield put(usageCreator.initUsage());
         }
         yield put(vinDetailCreator.setIsShowVinDetail({
