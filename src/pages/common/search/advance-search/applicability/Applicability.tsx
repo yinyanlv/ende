@@ -1,7 +1,10 @@
 import React from 'react';
 import {Pagination, Table} from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
-import {getQueryObjFromRecord} from '@/common/utils';
+import queryString from 'query-string';
+import history from '@/common/history';
+import {usageCreator} from '@/pages/usage/actions';
+import {isAtPateUsage, getQueryObjFromRecord} from '@/common/utils';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {applicabilityCreator} from './actions';
 import styles from './Applicability.module.scss';
@@ -16,7 +19,8 @@ export function Applicability() {
         return state.search.advanceSearch.self;
     });
 
-    function handleClickPartCode(partCode) {
+    function handleClickPartCode(e, partCode) {
+        e.stopPropagation();
         dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode
         }));
@@ -36,7 +40,10 @@ export function Applicability() {
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                    <a className="btn" onClick={(e) => {
+
+                        handleClickPartCode(e, val);
+                    }}>{val}</a>
                 );
             }
         },
@@ -93,10 +100,16 @@ export function Applicability() {
         dispatch(applicabilityCreator.doQuery(queryParams));
     }
 
-
     function handelClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
-
+        const isNeedManualRefresh = isAtPateUsage();
+        history.push({
+            pathname: '/usage',
+            search: queryString.stringify(queryObj)
+        });
+        if (isNeedManualRefresh) {
+            dispatch(usageCreator.initUsage());
+        }
     }
 
     return (

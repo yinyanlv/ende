@@ -1,9 +1,14 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Table} from 'antd';
+import queryString from 'query-string';
+import history from '@/common/history';
+import {usageCreator} from '@/pages/usage/actions';
 import styles from './Applicability.module.scss';
+import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
 
 export function Applicability() {
+    const dispatch = useDispatch();
     const {list} = useSelector((state: any) => {
         return state.partDetail.applicability;
     });
@@ -53,6 +58,18 @@ export function Applicability() {
         }
     ];
 
+    function handelClickRow(record) {
+        const queryObj = getQueryObjFromRecord(record);
+        const isNeedManualRefresh = isAtPateUsage();
+        history.push({
+            pathname: '/usage',
+            search: queryString.stringify(queryObj)
+        });
+        if (isNeedManualRefresh) {
+            dispatch(usageCreator.initUsage());
+        }
+    }
+
     return (
         <div className={styles.replace}>
             <Table
@@ -61,6 +78,7 @@ export function Applicability() {
                 pagination={false}
                 rowKey={'id'}
                 tableLayout={'fixed'}
+                onRowClick={handelClickRow}
             />
         </div>
     );

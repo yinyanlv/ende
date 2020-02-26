@@ -2,23 +2,13 @@ import {put, takeLatest, call} from 'redux-saga/effects';
 import {message} from 'antd';
 import queryString from 'query-string';
 import history from '@/common/history';
-import {updateLocationSearch, updateLocationHash} from '@/common/utils';
 import {http} from '@/common/http';
 import * as actions from './actions';
+import {isAtPateUsage} from '@/common/utils';
 import {vsnSelectorCreator} from '@/pages/common/vsn-selector/actions';
 import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
 import {usageCreator} from '@/pages/usage/actions';
 
-function isNeedRedirect(): boolean {
-    return window.location.pathname === '/usage' ? false : true;
-}
-
-function redirectToUsage(params) {
-    return history.push({
-        pathname: '/usage',
-        search: queryString.stringify(params)
-    });
-}
 
 function* vinSearchController(action) {
     try {
@@ -29,11 +19,14 @@ function* vinSearchController(action) {
         });
 
         if (!action.payload.doNotRedirect) {
+            const isNeedManualRefresh = isAtPateUsage();
             history.push({
                 pathname: '/usage',
                 search: queryString.stringify(mappings)
             });
-            yield put(usageCreator.initUsage());
+            if (isNeedManualRefresh) {
+                yield put(usageCreator.initUsage());
+            }
         }
 
         yield put(vinDetailCreator.setIsShowVinDetail({
@@ -71,7 +64,7 @@ function* vsnSelectModelController(action) {
                 list
             }));
         }
-    } catch(err) {
+    } catch (err) {
         message.error(err.message);
     }
 }
@@ -90,18 +83,21 @@ function* vsnSearchController(action) {
             code: action.payload.code
         });
         if (!action.payload.doNotRedirect) {
+            const isNeedManualRefresh = isAtPateUsage();
             history.push({
                 pathname: '/usage',
                 search: queryString.stringify(mappings)
             });
-            yield put(usageCreator.initUsage());
+            if (isNeedManualRefresh) {
+                yield put(usageCreator.initUsage());
+            }
         }
         yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vsn',
             data: data,
             isShow: true
         }));
-    } catch(err) {
+    } catch (err) {
         message.error(err.message);
     }
 }

@@ -9,7 +9,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 export function ShoppingCart(props) {
 
     const dispatch = useDispatch();
-    const {total, list, pageNo, pageSize, isShow, queryParams, isLoading} = useSelector((state: any) => {
+    const {total, list, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
 
@@ -40,6 +40,41 @@ export function ShoppingCart(props) {
              partCode,
              qty
          }));
+    }
+
+    function handleClose() {
+        dispatch(shoppingCartCreator.setIsShowShoppingCart({
+            isShow: false
+        }));
+    }
+
+    function handleSelect(keys, records) {
+        const rows = records.map((item) => {
+            return {
+                id: item.id,
+                partCode: item.partCode
+            }
+        });
+        dispatch(shoppingCartCreator.setSelectedRecords(rows));
+    }
+
+    function getSelectedPartCodes() {
+        return selectedRecords.map((item) => {
+            return item.partCode;
+        });
+    }
+
+    function handleDeleteSelected() {
+        const partCodes = getSelectedPartCodes();
+
+        dispatch(shoppingCartCreator.deleteFromCart({
+            codes: partCodes
+        }));
+        dispatch(shoppingCartCreator.setSelectedRecords([]));
+    }
+
+    function handleCreateOrder() {
+
     }
 
     function getModelsString(list) {
@@ -118,12 +153,6 @@ export function ShoppingCart(props) {
         }
     ];
 
-    function handleClose() {
-        dispatch(shoppingCartCreator.setIsShowShoppingCart({
-            isShow: false
-        }));
-    }
-
     return (
         <Drawer
             closable={false}
@@ -145,9 +174,7 @@ export function ShoppingCart(props) {
                        tableLayout={'fixed'}
                        pagination={false}
                        rowSelection={{
-                           onChange: () => {
-
-                           }
+                           onChange: handleSelect
                        }}
                        scroll={{
                            x: true,
@@ -157,14 +184,14 @@ export function ShoppingCart(props) {
                </div>
                <div className={styles.pagination}>
                    <div className="operators">
-                       <Button>删除</Button>
-                       <Button type="primary">生成订单</Button>
+                       <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
+                       <Button type="primary" onClick={handleCreateOrder}>生成订单</Button>
                    </div>
                    <Pagination
                        total={total}
                        current={pageNo}
                        pageSize={pageSize}
-                       pageSizeOptions={['10', '20']}
+                       pageSizeOptions={['5', '10', '20']}
                        showSizeChanger
                        showQuickJumper
                        onChange={doQuery}

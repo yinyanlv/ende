@@ -1,9 +1,13 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Pagination} from 'antd';
+import queryString from 'query-string';
+import history from '@/common/history';
+import {usageCreator} from '@/pages/usage/actions';
 import {Loading} from '@/components/loading';
 import styles from './Legends.module.scss';
 import {legendsCreator} from './actions';
+import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
 
 export function Legends() {
 
@@ -15,8 +19,16 @@ export function Legends() {
         return state.search.advanceSearch.self;
     });
 
-    function handleClickLegend(code) {
-        console.log(code);
+    function handleClickLegend(record) {
+        const queryObj = getQueryObjFromRecord(record);
+        const isNeedManualRefresh = isAtPateUsage();
+        history.push({
+            pathname: '/usage',
+            search: queryString.stringify(queryObj)
+        });
+        if (isNeedManualRefresh) {
+            dispatch(usageCreator.initUsage());
+        }
     }
 
     function doQuery(page, size) {
@@ -36,9 +48,9 @@ export function Legends() {
                         list && list.map((item) => {
                             return (
                                 <div className="item" key={item.catalogueCode + item.legendCode}>
-                                    <div className="image-box" onClick={handleClickLegend.bind(null, item.legendCode)}><img src={item.legendFileUri || '/images/nopic.gif'} alt={item.name}/></div>
+                                    <div className="image-box" onClick={handleClickLegend.bind(null, item)}><img src={item.legendFileUri || '/images/nopic.gif'} alt={item.name}/></div>
                                     <div className="info-box">
-                                        <div className="title-line" onClick={handleClickLegend.bind(null, item.legendCode)}>
+                                        <div className="title-line" onClick={handleClickLegend.bind(null, item)}>
                                             <span>{item.legendCode}</span>
                                             <span className="gap">-</span>
                                             <span>{item.legendName}</span>

@@ -154,3 +154,7 @@ export function getQueryObjFromRecord(record) {
         s_2: record.s2 || defaultCode
     };
 }
+
+export function isAtPateUsage(): boolean {
+    return window.location.pathname === '/usage' ? true : false;
+}

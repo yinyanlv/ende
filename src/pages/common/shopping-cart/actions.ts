@@ -1,11 +1,10 @@
 import {createAction} from '@/common/utils';
-import {SET_IS_SHOW_PARTS} from "@/pages/usage/actions";
-import {SET_LEGENDS} from "@/pages/common/search/advance-search/legends/actions";
 
 export const DO_QUERY = 'shopping-cart:do-query';
 export const IS_SHOW_SHOPPING_CART = 'shopping-cart:is-show-shopping-cart';
 export const IS_LOADING = 'shopping-cart:is-loading';
 export const SET_SHOPPING_CART = 'shopping-cart:set-shopping-cart';
+export const SET_SELECTED_RECORDS = 'shopping-cart:set-selected-records';
 export const ADD_TO_CART = 'shopping-cart:add-to-cart';
 export const DELETE_FROM_CART = 'shopping-cart:delete-from-cart';
 export const EDIT_PART_CART_COUNT = 'shopping-cart:change-part-cart-count';
@@ -17,6 +16,9 @@ export const shoppingCartCreator = {
     },
     setIsLoading: (params) => {
         return createAction(IS_LOADING, params);
+    },
+    setSelectedRecords: (params) => {
+        return createAction(SET_SELECTED_RECORDS, params);
     },
     doQuery: (params) => {
         return createAction(DO_QUERY, params);

@@ -9,7 +9,8 @@ const initialState = {
     list: [],
     total: 0,
     pageNo: 1,
-    pageSize: 10
+    pageSize: 10,
+    selectedRecords: []
 };
 
 function shoppingCartReducer(state = initialState, action) {
@@ -18,6 +19,11 @@ function shoppingCartReducer(state = initialState, action) {
             return {
                 ...state,
                 isShow: action.payload.isShow
+            };
+        case actions.SET_SELECTED_RECORDS:
+            return {
+                ...state,
+                selectedRecords: action.payload
             };
         case actions.IS_LOADING:
             return {
