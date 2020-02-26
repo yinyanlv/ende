@@ -27,13 +27,7 @@ export function PageUsage() {
 
     useEffect(() => {
 
-        const hashObj = getHashObj();
-
-        if (hashObj && hashObj.callout) {
-            dispatch(usageCreator.setActiveCallout(hashObj.callout));
-        }
-
-        dispatch(groupsCreator.load());
+        dispatch(usageCreator.initUsage());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 

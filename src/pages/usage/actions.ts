@@ -1,6 +1,7 @@
 import {createAction} from '@/common/utils';
 
 export const RESET_USAGE = 'usage:reset-state';
+export const INIT_USAGE = 'usage:init-usage';
 export const SET_ACTIVE_CALLOUT = 'usage:set-active-callout';
 export const SET_IS_LEGEND_PARTS_SHOW = 'usage:set-is-legend-parts-show';
 export const SET_IS_FIRST_LOAD = 'usage:set-is-first-load';
@@ -10,6 +11,9 @@ export const SET_IS_SHOW_PARTS = 'usage:set-is-show-parts';
 export const usageCreator = {
     resetUsage: () => {
         return createAction(RESET_USAGE);
+    },
+    initUsage: () => {
+        return createAction(INIT_USAGE);
     },
     setActiveCallout: (params) => {
         return createAction(SET_ACTIVE_CALLOUT, params);

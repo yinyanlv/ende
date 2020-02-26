@@ -2,10 +2,12 @@ import {put, takeLatest, call} from 'redux-saga/effects';
 import {message} from 'antd';
 import queryString from 'query-string';
 import history from '@/common/history';
+import {updateLocationSearch, updateLocationHash} from '@/common/utils';
 import {http} from '@/common/http';
 import * as actions from './actions';
 import {vsnSelectorCreator} from '@/pages/common/vsn-selector/actions';
 import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
+import {usageCreator} from '@/pages/usage/actions';
 
 function isNeedRedirect(): boolean {
     return window.location.pathname === '/usage' ? false : true;
@@ -27,15 +29,17 @@ function* vinSearchController(action) {
             code: action.payload.code
         });
         if (needRedirect) {
-            redirectToUsage(mappings)
+            redirectToUsage(mappings);
         } else {
-            // TODO, refresh usage
-            yield put(vinDetailCreator.setIsShowVinDetail({
-                type: 'vin',
-                data: data,
-                isShow: true
-            }));
+            updateLocationSearch(mappings);
+            updateLocationHash();
+            yield put(usageCreator.initUsage());
         }
+        yield put(vinDetailCreator.setIsShowVinDetail({
+            type: 'vin',
+            data: data,
+            isShow: true
+        }));
     } catch (err) {
         message.error(err.message);
     }
@@ -86,15 +90,16 @@ function* vsnSearchController(action) {
         if (needRedirect) {
             redirectToUsage(mappings);
         } else {
-            // TODO, refresh usage
-            yield put(vinDetailCreator.setIsShowVinDetail({
-                type: 'vsn',
-                data: data,
-                isShow: true
-            }));
+            updateLocationSearch(mappings);
+            updateLocationHash();
+            yield put(usageCreator.initUsage());
         }
+        yield put(vinDetailCreator.setIsShowVinDetail({
+            type: 'vsn',
+            data: data,
+            isShow: true
+        }));
     } catch(err) {
-
         message.error(err.message);
     }
 }

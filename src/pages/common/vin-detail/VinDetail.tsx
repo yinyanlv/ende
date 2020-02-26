@@ -1,16 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button} from 'antd';
+import {getQueryObj} from '@/common/utils';
 import {searchCreator} from '@/pages/common/search/actions';
 import {vinDetailCreator} from './actions';
+import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 import styles from './VinDetail.module.scss';
 
 export function VinDetail(props) {
 
     const dispatch = useDispatch();
-    const {data, type, isShow} = useSelector((state: any) => {
+    const {data, isShow} = useSelector((state: any) => {
         return state.vinDetail;
     });
+
+    useEffect(() => {
+        const queryObj = getQueryObj();
+        if (queryObj.type === 'vin' && queryObj.code) {
+            dispatch(vinSearchCreator.doVinSearch({
+                code: queryObj.code
+            }));
+        } else if (queryObj.type === 'vsn' && queryObj.code && queryObj.m_4) {
+            dispatch(vinSearchCreator.doVsnSearch({
+                code: queryObj.code,
+                model: queryObj.m_4
+            }));
+        }
+    }, []);
 
     function handleClose() {
         dispatch(vinDetailCreator.setIsShowVinDetail({
@@ -20,7 +36,6 @@ export function VinDetail(props) {
 
     function doAdvanceQuery() {
         const mappings = data.mappings;
-
         dispatch(searchCreator.queryAndShowSearch({
             vinVsn: data.code,
             model: [mappings.m_1, mappings.m_2, mappings.m_3, mappings.m_4]
