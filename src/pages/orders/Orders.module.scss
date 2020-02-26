@@ -1,1 +1,96 @@
 @import "src/scss/sdk/index";
+
+.orders{
+
+  :global{
+
+    .item {
+      height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .image-box {
+        width: 92px;
+        height: 78px;
+        border: 1px solid $bd-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        @include transition(border-color .3s ease-in-out);
+
+        &:hover {
+          border: 1px solid $primary-color;
+        }
+
+        img {
+          max-width:80px;
+          max-height: 66px;
+        }
+      }
+    }
+
+    .info-box{
+      margin: 0 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 78px;
+      overflow: hidden;
+
+      .title-line {
+        height: 26px;
+        padding-top: 2px;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        & > span {
+          margin-right: 5px;
+        }
+        .btn {
+          text-decoration: underline;
+          cursor: pointer;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+
+      .content-line{
+        margin-top: 2px;
+        line-height: 24px;
+
+        & > span {
+          display: inline-block;
+          width: 50%;
+          padding-right: 2px;
+          float:left;
+          @extend %textOverflowEllipsis;
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  padding: 8px 0 16px;
+
+  :global {
+
+    .operators {
+      float:left;
+
+      .ant-btn {
+        margin-right: 10px;
+      }
+    }
+
+    .ant-pagination {
+      float:right;
+    }
+  }
+}

@@ -8,6 +8,7 @@ import {isAtPateUsage, getQueryObjFromRecord} from '@/common/utils';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {applicabilityCreator} from './actions';
 import styles from './Applicability.module.scss';
+import {Loading} from "@/components/loading";
 
 export function Applicability() {
 
@@ -113,7 +114,7 @@ export function Applicability() {
     }
 
     return (
-        <div>
+        <Loading isLoading={isLoading}>
             <div className={styles.applicability}>
                 <Table
                     columns={columns}
@@ -121,35 +122,25 @@ export function Applicability() {
                     rowKey={'id'}
                     tableLayout={'fixed'}
                     onRowClick={handelClickRow}
-                    pagination={{
-                        total: total,
-                        current: pageNo,
-                        pageSize: pageSize,
-                        pageSizeOptions: ['5', '10', '20'],
-                        showSizeChanger: true,
-                        showQuickJumper: true,
-                        onChange: doQuery,
-                        onShowSizeChange: doQuery
-                    }}
-                    loading={isLoading}
+                    pagination={false}
                     scroll={{
                         x: true,
                         y: true
                     }}
                 />
             </div>
-            {/*<div className={styles.pagination}>*/}
-            {/*    <Pagination*/}
-            {/*        total={total}*/}
-            {/*        current={pageNo}*/}
-            {/*        pageSize={pageSize}*/}
-            {/*        pageSizeOptions={['5', '10', '20']}*/}
-            {/*        showSizeChanger*/}
-            {/*        showQuickJumper*/}
-            {/*        onChange={doQuery}*/}
-            {/*        onShowSizeChange={doQuery}*/}
-            {/*    />*/}
-            {/*</div>*/}
-        </div>
+            <div className={styles.pagination}>
+                <Pagination
+                    total={total}
+                    current={pageNo}
+                    pageSize={pageSize}
+                    pageSizeOptions={['5', '10', '20']}
+                    showSizeChanger
+                    showQuickJumper
+                    onChange={doQuery}
+                    onShowSizeChange={doQuery}
+                />
+            </div>
+        </Loading>
     );
 }

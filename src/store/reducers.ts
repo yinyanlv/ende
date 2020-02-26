@@ -15,6 +15,7 @@ import {groupsReducer} from '@/pages/usage/groups/reducer';
 import {legendsReducer} from '@/pages/usage/legends/reducer';
 import {legendReducer} from '@/pages/usage/legend/reducer';
 import {partsReducer} from '@/pages/usage/parts/reducer';
+import {ordersReducers} from '@/pages/orders/reducers';
 
 export const reducers = combineReducers({
     config: configReducer,
@@ -32,5 +33,6 @@ export const reducers = combineReducers({
     groups: groupsReducer,
     legends: legendsReducer,
     legend: legendReducer,
-    parts: partsReducer
+    parts: partsReducer,
+    orders: ordersReducers
 });
