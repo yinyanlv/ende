@@ -5,6 +5,7 @@ import {shoppingCartCreator} from './actions';
 import styles from './ShoppingCart.module.scss';
 import {Query} from './query';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {Loading} from "@/components/loading";
 
 export function ShoppingCart(props) {
 
@@ -36,10 +37,10 @@ export function ShoppingCart(props) {
     }
 
     function handleEditPartCartCount(partCode, qty) {
-         dispatch(shoppingCartCreator.editPartCartCount({
-             partCode,
-             qty
-         }));
+        dispatch(shoppingCartCreator.editPartCartCount({
+            partCode,
+            qty
+        }));
     }
 
     function handleClose() {
@@ -102,10 +103,12 @@ export function ShoppingCart(props) {
                 const modelsString = getModelsString(record.applyList);
                 return (
                     <div className="item">
-                        <div className="image-box" onClick={handleClickPartCode.bind(null, record.partCode)}><img src={record.coverImageUri || '/images/logo.png'} alt={record.partName}/></div>
+                        <div className="image-box" onClick={handleClickPartCode.bind(null, record.partCode)}><img
+                            src={record.coverImageUri || '/images/logo.png'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
-                                <span className="btn" onClick={handleClickPartCode.bind(null, record.partCode)}>{record.partCode}</span>
+                                <span className="btn"
+                                      onClick={handleClickPartCode.bind(null, record.partCode)}>{record.partCode}</span>
                                 <span className="gap">-</span>
                                 <span>{record.partName}</span>
                                 <span>(<span>{record.partNote}</span>)</span>
@@ -126,7 +129,8 @@ export function ShoppingCart(props) {
             render: (val, record) => {
                 return (
                     <div>
-                        <InputNumber defaultValue={val} onChange={handleEditPartCartCount.bind(null, record.partCode, val)} />
+                        <InputNumber defaultValue={val}
+                                     onChange={handleEditPartCartCount.bind(null, record.partCode, val)}/>
                     </div>
                 );
             }
@@ -135,7 +139,7 @@ export function ShoppingCart(props) {
             title: '小计(元)',
             dataIndex: 'amount',
             render: (val) => {
-               return val && val.formatString;
+                return val && val.formatString;
             }
         },
         {
@@ -160,46 +164,47 @@ export function ShoppingCart(props) {
             onClose={handleClose}
             width={850}
         >
-           <div className={styles.shoppingCart}>
-               <div className="drawer-title">
-                  <span>购物车</span>
-               </div>
-               <Query />
-               <div>
-                   <Table
-                       loading={isLoading}
-                       columns={columns}
-                       dataSource={list}
-                       rowKey={'id'}
-                       tableLayout={'fixed'}
-                       pagination={false}
-                       rowSelection={{
-                           onChange: handleSelect
-                       }}
-                       scroll={{
-                           x: true,
-                           y: true
-                       }}
-                   />
-               </div>
-               <div className={styles.pagination}>
-                   <div className="operators">
-                       <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
-                       <Button type="primary" onClick={handleCreateOrder}>生成订单</Button>
-                   </div>
-                   <Pagination
-                       total={total}
-                       current={pageNo}
-                       pageSize={pageSize}
-                       pageSizeOptions={['5', '10', '20']}
-                       showSizeChanger
-                       showQuickJumper
-                       onChange={doQuery}
-                       showLessItems={true}
-                       onShowSizeChange={doQuery}
-                   />
-               </div>
-           </div>
+            <div className={styles.shoppingCart}>
+                <div className="drawer-title">
+                    <span>购物车</span>
+                </div>
+                <Query/>
+                <Loading isLoading={isLoading}>
+                    <div>
+                        <Table
+                            columns={columns}
+                            dataSource={list}
+                            rowKey={'id'}
+                            tableLayout={'fixed'}
+                            pagination={false}
+                            rowSelection={{
+                                onChange: handleSelect
+                            }}
+                            scroll={{
+                                x: true,
+                                y: true
+                            }}
+                        />
+                    </div>
+                    <div className={styles.pagination}>
+                        <div className="operators">
+                            <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
+                            <Button type="primary" onClick={handleCreateOrder}>生成订单</Button>
+                        </div>
+                        <Pagination
+                            total={total}
+                            current={pageNo}
+                            pageSize={pageSize}
+                            pageSizeOptions={['5', '10', '20']}
+                            showSizeChanger
+                            showQuickJumper
+                            onChange={doQuery}
+                            showLessItems={true}
+                            onShowSizeChange={doQuery}
+                        />
+                    </div>
+                </Loading>
+            </div>
         </Drawer>
     );
 }

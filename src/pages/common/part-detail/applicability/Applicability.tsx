@@ -58,7 +58,7 @@ export function Applicability() {
         }
     ];
 
-    function handelClickRow(record) {
+    function handleClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
         const isNeedManualRefresh = isAtPateUsage();
         history.push({
@@ -78,7 +78,13 @@ export function Applicability() {
                 pagination={false}
                 rowKey={'id'}
                 tableLayout={'fixed'}
-                onRowClick={handelClickRow}
+                onRow={(record) => {
+                    return {
+                        onClick: () => {
+                            handleClickRow(record);
+                        }
+                    }
+                }}
             />
         </div>
     );

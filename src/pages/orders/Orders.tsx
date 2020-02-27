@@ -34,16 +34,40 @@ export function PageOrders(props) {
 
     const columns = [
         {
-            title: '零件信息',
-            dataIndex: 'partCode',
-            width: 450,
+            title: '订单编号',
+            dataIndex: 'code',
+            width: 200
         },
         {
-            title: '量',
-            dataIndex: 'qty',
+            title: '下单日期',
+            dataIndex: 'createdDate',
         },
         {
-            title: '小计(元)',
+            title: '订单备注',
+            dataIndex: 'note',
+        },
+        {
+            title: '状态',
+            dataIndex: 'statusDesc',
+        },
+        {
+            title: '下单维修站编码',
+            dataIndex: 'purchaserDealerCode',
+        },
+        {
+            title: '下单维修站名称',
+            dataIndex: 'purchaserDealerName',
+        },
+        {
+            title: '收货维修站编码',
+            dataIndex: 'receiverDealerCode',
+        },
+        {
+            title: '收货维修站名称',
+            dataIndex: 'receiverDealerName',
+        },
+        {
+            title: '订单金额',
             dataIndex: 'amount',
         },
         {
@@ -63,7 +87,7 @@ export function PageOrders(props) {
 
     return (
         <div className={styles.orders}>
-            <div className="drawer-title">
+            <div className="title-line">
                 <span>购物车</span>
             </div>
             <Query />
@@ -72,7 +96,7 @@ export function PageOrders(props) {
                     <Table
                         columns={columns}
                         dataSource={list}
-                        rowKey={'id'}
+                        rowKey={'code'}
                         tableLayout={'fixed'}
                         pagination={false}
                         scroll={{

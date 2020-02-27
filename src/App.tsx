@@ -10,6 +10,13 @@ import {Auth} from '@/pages/common/auth';
 import {RouteProgress} from '@/components/route-progress';
 import {Intl} from '@/pages/common/intl';
 
+const fitLayoutUrls = [
+    '/',
+    '/usage',
+    '/orders',
+    '/order/:id'
+];
+
 const App: React.FC = () => {
 
     return (
@@ -19,11 +26,11 @@ const App: React.FC = () => {
                     <Suspense fallback={<RouteProgress />}>
                         <Auth>
                             <Switch>
-                                <Route path={['/print-legend']}>
-                                    <AutoLayout />
-                                </Route>
-                                <Route path={'/'}>
+                                <Route path={fitLayoutUrls} exact>
                                     <FitLayout />
+                                </Route>
+                                <Route>
+                                    <AutoLayout />
                                 </Route>
                             </Switch>
                         </Auth>

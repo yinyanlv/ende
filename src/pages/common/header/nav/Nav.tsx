@@ -46,13 +46,6 @@ export function Nav(props) {
         </Menu>
     );
 
-    const moreMenu = (
-        <Menu>
-            <MenuItem>书签</MenuItem>
-            <MenuItem>历史</MenuItem>
-        </Menu>
-    );
-
     const message = (
         <Tabs defaultActiveKey="1" onChange={() => {
         }} style={{width: 300}}>
@@ -89,11 +82,48 @@ export function Nav(props) {
         <>
             <nav className={styles.nav}>
                 <div className="common-nav">
+                    <span className="nav-item">
+                       <span className={'nav-item-inner'} onClick={handleClickSearch}>
+                            <Icon type="search"/>
+                        </span>
+                    </span>
+                    <span className="nav-item">
+                       <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
+                            <Icon type="shopping-cart"/> <span>(<span>{cartCount}</span>)</span>
+                        </span>
+                    </span>
+                    <NavLink to={'/orders'} className="nav-item">
+                       <span className={'nav-item-inner'}>
+                            <Icon type="file-text"/>
+                        </span>
+                    </NavLink>
+                    <span className="nav-item">
+                       <span className={'nav-item-inner'}>
+                            <Icon type="star"/>
+                        </span>
+                    </span>
+                    <Dropdown overlay={helpMenu}>
+                        <NavLink to={'/'} className="nav-item">
+                       <span className={'nav-item-inner'}>
+                         <Icon type="question-circle"/>
+                        </span>
+                        </NavLink>
+                    </Dropdown>
+                </div>
+                <div>
                     <NavLink to={'/'} className="nav-item">
                         <span className={'nav-item-inner'}>
                             <Icon type="home"/>
                         </span>
                     </NavLink>
+                    <Dropdown overlay={userMenu}>
+                        <NavLink to={'/'} className="nav-item">
+                   <span className={'nav-item-inner item-user'}>
+                        <Icon type="user"/>
+                        系统管理员
+                    </span>
+                        </NavLink>
+                    </Dropdown>
                     <Popover content={message}>
                         <NavLink to={'/'} className="nav-item">
                             <Badge count={2} overflowCount={10} showZero={false} offset={[-5, -2]}>
@@ -109,50 +139,6 @@ export function Nav(props) {
                        <Icon type="global"/>
                         </span>
                         </NavLink>
-                    </Dropdown>
-                    <Dropdown overlay={userMenu}>
-                        <NavLink to={'/'} className="nav-item">
-                   <span className={'nav-item-inner item-user'}>
-                        <Icon type="user"/>
-                        系统管理员
-                    </span>
-                        </NavLink>
-                    </Dropdown>
-                    <Dropdown overlay={helpMenu}>
-                        <NavLink to={'/'} className="nav-item">
-                       <span className={'nav-item-inner'}>
-                         <Icon type="question-circle"/>
-                        </span>
-                        </NavLink>
-                    </Dropdown>
-                </div>
-                <div>
-                    <span className="nav-item">
-                       <span className={'nav-item-inner'} onClick={handleClickSearch}>
-                            <Icon type="search"/>
-                        </span>
-                    </span>
-                    <span className="nav-item">
-                       <span className={'nav-item-inner'}>
-                            <Icon type="star"/>
-                        </span>
-                    </span>
-                    <span className="nav-item">
-                       <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
-                            <Icon type="shopping-cart"/> <span>(<span>{cartCount}</span>)</span>
-                        </span>
-                    </span>
-                    <NavLink to={'/'} className="nav-item">
-                       <span className={'nav-item-inner'}>
-                            <Icon type="file-text"/>
-                        </span>
-                    </NavLink>
-                    <Dropdown overlay={moreMenu}>
-                    <span className="nav-item">
-                          <span className={'nav-item-inner'}>
-                            <Icon type="more"/>
-                        </span>
-                    </span>
                     </Dropdown>
                 </div>
             </nav>

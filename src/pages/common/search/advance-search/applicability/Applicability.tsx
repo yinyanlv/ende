@@ -101,7 +101,7 @@ export function Applicability() {
         dispatch(applicabilityCreator.doQuery(queryParams));
     }
 
-    function handelClickRow(record) {
+    function handleClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
         const isNeedManualRefresh = isAtPateUsage();
         history.push({
@@ -121,7 +121,13 @@ export function Applicability() {
                     dataSource={list}
                     rowKey={'id'}
                     tableLayout={'fixed'}
-                    onRowClick={handelClickRow}
+                    onRow={(record) => {
+                        return {
+                            onClick: () => {
+                                handleClickRow(record);
+                            }
+                        }
+                    }}
                     pagination={false}
                     scroll={{
                         x: true,

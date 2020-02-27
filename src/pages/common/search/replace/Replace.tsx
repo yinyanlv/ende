@@ -4,6 +4,7 @@ import {Table} from 'antd';
 import {Query} from './query';
 import styles from './Replace.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {Loading} from "@/components/loading";
 
 export function Replace() {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export function Replace() {
                             <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
                         );
                     }
-                } else  {
+                } else {
                     return val;
                 }
             }
@@ -62,7 +63,7 @@ export function Replace() {
                             <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
                         );
                     }
-                } else  {
+                } else {
                     return val;
                 }
             }
@@ -94,16 +95,17 @@ export function Replace() {
 
     return (
         <div>
-            <Query />
-            <div className={styles.replace}>
-                <Table
-                    columns={columns}
-                    dataSource={list}
-                    pagination={false}
-                    loading={isLoading}
-                    rowKey={'newPartCode'}
-                />
-            </div>
+            <Query/>
+            <Loading isLoading={isLoading}>
+                <div className={styles.replace}>
+                    <Table
+                        columns={columns}
+                        dataSource={list}
+                        pagination={false}
+                        rowKey={'newPartCode'}
+                    />
+                </div>
+            </Loading>
         </div>
     );
 }

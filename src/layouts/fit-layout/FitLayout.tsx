@@ -21,6 +21,9 @@ export function FitLayout(props) {
             <Header />
             <Crumbs />
             <section className={styles.mainContainer}>
+                <Route path="/" exact>
+                    <PageCatalog />
+                </Route>
                 <Route path="/usage" exact>
                     <PageUsage />
                 </Route>
@@ -29,9 +32,6 @@ export function FitLayout(props) {
                 </Route>
                 <Route path="/order/:id" exact>
                     <PageOrderDetail />
-                </Route>
-                <Route path="/" exact>
-                    <PageCatalog />
                 </Route>
             </section>
             <Search/>

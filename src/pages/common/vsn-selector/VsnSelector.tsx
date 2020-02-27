@@ -62,7 +62,13 @@ export function VsnSelector() {
                         columns={columns}
                         dataSource={list}
                         rowKey={'modelId'}
-                        onRowClick={handleClickRow}
+                        onRow={(record) => {
+                            return {
+                                onClick: () => {
+                                    handleClickRow(record);
+                                }
+                            }
+                        }}
                         pagination={false}
                     />
                 </div>

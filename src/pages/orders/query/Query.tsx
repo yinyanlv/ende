@@ -29,15 +29,24 @@ export function QueryForm(props: any) {
             <Form layout="inline" labelAlign="left">
                 <Row>
                     <Col span={8}>
-                        <FormItem label="零件编号">
+                        <FormItem label="订单编号">
                             {
-                                getFieldDecorator('partCode', {})(
+                                getFieldDecorator('code', {})(
                                     <Input placeholder="请输入"/>
                                 )
                             }
                         </FormItem>
                     </Col>
-                    <Col span={16} className="btn-line">
+                    <Col span={8}>
+                        <FormItem label="订单备注">
+                            {
+                                getFieldDecorator('note', {})(
+                                    <Input placeholder="请输入"/>
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                    <Col span={8} className="btn-line">
                         <Button type="primary" onClick={doQuery}>查询</Button>
                         <Button onClick={doReset}>清空</Button>
                     </Col>

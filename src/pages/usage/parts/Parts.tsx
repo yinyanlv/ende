@@ -170,7 +170,7 @@ function Parts(props: PartsProps) {
                        pagination={false}
                        onRow={(record) => {
                            return {
-                               onClick: function () {
+                               onClick: () => {
                                    handleSelect(record);
                                }
                            };
