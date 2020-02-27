@@ -101,7 +101,7 @@ function Groups(props: GroupsProps) {
             }
             return (
                 <TreeNode
-                    icon={<Icon type="profile"/>}
+                    icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
                     title={title}
                     key={item.code}
                     data-code-path={tempCodePathStr}

@@ -14,7 +14,7 @@ const PageUsage = React.lazy(() => import('@/pages/usage'));
 const PageOrders = React.lazy(() => import('@/pages/orders'));
 const PageOrderDetail = React.lazy(() => import('@/pages/order-detail'));
 
-export function FitLayout(props) {
+export function FitLayout() {
 
     return (
         <>

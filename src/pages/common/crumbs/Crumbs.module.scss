@@ -13,6 +13,19 @@
 
   :global{
 
+    .ant-breadcrumb-link {
+
+      &:hover {
+        .anticon{
+          color: $lightest-font-color;
+        }
+      }
+
+      .anticon {
+        margin-right: 5px;
+      }
+    }
+
     .left-box{
       display: flex;
       flex-direction: row;

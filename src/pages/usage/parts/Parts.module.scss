@@ -1,12 +1,17 @@
 @import "src/scss/sdk/index";
 
+$parts-width: 720px;
+$table-width: $parts-width - 4;
+$table-body-height: calc(100vh - 140px);
+
 :export {
-  partsTableBodyHeight: $part-list-body-height;
+  tableWidth: $table-width;
+  tableBodyHeight: $table-body-height;
 }
 
 .parts {
   position: relative;
-  width: 720px;
+  width: $parts-width;
   margin-left: 20px;
   transition: margin .3s ease-in-out;
 
@@ -28,9 +33,8 @@
       }
 
       .ant-table-body {
-        height: $part-list-body-height !important;
-        overflow-y: auto !important;
-        border-radius: 0 !important;
+        //height: $table-body-height !important;
+        overflow: auto !important;
       }
 
       .operator-wrapper {
@@ -39,7 +43,7 @@
 
         .link-button {
           display: inline-block;
-          width: 80px;
+          width: 100px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -51,12 +55,16 @@
           }
         }
 
-        .operator-btns {
+        .btns {
           color: $primary-color;
           i {
             cursor: pointer;
-            margin: 0 0 0 8px;
             font-size: 16px;
+            margin-right: 8px;
+
+            &:last-child{
+              margin-right:0;
+            }
           }
         }
       }

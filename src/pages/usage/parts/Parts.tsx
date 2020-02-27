@@ -4,7 +4,7 @@ import copy from 'copy-to-clipboard';
 import {useSelector, useDispatch} from 'react-redux';
 import {Panel} from '@/components/panel';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
-import {UsagePopover} from './usagePopover';
+import {Application} from './application';
 import styles from './Parts.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
@@ -44,7 +44,7 @@ function Parts(props: PartsProps) {
                     <span className="link-button" onClick={(e) => {
                         showPartDetail(e, val);
                     }}>{val}</span>
-                    <span className={'operator-btns'}>
+                    <span className={'btns'}>
                           <Tooltip title={'复制'}>
                             <Icon type={'copy'} onClick={(e) => {
                                 handleClickCopy(e, val);
@@ -63,19 +63,21 @@ function Parts(props: PartsProps) {
         title: '左右',
         dataIndex: 'handName',
         ellipsis: true,
-        width: 70
+        width: 80
     }, {
         title: '名称描述',
         dataIndex: 'name',
+        width: 140,
         ellipsis: true
     }, {
         title: '用途',
         dataIndex: 'note',
         ellipsis: true,
+        width: 140,
         render: (val, record) => (
-            <UsagePopover params={{id: record.id}}>
+            <Application params={{id: record.id}}>
                 <span>{val}</span>
-            </UsagePopover>
+            </Application>
         )
     }, {
         title: '量',
@@ -85,7 +87,6 @@ function Parts(props: PartsProps) {
     }, {
         title: '操作',
         ellipsis: true,
-        width: 60,
         render: (val, record) => (
             <Tooltip title={'加入购物车'}>
                 <Button type="primary" icon="shopping-cart" size={'small'} onClick={(e) => {
@@ -164,7 +165,10 @@ function Parts(props: PartsProps) {
                        dataSource={usages}
                        rowKey={'id'}
                        size={'small'}
-                       scroll={{y: styles.partsTableBodyHeight}}
+                       scroll={{
+                           x: styles.tableWidth,
+                           y: styles.tableBodyHeight
+                       }}
                        className={'part-list'}
                        tableLayout={'fixed'}
                        pagination={false}

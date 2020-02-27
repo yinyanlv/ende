@@ -5,7 +5,7 @@ import * as actions from './actions';
 import {groupsCreator} from './groups/actions';
 import {groupsSaga} from './groups/saga';
 import {legendsSaga} from './legends/saga';
-import {partsSaga} from './parts/saga';
+import {partsSagas} from './parts/sagas';
 
 function* initUsageController() {
     try {
@@ -30,7 +30,7 @@ export function* usageSagas() {
         fork(usageSaga),
         fork(groupsSaga),
         fork(legendsSaga),
-        fork(partsSaga)
+        fork(partsSagas)
     ]);
 }
 

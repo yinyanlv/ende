@@ -1,6 +1,7 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {http} from '@/common/http';
 import {getUrlAndParams} from '@/common/utils';
+import {applicationSaga} from './application/saga';
 import * as actions from './actions';
 
 function* loadPartsController(action) {
@@ -25,7 +26,14 @@ function loadParts(params) {
     return http.post(result.url, result.params);
 }
 
-export function* partsSaga() {
+function* partsSaga() {
     yield takeLatest(actions.LOAD_PARTS, loadPartsController);
+}
+
+export function* partsSagas() {
+    yield all([
+        fork(partsSaga),
+        fork(applicationSaga)
+    ]);
 }
 

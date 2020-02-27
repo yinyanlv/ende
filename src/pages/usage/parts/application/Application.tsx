@@ -1,16 +1,18 @@
-import React, {useState, PropsWithChildren} from 'react';
+import React, {PropsWithChildren} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Table, Popover, Skeleton} from 'antd';
-import {http} from '@/common/http';
-import styles from './UsagePopover.module.scss';
+import styles from './Application.module.scss';
+import {applicationCreator} from './actions';
 
-interface UsagePopoverProps {
+interface ApplicationProps {
     params: any;
 }
 
-export function UsagePopover(props: PropsWithChildren<UsagePopoverProps>) {
-
-    const [isVisible, setIsVisible] = useState(false);
-    const [list, setList] = useState([]);
+export function Application(props: PropsWithChildren<ApplicationProps>) {
+    const dispatch = useDispatch();
+    const {list, isLoading} = useSelector((state: any) => {
+        return state.application;
+    });
 
     const columns = [{
         title: '编号',
@@ -21,33 +23,28 @@ export function UsagePopover(props: PropsWithChildren<UsagePopoverProps>) {
         dataIndex: 'name'
     }];
 
-    function handleVisibleChange(isVisible) {
+    function handleVisibleChange(isShow) {
 
-        if (isVisible) {
-            http.post('/usage/options', props.params)
-                .then((data: any) => {
-                    setIsVisible(isVisible);
-                    setList(data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+        if (isShow) {
+            dispatch(applicationCreator.loadApplication(props.params));
+        } else {
+            dispatch(applicationCreator.setApplication([]));
         }
     }
 
     function getPopoverContent() {
         return (
-            <div className={styles.usageContent}>
+            <div className={styles.applicationContent}>
                 {
-                    isVisible ? (
+                    isLoading ? (
+                        <Skeleton active={true} />
+                    ) : (
                         <Table columns={columns}
                                dataSource={list}
                                rowKey={'id'}
                                size={'small'}
                                pagination={false}
                         />
-                    ) : (
-                        <Skeleton active={true} />
                     )
                 }
             </div>

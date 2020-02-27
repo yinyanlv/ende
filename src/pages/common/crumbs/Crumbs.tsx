@@ -18,6 +18,7 @@ export function Crumbs(props) {
                 <Breadcrumb>
                     <CrumbItem key="home">
                         <Link to="/">
+                            <Icon type={'home'} />
                             <span className="crumbs-text">产品大全</span>
                         </Link>
                     </CrumbItem>
