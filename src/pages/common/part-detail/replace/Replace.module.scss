@@ -1,8 +1,21 @@
 @import "src/scss/sdk/index";
 
+$drawer-width: 850px;
+$table-inner-width: $drawer-width - 30px;
+$table-body-height: calc(100vh - 41px - 15px - 332px - 5px - 45px - 55px);
+
+:export {
+  tableInnerWidth: $table-inner-width;
+  tableBodyHeight: $table-body-height;
+}
+
 .replace{
 
   :global {
+
+    .ant-table-body {
+      height: $table-body-height !important;
+    }
 
     .btn {
       text-decoration: underline;

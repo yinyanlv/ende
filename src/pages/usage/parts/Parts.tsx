@@ -166,7 +166,7 @@ function Parts(props: PartsProps) {
                        rowKey={'id'}
                        size={'small'}
                        scroll={{
-                           x: styles.tableWidth,
+                           x: styles.tableInnerWidth,
                            y: styles.tableBodyHeight
                        }}
                        className={'part-list'}

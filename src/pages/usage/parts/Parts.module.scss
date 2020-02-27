@@ -1,11 +1,11 @@
 @import "src/scss/sdk/index";
 
 $parts-width: 720px;
-$table-width: $parts-width - 4;
+$table-inner-width: $parts-width - 4;
 $table-body-height: calc(100vh - 140px);
 
 :export {
-  tableWidth: $table-width;
+  tableInnerWidth: $table-inner-width;
   tableBodyHeight: $table-body-height;
 }
 

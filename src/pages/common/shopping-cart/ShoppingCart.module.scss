@@ -1,8 +1,21 @@
 @import "src/scss/sdk/index";
 
+$drawer-width: 850px;
+$table-inner-width: $drawer-width;
+$table-body-height: calc(100vh - 41px - 60px - 55px - 50px);
+
+:export {
+  tableInnerWidth: $table-inner-width;
+  tableBodyHeight: $table-body-height;
+}
+
 .shoppingCart{
 
   :global{
+
+    .ant-table-body {
+      height: $table-body-height !important;
+    }
 
     .item {
       height: 98px;
@@ -77,7 +90,13 @@
 }
 
 .pagination {
-  padding: 8px 0 16px;
+
+  display: flex;
+  height: 50px;
+  padding: 0 15px;
+  border-top: 1px solid $lighter-bd-color;
+  align-items: center;
+  justify-content: space-between;
 
   :global {
 

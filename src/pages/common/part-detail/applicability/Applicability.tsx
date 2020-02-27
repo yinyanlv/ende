@@ -18,7 +18,7 @@ export function Applicability() {
             title: '目录',
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 80
+            width: 140
         },
         {
             title: '左右',
@@ -30,7 +30,7 @@ export function Applicability() {
             title: '用途',
             dataIndex: 'note',
             ellipsis: true,
-            width: 100
+            width: 140
         },
         {
             title: '主组描述',
@@ -71,13 +71,17 @@ export function Applicability() {
     }
 
     return (
-        <div className={styles.replace}>
+        <div className={styles.applicability}>
             <Table
                 columns={columns}
                 dataSource={list}
                 pagination={false}
                 rowKey={'id'}
                 tableLayout={'fixed'}
+                scroll={{
+                    x: styles.tableInnerWidth,
+                    y: styles.tableBodyHeight
+                }}
                 onRow={(record) => {
                     return {
                         onClick: () => {

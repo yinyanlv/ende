@@ -35,7 +35,8 @@ export function PartDetail() {
                     {/*<Button type="primary">在新页面打开</Button>*/}
                 </div>
                 <PartInfo/>
-                <div>
+
+                <div className="tabs-wrapper">
                     <Tabs
                         defaultActiveKey={activeTab}>
                         <TabPane tab="适用性" key="applicability">

@@ -91,6 +91,7 @@ export function Replace(props: ReplaceProps) {
         {
             title: '备注',
             ellipsis: true,
+            width: 140,
             dataIndex: 'note'
         }
     ];
@@ -103,6 +104,10 @@ export function Replace(props: ReplaceProps) {
                 pagination={false}
                 rowKey={'newPartCode'}
                 tableLayout={'fixed'}
+                scroll={{
+                    x: styles.tableInnerWidth,
+                    y: styles.tableBodyHeight
+                }}
             />
         </div>
     );

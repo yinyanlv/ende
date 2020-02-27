@@ -7,18 +7,27 @@
   }
 
   .ant-drawer-body{
-    padding: 0 10px !important;
+    padding: 0!important;
   }
 
   .drawer-title {
     height: 41px;
     line-height: 40px;
     border-bottom: 1px solid $bd-color;
-    padding: 0 12px;
+    padding: 0 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-weight: bold;
+  }
+
+  .ant-table-header {
+    border-radius: 0 !important;
+  }
+
+  .ant-table-body {
+    border-radius: 0 !important;
+    overflow: auto !important;
   }
 }
 

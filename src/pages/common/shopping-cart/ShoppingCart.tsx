@@ -104,7 +104,7 @@ export function ShoppingCart(props) {
                 return (
                     <div className="item">
                         <div className="image-box" onClick={handleClickPartCode.bind(null, record.partCode)}><img
-                            src={record.coverImageUri || '/images/logo.png'} alt={record.partName}/></div>
+                            src={record.coverImageUri || '/images/nopic.gif'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="btn"
@@ -181,8 +181,7 @@ export function ShoppingCart(props) {
                                 onChange: handleSelect
                             }}
                             scroll={{
-                                x: true,
-                                y: true
+                                y: styles.tableBodyHeight
                             }}
                         />
                     </div>
