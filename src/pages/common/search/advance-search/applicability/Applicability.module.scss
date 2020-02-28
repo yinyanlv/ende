@@ -1,8 +1,8 @@
 @import "src/scss/sdk/index";
 
-$drawer-width: 850px;
-$table-inner-width: $drawer-width;
-$table-body-height: calc(100vh - 41px - 60px - 55px - 50px);
+$drawer-width: 900px;
+$table-inner-width: $drawer-width - 30px;
+$table-body-height: calc(100vh - 50px - 192px - 45px - 55px - 50px);
 
 :export {
   tableInnerWidth: $table-inner-width;

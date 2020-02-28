@@ -14,10 +14,10 @@
     }
 
     .ant-table-placeholder{
-      display: none;
       position: absolute;
       width: 100%;
-      top: 55px;
+      top: 5px;
+      border-top: none;
       border-bottom: none;
     }
   }

@@ -1,7 +1,7 @@
 import * as actions from './actions';
 
 const initialState = {
-    isLoading: true,
+    isLoading: false,
     list: [],
     total: 0,
     pageNo: 1,

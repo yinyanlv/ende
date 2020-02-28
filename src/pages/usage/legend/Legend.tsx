@@ -28,8 +28,8 @@ function Legend(props: LegendProps) {
     useEffect(() => {
 
         if (svgHotPointRef && svgHotPointRef.current && svgUri) {
-            // svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUri);
-            svgHotPointRef.current.loadSVG('/images/A-0001.svg');
+            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUri);
+            // svgHotPointRef.current.loadSVG('/images/A-0001.svg');
         } else {
             svgHotPointRef.current.loadDefaultImg();
         }
