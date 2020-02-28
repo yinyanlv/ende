@@ -13,6 +13,7 @@ function* doQueryController(action) {
         yield put(actions.shoppingCartCreator.setShoppingCart(data));
         yield put(actions.shoppingCartCreator.setIsLoading({isLoading: false}));
     } catch(err) {
+        yield put(actions.shoppingCartCreator.setIsLoading({isLoading: false}));
         message.error(err.message);
     }
 }

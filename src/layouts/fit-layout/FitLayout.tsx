@@ -8,6 +8,7 @@ import {VsnSelector} from '@/pages/common/vsn-selector';
 import {VinDetail} from '@/pages/common/vin-detail';
 import {ShoppingCart} from '@/pages/common/shopping-cart';
 import {PartDetail} from '@/pages/common/part-detail';
+import {Collect} from '@/pages/common/collect';
 
 const PageCatalog = React.lazy(() => import('@/pages/catalog'));
 const PageUsage = React.lazy(() => import('@/pages/usage'));
@@ -34,6 +35,7 @@ export function FitLayout() {
                     <PageOrderDetail />
                 </Route>
             </section>
+            <Collect/>
             <Search/>
             <ShoppingCart/>
             <PartDetail/>

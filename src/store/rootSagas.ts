@@ -5,6 +5,7 @@ import {vinSearchSaga} from '@/pages/common/vin-search/saga';
 import {searchSagas} from '@/pages/common/search/sagas';
 import {shoppingCartSagas} from '@/pages/common/shopping-cart/sagas';
 import {partDetailSagas} from '@/pages/common/part-detail/sagas';
+import {collectSagas} from '@/pages/common/collect/sagas';
 import {catalogSagas} from '@/pages/catalog/sagas';
 import {usageSagas} from '@/pages/usage/sagas';
 import {ordersSagas} from '@/pages/orders/sagas';
@@ -17,6 +18,7 @@ export function* rootSagas() {
         fork(searchSagas),
         fork(shoppingCartSagas),
         fork(partDetailSagas),
+        fork(collectSagas),
         fork(catalogSagas),
         fork(usageSagas),
         fork(ordersSagas)

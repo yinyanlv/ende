@@ -87,38 +87,40 @@ export function PageOrders(props) {
 
     return (
         <div className={styles.orders}>
-            <div className="title-line">
-                <span>购物车</span>
+            <div className="panel">
+                <div className="panel-title">
+                    <span>订单</span>
+                </div>
+                <Query />
+                <Loading isLoading={isLoading}>
+                    <div className="panel-content">
+                        <Table
+                            columns={columns}
+                            dataSource={list}
+                            rowKey={'code'}
+                            tableLayout={'fixed'}
+                            pagination={false}
+                            scroll={{
+                                x: true,
+                                y: true
+                            }}
+                        />
+                    </div>
+                    <div className="pagination">
+                        <Pagination
+                            total={total}
+                            current={pageNo}
+                            pageSize={pageSize}
+                            pageSizeOptions={['5', '10', '20']}
+                            showSizeChanger
+                            showQuickJumper
+                            onChange={doQuery}
+                            showLessItems={true}
+                            onShowSizeChange={doQuery}
+                        />
+                    </div>
+                </Loading>
             </div>
-            <Query />
-            <Loading isLoading={isLoading}>
-                <div>
-                    <Table
-                        columns={columns}
-                        dataSource={list}
-                        rowKey={'code'}
-                        tableLayout={'fixed'}
-                        pagination={false}
-                        scroll={{
-                            x: true,
-                            y: true
-                        }}
-                    />
-                </div>
-                <div className={styles.pagination}>
-                    <Pagination
-                        total={total}
-                        current={pageNo}
-                        pageSize={pageSize}
-                        pageSizeOptions={['5', '10', '20']}
-                        showSizeChanger
-                        showQuickJumper
-                        onChange={doQuery}
-                        showLessItems={true}
-                        onShowSizeChange={doQuery}
-                    />
-                </div>
-            </Loading>
         </div>
     );
 }

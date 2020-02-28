@@ -10,14 +10,25 @@
     padding: 0!important;
 
     .pagination {
-
-      display: flex;
-      height: 50px;
-      padding: 0 15px;
       border-top: 1px solid $lighter-bd-color;
-      align-items: center;
-      justify-content: flex-end;
     }
+
+    .ant-table-placeholder{
+      display: none;
+      position: absolute;
+      width: 100%;
+      top: 55px;
+      border-bottom: none;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    height: 50px;
+    padding: 0 15px;
+    border-top: 1px solid $lighter-bd-color;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   .drawer-title {
@@ -70,6 +81,13 @@
     border-radius: 0 !important;
     overflow: auto !important;
   }
+
+  table {
+    .text-btn{
+      color: $primary-color;
+      margin-right: 10px;
+    }
+  }
 }
 
 .mainContainer{
@@ -77,6 +95,7 @@
   width: 100%;
   height: calc(100vh - #{$header-height + $crumbs-height});
   flex-direction: column;
+  overflow: auto;
 
   :global {
 

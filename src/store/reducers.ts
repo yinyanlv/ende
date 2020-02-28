@@ -7,6 +7,7 @@ import {vinDetailReducer} from '@/pages/common/vin-detail/reducer';
 import {searchReducers} from '@/pages/common/search/reducers';
 import {shoppingCartReducers} from '@/pages/common/shopping-cart/reducers';
 import {partDetailReducers} from '@/pages/common/part-detail/reducers';
+import {collectReducers} from '@/pages/common/collect/reducers';
 import {crumbsReducer} from '@/pages/common/crumbs/reducer';
 import {brandsReducer} from '@/pages/catalog/brands/reducer';
 import {conditionsReducer} from '@/pages/catalog/conditions/reducer';
@@ -27,6 +28,7 @@ export const reducers = combineReducers({
     search: searchReducers,
     shoppingCart: shoppingCartReducers,
     partDetail: partDetailReducers,
+    collect: collectReducers,
     crumbs: crumbsReducer,
     brands: brandsReducer,
     conditions: conditionsReducer,

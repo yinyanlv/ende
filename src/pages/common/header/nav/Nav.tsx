@@ -8,6 +8,7 @@ import {searchCreator} from '@/pages/common/search/actions';
 import {navCreator} from './actions';
 import styles from './nav.module.scss';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
+import {collectCreator} from '@/pages/common/collect/actions';
 
 const TabPane = Tabs.TabPane;
 const MenuItem = Menu.Item;
@@ -78,6 +79,14 @@ export function Nav(props) {
         dispatch(shoppingCartCreator.doQuery(params));
     }
 
+    function handleClickCollect() {
+        const params = buildQueryParams();
+        dispatch(collectCreator.setIsShowCollect({
+            isShow: true
+        }));
+        dispatch(collectCreator.doQuery(params));
+    }
+
     return (
         <>
             <nav className={styles.nav}>
@@ -98,7 +107,7 @@ export function Nav(props) {
                         </span>
                     </NavLink>
                     <span className="nav-item">
-                       <span className={'nav-item-inner'}>
+                       <span className={'nav-item-inner'} onClick={handleClickCollect}>
                             <Icon type="star"/>
                         </span>
                     </span>
