@@ -18,7 +18,7 @@ function* doQueryController(action) {
 }
 
 function doQuery(params) {
-    return http.post('/cart/page', params);
+    return http.post('/order/page', params);
 }
 
 function* deleteOrderController(action) {
