@@ -1,5 +1,14 @@
 @import "src/scss/sdk/index";
 
+$drawer-width: 500px;
+$table-inner-width: $drawer-width;
+$table-body-height: calc(100vh - 41px - 55px);
+
+:export {
+  tableInnerWidth: $table-inner-width;
+  tableBodyHeight: $table-body-height;
+}
+
 .vsnSelector {
 
   :global {

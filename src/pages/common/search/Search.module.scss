@@ -1,17 +1,13 @@
 @import "src/scss/sdk/index";
 
 .search {
+    padding-top:10px;
 
     :global {
-
-        .ant-form-item{
-            margin-bottom: 0;
-            display: flex;
-
-            .ant-form-item-label {
-                width: 75px;
-                flex-basis: 75px;
-            }
-        }
+      .ant-tabs-card-bar{
+          .ant-tabs-nav-wrap{
+              padding: 0 15px;
+          }
+      }
     }
 }

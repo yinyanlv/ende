@@ -103,6 +103,11 @@ export function Replace() {
                         dataSource={list}
                         pagination={false}
                         rowKey={'newPartCode'}
+                        tableLayout={'fixed'}
+                        scroll={{
+                            x: styles.tableInnerWidth,
+                            y: styles.tableBodyHeight
+                        }}
                     />
                 </div>
             </Loading>

@@ -185,7 +185,7 @@ export function ShoppingCart(props) {
                             }}
                         />
                     </div>
-                    <div className={styles.pagination}>
+                    <div className="pagination">
                         <div className="operators">
                             <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
                             <Button type="primary" onClick={handleCreateOrder}>生成订单</Button>

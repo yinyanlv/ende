@@ -56,7 +56,7 @@ export function VinDetail(props) {
                    <span>VIN/VSN详情</span>
                    <Button type="primary" onClick={doAdvanceQuery}>打开高级查询</Button>
                </div>
-               <div>
+               <div className="drawer-content table-wrapper">
                    <table>
                        <tbody>
                        <tr>

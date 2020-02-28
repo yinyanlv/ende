@@ -86,30 +86,17 @@ $table-body-height: calc(100vh - 41px - 60px - 55px - 50px);
         }
       }
     }
-  }
-}
 
-.pagination {
+    .pagination {
+      justify-content: space-between;
 
-  display: flex;
-  height: 50px;
-  padding: 0 15px;
-  border-top: 1px solid $lighter-bd-color;
-  align-items: center;
-  justify-content: space-between;
+      .operators {
 
-  :global {
-
-    .operators {
-      float:left;
-
-      .ant-btn {
-        margin-right: 10px;
+          .ant-btn {
+            margin-right: 10px;
+          }
+        }
       }
-    }
-
-    .ant-pagination {
-      float:right;
-    }
   }
 }
+

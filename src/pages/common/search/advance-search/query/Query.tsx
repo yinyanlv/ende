@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import cls from 'classnames';
 import {message, Select, Button, Cascader, Col, Form, Input, Row} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
@@ -126,7 +127,7 @@ export function QueryForm(props: any) {
     }
 
     return (
-        <div className={styles.query}>
+        <div className={cls(styles.query, 'query')}>
             <Form layout="inline" labelAlign="left">
                 <Row>
                     <Col span={8}>

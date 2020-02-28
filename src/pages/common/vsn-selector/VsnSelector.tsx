@@ -69,6 +69,9 @@ export function VsnSelector() {
                                 }
                             }
                         }}
+                        scroll={{
+                            y: styles.tableBodyHeight
+                        }}
                         pagination={false}
                     />
                 </div>

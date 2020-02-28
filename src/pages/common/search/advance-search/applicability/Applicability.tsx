@@ -130,12 +130,12 @@ export function Applicability() {
                     }}
                     pagination={false}
                     scroll={{
-                        x: true,
-                        y: true
+                        x: styles.tableInnerWidth,
+                        y: styles.tableBodyHeight
                     }}
                 />
             </div>
-            <div className={styles.pagination}>
+            <div className="pagination">
                 <Pagination
                     total={total}
                     current={pageNo}

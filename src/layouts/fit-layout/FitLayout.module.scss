@@ -8,6 +8,16 @@
 
   .ant-drawer-body{
     padding: 0!important;
+
+    .pagination {
+
+      display: flex;
+      height: 50px;
+      padding: 0 15px;
+      border-top: 1px solid $lighter-bd-color;
+      align-items: center;
+      justify-content: flex-end;
+    }
   }
 
   .drawer-title {
@@ -19,6 +29,37 @@
     align-items: center;
     justify-content: space-between;
     font-weight: bold;
+  }
+
+  .drawer-content {
+    height: calc(100vh - 41px);
+    overflow: auto;
+  }
+
+  .query {
+    padding: 10px 15px;
+
+    .btn-line {
+      text-align: center;
+      padding: 10px 0;
+
+      button {
+        margin-right: 10px;
+      }
+    }
+
+    .inner-btn-line {
+      height: 40px;
+      line-height: 40px;
+
+      button {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .ant-tabs-bar{
+    margin-bottom: 0 !important;
   }
 
   .ant-table-header {

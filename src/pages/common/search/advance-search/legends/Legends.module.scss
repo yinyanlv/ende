@@ -1,6 +1,18 @@
 @import "src/scss/sdk/index";
 
+$drawer-width: 850px;
+$table-inner-width: $drawer-width;
+$table-body-height: calc(100vh - 41px - 60px - 50px);
+
+:export {
+  tableInnerWidth: $table-inner-width;
+  tableBodyHeight: $table-body-height;
+}
+
+
 .legends{
+  height: $table-body-height;
+  overflow: auto;
 
   :global {
 
@@ -68,17 +80,6 @@
           margin-right: 5px;
         }
       }
-    }
-  }
-}
-
-.pagination {
-  padding: 8px 0 16px;
-
-  :global {
-
-    .ant-pagination {
-      float:right;
     }
   }
 }

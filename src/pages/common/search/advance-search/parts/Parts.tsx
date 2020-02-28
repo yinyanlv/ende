@@ -69,7 +69,7 @@ export function Parts() {
                     }
                 </div>
             </div>
-            <div className={styles.pagination}>
+            <div className="pagination">
                 <Pagination
                     total={total}
                     current={pageNo}

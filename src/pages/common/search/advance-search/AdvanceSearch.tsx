@@ -11,7 +11,6 @@ const TabPane = Tabs.TabPane;
 
 export function AdvanceSearch(props: any) {
     const {
-        queryParams,
         count
     } = useSelector((state: any) => {
         return state.search.advanceSearch.self;
@@ -20,7 +19,7 @@ export function AdvanceSearch(props: any) {
     return (
         <div className={styles.advanceSearch}>
             <Query/>
-            <div className="grid">
+            <div className="tabs-wrapper">
                 <Tabs defaultActiveKey="applicability">
                     <TabPane tab={`适用性清单(${count.applyCount})`} key="applicability">
                         <Applicability/>

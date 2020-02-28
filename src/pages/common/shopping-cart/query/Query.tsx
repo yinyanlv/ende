@@ -25,7 +25,7 @@ export function QueryForm(props: any) {
     }
 
     return (
-        <div className={styles.query}>
+        <div className="query">
             <Form layout="inline" labelAlign="left">
                 <Row>
                     <Col span={8}>
@@ -37,7 +37,7 @@ export function QueryForm(props: any) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={16} className="btn-line">
+                    <Col span={16} className="inner-btn-line">
                         <Button type="primary" onClick={doQuery}>查询</Button>
                         <Button onClick={doReset}>清空</Button>
                     </Col>

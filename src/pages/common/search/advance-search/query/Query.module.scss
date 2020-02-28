@@ -4,6 +4,16 @@
 
   :global {
 
+    .ant-form-item{
+      margin-bottom: 0;
+      display: flex;
+
+      .ant-form-item-label {
+        width: 75px;
+        flex-basis: 75px;
+      }
+    }
+
     .first-column{
       width: 284px;
 
@@ -32,15 +42,6 @@
 
       .ant-form-item-control-wrapper{
         width: 455px;
-      }
-    }
-
-    .btn-line {
-      text-align: center;
-      padding: 12px 0;
-
-      button {
-        margin-right: 10px;
       }
     }
   }

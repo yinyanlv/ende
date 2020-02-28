@@ -1,22 +1,25 @@
 @import "src/scss/sdk/index";
 
+$drawer-width: 850px;
+$table-inner-width: $drawer-width;
+$table-body-height: calc(100vh - 41px - 60px - 55px - 50px);
+
+:export {
+  tableInnerWidth: $table-inner-width;
+  tableBodyHeight: $table-body-height;
+}
+
+
 .applicability {
 
   :global {
 
+    .ant-table-body {
+      height: $table-body-height !important;
+    }
+
     .btn {
       text-decoration: underline;
-    }
-  }
-}
-
-.pagination {
-  padding: 8px 0 16px;
-
-  :global {
-
-    .ant-pagination {
-      float:right;
     }
   }
 }

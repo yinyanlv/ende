@@ -1,17 +1,12 @@
 @import "src/scss/sdk/index";
 
 
-
 .partDetail {
 
   :global {
 
     .tabs-wrapper {
       padding:5px 15px 0;
-    }
-
-    .ant-tabs-bar{
-      margin-bottom: 0 !important;
     }
   }
 }

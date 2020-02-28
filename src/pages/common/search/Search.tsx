@@ -26,17 +26,18 @@ export function Search(props) {
             onClose={handleClose}
             visible={isShow}
             width={900}
-            className={styles.search}
             destroyOnClose={true}
         >
-            <Tabs defaultActiveKey={activeTab} type={'card'}>
-                <TabPane tab="高级查询" key="advance-search">
-                    <AdvanceSearch />
-                </TabPane>
-                <TabPane tab="替换关系" key="replace">
-                    <Replace />
-                </TabPane>
-            </Tabs>
+            <div className={styles.search}>
+                <Tabs defaultActiveKey={activeTab} type={'card'}>
+                    <TabPane tab="高级查询" key="advance-search">
+                        <AdvanceSearch />
+                    </TabPane>
+                    <TabPane tab="替换关系" key="replace">
+                        <Replace />
+                    </TabPane>
+                </Tabs>
+            </div>
         </Drawer>
     );
 }
