@@ -75,6 +75,7 @@ export function Applicability() {
             <Table
                 columns={columns}
                 dataSource={list}
+                className={list.length > 0 ? '' : 'empty-table'}
                 pagination={false}
                 rowKey={'id'}
                 tableLayout={'fixed'}

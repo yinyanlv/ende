@@ -310,7 +310,9 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
 
     // 加载默认图
     public loadDefaultImg() {
-        this.legendBodyRef.current.style.background = 'url(' + this.noPicPath + ') no-repeat center center';
+        if (this.legendBodyRef.current) {
+            this.legendBodyRef.current.style.background = 'url(' + this.noPicPath + ') no-repeat center center';
+        }
         this.disableLegendToolbar(true);
     }
 

@@ -91,7 +91,7 @@ function Parts(props: PartsProps) {
         ellipsis: true,
         render: (val, record) => (
             <Tooltip title={'加入购物车'}>
-                <Button type="primary" icon={ShoppingCartOutlined} size={'small'} onClick={(e) => {
+                <Button type="primary" icon={<ShoppingCartOutlined/>} size={'small'} onClick={(e) => {
                     handleClickCart(e, record.partCode);
                 }}/>
             </Tooltip>
@@ -165,13 +165,13 @@ function Parts(props: PartsProps) {
             <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
                 <Table columns={columns}
                        dataSource={usages}
+                       className={usages.length > 0 ? 'part-list' : 'part-list empty-table'}
                        rowKey={'id'}
                        size={'small'}
                        scroll={{
                            x: styles.tableInnerWidth,
                            y: styles.tableBodyHeight
                        } as any}
-                       className={'part-list'}
                        tableLayout={'fixed'}
                        pagination={false}
                        onRow={(record) => {

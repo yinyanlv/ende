@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {Button, Col, Form, Input, Row} from 'antd';
+import {Button, Form, Input} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
@@ -29,17 +29,13 @@ export function Query() {
                 labelAlign="left"
                 form={form}
             >
-                <Row>
-                    <Col span={8}>
-                        <FormItem label="零件编号" name={'partCode'}>
-                            <Input placeholder="请输入"/>
-                        </FormItem>
-                    </Col>
-                    <Col span={16} className="inner-btn-line">
+                    <FormItem label="零件编号" name={'partCode'}>
+                        <Input placeholder="请输入"/>
+                    </FormItem>
+                    <span className="inner-btn-line">
                         <Button type="primary" onClick={doQuery}>查询</Button>
                         <Button onClick={doReset}>清空</Button>
-                    </Col>
-                </Row>
+                    </span>
             </Form>
         </div>
     );

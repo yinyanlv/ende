@@ -14,7 +14,7 @@ export function Query() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const {groupList, modelOptions, fieldsValue} = useSelector((state: any) => {
-       return state.search.advanceSearch.query;
+        return state.search.advanceSearch.query;
     });
 
     function doQuery() {
@@ -80,24 +80,24 @@ export function Query() {
         const vinVsn = form.getFieldValue('vinVsn');
 
         if (!vinVsn) {
-             return message.error('请输入VIN或VSN编码');
+            return message.error('请输入VIN或VSN编码');
         }
 
         const code = vinVsn.trim();
 
         const result = checkAndGetType(code);
         if (result.isValid) {
-           if (result.type === 'vin') {
-               dispatch(vinSearchCreator.doVinSearch({
-                   code,
-                   doNotRedirect: true
-               }));
-           } else if (result.type === 'vsn') {
-               dispatch(vinSearchCreator.doVsnSelectModel({
-                   code,
-                   doNotRedirect: true
-               }));
-           }
+            if (result.type === 'vin') {
+                dispatch(vinSearchCreator.doVinSearch({
+                    code,
+                    doNotRedirect: true
+                }));
+            } else if (result.type === 'vsn') {
+                dispatch(vinSearchCreator.doVsnSelectModel({
+                    code,
+                    doNotRedirect: true
+                }));
+            }
         } else {
             message.error('输入的VIN或VSN编码不合法');
         }
@@ -124,7 +124,7 @@ export function Query() {
     }
 
     return (
-        <div className={cls(styles.query, 'query')}>
+        <div className={cls(styles.query, 'query', 'multi-line')}>
             <Form
                 layout="inline"
                 labelAlign="left"
@@ -148,7 +148,7 @@ export function Query() {
                     <Col span={8}>
                         <div className="first-column">
                             <FormItem label="主组" name={'legendGroupCode'}>
-                                <Select placeholder={'请选择'} allowClear={true}>
+                                <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                     {
                                         groupList.map((item) => {
                                             return <Option key={item.code} value={item.code}>{item.name}</Option>;
@@ -186,12 +186,10 @@ export function Query() {
                         </FormItem>
                     </Col>
                 </Row>
-                <Row>
-                    <Col span={24} className="btn-line">
-                        <Button type="primary" onClick={doQuery}>查询</Button>
-                        <Button onClick={doReset}>清空</Button>
-                    </Col>
-                </Row>
+                <div className="btn-line">
+                    <Button type="primary" onClick={doQuery}>查询</Button>
+                    <Button onClick={doReset}>清空</Button>
+                </div>
             </Form>
         </div>
     );

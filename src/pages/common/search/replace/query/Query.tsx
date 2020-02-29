@@ -31,17 +31,13 @@ export function Query() {
     return (
         <div className={'query'}>
             <Form layout="inline" form={form} labelAlign="left">
-                <Row>
-                    <Col span={8}>
-                        <FormItem label="零件编号" name={'partCode'}>
-                            <Input placeholder="请输入"/>
-                        </FormItem>
-                    </Col>
-                    <Col span={16} className="inner-btn-line">
-                        <Button type="primary" onClick={doQuery}>查询</Button>
-                        <Button onClick={doReset}>清空</Button>
-                    </Col>
-                </Row>
+                <FormItem label="零件编号" name={'partCode'}>
+                    <Input placeholder="请输入"/>
+                </FormItem>
+                <span className="inner-btn-line">
+                    <Button type="primary" onClick={doQuery}>查询</Button>
+                    <Button onClick={doReset}>清空</Button>
+                </span>
             </Form>
         </div>
     );

@@ -101,6 +101,7 @@ export function Replace(props: ReplaceProps) {
             <Table
                 columns={columns}
                 dataSource={list}
+                className={list.length > 0 ? '' : 'empty-table'}
                 pagination={false}
                 rowKey={'newPartCode'}
                 tableLayout={'fixed'}

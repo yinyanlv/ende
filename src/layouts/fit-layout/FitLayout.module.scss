@@ -6,19 +6,22 @@
     height: 100%;
   }
 
+  .ant-tabs-line{
+
+    .ant-tabs-nav {
+
+      .ant-tabs-tab {
+        margin-right: 15px;
+        padding: 12px 15px;
+      }
+    }
+  }
+
   .ant-drawer-body{
     padding: 0!important;
 
     .pagination {
       border-top: 1px solid $lighter-bd-color;
-    }
-
-    .ant-table-placeholder{
-      position: absolute;
-      width: 100%;
-      top: 5px;
-      border-top: none;
-      border-bottom: none;
     }
   }
 
@@ -50,9 +53,32 @@
   .query {
     padding: 10px 15px;
 
+    .ant-row{
+      align-items: center;
+    }
+
+    &.multi-line {
+      .ant-form-item {
+        margin-bottom: 10px;
+      }
+    }
+
+    .ant-form-item {
+      display: flex;
+
+      .ant-form-item-label {
+
+        & + .ant-form-item-control {
+          flex: 1;
+          padding-right: 15px;
+        }
+      }
+    }
+
     .btn-line {
+      width: 100%;
       text-align: center;
-      padding: 10px 0;
+      padding: 5px 0 10px;
 
       button {
         margin-right: 10px;
@@ -73,6 +99,19 @@
     margin-bottom: 0 !important;
   }
 
+  .empty-table {
+
+    .ant-table-content {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+
+    &.ant-table {
+      td {
+        border-color: transparent !important;
+      }
+    }
+  }
   .ant-table-header {
     border-radius: 0 !important;
   }

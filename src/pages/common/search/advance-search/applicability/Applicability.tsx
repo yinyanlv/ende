@@ -119,6 +119,7 @@ export function Applicability() {
                 <Table
                     columns={columns}
                     dataSource={list}
+                    className={list.length > 0 ? '' : 'empty-table'}
                     rowKey={'id'}
                     tableLayout={'fixed'}
                     onRow={(record) => {

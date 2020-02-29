@@ -3,6 +3,7 @@
 $parts-width: 720px;
 $table-inner-width: $parts-width - 4;
 $table-body-height: calc(100vh - 140px);
+$empty-table-body-height: calc(100vh - 100px);
 
 :export {
   tableInnerWidth: $table-inner-width;
@@ -24,6 +25,17 @@ $table-body-height: calc(100vh - 140px);
 
     .panel-part-list {
       width: 100%;
+    }
+
+    .empty-table {
+      .ant-table-content {
+        overflow-y: hidden;
+        height: $empty-table-body-height;
+      }
+      .ant-table-tbody {
+        display: block;
+        height: $table-body-height !important;
+      }
     }
 
     .part-list {
@@ -57,7 +69,7 @@ $table-body-height: calc(100vh - 140px);
 
         .btns {
           color: $primary-color;
-          i {
+          .anticon {
             cursor: pointer;
             font-size: 16px;
             margin-right: 8px;

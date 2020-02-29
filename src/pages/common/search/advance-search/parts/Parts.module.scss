@@ -2,7 +2,7 @@
 
 $drawer-width: 900px;
 $table-inner-width: $drawer-width - 30px;
-$table-body-height: calc(100vh - 50px - 192px - 45px - 50px);
+$table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
 
 :export {
   tableInnerWidth: $table-inner-width;

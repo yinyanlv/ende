@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, Tabs, Table, Form, Button, Row, Col, Input, Cascader, Pagination} from 'antd';
+import { Drawer, Tabs} from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Search.module.scss';
 import { searchCreator } from './actions';

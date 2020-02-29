@@ -174,6 +174,7 @@ export function ShoppingCart(props) {
                         <Table
                             columns={columns}
                             dataSource={list}
+                            className={list.length > 0 ? '' : 'empty-table'}
                             rowKey={'id'}
                             tableLayout={'fixed'}
                             pagination={false}

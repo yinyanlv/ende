@@ -2,7 +2,8 @@
 
 $drawer-width: 900px;
 $table-inner-width: $drawer-width - 30px;
-$table-body-height: calc(100vh - 50px - 192px - 45px - 55px - 50px);
+$table-body-height: calc(100vh - 50px - 193px - 45px - 55px - 50px);
+$empty-table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
 
 :export {
   tableInnerWidth: $table-inner-width;
@@ -16,6 +17,17 @@ $table-body-height: calc(100vh - 50px - 192px - 45px - 55px - 50px);
 
     .ant-table-body {
       height: $table-body-height !important;
+    }
+
+    .empty-table {
+      .ant-table-content {
+        overflow-y: hidden;
+        height: $empty-table-body-height;
+      }
+      .ant-table-tbody {
+        display: block;
+        height: $table-body-height !important;
+      }
     }
 
     .btn {

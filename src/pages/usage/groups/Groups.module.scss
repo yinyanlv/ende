@@ -16,6 +16,10 @@
 
       .ant-tree-treenode-selected{
 
+        &::before {
+          background: none !important;
+        }
+
         & > .ant-tree-switcher{
           color: $primary-color !important;
         }
@@ -23,11 +27,9 @@
         & > .ant-tree-node-content-wrapper{
           color: $primary-color !important;
         }
-
       }
 
       .ant-tree-node-selected{
-
         & > .ant-tree-iconEle {
           .icon-dot {
             background: $primary-color;
