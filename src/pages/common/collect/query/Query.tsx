@@ -1,49 +1,43 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {Button, Col, Form, Input, Row} from 'antd';
-import {buildQueryParams} from '@/common/utils';
+import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
 const FormItem = Form.Item;
 
-export function QueryForm(props: any) {
+export function Query() {
     const dispatch = useDispatch();
-    const {getFieldDecorator} = props.form;
+    const [form] = Form.useForm();
 
     function doQuery() {
-       props.form.validateFields((err, values) => {
-           if (!err) {
-               const params = buildQueryParams(values);
-               dispatch(queryCreator.doQuery(params));
-           }
-       });
+        const fieldsValue = form.getFieldsValue();
+        const filters = rebuildFieldsToFilters(fieldsValue);
+        const params = buildQueryParams(filters);
+        dispatch(queryCreator.doQuery(params));
     }
 
     function doReset() {
-        props.form.resetFields();
+        form.resetFields();
     }
 
     return (
         <div className="query">
-            <Form layout="inline" labelAlign="left">
+            <Form
+                layout="inline"
+                labelAlign="left"
+                form={form}
+            >
                 <Row>
                     <Col span={8}>
-                        <FormItem label="收藏类型">
-                            {
-                                getFieldDecorator('partCode', {})(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="收藏类型" name={'type'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="收藏名称">
-                            {
-                                getFieldDecorator('partCode', {})(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="收藏名称" name={'name'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                     <Col span={8} className="inner-btn-line">
@@ -56,4 +50,3 @@ export function QueryForm(props: any) {
     );
 }
 
-export const Query = Form.create()(QueryForm);

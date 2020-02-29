@@ -10,26 +10,23 @@ import {vinSearchCreator} from "@/pages/common/vin-search/actions";
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-export function QueryForm(props: any) {
+export function Query() {
     const dispatch = useDispatch();
+    const [form] = Form.useForm();
     const {groupList, modelOptions, fieldsValue} = useSelector((state: any) => {
        return state.search.advanceSearch.query;
     });
-    const {getFieldDecorator} = props.form;
 
     function doQuery() {
-       props.form.validateFields((err, values) => {
-           if (!err) {
-               values = rebuildModelField(values);
-               const filters = rebuildFieldsToFilters(values);
-               if (filters.length > 0) {
-                   const params = buildQueryParams(filters);
-                   dispatch(queryCreator.doQuery(params));
-               } else {
-                   message.error('请输入查询条件');
-               }
-           }
-       });
+        let fieldsValue = form.getFieldsValue();
+        fieldsValue = rebuildModelField(fieldsValue);
+        const filters = rebuildFieldsToFilters(fieldsValue);
+        if (filters.length > 0) {
+            const params = buildQueryParams(filters);
+            dispatch(queryCreator.doQuery(params));
+        } else {
+            message.error('请输入查询条件');
+        }
     }
 
     function rebuildModelField(values) {
@@ -55,7 +52,7 @@ export function QueryForm(props: any) {
     }, []);
 
     function doReset() {
-        props.form.resetFields();
+        form.resetFields();
     }
 
     function handleModelChange(value, selectedOptions) {
@@ -80,7 +77,7 @@ export function QueryForm(props: any) {
     }
 
     function showVinDetail() {
-        const vinVsn = props.form.getFieldValue('vinVsn');
+        const vinVsn = form.getFieldValue('vinVsn');
 
         if (!vinVsn) {
              return message.error('请输入VIN或VSN编码');
@@ -128,107 +125,64 @@ export function QueryForm(props: any) {
 
     return (
         <div className={cls(styles.query, 'query')}>
-            <Form layout="inline" labelAlign="left">
+            <Form
+                layout="inline"
+                labelAlign="left"
+                form={form}
+                initialValues={fieldsValue}
+            >
                 <Row>
                     <Col span={8}>
                         <div className="first-column vin-wrapper">
-                            <FormItem label="VIN/VSN">
-                                {
-                                    getFieldDecorator('vinVsn', {
-                                        initialValue: fieldsValue.vinVsn
-                                    })(
-                                        <Input placeholder="请输入"/>
-                                    )
-                                }
+                            <FormItem label="VIN/VSN" name={'vinVsn'}>
+                                <Input placeholder="请输入"/>
                             </FormItem>
                             <span className="btn" onClick={showVinDetail}>详细</span>
                         </div>
                     </Col>
                     <Col span={16} className="model-wrapper">
-                        <FormItem label="车型">
-                            {
-                                getFieldDecorator('model', {
-                                    initialValue: fieldsValue.model
-                                })(
-                                    <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
-                                )
-                            }
+                        <FormItem label="车型" name={'model'}>
+                            <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <div className="first-column">
-                            <FormItem label="主组">
-                                {
-                                    getFieldDecorator('legendGroupCode', {
-                                        initialValue: fieldsValue.legendGroupCode
-                                    })(
-                                        <Select placeholder={'请选择'} dropdownMatchSelectWidth={false} allowClear={true}>
-                                            {
-                                                groupList.map((item) => {
-                                                    return <Option key={item.code} value={item.code}>{item.name}</Option>;
-                                                })
-                                            }
-                                        </Select>
-                                    )
-                                }
+                            <FormItem label="主组" name={'legendGroupCode'}>
+                                <Select placeholder={'请选择'} allowClear={true}>
+                                    {
+                                        groupList.map((item) => {
+                                            return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        })
+                                    }
+                                </Select>
                             </FormItem>
                         </div>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="图例编号">
-                            {
-                                getFieldDecorator('legendCode', {
-                                    initialValue: fieldsValue.legendCode
-                                })(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="图例编号" name={'legendCode'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="图例描述">
-                            {
-                                getFieldDecorator('legendName', {
-                                    initialValue: fieldsValue.legendName
-                                })(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="图例描述" name={'legendName'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <div className="first-column">
-                            <FormItem label="图例备注">
-                                {
-                                    getFieldDecorator('legendNote', {
-                                        initialValue: fieldsValue.legendNote
-                                    })(
-                                        <Input placeholder="请输入"/>
-                                    )
-                                }
+                            <FormItem label="图例备注" name={'legendNote'}>
+                                <Input placeholder="请输入"/>
                             </FormItem>
                         </div>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="零件编号">
-                            {
-                                getFieldDecorator('partCode', {
-                                    initialValue: fieldsValue.partCode
-                                })(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="零件编号" name={'partCode'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="零件描述">
-                            {
-                                getFieldDecorator('partName', {
-                                    initialValue: fieldsValue.partName
-                                })(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="零件描述" name={'partName'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                 </Row>
@@ -243,4 +197,3 @@ export function QueryForm(props: any) {
     );
 }
 
-export const Query = Form.create()(QueryForm);

@@ -1,7 +1,7 @@
 import React, {HTMLProps} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIntl} from 'react-intl';
-import {Icon, Tree} from 'antd';
+import {Tree} from 'antd';
 import {Panel} from '@/components/panel';
 import {usageCreator} from '@/pages/usage/actions';
 import {legendsCreator} from '@/pages/usage/legends/actions';
@@ -41,7 +41,7 @@ function Groups(props: GroupsProps) {
 
         dispatch(groupsCreator.setActiveTreeNodeCode(nodeCode));
 
-        if (node.isLeaf()) {
+        if (!node.children) {
 
             if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
                 return;
@@ -94,7 +94,7 @@ function Groups(props: GroupsProps) {
 
             if (!item.leaf) {
                 return (
-                    <TreeNode title={title} key={item.code} data-code-path={tempCodePathStr}>
+                    <TreeNode active={false} title={title} key={item.code} data-code-path={tempCodePathStr}>
                         {renderTreeNodes(item.children, tempCodePathStr)}
                     </TreeNode>
                 );
@@ -104,6 +104,7 @@ function Groups(props: GroupsProps) {
                     icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
                     title={title}
                     key={item.code}
+                    active={false}
                     data-code-path={tempCodePathStr}
                     data-svg-url={item.svgFileUri}
                 />

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Button, Table, Icon, Tooltip, message} from 'antd';
+import {Button, Table, Tooltip, message} from 'antd';
+import {ShoppingCartOutlined, CopyOutlined, RetweetOutlined, RightOutlined, LeftOutlined} from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
 import {useSelector, useDispatch} from 'react-redux';
 import {Panel} from '@/components/panel';
@@ -7,6 +8,7 @@ import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {Application} from './application';
 import styles from './Parts.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+
 
 interface PartsProps {
     isShowParts: boolean;
@@ -46,12 +48,12 @@ function Parts(props: PartsProps) {
                     }}>{val}</span>
                     <span className={'btns'}>
                           <Tooltip title={'复制'}>
-                            <Icon type={'copy'} onClick={(e) => {
+                            <CopyOutlined onClick={(e) => {
                                 handleClickCopy(e, val);
                             }}/>
                           </Tooltip>
                         <Tooltip title={'替换关系'}>
-                            <Icon type={'retweet'} onClick={(e) => {
+                            <RetweetOutlined onClick={(e) => {
                                 handleClickReplace(e, val);
                             }}/>
                         </Tooltip>
@@ -89,7 +91,7 @@ function Parts(props: PartsProps) {
         ellipsis: true,
         render: (val, record) => (
             <Tooltip title={'加入购物车'}>
-                <Button type="primary" icon="shopping-cart" size={'small'} onClick={(e) => {
+                <Button type="primary" icon={ShoppingCartOutlined} size={'small'} onClick={(e) => {
                     handleClickCart(e, record.partCode);
                 }}/>
             </Tooltip>
@@ -168,7 +170,7 @@ function Parts(props: PartsProps) {
                        scroll={{
                            x: styles.tableInnerWidth,
                            y: styles.tableBodyHeight
-                       }}
+                       } as any}
                        className={'part-list'}
                        tableLayout={'fixed'}
                        pagination={false}
@@ -189,9 +191,9 @@ function Parts(props: PartsProps) {
             </Panel>
             {
                 props.isShowParts ? (
-                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><Icon type="right"/></span>
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined/></span>
                 ) : (
-                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><Icon type="left"/></span>
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined/></span>
                 )
             }
         </div>

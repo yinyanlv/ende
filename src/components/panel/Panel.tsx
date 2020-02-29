@@ -1,7 +1,6 @@
 import React, {PropsWithChildren, HTMLProps} from 'react';
 import cls from 'classnames';
 import {Loading} from '@/components/loading';
-import {Icon} from 'antd';
 import styles from './Panel.module.scss';
 
 interface PanelProps extends HTMLProps<HTMLDivElement> {

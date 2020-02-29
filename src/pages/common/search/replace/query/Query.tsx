@@ -7,44 +7,34 @@ import {queryCreator} from './actions';
 
 const FormItem = Form.Item;
 
-export function QueryForm(props: any) {
+export function Query() {
     const dispatch = useDispatch();
-    const {getFieldDecorator} = props.form;
+    const [form] = Form.useForm();
     const {fieldsValue} = useSelector((state: any) => {
         return state.search.replace.query;
     });
 
     function doQuery() {
-       props.form.validateFields((err, values) => {
-           if (!err) {
-               const filters = rebuildFieldsToFilters(values);
-
-               if (filters.length > 0) {
-                   dispatch(queryCreator.doQuery(values));
-               } else {
-                   message.error('请输入零件编号');
-               }
-           }
-       });
+        const fieldsValue = form.getFieldsValue();
+        const filters = rebuildFieldsToFilters(fieldsValue);
+        if (filters.length > 0) {
+            dispatch(queryCreator.doQuery(fieldsValue));
+        } else {
+            message.error('请输入零件编号');
+        }
     }
 
     function doReset() {
-        props.form.resetFields();
+        form.resetFields();
     }
 
     return (
         <div className={'query'}>
-            <Form layout="inline" labelAlign="left">
+            <Form layout="inline" form={form} labelAlign="left">
                 <Row>
                     <Col span={8}>
-                        <FormItem label="零件编号">
-                            {
-                                getFieldDecorator('partCode', {
-                                    initialValue: fieldsValue.partCode
-                                })(
-                                    <Input placeholder="请输入"/>
-                                )
-                            }
+                        <FormItem label="零件编号" name={'partCode'}>
+                            <Input placeholder="请输入"/>
                         </FormItem>
                     </Col>
                     <Col span={16} className="inner-btn-line">
@@ -57,4 +47,3 @@ export function QueryForm(props: any) {
     );
 }
 
-export const Query = Form.create()(QueryForm);

@@ -107,7 +107,7 @@ export function Replace(props: ReplaceProps) {
                 scroll={{
                     x: styles.tableInnerWidth,
                     y: styles.tableBodyHeight
-                }}
+                } as any}
             />
         </div>
     );

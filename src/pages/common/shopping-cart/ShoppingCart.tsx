@@ -182,7 +182,7 @@ export function ShoppingCart(props) {
                             }}
                             scroll={{
                                 y: styles.tableBodyHeight
-                            }}
+                            } as any}
                         />
                     </div>
                     <div className="pagination">

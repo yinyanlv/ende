@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import {API_PREFIX} from '@/config';
 import styles from './Legend.module.scss';
-import {Icon} from "antd";
 
 const svgPrefix = '/res';
 
@@ -73,9 +73,9 @@ function Legend(props: LegendProps) {
             </div>
             {
                 props.isShowGroups ? (
-                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><Icon type="left" /></span>
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined/></span>
                 ) : (
-                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><Icon type="right" /></span>
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined/></span>
                 )
             }
         </div>

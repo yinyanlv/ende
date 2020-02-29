@@ -2,7 +2,6 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router';
 import queryString from 'query-string';
-import {Icon} from 'antd';
 import cls from 'classnames';
 import {updateLocationSearch} from '@/common/utils';
 import {Panel} from '@/components/panel';

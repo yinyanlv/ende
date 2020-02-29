@@ -1,7 +1,18 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {Menu, Icon, Dropdown, Badge, Popover, Tabs} from 'antd';
+import {Menu, Dropdown, Badge, Popover, Tabs} from 'antd';
+import {
+    SearchOutlined,
+    GlobalOutlined,
+    ShoppingCartOutlined,
+    FileTextOutlined,
+    StarOutlined,
+    QuestionCircleOutlined,
+    HomeOutlined,
+    MessageOutlined,
+    UserOutlined
+} from '@ant-design/icons';
 import {buildQueryParams} from '@/common/utils';
 import {configCreator} from '@/store/config/actions';
 import {searchCreator} from '@/pages/common/search/actions';
@@ -93,28 +104,28 @@ export function Nav(props) {
                 <div className="common-nav">
                     <span className="nav-item">
                        <span className={'nav-item-inner'} onClick={handleClickSearch}>
-                            <Icon type="search"/>
+                           <SearchOutlined/>
                         </span>
                     </span>
                     <span className="nav-item">
                        <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
-                            <Icon type="shopping-cart"/> <span>(<span>{cartCount}</span>)</span>
+                            <ShoppingCartOutlined/> <span>(<span>{cartCount}</span>)</span>
                         </span>
                     </span>
                     <NavLink to={'/orders'} className="nav-item">
                        <span className={'nav-item-inner'}>
-                            <Icon type="file-text"/>
+                           <FileTextOutlined/>
                         </span>
                     </NavLink>
                     <span className="nav-item">
                        <span className={'nav-item-inner'} onClick={handleClickCollect}>
-                            <Icon type="star"/>
+                           <StarOutlined/>
                         </span>
                     </span>
                     <Dropdown overlay={helpMenu}>
                         <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
-                         <Icon type="question-circle"/>
+                           <QuestionCircleOutlined/>
                         </span>
                         </NavLink>
                     </Dropdown>
@@ -122,13 +133,13 @@ export function Nav(props) {
                 <div>
                     <NavLink to={'/'} className="nav-item">
                         <span className={'nav-item-inner'}>
-                            <Icon type="home"/>
+                            <HomeOutlined/>
                         </span>
                     </NavLink>
                     <Dropdown overlay={userMenu}>
                         <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner item-user'}>
-                        <Icon type="user"/>
+                       <UserOutlined/>
                         系统管理员
                     </span>
                         </NavLink>
@@ -137,7 +148,7 @@ export function Nav(props) {
                         <NavLink to={'/'} className="nav-item">
                             <Badge count={2} overflowCount={10} showZero={false} offset={[-5, -2]}>
                        <span className={'nav-item-inner'}>
-                        <Icon type="message"/>
+                           <MessageOutlined/>
                         </span>
                             </Badge>
                         </NavLink>
@@ -145,7 +156,7 @@ export function Nav(props) {
                     <Dropdown overlay={langMenu}>
                         <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
-                       <Icon type="global"/>
+                           <GlobalOutlined/>
                         </span>
                         </NavLink>
                     </Dropdown>

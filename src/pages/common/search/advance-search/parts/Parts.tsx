@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Button, Pagination} from 'antd';
+import {ShoppingCartOutlined} from '@ant-design/icons';
 import {Loading} from '@/components/loading';
 import {NoData} from '@/components/no-data';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
@@ -64,7 +65,7 @@ export function Parts() {
                                             </div>
                                         </div>
                                         <div className="btn-box">
-                                            <Button type="primary" icon="shopping-cart"
+                                            <Button type="primary" icon={<ShoppingCartOutlined/>}
                                                     onClick={handleClickBuy.bind(null, item.code)}>购买</Button>
                                         </div>
                                     </div>

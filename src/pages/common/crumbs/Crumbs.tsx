@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {Breadcrumb, Icon} from 'antd';
+import {Breadcrumb} from 'antd';
+import {HomeOutlined, StarOutlined} from '@ant-design/icons';
 import {VinSearch} from '@/pages/common/vin-search';
 import styles from './Crumbs.module.scss';
 
@@ -18,7 +19,7 @@ export function Crumbs(props) {
                 <Breadcrumb>
                     <CrumbItem key="home">
                         <Link to="/">
-                            <Icon type={'home'} />
+                            <HomeOutlined />
                             <span className="crumbs-text">产品大全</span>
                         </Link>
                     </CrumbItem>
@@ -45,7 +46,7 @@ export function Crumbs(props) {
                         })
                     }
                 </Breadcrumb>
-                <div className="operator-wrapper"><Icon type={'star'}/></div>
+                <div className="operator-wrapper"><StarOutlined/></div>
             </div>
             <VinSearch />
         </div>

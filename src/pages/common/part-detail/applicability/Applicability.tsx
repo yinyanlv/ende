@@ -81,7 +81,7 @@ export function Applicability() {
                 scroll={{
                     x: styles.tableInnerWidth,
                     y: styles.tableBodyHeight
-                }}
+                } as any}
                 onRow={(record) => {
                     return {
                         onClick: () => {

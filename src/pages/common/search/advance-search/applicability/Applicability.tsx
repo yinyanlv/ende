@@ -132,7 +132,7 @@ export function Applicability() {
                     scroll={{
                         x: styles.tableInnerWidth,
                         y: styles.tableBodyHeight
-                    }}
+                    } as any}
                 />
             </div>
             <div className="pagination">

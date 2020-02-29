@@ -100,10 +100,6 @@ export function PageOrders(props) {
                             rowKey={'code'}
                             tableLayout={'fixed'}
                             pagination={false}
-                            scroll={{
-                                x: true,
-                                y: true
-                            }}
                         />
                     </div>
                     <div className="pagination">

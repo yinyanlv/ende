@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import Img from 'react-image';
-import {Icon} from 'antd';
+import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {Panel} from '@/components/panel';
 import styles from  './Legends.module.scss';
 
@@ -68,9 +68,9 @@ function Legends(props: LegendsProps) {
             </Panel>
             {
                 props.isShowGroups ? (
-                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><Icon type="left" /></span>
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined /></span>
                 ) : (
-                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><Icon type="right" /></span>
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined /></span>
                 )
             }
         </div>

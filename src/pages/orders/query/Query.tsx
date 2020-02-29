@@ -1,46 +1,40 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import cls from 'classnames';
-import {Button, Col, Form, Input, Row} from 'antd';
-import {buildQueryParams} from '@/common/utils';
+import {Button, Form, Input} from 'antd';
+import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
 const FormItem = Form.Item;
 
-export function QueryForm(props: any) {
+export function Query() {
     const dispatch = useDispatch();
-    const {getFieldDecorator} = props.form;
+    const [form] = Form.useForm();
 
     function doQuery() {
-        props.form.validateFields((err, values) => {
-            if (!err) {
-                const params = buildQueryParams(values);
-                dispatch(queryCreator.doQuery(params));
-            }
-        });
+        const fieldsValue = form.getFieldsValue();
+        const filters = rebuildFieldsToFilters(fieldsValue);
+        const params = buildQueryParams(filters);
+        dispatch(queryCreator.doQuery(params));
     }
 
     function doReset() {
-        props.form.resetFields();
+        form.resetFields();
     }
 
     return (
         <div className={cls([styles.query, 'query'])}>
-            <Form layout="inline" labelAlign="left">
-                <FormItem label="订单编号">
-                    {
-                        getFieldDecorator('code', {})(
-                            <Input placeholder="请输入"/>
-                        )
-                    }
+            <Form
+                layout="inline"
+                labelAlign="left"
+                form={form}
+            >
+                <FormItem label="订单编号" name={'code'}>
+                    <Input placeholder="请输入"/>
                 </FormItem>
-                <FormItem label="订单备注">
-                    {
-                        getFieldDecorator('note', {})(
-                            <Input placeholder="请输入"/>
-                        )
-                    }
+                <FormItem label="订单备注" name={'note'}>
+                    <Input placeholder="请输入"/>
                 </FormItem>
                 <span className="inner-btn-line">
                     <Button type="primary" onClick={doQuery}>查询</Button>
@@ -51,4 +45,3 @@ export function QueryForm(props: any) {
     );
 }
 
-export const Query = Form.create()(QueryForm);
