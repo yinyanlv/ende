@@ -1,1 +1,28 @@
 @import "src/scss/sdk/index";
+
+.orderDetail{
+  padding: 10px 30px;
+
+  :global{
+
+    .panel {
+      background: #fff;
+    }
+
+    .panel-title {
+      height: 41px;
+      line-height: 45px;
+      text-align: left;
+      font-size: 14px;
+      border-bottom: 1px solid $bd-color;
+      color: $font-color;
+      font-weight: bold;
+      padding: 0 15px;
+    }
+
+    .panel-content {
+      padding: 0 15px;
+    }
+
+  }
+}
