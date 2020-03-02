@@ -1,9 +1,9 @@
 @import "src/scss/sdk/index";
 
-.orderDetail{
+.orderDetail {
   padding: 10px 30px;
 
-  :global{
+  :global {
 
     .panel {
       background: #fff;
@@ -11,18 +11,47 @@
 
     .panel-title {
       height: 41px;
-      line-height: 45px;
+      line-height: 40px;
       text-align: left;
       font-size: 14px;
       border-bottom: 1px solid $bd-color;
-      color: $font-color;
-      font-weight: bold;
       padding: 0 15px;
+
+      .title{
+        color: $font-color;
+        font-weight: bold;
+      }
+
+      .title-wrapper{
+        float:left;
+      }
+
+      .btns {
+        float:right;
+
+        .ant-btn {
+          margin-left: 10px;
+        }
+      }
     }
 
     .panel-content {
       padding: 0 15px;
     }
 
+    .box{
+      padding-top: 10px;
+      border-top: 1px dotted $bd-color;
+    }
+
+    .box-title {
+      height: 44px;
+      line-height: 44px;
+
+      .title {
+        color: $primary-color;
+        font-weight: bold;
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
+import history from '@/common/history';
 import {buildQueryParams} from '@/common/utils';
 import {navCreator} from '@/pages/common/header/nav/actions';
 import * as actions from './actions';
@@ -70,7 +71,7 @@ function editPartCartCount(params) {
     });
 }
 
-function* addAndShowShoppingCart(action) {
+function* addAndShowShoppingCartController(action) {
     const payload = action.payload;
     const params = buildQueryParams();
     yield put(actions.shoppingCartCreator.addToCart({partCode: payload.partCode}));
@@ -80,12 +81,35 @@ function* addAndShowShoppingCart(action) {
     yield put(actions.shoppingCartCreator.doQuery(params));
 }
 
+function* generateOrderController() {
+    try {
+        const data = yield call(generateOrder);
+        if (data.orderNo) {
+            history.push({
+               pathname: `/order/${data.orderNo}`
+            });
+
+            put(actions.shoppingCartCreator.setIsShowShoppingCart({
+                isShow: false
+            }));
+        }
+
+    } catch(err) {
+        message.error(err.message);
+    }
+}
+
+function generateOrder() {
+    return http.post('/cart/submit');
+}
+
 function* shoppingCartSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.ADD_TO_CART, addToCartController);
     yield takeLatest(actions.DELETE_FROM_CART, deleteFromCartController);
     yield takeLatest(actions.EDIT_PART_CART_COUNT, editPartCartCountController);
-    yield takeLatest(actions.ADD_AND_SHOW_SHOPPING_CART, addAndShowShoppingCart);
+    yield takeLatest(actions.ADD_AND_SHOW_SHOPPING_CART, addAndShowShoppingCartController);
+    yield takeLatest(actions.GENERATE_ORDER, generateOrderController);
 }
 
 export function* shoppingCartSagas() {

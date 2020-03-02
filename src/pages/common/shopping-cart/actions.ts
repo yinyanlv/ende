@@ -9,6 +9,7 @@ export const ADD_TO_CART = 'shopping-cart:add-to-cart';
 export const DELETE_FROM_CART = 'shopping-cart:delete-from-cart';
 export const EDIT_PART_CART_COUNT = 'shopping-cart:change-part-cart-count';
 export const ADD_AND_SHOW_SHOPPING_CART = 'shopping-cart:add-and-show-shopping-cart';
+export const GENERATE_ORDER = 'shopping-cart:generate-order';
 
 export const shoppingCartCreator = {
     setIsShowShoppingCart: (params) => {
@@ -37,5 +38,8 @@ export const shoppingCartCreator = {
     },
     editPartCartCount: (params) => {
         return createAction(EDIT_PART_CART_COUNT, params);
+    },
+    generateOrder: (params) => {
+        return createAction(GENERATE_ORDER, params);
     }
 };

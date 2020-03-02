@@ -1,1 +1,16 @@
 @import "src/scss/sdk/index";
+
+.info {
+  padding-top: 10px;
+
+  :global {
+
+    .ant-form-item {
+      margin-bottom: 10px;
+    }
+
+    .ant-form-item-label {
+      width: 75px;
+    }
+  }
+}

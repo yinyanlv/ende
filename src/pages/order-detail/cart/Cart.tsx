@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Table, InputNumber, Pagination} from 'antd';
 import {Loading} from '@/components/loading';
 import {cartCreator} from './actions';
-import styles from './Orders.module.scss';
+import styles from './Cart.module.scss';
 import {Query} from './query';
 
 export function Cart(props) {
@@ -87,13 +87,13 @@ export function Cart(props) {
 
     return (
         <div className={styles.orders}>
-            <div className="panel">
-                <div className="panel-title">
-                    <span>订单</span>
+            <div className="box">
+                <div className="box-title">
+                    <span className={'title'}>商品清单</span>
                 </div>
                 <Query />
                 <Loading isLoading={isLoading}>
-                    <div className="panel-content">
+                    <div className="box-content">
                         <Table
                             columns={columns}
                             dataSource={list}

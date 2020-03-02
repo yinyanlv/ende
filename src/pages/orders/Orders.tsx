@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Drawer, Button, Form, Row, Col, Input, Table, InputNumber, Tooltip, Pagination} from 'antd';
+import {Table, Pagination} from 'antd';
+import history from '@/common/history';
 import {Loading} from '@/components/loading';
 import {ordersCreator} from './actions';
 import styles from './Orders.module.scss';
@@ -23,12 +24,16 @@ export function PageOrders(props) {
     }
 
     function handleClickOrderCode(orderCode) {
+        if (orderCode)  {
+            history.push({
+                pathname: `/order/${orderCode}`
+            });
+        }
     }
 
-    function handleClickDelete(e, orderCode) {
-        e.stopPropagation();
+    function handleClickDelete( orderCode) {
         dispatch(ordersCreator.deleteOrder({
-            codes: [orderCode]
+            orderCode: orderCode
         }));
     }
 
@@ -36,50 +41,59 @@ export function PageOrders(props) {
         {
             title: '订单编号',
             dataIndex: 'code',
-            width: 200
+            width: 180,
+            render: (val, record) => {
+                return (
+                    <a className={'text-btn'} onClick={handleClickOrderCode.bind(null, record.code)}>删除</a>
+                );
+            }
         },
         {
             title: '下单日期',
             dataIndex: 'createdDate',
+            width: 140
         },
         {
             title: '订单备注',
             dataIndex: 'note',
+            width: 140
         },
         {
             title: '状态',
             dataIndex: 'statusDesc',
+            width: 100
         },
         {
             title: '下单维修站编码',
             dataIndex: 'purchaserDealerCode',
+            width: 140
         },
         {
             title: '下单维修站名称',
             dataIndex: 'purchaserDealerName',
+            width: 140
         },
         {
             title: '收货维修站编码',
             dataIndex: 'receiverDealerCode',
+            width: 140
         },
         {
             title: '收货维修站名称',
             dataIndex: 'receiverDealerName',
+            width: 140
         },
         {
             title: '订单金额',
             dataIndex: 'amount',
+            width: 120
         },
         {
             title: '操作',
             dataIndex: 'operator',
             render: (val, record) => {
                 return (
-                    <div>
-                        <a className={'btn'} onClick={(e) => {
-                            handleClickDelete(e, record.partCode);
-                        }}>删除</a>
-                    </div>
+                    <a className={'text-btn'} onClick={handleClickDelete.bind(null, record.code)}>删除</a>
                 );
             }
         }

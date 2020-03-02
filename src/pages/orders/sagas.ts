@@ -2,7 +2,6 @@ import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import {buildQueryParams} from '@/common/utils';
-import {navCreator} from '@/pages/common/header/nav/actions';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
@@ -32,8 +31,8 @@ function* deleteOrderController(action) {
 }
 
 function deleteOrder(params) {
-    return http.post('/cart/delete', {
-        codes: params.codes
+    return http.post('/order-remove', {
+        orderCode: params.orderCode
     });
 }
 
