@@ -8,7 +8,7 @@ export function partInfoReducer(state = initialState, action) {
     switch (action.type) {
         case actions.SET_PART_INFO:
             return {
-                info: action.payload
+                info: action.payload || initialState.info
             };
         default:
             return state;

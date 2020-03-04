@@ -37,7 +37,7 @@ export function Query() {
                     <Input placeholder="请输入"/>
                 </FormItem>
                 <span className="inner-btn-line">
-                    <Button type="primary" onClick={doQuery}>查询</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
                     <Button onClick={doReset}>清空</Button>
                 </span>
             </Form>

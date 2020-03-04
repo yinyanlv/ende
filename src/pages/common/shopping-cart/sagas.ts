@@ -89,11 +89,10 @@ function* generateOrderController() {
                pathname: `/order/${data.orderNo}`
             });
 
-            put(actions.shoppingCartCreator.setIsShowShoppingCart({
+            yield put(actions.shoppingCartCreator.setIsShowShoppingCart({
                 isShow: false
             }));
         }
-
     } catch(err) {
         message.error(err.message);
     }

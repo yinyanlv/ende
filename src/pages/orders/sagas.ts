@@ -5,6 +5,10 @@ import {buildQueryParams} from '@/common/utils';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
+function* initOrdersController() {
+    yield put(actions.ordersCreator.doQuery(buildQueryParams()));
+}
+
 function* doQueryController(action) {
     try {
         yield put(actions.ordersCreator.setIsLoading({isLoading: true}));
@@ -12,6 +16,7 @@ function* doQueryController(action) {
         yield put(actions.ordersCreator.setOrders(data));
         yield put(actions.ordersCreator.setIsLoading({isLoading: false}));
     } catch(err) {
+        yield put(actions.ordersCreator.setIsLoading({isLoading: false}));
         message.error(err.message);
     }
 }
@@ -31,12 +36,13 @@ function* deleteOrderController(action) {
 }
 
 function deleteOrder(params) {
-    return http.post('/order-remove', {
+    return http.post('/order/remove', {
         orderCode: params.orderCode
     });
 }
 
 function* ordersSaga() {
+    yield takeLatest(actions.INIT_ORDERS, initOrdersController);
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.DELETE_ORDER, deleteOrderController);
 }

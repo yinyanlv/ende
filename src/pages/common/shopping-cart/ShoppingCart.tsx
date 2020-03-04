@@ -76,6 +76,7 @@ export function ShoppingCart(props) {
 
     function handleCreateOrder() {
 
+        dispatch(shoppingCartCreator.generateOrder());
     }
 
     function getModelsString(list) {

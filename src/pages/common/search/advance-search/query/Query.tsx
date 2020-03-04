@@ -187,7 +187,7 @@ export function Query() {
                     </Col>
                 </Row>
                 <div className="btn-line">
-                    <Button type="primary" onClick={doQuery}>查询</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
                     <Button onClick={doReset}>清空</Button>
                 </div>
             </Form>

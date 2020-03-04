@@ -39,7 +39,7 @@ export const shoppingCartCreator = {
     editPartCartCount: (params) => {
         return createAction(EDIT_PART_CART_COUNT, params);
     },
-    generateOrder: (params) => {
-        return createAction(GENERATE_ORDER, params);
+    generateOrder: () => {
+        return createAction(GENERATE_ORDER);
     }
 };

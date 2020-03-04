@@ -45,7 +45,11 @@ class Http {
                     const body = res.data;
 
                     if (body.success) {
-                        resolve(body.result);
+                        if (body.list) {
+                            resolve(body);
+                        } else {
+                            resolve(body.result);
+                        }
                     } else if (body.list) {
                         resolve(body);
                     } else {
@@ -66,7 +70,11 @@ class Http {
                     const body = res.data;
 
                     if (body.success) {
-                        resolve(body.result);
+                        if (body.list) {
+                           resolve(body);
+                        } else {
+                            resolve(body.result);
+                        }
                     } else if (body.list) {
                         resolve(body);
                     } else {

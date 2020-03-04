@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Table, Pagination} from 'antd';
 import history from '@/common/history';
@@ -13,6 +13,10 @@ export function PageOrders(props) {
     const {total, list, pageNo, pageSize, queryParams, isLoading} = useSelector((state: any) => {
         return state.orders.self;
     });
+
+    useEffect(() => {
+       dispatch(ordersCreator.initOrders());
+    }, []);
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -41,10 +45,10 @@ export function PageOrders(props) {
         {
             title: '订单编号',
             dataIndex: 'code',
-            width: 180,
+            width: 220,
             render: (val, record) => {
                 return (
-                    <a className={'text-btn'} onClick={handleClickOrderCode.bind(null, record.code)}>删除</a>
+                    <a className={'text-btn'} onClick={handleClickOrderCode.bind(null, record.code)}>{val}</a>
                 );
             }
         },
@@ -56,7 +60,7 @@ export function PageOrders(props) {
         {
             title: '订单备注',
             dataIndex: 'note',
-            width: 140
+            width: 180
         },
         {
             title: '状态',
@@ -71,7 +75,7 @@ export function PageOrders(props) {
         {
             title: '下单维修站名称',
             dataIndex: 'purchaserDealerName',
-            width: 140
+            width: 180
         },
         {
             title: '收货维修站编码',
@@ -81,7 +85,7 @@ export function PageOrders(props) {
         {
             title: '收货维修站名称',
             dataIndex: 'receiverDealerName',
-            width: 140
+            width: 180
         },
         {
             title: '订单金额',
