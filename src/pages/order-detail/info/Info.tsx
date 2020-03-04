@@ -1,13 +1,37 @@
-import React from 'react';
-import {Button, Form, Input, Row, Col, Select} from 'antd';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Form, Input, Row, Col, Select} from 'antd';
+import {infoCreator} from './actions';
 import styles from './Info.module.scss';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 
 export function Info() {
+    const dispatch = useDispatch();
+    const {
+        fieldsValue,
+        transportList,
+        typeList,
+        organizationList,
+        channelList,
+        productGroupList,
+        factoryList,
+        planningList
+    } = useSelector((state: any) => {
+        return state.orderDetail.info;
+    });
     const [form] = Form.useForm();
-    const orderTypeList: any = [];
+
+    useEffect(() => {
+        dispatch(infoCreator.loadTransport());
+        dispatch(infoCreator.loadType());
+        dispatch(infoCreator.loadOrganization());
+        dispatch(infoCreator.loadChannel());
+        dispatch(infoCreator.loadProductGroup());
+        dispatch(infoCreator.loadFactory());
+        dispatch(infoCreator.loadPlanning());
+    }, []);
 
     return (
         <div className={styles.info}>
@@ -15,13 +39,14 @@ export function Info() {
                 layout="inline"
                 labelAlign="left"
                 form={form}
+                initialValues={fieldsValue}
             >
                 <Row>
                     <Col span={6}>
-                        <FormItem label="运输方式" name={'legendGroupCode'}>
+                        <FormItem label="运输方式" name={'transportCode'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    transportList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -29,10 +54,10 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="订单类型" name={'legendGroupCode'}>
+                        <FormItem label="订单类型" name={'typeCode'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    typeList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -40,10 +65,10 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="销售组织" name={'legendGroupCode'}>
+                        <FormItem label="销售组织" name={'organizationCode'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    organizationList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -51,10 +76,10 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="分销渠道" name={'legendGroupCode'}>
+                        <FormItem label="分销渠道" name={'channel'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    channelList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -62,10 +87,10 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="产品组" name={'legendGroupCode'}>
+                        <FormItem label="产品组" name={'productGroup'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    productGroupList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -73,10 +98,10 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="工厂" name={'legendGroupCode'}>
+                        <FormItem label="工厂" name={'factory'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    factoryList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -84,10 +109,10 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="计划编码" name={'legendGroupCode'}>
+                        <FormItem label="计划编码" name={'planning'}>
                             <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
                                 {
-                                    orderTypeList.map((item) => {
+                                    planningList.map((item) => {
                                         return <Option key={item.code} value={item.code}>{item.name}</Option>;
                                     })
                                 }
@@ -95,7 +120,7 @@ export function Info() {
                         </FormItem>
                     </Col>
                     <Col span={6}>
-                        <FormItem label="订单备注" name={'legendGroupCode'}>
+                        <FormItem label="订单备注" name={'note'}>
                             <Input placeholder={'请输入'}/>
                         </FormItem>
                     </Col>

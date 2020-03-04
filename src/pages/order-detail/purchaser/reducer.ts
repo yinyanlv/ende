@@ -4,7 +4,7 @@ const initialState = {
 
 };
 
-export function logisticsReducer(state = initialState, action) {
+export function purchaserReducer(state = initialState, action) {
 
     switch (action.type) {
 

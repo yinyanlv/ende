@@ -2,7 +2,6 @@ import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import {buildQueryParams} from '@/common/utils';
-import {navCreator} from '@/pages/common/header/nav/actions';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
@@ -18,12 +17,12 @@ function* doQueryController(action) {
 }
 
 function doQuery(params) {
-    return http.post('/order/page', params);
+    return http.post('/order-detail/page', params);
 }
 
 function* deletePartController(action) {
     try {
-        yield call(deleteCart, action.payload);
+        yield call(deletePart, action.payload);
         yield put(actions.cartCreator.doQuery(buildQueryParams()));
         message.success('删除成功');
     } catch(err) {
@@ -31,9 +30,10 @@ function* deletePartController(action) {
     }
 }
 
-function deleteCart(params) {
-    return http.post('/cart/delete', {
-        codes: params.codes
+function deletePart(params) {
+    return http.post('/order-detail/delete', {
+        orderCode: params.orderCode,
+        partCodes: params.partCodes
     });
 }
 

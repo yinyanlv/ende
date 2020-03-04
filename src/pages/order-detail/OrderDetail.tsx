@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useRouteMatch} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button} from 'antd';
 import styles from './OrderDetail.module.scss';
 import {Info} from './info';
-import {Logistics} from './logistics';
+import {Purchaser} from './purchaser';
 import {Cart} from './cart';
-import {Button} from 'antd';
+import {orderDetailCreator} from './actions';
 
 export function PageOrderDetail() {
+    const dispatch = useDispatch();
+    const match: any = useRouteMatch();
+
+    useEffect(() => {
+        dispatch(orderDetailCreator.initOrderDetail({
+            orderCode: match.params.id
+        }));
+    }, []);
+
     return (
         <div className={styles.orderDetail}>
             <div className="panel">
@@ -23,7 +35,7 @@ export function PageOrderDetail() {
                 </div>
                 <div className="panel-content">
                     <Info/>
-                    <Logistics/>
+                    <Purchaser/>
                     <Cart/>
                 </div>
             </div>

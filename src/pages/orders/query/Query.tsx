@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import cls from 'classnames';
-import {Row, Button, Form, Input} from 'antd';
+import {Button, Form, Input} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';

@@ -9,6 +9,7 @@ import {collectSagas} from '@/pages/common/collect/sagas';
 import {catalogSagas} from '@/pages/catalog/sagas';
 import {usageSagas} from '@/pages/usage/sagas';
 import {ordersSagas} from '@/pages/orders/sagas';
+import {orderDetailSagas} from '@/pages/order-detail/sagas';
 
 export function* rootSagas() {
     yield all([
@@ -21,6 +22,7 @@ export function* rootSagas() {
         fork(collectSagas),
         fork(catalogSagas),
         fork(usageSagas),
-        fork(ordersSagas)
+        fork(ordersSagas),
+        fork(orderDetailSagas)
     ]);
 }

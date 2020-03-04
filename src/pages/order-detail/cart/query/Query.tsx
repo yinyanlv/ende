@@ -19,8 +19,8 @@ export function Query() {
         dispatch(queryCreator.doQuery(params));
     }
 
-    function doReset() {
-        form.resetFields();
+    function handleClickAdd() {
+
     }
 
     return (
@@ -38,7 +38,7 @@ export function Query() {
                 </FormItem>
                 <span className="inner-btn-line">
                     <Button type="primary" onClick={doQuery}>查询</Button>
-                    <Button onClick={doReset}>清空</Button>
+                    <Button onClick={handleClickAdd}>加入清单</Button>
                 </span>
             </Form>
         </div>
