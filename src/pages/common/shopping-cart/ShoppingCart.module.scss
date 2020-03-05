@@ -10,9 +10,9 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
   tableBodyHeight: $table-body-height;
 }
 
-.shoppingCart{
+.shoppingCart {
 
-  :global{
+  :global {
 
     .ant-table-body {
       height: $table-body-height !important;
@@ -23,6 +23,7 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
         overflow-y: hidden;
         height: $empty-table-body-height;
       }
+
       .ant-table-tbody {
         height: $table-body-height !important;
       }
@@ -49,13 +50,13 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
         }
 
         img {
-          max-width:80px;
+          max-width: 80px;
           max-height: 66px;
         }
       }
     }
 
-    .info-box{
+    .info-box {
       margin: 0 8px;
       flex: 1;
       display: flex;
@@ -74,6 +75,7 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
         & > span {
           margin-right: 5px;
         }
+
         .btn {
           text-decoration: underline;
           cursor: pointer;
@@ -84,7 +86,7 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
         }
       }
 
-      .content-line{
+      .content-line {
         margin-top: 2px;
         line-height: 24px;
 
@@ -92,7 +94,7 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
           display: inline-block;
           width: 50%;
           padding-right: 2px;
-          float:left;
+          float: left;
           @extend %textOverflowEllipsis;
         }
       }
@@ -103,11 +105,11 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
 
       .operators {
 
-          .ant-btn {
-            margin-right: 10px;
-          }
+        .ant-btn {
+          margin-right: 10px;
         }
       }
+    }
   }
 }
 

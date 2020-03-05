@@ -5,12 +5,17 @@ import styles from './Purchaser.module.scss';
 
 export function Purchaser() {
 
+    function handleClickEdit() {
+
+    }
+
     return (
         <div className={cls([styles.purchase, 'box'])}>
             <div className={'box-title'}>
                     <span className={'title'}>
-                        人信息
+                        下单人信息
                     </span>
+                <span onClick={handleClickEdit}>修改或使用新地址</span>
             </div>
             <div className={'box-content'}>
                 <Row className={'info'}>

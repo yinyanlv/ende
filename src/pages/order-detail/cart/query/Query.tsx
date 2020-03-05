@@ -1,15 +1,19 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
-import {Row, Button, Form, Input} from 'antd';
+import {message, Button, Form, Input} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
+import {cartCreator} from '@/pages/order-detail/cart/actions';
 
 const FormItem = Form.Item;
 
 export function Query() {
     const dispatch = useDispatch();
+    const {orderCode} = useSelector((state: any) => {
+        return state.orderDetail.self;
+    });
     const [form] = Form.useForm();
 
     function doQuery() {
@@ -20,7 +24,17 @@ export function Query() {
     }
 
     function handleClickAdd() {
+        const fieldsValue = form.getFieldsValue();
+        const partCode = fieldsValue.partCode;
 
+        if (!partCode) {
+            return message.error('请输入零件编号');
+        }
+
+        dispatch(cartCreator.addPart({
+            orderCode,
+            partCode
+        }));
     }
 
     return (
@@ -30,14 +44,11 @@ export function Query() {
                 labelAlign="left"
                 form={form}
             >
-                <FormItem label="订单编号" name={'code'}>
-                    <Input placeholder="请输入"/>
-                </FormItem>
-                <FormItem label="订单备注" name={'note'}>
+                <FormItem label="零件编号" name={'partCode'}>
                     <Input placeholder="请输入"/>
                 </FormItem>
                 <span className="inner-btn-line">
-                    <Button type="primary" onClick={doQuery}>查询</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
                     <Button onClick={handleClickAdd}>加入清单</Button>
                 </span>
             </Form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Table, InputNumber, Pagination} from 'antd';
+import {Table, InputNumber, Pagination, Button} from 'antd';
 import {Loading} from '@/components/loading';
 import {cartCreator} from './actions';
 import styles from './Cart.module.scss';
@@ -9,8 +9,12 @@ import {Query} from './query';
 export function Cart(props) {
 
     const dispatch = useDispatch();
-    const {total, list, pageNo, pageSize, queryParams, isLoading} = useSelector((state: any) => {
-        return state.orders.self;
+    const {orderCode} = useSelector((state: any) => {
+        return state.orderDetail.self;
+    });
+
+    const {total, list, pageNo, pageSize, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
+        return state.orderDetail.cart;
     });
 
     function doQuery(page, size) {
@@ -22,41 +26,82 @@ export function Cart(props) {
         dispatch(cartCreator.doQuery(queryParams));
     }
 
-    function handleClickOrderCode(orderCode) {
+    function handleEditQty(params) {
+        dispatch(cartCreator.editQty({
+            orderCode,
+            partCode: params.partCode,
+            qty: params.qty
+        }));
     }
 
-    function handleClickDelete(e, orderCode) {
+    function handleClickDelete(e, partCode) {
         e.stopPropagation();
-        dispatch(cartCreator.deletePart({
-            codes: [orderCode]
+        dispatch(cartCreator.deleteParts({
+            orderCode,
+            partCodes: [partCode]
         }));
+    }
+
+    function handleSelect(keys, records) {
+        const rows = records.map((item) => {
+            return {
+                id: item.id,
+                partCode: item.partCode
+            }
+        });
+        dispatch(cartCreator.setSelectedRecords(rows));
+    }
+
+
+    function handleDeleteSelected() {
+        const partCodes = getSelectedPartCodes();
+
+        dispatch(cartCreator.deleteParts({
+            orderCode,
+            partCodes
+        }));
+        dispatch(cartCreator.setSelectedRecords([]));
+    }
+
+    function getSelectedPartCodes() {
+        return selectedRecords.map((item) => {
+            return item.partCode;
+        });
     }
 
     const columns = [
         {
             title: '零件编号',
-            dataIndex: 'code',
+            dataIndex: 'partCode',
             width: 200
         },
         {
             title: '描述',
-            dataIndex: 'createdDate',
+            dataIndex: 'partName',
+            width: 140
         },
         {
             title: '量',
-            dataIndex: 'note',
+            dataIndex: 'qty',
+            render: (val, record) => {
+                return <InputNumber defaultValue={val}
+                                    onChange={handleEditQty.bind(null, {
+                                        partCode: record.partCode,
+                                        qty: val
+                                    })}/>
+            }
         },
         {
             title: '最小包装数',
-            dataIndex: 'statusDesc',
+            dataIndex: 'unitPkgQty'
         },
         {
             title: '价格',
-            dataIndex: 'purchaserDealerCode',
+            dataIndex: 'price',
         },
         {
             title: '小计(元)',
-            dataIndex: 'purchaserDealerName',
+            dataIndex: 'amount',
         },
         {
             title: '操作',
@@ -79,18 +124,24 @@ export function Cart(props) {
                 <div className="box-title">
                     <span className={'title'}>商品清单</span>
                 </div>
-                <Query />
+                <Query/>
                 <Loading isLoading={isLoading}>
                     <div className="box-content">
                         <Table
                             columns={columns}
                             dataSource={list}
-                            rowKey={'code'}
+                            rowKey={'id'}
                             tableLayout={'fixed'}
                             pagination={false}
+                            rowSelection={{
+                                onChange: handleSelect
+                            }}
                         />
                     </div>
                     <div className="pagination">
+                        <div className="operators">
+                            <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
+                        </div>
                         <Pagination
                             total={total}
                             current={pageNo}

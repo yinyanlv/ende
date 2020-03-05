@@ -5,6 +5,8 @@ import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import * as actions from './actions';
 import {cartCreator} from './cart/actions';
 import {infoSaga} from './info/saga';
+import {cartSagas} from './cart/sagas';
+import {purchaserSaga} from './purchaser/saga';
 
 function* initOrderDetailController(action) {
     const orderCode = action.payload.orderCode;
@@ -15,11 +17,16 @@ function* initOrderDetailController(action) {
         orderCode
     }));
     yield put(cartCreator.doQuery(buildQueryParams(filters)));
+    yield put(actions.orderDetailCreator.setOrderCode({
+        orderCode
+    }));
 }
 
 function* loadInfoController(action) {
     try {
-        yield call(loadInfo, action.payload)
+        const info = yield call(loadInfo, action.payload);
+        yield put(actions.orderDetailCreator.setInfo(info));
+
     } catch (err) {
         message.error(err.message);
     }
@@ -31,12 +38,14 @@ function loadInfo(params) {
 
 function* orderDetailSaga() {
     yield takeLatest(actions.INIT_ORDER_DETAIL, initOrderDetailController);
-    yield takeLatest(actions.LOAD_INFO, initOrderDetailController);
+    yield takeLatest(actions.LOAD_INFO, loadInfoController);
 }
 
 export function* orderDetailSagas() {
     yield all([
         fork(orderDetailSaga),
-        fork(infoSaga)
+        fork(infoSaga),
+        fork(cartSagas),
+        fork(purchaserSaga)
     ]);
 }

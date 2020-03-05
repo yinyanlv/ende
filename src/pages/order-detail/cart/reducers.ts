@@ -38,7 +38,7 @@ function cartReducer(state = initialState, action) {
     }
 }
 
-export const ordersReducers = combineReducers({
+export const cartReducers = combineReducers({
     self: cartReducer,
     query: queryReducer
 });

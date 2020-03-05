@@ -4,5 +4,15 @@
 
   :global {
 
+    .pagination {
+      justify-content: space-between;
+
+      .operators {
+
+        .ant-btn {
+          margin-right: 10px;
+        }
+      }
+    }
   }
 }
