@@ -73,7 +73,7 @@ function editQty(params) {
 
 function* cartSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
-    yield takeLatest(actions.DELETE_PART, deletePartController);
+    yield takeLatest(actions.DELETE_PARTS, deletePartController);
     yield takeLatest(actions.ADD_PART, addPartController);
     yield takeLatest(actions.EDIT_QTY, editQtyController);
 }

@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import * as actions from './actions';
 import {infoReducer} from './info/reducer';
 import {cartReducers} from './cart/reducers';
-import {purchaserReducer} from './purchaser/reducer';
+import {purchaserReducers} from './purchaser/reducers';
 
 const initialState = {
     orderCode: null,
@@ -30,6 +30,6 @@ export const orderDetailReducers = combineReducers({
     self: orderDetailReducer,
     info: infoReducer,
     cart: cartReducers,
-    purchaser: purchaserReducer
+    purchaser: purchaserReducers
 });
 

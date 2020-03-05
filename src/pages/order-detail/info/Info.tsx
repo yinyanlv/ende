@@ -121,7 +121,7 @@ export function Info() {
                     </Col>
                     <Col span={6}>
                         <FormItem label="订单备注" name={'note'}>
-                            <Input placeholder={'请输入'}/>
+                            <Input placeholder={'请输入'} style={{width: 155}} />
                         </FormItem>
                     </Col>
                 </Row>

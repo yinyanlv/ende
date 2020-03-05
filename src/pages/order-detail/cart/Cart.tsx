@@ -14,7 +14,7 @@ export function Cart(props) {
     });
 
     const {total, list, pageNo, pageSize, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
-        return state.orderDetail.cart;
+        return state.orderDetail.cart.self;
     });
 
     function doQuery(page, size) {
@@ -119,7 +119,7 @@ export function Cart(props) {
     ];
 
     return (
-        <div className={styles.orders}>
+        <div className={styles.cart}>
             <div className="box">
                 <div className="box-title">
                     <span className={'title'}>商品清单</span>

@@ -4,13 +4,22 @@
 
   :global {
 
+    .btn-edit {
+      margin-left:30px;
+      cursor: pointer;
+
+      &:hover{
+        color: $primary-color;
+      }
+    }
+
     .ant-row {
       line-height:30px;
     }
 
     .item-label {
       display: inline-block;
-      width: 75px;
+      width: 80px;
     }
   }
 }
