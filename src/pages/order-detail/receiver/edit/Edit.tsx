@@ -1,12 +1,12 @@
 import React from 'react';
-import {Modal, Table, Button, Form, Row, Col, Input, Cascader, Select} from 'antd';
+import {Modal, Button, Form, Row, Col, Input} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './edit.module.scss';
 import {editCreator} from './actions';
 
 const FormItem = Form.Item;
 
-export function Upload() {
+export function Edit() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const {isShow, fieldsValue} = useSelector((state: any) => {
@@ -20,11 +20,20 @@ export function Upload() {
     function handleClickCreate() {
     }
 
+    function handleOk() {
+
+    }
+
+    function handleCancel() {
+
+    }
 
     return (
         <Modal
             visible={isShow}
             title="Title"
+            onOk={handleOk}
+            onCancel={handleCancel}
             footer={null}
         >
             <Form

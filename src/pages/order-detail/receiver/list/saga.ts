@@ -16,7 +16,7 @@ function* loadListController(action) {
 }
 
 function loadList() {
-    return http.get('/order-purchaser');
+    return http.get('/order-receiver');
 }
 
 function* setDefaultController(action) {
@@ -29,7 +29,7 @@ function* setDefaultController(action) {
 }
 
 function setDefault(params) {
-    return http.post('/order/purchaser/default', {
+    return http.post('/order/receiver/default', {
         id: params.id
     });
 }
@@ -44,7 +44,7 @@ function* deleteRecordController(action) {
 }
 
 function deleteRecord(params) {
-    return http.post('/order/purchaser/remove', {
+    return http.post('/order/receiver/remove', {
         id: params.id
     });
 }

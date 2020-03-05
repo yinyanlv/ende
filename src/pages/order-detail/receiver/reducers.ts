@@ -7,7 +7,7 @@ const initialState = {
     info: {}
 };
 
-export function purchaserReducer(state = initialState, action) {
+function receiverReducer(state = initialState, action) {
 
     switch (action.type) {
         case actions.SET_INFO:
@@ -20,8 +20,8 @@ export function purchaserReducer(state = initialState, action) {
     }
 }
 
-export const purchaserReducers = combineReducers({
-    self: purchaserReducer,
+export const receiverReducers = combineReducers({
+    self: receiverReducer,
     list: listReducer,
     edit: editReducer
 });

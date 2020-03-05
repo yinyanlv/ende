@@ -19,6 +19,9 @@ export function PageOrderDetail() {
     const purchaserInfo = useSelector((state: any) => {
         return state.orderDetail.purchaser.info;
     });
+    const receiverInfo = useSelector((state: any) => {
+        return state.orderDetail.receiver.info;
+    });
 
     useEffect(() => {
         dispatch(orderDetailCreator.initOrderDetail({
@@ -34,14 +37,15 @@ export function PageOrderDetail() {
     }
 
     function deleteOrder() {
-        dispatch(orderDetailCreator.saveAsNewOrder({
+        dispatch(orderDetailCreator.deleteOrder({
             orderCode
         }));
     }
 
     function saveOrder() {
         const params = Object.assign({}, info, {
-            purchaser: purchaserInfo
+            purchaser: purchaserInfo,
+            receiver: receiverInfo
         });
         dispatch(orderDetailCreator.saveOrder(params));
     }

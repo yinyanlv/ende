@@ -1,8 +1,7 @@
 import React from 'react';
 import {Modal, Table, Button, Form, Row, Col, Input, Cascader, Select} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
-import {Loading} from '@/components/loading';
-import styles from './List.module.scss';
+import styles from './edit.module.scss';
 import {editCreator} from './actions';
 
 const FormItem = Form.Item;
@@ -21,12 +20,20 @@ export function Edit() {
     function handleClickCreate() {
     }
 
+    function handleOk() {
+
+    }
+
+    function handleCancel() {
+
+    }
+
     return (
         <Modal
             visible={isShow}
             title="Title"
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
+            onOk={handleOk}
+            onCancel={handleCancel}
             footer={null}
         >
             <Form
