@@ -12,7 +12,7 @@ import {infoSaga} from './info/saga';
 import {cartSagas} from './cart/sagas';
 import {purchaserSagas} from './purchaser/sagas';
 import {receiverSagas} from './receiver/sagas';
-import {uploadSaga} from './upload/saga';
+import {importFileSaga} from './import-file/saga';
 import {API_PREFIX} from '@/config';
 
 function* initOrderDetailController(action) {
@@ -85,9 +85,8 @@ function deleteOrder(params) {
 function* saveOrderController(action) {
     try {
         yield call(saveOrder, action.payload);
-        history.push({
-            pathname: '/orders'
-        });
+        yield put(actions.orderDetailCreator.setInfo(action.payload));
+        message.success('保存成功');
     } catch (err) {
         message.error(err.message);
     }
@@ -124,6 +123,6 @@ export function* orderDetailSagas() {
         fork(cartSagas),
         fork(purchaserSagas),
         fork(receiverSagas),
-        fork(uploadSaga)
+        fork(importFileSaga)
     ]);
 }

@@ -1,0 +1,24 @@
+@import "src/scss/sdk/index";
+
+.importFile{
+
+  :global {
+     .operators-line {
+        margin-bottom: 10px;
+
+       .ant-btn{
+         margin-right: 15px;
+       }
+     }
+
+    .guide-line {
+      height: 39px;
+      line-height: 38px;
+      border-top: 1px dotted $bd-color;
+
+      .text{
+        color: $lightest-font-color;
+      }
+    }
+  }
+}

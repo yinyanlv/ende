@@ -4,7 +4,7 @@ import {infoReducer} from './info/reducer';
 import {cartReducers} from './cart/reducers';
 import {purchaserReducers} from './purchaser/reducers';
 import {receiverReducers} from './receiver/reducers';
-import {uploadReducer} from './upload/reducer';
+import {importFileReducer} from './import-file/reducer';
 
 const initialState = {
     orderCode: null,
@@ -34,6 +34,6 @@ export const orderDetailReducers = combineReducers({
     cart: cartReducers,
     purchaser: purchaserReducers,
     receiver: receiverReducers,
-    upload: uploadReducer
+    importFile: importFileReducer
 });
 

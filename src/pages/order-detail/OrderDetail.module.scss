@@ -53,5 +53,18 @@
         font-weight: bold;
       }
     }
+
+    .title-wrapper{
+
+      .separator {
+        padding: 0 15px;
+        color: $lightest-font-color;
+      }
+
+      .status {
+        color: $font-color;
+        font-weight: bold;
+      }
+    }
   }
 }

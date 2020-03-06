@@ -5,17 +5,17 @@ const initialState = {
     isUploading: false
 };
 
-export function uploadReducer(state = initialState, action) {
+export function importFileReducer(state = initialState, action) {
     switch (action.type) {
-        case actions.SET_IS_SHOW_UPLOAD:
+        case actions.SET_IS_SHOW:
             return {
                 ...state,
                 isShow: action.payload.isShow
             };
         case actions.SET_IS_UPLOADING:
             return {
-              ...state,
-              isUploading: action.payload.isUploading
+                ...state,
+                isUploading: action.payload.isUploading
             };
         default:
             return state;

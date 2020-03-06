@@ -4,11 +4,12 @@ import './Loading.module.scss';
 
 interface LoadingProps {
     isLoading?: boolean;
+    text?: string;
 }
 
 export function Loading(props: PropsWithChildren<LoadingProps>) {
     return (
-        <Spin spinning={props.isLoading} size="large" tip="Loading...">
+        <Spin spinning={props.isLoading} size="large" tip={props.text ? props.text : 'loading'}>
             {props.children}
         </Spin>
     );

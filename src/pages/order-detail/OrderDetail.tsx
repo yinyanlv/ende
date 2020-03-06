@@ -7,7 +7,9 @@ import {Info} from './info';
 import {Purchaser} from './purchaser';
 import {Cart} from './cart';
 import {orderDetailCreator} from './actions';
-import {Receiver} from '@/pages/order-detail/receiver';
+import {Receiver} from './receiver';
+import {ImportFile} from './import-file';
+import {importFileCreator} from './import-file/actions';
 
 
 export function PageOrderDetail() {
@@ -58,7 +60,9 @@ export function PageOrderDetail() {
     }
 
     function importOrder() {
-
+        dispatch(importFileCreator.setIsShow({
+            isShow: true
+        }));
     }
 
     return (
@@ -66,15 +70,18 @@ export function PageOrderDetail() {
             <div className="panel">
                 <div className="panel-title">
                     <div className={'title-wrapper'}>
-                        <span className={'title'}>订单</span>
+                        <span className={'title'}>订单: {info.code}</span>
+                        <span className={'separator'}>/</span>
+                        <span className={'status'}>状态：{info.statusDesc}</span>
                     </div>
                     <div className={'btns'}>
                         <Button type={'primary'} onClick={saveAsNewOrder}>另存为新订单</Button>
                         <Button type={'primary'} onClick={exportOrder}>导出订单</Button>
                         <Button type={'primary'} onClick={deleteOrder}>删除订单</Button>
                         <Button type={'primary'} onClick={saveOrder}>保存订单</Button>
-                        <Button type={'primary'}>导入订单</Button>
+                        <Button type={'primary'} onClick={importOrder}>导入订单</Button>
                     </div>
+                    <ImportFile/>
                 </div>
                 <div className="panel-content">
                     <Info/>
