@@ -1,1 +1,28 @@
 @import "src/scss/sdk/index";
+
+.printLegend {
+  display: flex;
+  padding: 20px;
+
+  :global {
+
+    .image-wrapper {
+      width: 520px;
+      height: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $bd-color;
+
+      img {
+        max-width: 510px;
+        max-height: 630px;
+      }
+    }
+
+    .table-wrapper {
+      flex: 1;
+      margin-left:20px;
+    }
+  }
+}

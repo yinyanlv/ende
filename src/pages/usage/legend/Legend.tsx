@@ -1,9 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import history from '@/common/history';
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import {API_PREFIX} from '@/config';
 import styles from './Legend.module.scss';
+import queryString from 'query-string';
+import {getQueryObj} from '@/common/utils';
 
 const svgPrefix = '/res';
 
@@ -69,7 +72,13 @@ function Legend(props: LegendProps) {
     }
 
     function handleClickPrint() {
-
+        const queryObj = getQueryObj();
+        history.push({
+            pathname: '/print-legend',
+            search: queryString.stringify(Object.assign({}, queryObj, {
+                src: svgUri
+            }))
+        });
     }
 
     return (

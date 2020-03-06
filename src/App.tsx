@@ -29,7 +29,7 @@ const App: React.FC = () => {
                                 <Route path={fitLayoutUrls} exact>
                                     <FitLayout />
                                 </Route>
-                                <Route>
+                                <Route path={'/'}>
                                     <AutoLayout />
                                 </Route>
                             </Switch>

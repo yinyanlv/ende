@@ -19,6 +19,7 @@ import {partsReducer} from '@/pages/usage/parts/reducer';
 import {applicationReducer} from '@/pages/usage/parts/application/reducer';
 import {ordersReducers} from '@/pages/orders/reducers';
 import {orderDetailReducers} from '@/pages/order-detail/reducers';
+import {printLegendReducer} from '@/pages/print-legend/reducer';
 
 export const reducers = combineReducers({
     config: configReducer,
@@ -40,5 +41,6 @@ export const reducers = combineReducers({
     parts: partsReducer,
     application: applicationReducer,
     orders: ordersReducers,
-    orderDetail: orderDetailReducers
+    orderDetail: orderDetailReducers,
+    printLegend: printLegendReducer
 });

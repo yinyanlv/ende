@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
+import PageError from '@/pages/error';
 
 const PagePrintLegend = React.lazy(() => import('@/pages/print-legend'));
-const PageError = React.lazy(() => import('@/pages/error'));
 
 export function AutoLayout() {
     return (

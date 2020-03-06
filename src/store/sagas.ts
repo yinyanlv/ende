@@ -10,8 +10,9 @@ import {catalogSagas} from '@/pages/catalog/sagas';
 import {usageSagas} from '@/pages/usage/sagas';
 import {ordersSagas} from '@/pages/orders/sagas';
 import {orderDetailSagas} from '@/pages/order-detail/sagas';
+import {printLegendSaga} from '@/pages/print-legend/saga';
 
-export function* rootSagas() {
+export function* sagas() {
     yield all([
         fork(navSaga),
         fork(crumbsSaga),
@@ -23,6 +24,7 @@ export function* rootSagas() {
         fork(catalogSagas),
         fork(usageSagas),
         fork(ordersSagas),
-        fork(orderDetailSagas)
+        fork(orderDetailSagas),
+        fork(printLegendSaga)
     ]);
 }
