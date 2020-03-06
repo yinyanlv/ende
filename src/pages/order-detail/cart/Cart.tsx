@@ -84,11 +84,14 @@ export function Cart(props) {
             title: '量',
             dataIndex: 'qty',
             render: (val, record) => {
+                console.log(val);
                 return <InputNumber defaultValue={val}
-                                    onChange={handleEditQty.bind(null, {
-                                        partCode: record.partCode,
-                                        qty: val
-                                    })}/>
+                                    onChange={(val) => {
+                                        handleEditQty({
+                                            partCode: record.partCode,
+                                            qty: val
+                                        });
+                                    }} />
             }
         },
         {
@@ -130,7 +133,7 @@ export function Cart(props) {
                         <Table
                             columns={columns}
                             dataSource={list}
-                            rowKey={'id'}
+                            rowKey={'partCode'}
                             tableLayout={'fixed'}
                             pagination={false}
                             rowSelection={{

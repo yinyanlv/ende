@@ -4,6 +4,7 @@ import {http} from '@/common/http';
 import history from '@/common/history';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import * as actions from './actions';
+import {infoCreator} from './info/actions';
 import {cartCreator} from './cart/actions';
 import {purchaserCreator} from './purchaser/actions';
 import {receiverCreator} from './receiver/actions';
@@ -32,6 +33,7 @@ function* loadInfoController(action) {
     try {
         const info = yield call(loadInfo, action.payload);
         yield put(actions.orderDetailCreator.setInfo(info));
+        yield put(infoCreator.setFieldsValue(info));
         yield put(purchaserCreator.setInfo(info.purchaser));
         yield put(receiverCreator.setInfo(info.receiver));
     } catch (err) {

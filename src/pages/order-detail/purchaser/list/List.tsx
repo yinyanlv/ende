@@ -5,7 +5,6 @@ import {Loading} from '@/components/loading';
 import styles from './List.module.scss';
 import {listCreator} from './actions';
 
-
 export function List() {
     const dispatch = useDispatch();
     const {isShow, isLoading, list, selectedKeys} = useSelector((state: any) => {
@@ -31,6 +30,17 @@ export function List() {
     function setDefault(record) {
         dispatch(listCreator.setDefault({
             id: record.id
+        }));
+    }
+
+    function handleOk() {
+
+    }
+
+    function handleCancel() {
+
+        dispatch(listCreator.setIsShowList({
+            isShow: false
         }));
     }
 
@@ -73,6 +83,7 @@ export function List() {
         },
         {
             title: '操作',
+            width: 140,
             ellipsis: true,
             render: (val, record) => {
                 return (
@@ -93,9 +104,11 @@ export function List() {
         <Modal
             visible={isShow}
             title="Title"
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
+            onOk={handleOk}
+            onCancel={handleCancel}
             footer={null}
+            destroyOnClose={true}
+            width={800}
         >
             <Loading isLoading={isLoading}>
                 <div>

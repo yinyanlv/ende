@@ -1,1 +1,1 @@
-export {Upload} from './Edit';
+export {Upload} from './Upload';

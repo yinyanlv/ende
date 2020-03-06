@@ -16,7 +16,7 @@ function* loadListController(action) {
 }
 
 function loadList() {
-    return http.get('/order-purchaser');
+    return http.get('/order/purchaser');
 }
 
 function* setDefaultController(action) {

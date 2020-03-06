@@ -3,15 +3,21 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Row, Col} from 'antd';
 import {EditOutlined} from '@ant-design/icons';
 import cls from 'classnames';
+import {listCreator} from './list/actions';
 import styles from './Purchaser.module.scss';
+import {List} from './list';
 
 export function Purchaser() {
+    const dispatch = useDispatch();
     const {info} = useSelector((state: any) => {
         return state.orderDetail.purchaser.self;
     });
 
     function handleClickEdit() {
-
+         dispatch(listCreator.setIsShowList({
+             isShow: true
+         }));
+         dispatch(listCreator.loadList());
     }
 
     return (
@@ -48,6 +54,7 @@ export function Purchaser() {
                     </Col>
                 </Row>
             </div>
+            <List/>
         </div>
     )
 }

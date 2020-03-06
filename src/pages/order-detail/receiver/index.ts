@@ -1,1 +1,1 @@
-export {Receiver} from './Purchaser';
+export {Receiver} from './Receiver';

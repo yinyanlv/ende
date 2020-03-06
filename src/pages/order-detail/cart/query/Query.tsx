@@ -18,6 +18,7 @@ export function Query() {
 
     function doQuery() {
         const fieldsValue = form.getFieldsValue();
+        fieldsValue.orderCode = orderCode;
         const filters = rebuildFieldsToFilters(fieldsValue);
         const params = buildQueryParams(filters);
         dispatch(queryCreator.doQuery(params));

@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Table, Button, Form, Row, Col, Input, Cascader, Select} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './edit.module.scss';
-import {editCreator} from './actions';
+import {uploadCreator} from './actions';
 
 const FormItem = Form.Item;
 

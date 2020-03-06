@@ -1,7 +1,7 @@
 import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
-import {buildQueryParams} from '@/common/utils';
+import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
@@ -24,7 +24,10 @@ function doQuery(params) {
 function* deletePartController(action) {
     try {
         yield call(deletePart, action.payload);
-        yield put(actions.cartCreator.doQuery(buildQueryParams()));
+        const filters = rebuildFieldsToFilters({
+            orderCode: action.payload.orderCode
+        });
+        yield put(actions.cartCreator.doQuery(buildQueryParams(filters)));
         message.success('删除成功');
     } catch(err) {
         message.error(err.message);
@@ -41,7 +44,10 @@ function deletePart(params) {
 function* addPartController(action) {
     try {
         yield call(addPart, action.payload);
-        yield put(actions.cartCreator.doQuery(buildQueryParams()));
+        const filters = rebuildFieldsToFilters({
+           orderCode: action.payload.orderCode
+        });
+        yield put(actions.cartCreator.doQuery(buildQueryParams(filters)));
         message.success('加入成功');
     } catch(err) {
         message.error(err.message);
