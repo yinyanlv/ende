@@ -9,6 +9,9 @@ const d3 = window['d3'];
 
 export interface SvgDragZoomProps {
     noPicPath?: string;
+    onClickPrev?: Function;
+    onClickNext?: Function;
+    onClickPrint?: Function;
 }
 
 export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent<T> {
@@ -141,10 +144,31 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
                 case 'rightrotate':
                     self.rotate(el, 1);
                     break;
+                case 'showprev':
+                    self.showPrev();
+                    break;
+                case 'shownext':
+                    self.showNext();
+                    break;
+                case 'print':
+                    self.print();
+                    break;
                 default:
                     break;
             }
         });
+    }
+
+    private showPrev() {
+        this.props.onClickPrev && this.props.onClickPrev();
+    }
+
+    private showNext() {
+        this.props.onClickNext && this.props.onClickNext();
+    }
+
+    private print() {
+        this.props.onClickPrint && this.props.onClickPrint();
     }
 
     // 添加svg事件, 包括滚轮放大缩小与图平移事件
@@ -354,6 +378,9 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
                     <span data-action="reset" className="legend-toolbar-reset disabled"></span>
                     <span data-action="rightrotate" className="legend-toolbar-right-rotate disabled"></span>
                     <span data-action="leftrotate" className="legend-toolbar-left-rotate disabled"></span>
+                    <span data-action="showprev" className="legend-toolbar-prev disabled"></span>
+                    <span data-action="shownext" className="legend-toolbar-next disabled"></span>
+                    <span data-action="print" className="legend-toolbar-print disabled"></span>
                 </div>
                 <div className="svg-wrap" ref={this.legendBodyRef}></div>
             </Loading>

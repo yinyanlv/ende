@@ -66,6 +66,42 @@
     }
   }
 
+  .legend-toolbar-print {
+    background-position: 0 -81px;
+
+    &:hover {
+      background-position: -23px -81px;
+    }
+
+    &.disabled {
+      background-position: -47px -81px;
+    }
+  }
+
+  .legend-toolbar-prev {
+    background-position: 0 -110px;
+
+    &:hover {
+      background-position: -23px -110px;
+    }
+
+    &.disabled {
+      background-position: -47px -110px;
+    }
+  }
+
+  .legend-toolbar-next {
+    background-position: 0 -136px;
+
+    &:hover {
+      background-position: -23px -136px;
+    }
+
+    &.disabled {
+      background-position: -47px -136px;
+    }
+  }
+
   .legend-toolbar-left-rotate {
     background-position: 0 -160px;
 

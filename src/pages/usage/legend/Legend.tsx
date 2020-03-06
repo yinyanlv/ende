@@ -28,8 +28,8 @@ function Legend(props: LegendProps) {
     useEffect(() => {
 
         if (svgHotPointRef && svgHotPointRef.current && svgUri) {
-            svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUri);
-            // svgHotPointRef.current.loadSVG('/images/A-0001.svg');
+            // svgHotPointRef.current.loadSVG(API_PREFIX + svgPrefix + svgUri);
+            svgHotPointRef.current.loadSVG('/images/A-0001.svg');
         } else {
             svgHotPointRef.current.loadDefaultImg();
         }
@@ -60,6 +60,18 @@ function Legend(props: LegendProps) {
         props.onClickRightArrow && props.onClickRightArrow();
     }
 
+    function handleClickPrev() {
+
+    }
+
+    function handleClickNext() {
+
+    }
+
+    function handleClickPrint() {
+
+    }
+
     return (
         <div className={styles.legendWrapper} style={{display: props.isShowLegend ? 'flex' : 'none'}}>
             <div className="panel panel-legend">
@@ -68,6 +80,9 @@ function Legend(props: LegendProps) {
                     noPicPath={'/images/nopic.gif'}
                     onSelectCallout={handleSelectCallout}
                     onLegendLoaded={handleLegendLoaded}
+                    onClickPrev={handleClickPrev}
+                    onClickNext={handleClickNext}
+                    onClickPrint={handleClickPrint}
                 />
 
             </div>

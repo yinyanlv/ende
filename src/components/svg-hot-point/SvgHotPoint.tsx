@@ -3,6 +3,9 @@ import {SvgDragZoom, SvgDragZoomProps} from '@/components/svg-drag-zoom';
 export interface SvgHotPointProps extends SvgDragZoomProps {
     onLegendLoaded?: Function;
     onSelectCallout: Function;
+    onClickPrev?: Function;
+    onClickNext?: Function;
+    onClickPrint?: Function;
 }
 
 export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
