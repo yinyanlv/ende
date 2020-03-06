@@ -7,6 +7,7 @@ import {Info} from './info';
 import {Purchaser} from './purchaser';
 import {Cart} from './cart';
 import {orderDetailCreator} from './actions';
+import {Receiver} from '@/pages/order-detail/receiver';
 
 
 export function PageOrderDetail() {
@@ -78,6 +79,7 @@ export function PageOrderDetail() {
                 <div className="panel-content">
                     <Info/>
                     <Purchaser/>
+                    <Receiver/>
                     <Cart/>
                 </div>
             </div>

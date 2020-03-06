@@ -1,8 +1,8 @@
 import {createAction} from '@/common/utils';
 
-export const SET_IS_SHOW_LIST = 'order-detail:purchase:list:set-is-show-list';
-export const SET_IS_LOADING = 'order-detail:purchase:list:set-is-loading';
-export const SET_SELECTED_KEYS = 'order-detail:purchase:list:set-selected-keys';
+export const SET_IS_SHOW_LIST = 'order-detail:purchaser:list:set-is-show-list';
+export const SET_IS_LOADING = 'order-detail:purchaser:list:set-is-loading';
+export const SET_SELECTED_KEYS = 'order-detail:purchaser:list:set-selected-keys';
 export const LOAD_LIST = 'order-detail:purchaser:list:load-list';
 export const SET_LIST = 'order-detail:purchaser:list:set-list';
 export const SET_DEFAULT = 'order-detail:purchaser:list:set-default';

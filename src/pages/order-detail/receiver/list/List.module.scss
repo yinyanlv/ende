@@ -1,8 +1,9 @@
 @import "src/scss/sdk/index";
 
 .list {
-
   :global {
-
+    .operators-line {
+      padding-bottom: 10px;
+    }
   }
 }

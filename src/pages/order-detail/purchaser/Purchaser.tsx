@@ -6,6 +6,7 @@ import cls from 'classnames';
 import {listCreator} from './list/actions';
 import styles from './Purchaser.module.scss';
 import {List} from './list';
+import {Edit} from './edit';
 
 export function Purchaser() {
     const dispatch = useDispatch();
@@ -14,10 +15,10 @@ export function Purchaser() {
     });
 
     function handleClickEdit() {
-         dispatch(listCreator.setIsShowList({
-             isShow: true
-         }));
-         dispatch(listCreator.loadList());
+        dispatch(listCreator.setIsShowList({
+            isShow: true
+        }));
+        dispatch(listCreator.loadList());
     }
 
     return (
@@ -26,7 +27,6 @@ export function Purchaser() {
                     <span className={'title'}>
                         下单人信息
                     </span>
-
                 <span className={'btn-edit'} onClick={handleClickEdit}><EditOutlined/> 修改或使用新地址</span>
             </div>
             <div className={'box-content'}>
@@ -55,6 +55,7 @@ export function Purchaser() {
                 </Row>
             </div>
             <List/>
+            <Edit/>
         </div>
     )
 }

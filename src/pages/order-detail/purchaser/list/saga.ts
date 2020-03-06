@@ -2,17 +2,33 @@ import {takeLatest, put, call, all, fork} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import * as actions from './actions';
+import {purchaserCreator} from '../actions';
 
 function* loadListController(action) {
     try {
         yield put(actions.listCreator.setIsLoading({isLoading: true}));
         const list = yield call(loadList);
+        const selectedKeys = getSelectedKeys(list);
+        yield put(actions.listCreator.setSelectedKeys(selectedKeys));
         yield put(actions.listCreator.setList(list));
         yield put(actions.listCreator.setIsLoading({isLoading: false}));
     } catch(err) {
         yield put(actions.listCreator.setIsLoading({isLoading: false}));
         message.error(err.message);
     }
+}
+
+function getSelectedKeys(list) {
+    const result: any = [];
+    if (!list) {
+       return result;
+    }
+    list.forEach((item: any) => {
+        if (item.default) {
+            result.push(item.id);
+        }
+    });
+    return result;
 }
 
 function loadList() {
@@ -22,7 +38,11 @@ function loadList() {
 function* setDefaultController(action) {
     try {
         yield call(setDefault, action.payload);
-        yield put(actions.listCreator.loadList());
+        const params = Object.assign({}, action.payload);
+        yield put(purchaserCreator.setInfo(params));
+        yield put(actions.listCreator.setIsShowList({
+           isShow: false
+        }));
     } catch(err) {
         message.error(err.message);
     }

@@ -2,7 +2,9 @@ import * as actions from './actions';
 
 const initialState = {
     isShow: false,
-    fieldsValue: {}
+    fieldsValue: {},
+    mode: 'create',
+    selectedKey: null
 };
 
 export function editReducer(state = initialState, action) {
@@ -10,7 +12,9 @@ export function editReducer(state = initialState, action) {
         case actions.SET_IS_SHOW_EDIT:
             return {
                 ...state,
-                isShow: action.payload.isShow
+                isShow: action.payload.isShow,
+                mode: action.payload.mode || initialState.mode,
+                fieldsValue: action.payload.fieldsValue || initialState.fieldsValue
             };
         case actions.SET_FIELDS_VALUE:
             return {

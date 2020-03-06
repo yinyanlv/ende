@@ -1,8 +1,29 @@
 @import "src/scss/sdk/index";
 
-.edit{
+.edit {
 
   :global {
 
+    .ant-form-item{
+      margin-bottom: 10px;
+    }
+
+    .ant-form-item-label{
+      width: 95px;
+    }
+
+    .ant-form-item-control{
+      flex: 1;
+    }
+
+    .guide-line{
+      display: flex;
+
+      .text {
+        font-size: 13px;
+        color: $lightest-font-color;
+        line-height: 30px;
+      }
+    }
   }
 }

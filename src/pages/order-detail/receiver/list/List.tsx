@@ -4,14 +4,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Loading} from '@/components/loading';
 import styles from './List.module.scss';
 import {listCreator} from './actions';
-
+import {editCreator} from '../edit/actions';
 
 export function List() {
     const dispatch = useDispatch();
     const {isShow, isLoading, list, selectedKeys} = useSelector((state: any) => {
-        return state.orderDetail.purchaser.list;
+        return state.orderDetail.receiver.list;
     });
-
 
     function handleClickDelete(e, record) {
         e.stopPropagation();
@@ -22,15 +21,26 @@ export function List() {
 
     function handleClickEdit(e, record) {
         e.stopPropagation();
+        dispatch(editCreator.setIsShowEdit({
+            isShow: true,
+            mode: 'edit',
+            fieldsValue: record
+        }));
     }
 
     function handleClickCreate() {
-
+        dispatch(editCreator.setIsShowEdit({
+            isShow: true
+        }));
     }
 
     function setDefault(record) {
-        dispatch(listCreator.setDefault({
-            id: record.id
+        dispatch(listCreator.setDefault(record));
+    }
+
+    function handleCancel() {
+        dispatch(listCreator.setIsShowList({
+            isShow: false
         }));
     }
 
@@ -38,7 +48,7 @@ export function List() {
         {
             title: '地址别名',
             dataIndex: 'name',
-            width: 120,
+            width: 100,
             ellipsis: true,
         },
         {
@@ -49,13 +59,13 @@ export function List() {
         },
         {
             title: '邮编',
-            dataIndex: 'postCode',
+            dataIndex: 'postcode',
             width: 80,
             ellipsis: true
         },
         {
             title: '配件员',
-            width: 120,
+            width: 100,
             ellipsis: true,
             dataIndex: 'dealerName'
         },
@@ -73,6 +83,7 @@ export function List() {
         },
         {
             title: '操作',
+            width: 120,
             ellipsis: true,
             render: (val, record) => {
                 return (
@@ -92,13 +103,15 @@ export function List() {
     return (
         <Modal
             visible={isShow}
-            title="Title"
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
+            title='收货人信息'
+            onCancel={handleCancel}
             footer={null}
+            destroyOnClose={true}
+            width={950}
+            className={styles.list}
         >
             <Loading isLoading={isLoading}>
-                <div>
+                <div className={'operators-line'}>
                     <Button type={'primary'} onClick={handleClickCreate}>新增</Button>
                 </div>
                 <div className={styles.list}>
@@ -109,11 +122,12 @@ export function List() {
                         pagination={false}
                         rowKey={'id'}
                         tableLayout={'fixed'}
-                        // rowSelection={{
-                        //     onSelect: (record) => {
-                        //         handleSelect(record);
-                        //     }
-                        // }}
+                        rowSelection={{
+                            selectedRowKeys: selectedKeys,
+                            onSelect: (record) => {
+                                setDefault(record);
+                            }
+                        }}
                     />
                 </div>
             </Loading>

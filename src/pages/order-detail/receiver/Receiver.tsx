@@ -3,24 +3,30 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Row, Col} from 'antd';
 import {EditOutlined} from '@ant-design/icons';
 import cls from 'classnames';
-import styles from './Purchaser.module.scss';
+import {listCreator} from './list/actions';
+import styles from './Receiver.module.scss';
+import {List} from './list';
+import {Edit} from './edit';
 
 export function Receiver() {
+    const dispatch = useDispatch();
     const {info} = useSelector((state: any) => {
-        return state.orderDetail.purchaser.self;
+        return state.orderDetail.receiver.self;
     });
 
     function handleClickEdit() {
-
+        dispatch(listCreator.setIsShowList({
+            isShow: true
+        }));
+        dispatch(listCreator.loadList());
     }
 
     return (
-        <div className={cls([styles.purchaser, 'box'])}>
+        <div className={cls([styles.receiver, 'box'])}>
             <div className={'box-title'}>
                     <span className={'title'}>
-                        下单人信息
+                        收货人信息
                     </span>
-
                 <span className={'btn-edit'} onClick={handleClickEdit}><EditOutlined/> 修改或使用新地址</span>
             </div>
             <div className={'box-content'}>
@@ -48,6 +54,8 @@ export function Receiver() {
                     </Col>
                 </Row>
             </div>
+            <List/>
+            <Edit/>
         </div>
-    );
+    )
 }

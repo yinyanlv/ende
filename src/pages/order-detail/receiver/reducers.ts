@@ -7,7 +7,7 @@ const initialState = {
     info: {}
 };
 
-function receiverReducer(state = initialState, action) {
+export function receiverReducer(state = initialState, action) {
 
     switch (action.type) {
         case actions.SET_INFO:
