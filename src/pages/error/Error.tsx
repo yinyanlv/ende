@@ -7,7 +7,7 @@ export function PageError() {
     return (
         <div className={styles.error}>
             <Result
-                status={404}
+                status="404"
                 title="404"
                 subTitle="对不起，您所访问的页面不存在！"
                 extra={
