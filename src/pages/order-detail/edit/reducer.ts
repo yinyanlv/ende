@@ -2,6 +2,7 @@ import * as actions from './actions';
 
 const initialState = {
     isShow: false,
+    type: 'purchaser',
     fieldsValue: {},
     mode: 'create',
     selectedKey: null
@@ -13,6 +14,7 @@ export function editReducer(state = initialState, action) {
             return {
                 ...state,
                 isShow: action.payload.isShow,
+                type: action.payload.type || initialState.type,
                 mode: action.payload.mode || initialState.mode,
                 fieldsValue: action.payload.fieldsValue || initialState.fieldsValue
             };

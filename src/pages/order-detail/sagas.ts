@@ -10,8 +10,6 @@ import {purchaserCreator} from './purchaser/actions';
 import {receiverCreator} from './receiver/actions';
 import {infoSaga} from './info/saga';
 import {cartSagas} from './cart/sagas';
-import {purchaserSagas} from './purchaser/sagas';
-import {receiverSagas} from './receiver/sagas';
 import {importFileSaga} from './import-file/saga';
 import {API_PREFIX} from '@/config';
 
@@ -121,8 +119,6 @@ export function* orderDetailSagas() {
         fork(orderDetailSaga),
         fork(infoSaga),
         fork(cartSagas),
-        fork(purchaserSagas),
-        fork(receiverSagas),
         fork(importFileSaga)
     ]);
 }

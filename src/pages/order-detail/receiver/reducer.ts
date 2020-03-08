@@ -1,7 +1,4 @@
 import * as actions from './actions';
-import {combineReducers} from 'redux';
-import {listReducer} from './list/reducer';
-import {editReducer} from './edit/reducer';
 
 const initialState = {
     info: {}
@@ -20,9 +17,4 @@ export function receiverReducer(state = initialState, action) {
     }
 }
 
-export const receiverReducers = combineReducers({
-    self: receiverReducer,
-    list: listReducer,
-    edit: editReducer
-});
 

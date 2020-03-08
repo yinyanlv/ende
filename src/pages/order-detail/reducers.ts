@@ -2,8 +2,10 @@ import {combineReducers} from 'redux';
 import * as actions from './actions';
 import {infoReducer} from './info/reducer';
 import {cartReducers} from './cart/reducers';
-import {purchaserReducers} from './purchaser/reducers';
-import {receiverReducers} from './receiver/reducers';
+import {purchaserReducer} from './purchaser/reducer';
+import {receiverReducer} from './receiver/reducer';
+import {listReducer} from './list/reducer';
+import {editReducer} from './edit/reducer';
 import {importFileReducer} from './import-file/reducer';
 
 const initialState = {
@@ -32,8 +34,10 @@ export const orderDetailReducers = combineReducers({
     self: orderDetailReducer,
     info: infoReducer,
     cart: cartReducers,
-    purchaser: purchaserReducers,
-    receiver: receiverReducers,
+    purchaser: purchaserReducer,
+    receiver: receiverReducer,
+    list: listReducer,
+    edit: editReducer,
     importFile: importFileReducer
 });
 

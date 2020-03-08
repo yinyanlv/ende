@@ -2,12 +2,14 @@ import {takeLatest, put, call, all, fork} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import * as actions from './actions';
-import {purchaserCreator} from '../actions';
+import {purchaserCreator} from '../purchaser/actions';
+import {receiverCreator} from '../receiver/actions';
 
 function* loadListController(action) {
     try {
+        const type = action.payload.type;
         yield put(actions.listCreator.setIsLoading({isLoading: true}));
-        const list = yield call(loadList);
+        const list = yield call(loadList, {type});
         const selectedKeys = getSelectedKeys(list);
         yield put(actions.listCreator.setSelectedKeys(selectedKeys));
         yield put(actions.listCreator.setList(list));
@@ -31,15 +33,27 @@ function getSelectedKeys(list) {
     return result;
 }
 
-function loadList() {
-    return http.get('/order/purchaser');
+const LOAD_URL_MAP = {
+    purchaser: '/order/purchaser',
+    receiver: '/order/receiver'
+};
+function loadList(params) {
+    const url = LOAD_URL_MAP[params.type];
+    return http.get(url);
 }
 
 function* setDefaultController(action) {
     try {
+        const type = action.payload.type;
         yield call(setDefault, action.payload);
         const params = Object.assign({}, action.payload);
-        yield put(purchaserCreator.setInfo(params));
+
+        if (type === 'purchaser') {
+            yield put(purchaserCreator.setInfo(params));
+        } else {
+            yield put(receiverCreator.setInfo(params));
+        }
+
         yield put(actions.listCreator.setIsShowList({
            isShow: false
         }));
@@ -48,23 +62,38 @@ function* setDefaultController(action) {
     }
 }
 
+const SET_DEFAULT_URL_MAP = {
+    purchaser: '/order/purchaser/default',
+    receiver: '/order/receiver/default'
+};
 function setDefault(params) {
-    return http.post('/order/purchaser/default', {
+    const url = SET_DEFAULT_URL_MAP[params.type];
+
+    return http.post(url, {
         id: params.id
     });
 }
 
 function* deleteRecordController(action) {
     try{
+        const type = action.payload.type;
         yield call(deleteRecord, action.payload);
-        yield put(actions.listCreator.loadList());
+        yield put(actions.listCreator.loadList({
+            type
+        }));
     } catch(err) {
         message.error(err.message);
     }
 }
 
+const DELETE_URL_MAP = {
+    purchaser: '/order/purchaser/remove',
+    receiver: '/order/receiver/remove'
+};
 function deleteRecord(params) {
-    return http.post('/order/purchaser/remove', {
+    const url = DELETE_URL_MAP[params.type];
+
+    return http.post(url, {
         id: params.id
     });
 }

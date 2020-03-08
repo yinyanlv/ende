@@ -8,14 +8,16 @@ import {editCreator} from '../edit/actions';
 
 export function List() {
     const dispatch = useDispatch();
-    const {isShow, isLoading, list, selectedKeys} = useSelector((state: any) => {
-        return state.orderDetail.receiver.list;
+    const {isShow, type, isLoading, list, selectedKeys} = useSelector((state: any) => {
+        return state.orderDetail.list;
     });
+    const title = type === 'purchase' ? '下单人信息' : '收货人信息';
 
     function handleClickDelete(e, record) {
         e.stopPropagation();
         dispatch(listCreator.deleteRecord({
-            id: record.id
+            id: record.id,
+            type
         }));
     }
 
@@ -24,18 +26,20 @@ export function List() {
         dispatch(editCreator.setIsShowEdit({
             isShow: true,
             mode: 'edit',
+            type,
             fieldsValue: record
         }));
     }
 
     function handleClickCreate() {
         dispatch(editCreator.setIsShowEdit({
-            isShow: true
+            isShow: true,
+            type
         }));
     }
 
     function setDefault(record) {
-        dispatch(listCreator.setDefault(record));
+        dispatch(listCreator.setDefault(Object.assign({}, record, {type})));
     }
 
     function handleCancel() {
@@ -103,7 +107,7 @@ export function List() {
     return (
         <Modal
             visible={isShow}
-            title='收货人信息'
+            title={title}
             onCancel={handleCancel}
             footer={null}
             destroyOnClose={true}

@@ -3,6 +3,7 @@ import * as actions from './actions';
 const initialState = {
     isShow: false,
     isLoading: false,
+    type: 'purchaser',
     list: [],
     selectedKeys: []
 };
@@ -12,7 +13,8 @@ export function listReducer(state = initialState, action) {
         case actions.SET_IS_SHOW_LIST:
             return {
                 ...state,
-                isShow: action.payload.isShow
+                isShow: action.payload.isShow,
+                type: action.payload.type
             };
         case actions.SET_IS_LOADING:
             return {

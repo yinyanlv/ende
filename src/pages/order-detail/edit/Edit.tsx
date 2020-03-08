@@ -9,8 +9,8 @@ const FormItem = Form.Item;
 export function Edit() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
-    const {isShow, fieldsValue, mode} = useSelector((state: any) => {
-        return state.orderDetail.purchaser.edit;
+    const {isShow, fieldsValue, mode, type} = useSelector((state: any) => {
+        return state.orderDetail.edit;
     });
 
     function handleOk() {
@@ -28,10 +28,12 @@ export function Edit() {
         }));
     }
 
+    const title = type === 'purchaser' ? '下单人' : '收货人';
+
     return (
         <Modal
             visible={isShow}
-            title={mode === 'edit' ? '下单人-编辑' : '下单人-新增'}
+            title={mode === 'edit' ? `${title}-编辑` : `${title}-新增`}
             onOk={handleOk}
             onCancel={handleCancel}
             width={600}

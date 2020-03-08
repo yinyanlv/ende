@@ -6,18 +6,29 @@ import {listCreator} from '../list/actions';
 
 function* editRecordController(action) {
     try {
+        const type = action.payload.type;
         yield call(editRecord, action.payload);
-        yield put(listCreator.loadList());
+        yield put(listCreator.loadList({
+            type
+        }));
         yield put(actions.editCreator.setIsShowEdit({
-            isShow: false
+            isShow: false,
+            fieldsValue: {}
         }));
     } catch(err) {
         message.error(err.message);
     }
 }
 
+const EDIT_URL_MAP = {
+    purchaser: '/order/purchaser/save',
+    receiver: '/order/receiver/save'
+};
+
 function editRecord(params) {
-    return http.post('/order/purchaser/save', params);
+    const type = params.type;
+    delete params.type;
+    return http.post(EDIT_URL_MAP[type], params);
 }
 
 export function* editSaga() {

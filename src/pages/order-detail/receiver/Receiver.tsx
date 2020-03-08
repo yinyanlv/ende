@@ -3,22 +3,25 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Row, Col} from 'antd';
 import {EditOutlined} from '@ant-design/icons';
 import cls from 'classnames';
-import {listCreator} from './list/actions';
+import {listCreator} from '../list/actions';
 import styles from './Receiver.module.scss';
-import {List} from './list';
-import {Edit} from './edit';
+import {List} from '../list';
+import {Edit} from '../edit';
 
 export function Receiver() {
     const dispatch = useDispatch();
     const {info} = useSelector((state: any) => {
-        return state.orderDetail.receiver.self;
+        return state.orderDetail.receiver;
     });
 
     function handleClickEdit() {
         dispatch(listCreator.setIsShowList({
-            isShow: true
+            isShow: true,
+            type: 'receiver'
         }));
-        dispatch(listCreator.loadList());
+        dispatch(listCreator.loadList({
+            type: 'receiver'
+        }));
     }
 
     return (
