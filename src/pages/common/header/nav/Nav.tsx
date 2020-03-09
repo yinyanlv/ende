@@ -1,16 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {Menu, Dropdown, Badge, Popover, Tabs} from 'antd';
 import {
     SearchOutlined,
     GlobalOutlined,
     ShoppingCartOutlined,
     FileTextOutlined,
-    StarOutlined,
     QuestionCircleOutlined,
     HomeOutlined,
-    MessageOutlined,
     UserOutlined
 } from '@ant-design/icons';
 import {buildQueryParams} from '@/common/utils';
@@ -19,9 +17,7 @@ import {searchCreator} from '@/pages/common/search/actions';
 import {navCreator} from './actions';
 import styles from './nav.module.scss';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
-import {collectCreator} from '@/pages/common/collect/actions';
 
-const TabPane = Tabs.TabPane;
 const MenuItem = Menu.Item;
 
 export function Nav(props) {
@@ -49,25 +45,13 @@ export function Nav(props) {
 
     const helpMenu = (
         <Menu>
-            <MenuItem>用户手册</MenuItem>
-            <MenuItem>EPC查询指导手册</MenuItem>
-            <MenuItem>联系客服</MenuItem>
-            <MenuItem>服务协议</MenuItem>
-            <MenuItem>关于事成</MenuItem>
-            <MenuItem>反馈建议</MenuItem>
+            <MenuItem><a href={'http://help.tis.servision.com.cn/SGMW/tis/4s/'} target={'_blank'}>用户手册</a></MenuItem>
+            <MenuItem><a href={'http://help.tis.servision.com.cn/SGMW/epc/zh/'} target={'_blank'}>EPC查询指导手册</a></MenuItem>
+            <MenuItem><a href={'http://home.tis.servision.com.cn/help/contact-service'} target={'_blank'}>联系客服</a></MenuItem>
+            <MenuItem><a href={'http://home.tis.servision.com.cn/help/service-agreement'} target={'_blank'}>服务协议</a></MenuItem>
+            <MenuItem><a href={'https://www.servision.com.cn'} target={'_blank'}>关于事成</a></MenuItem>
+            <MenuItem><a href={'http://wenjuan.servision.com.cn/jq/5012823.aspx'} target={'_blank'}>反馈建议</a></MenuItem>
         </Menu>
-    );
-
-    const message = (
-        <Tabs defaultActiveKey="1" onChange={() => {
-        }} style={{width: 300}}>
-            <TabPane tab="通知" key="1">
-                通知
-            </TabPane>
-            <TabPane tab="通讯" key="2">
-                通讯
-            </TabPane>
-        </Tabs>
     );
 
     function changeLang(lang) {
@@ -90,14 +74,6 @@ export function Nav(props) {
         dispatch(shoppingCartCreator.doQuery(params));
     }
 
-    function handleClickCollect() {
-        const params = buildQueryParams();
-        dispatch(collectCreator.setIsShowCollect({
-            isShow: true
-        }));
-        dispatch(collectCreator.doQuery(params));
-    }
-
     return (
         <>
             <nav className={styles.nav}>
@@ -117,11 +93,6 @@ export function Nav(props) {
                            <FileTextOutlined/>
                         </span>
                     </NavLink>
-                    <span className="nav-item">
-                       <span className={'nav-item-inner'} onClick={handleClickCollect}>
-                           <StarOutlined/>
-                        </span>
-                    </span>
                     <Dropdown overlay={helpMenu}>
                         <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
@@ -140,19 +111,10 @@ export function Nav(props) {
                         <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner item-user'}>
                        <UserOutlined/>
-                        系统管理员
+                        <span className={'username'}>系统管理员</span>
                     </span>
                         </NavLink>
                     </Dropdown>
-                    <Popover content={message}>
-                        <NavLink to={'/'} className="nav-item">
-                            <Badge count={2} overflowCount={10} showZero={false} offset={[-5, -2]}>
-                       <span className={'nav-item-inner'}>
-                           <MessageOutlined/>
-                        </span>
-                            </Badge>
-                        </NavLink>
-                    </Popover>
                     <Dropdown overlay={langMenu}>
                         <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
