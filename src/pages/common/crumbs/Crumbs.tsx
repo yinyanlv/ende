@@ -9,7 +9,7 @@ import styles from './Crumbs.module.scss';
 const CrumbItem = Breadcrumb.Item;
 
 export function Crumbs(props) {
-    const {list} = useSelector((state: any) => {
+    const {list, isShowCollect} = useSelector((state: any) => {
         return state.crumbs;
     });
 
@@ -46,7 +46,9 @@ export function Crumbs(props) {
                         })
                     }
                 </Breadcrumb>
-                <div className="operator-wrapper"><StarOutlined/></div>
+                {
+                    isShowCollect && <div className="operator-wrapper"><StarOutlined/></div>
+                }
             </div>
             <VinSearch />
         </div>

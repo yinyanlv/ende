@@ -6,11 +6,13 @@ import {http} from '@/common/http';
 function* loadPartsController(action) {
     try {
         yield put(actions.printLegendCreator.setIsLoading({isLoading: true}));
-        const list = yield call(loadParts, action.payload);
-        yield put(actions.printLegendCreator.setParts(list));
+        const result = yield call(loadParts, action.payload);
+        yield put(actions.printLegendCreator.setParts(result.usages));
         yield put(actions.printLegendCreator.setIsLoading({isLoading: false}));
+        setTimeout(() => {
+           window.print();
+        }, 1000);
     } catch(err) {
-        console.log(err);
         yield put(actions.printLegendCreator.setIsLoading({isLoading: false}));
         message.error(err.message);
     }

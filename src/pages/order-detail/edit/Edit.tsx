@@ -16,7 +16,9 @@ export function Edit() {
     function handleOk() {
         form.validateFields().then((params) => {
             params.id = fieldsValue.id || '';
-            dispatch(editCreator.editRecord(params));
+            dispatch(editCreator.editRecord(Object.assign({}, params, {
+                type
+            })));
         }).catch((err) => {
         });
     }

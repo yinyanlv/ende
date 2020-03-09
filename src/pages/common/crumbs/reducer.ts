@@ -3,7 +3,8 @@ import * as actions from './actions';
 export const defaultCode = '-1';
 
 const initialState = {
-    list: []
+    list: [],
+    isShowCollect: false
 };
 
 export function crumbsReducer(state = initialState, action) {

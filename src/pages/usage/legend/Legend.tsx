@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import history from '@/common/history';
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {SvgHotPoint} from '@/components/svg-hot-point';
 import {API_PREFIX} from '@/config';
@@ -73,12 +72,10 @@ function Legend(props: LegendProps) {
 
     function handleClickPrint() {
         const queryObj = getQueryObj();
-        history.push({
-            pathname: '/print-legend',
-            search: queryString.stringify(Object.assign({}, queryObj, {
-                src: svgUri
-            }))
-        });
+        const search = queryString.stringify(Object.assign({}, queryObj, {
+            src: API_PREFIX + svgPrefix + svgUri
+        }));
+        window.open('/print-legend?' + search);
     }
 
     return (
@@ -93,7 +90,6 @@ function Legend(props: LegendProps) {
                     onClickNext={handleClickNext}
                     onClickPrint={handleClickPrint}
                 />
-
             </div>
             {
                 props.isShowGroups ? (

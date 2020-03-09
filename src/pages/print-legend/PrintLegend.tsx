@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import Img from 'react-image';
 import {Loading} from '@/components/loading';
 import {getQueryObj} from '@/common/utils';
 import styles from './PrintLegend.module.scss';
@@ -55,12 +56,14 @@ export function PagePrintLegend() {
         width: 40
     }];
 
-    console.log(queryObj.src);
 
     return (
         <div className={styles.printLegend}>
             <div className={'image-wrapper'}>
-                <img src={API_PREFIX + svgPrefix + queryObj.src} />
+                <Img
+                    src={[queryObj.src, '/images/nopic.gif']}
+                    alt={''}
+                />
             </div>
             <div className={'table-wrapper'}>
                 <Loading isLoading={isLoading}>
