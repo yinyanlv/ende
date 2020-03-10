@@ -1,1 +1,1 @@
-export {intl, Intl} from './Intl';
+export {intl, Intl, getText} from './Intl';

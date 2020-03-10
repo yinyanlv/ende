@@ -14,6 +14,7 @@ interface IntlProps {
 
 }
 
+
 export function Intl(props: PropsWithChildren<IntlProps>) {
     const {
         lang,
@@ -56,4 +57,8 @@ function getAntdLocaleMessages(locale) {
     } else {
         return antdZhCN;
     }
+}
+
+export function getText(pathStr): string {
+   return intl.formatMessage({id: pathStr});
 }

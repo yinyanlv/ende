@@ -12,16 +12,19 @@ export function Crumbs(props) {
     const {list, isShowCollect} = useSelector((state: any) => {
         return state.crumbs;
     });
+    const {} = useSelector((state: any) => {
+        return state.config;
+    });
 
     return (
         <div className={styles.crumbs}>
             <div className="left-box">
                 <Breadcrumb>
                     <CrumbItem key="home">
-                        <Link to="/">
+                        <a href={'/'}>
                             <HomeOutlined />
                             <span className="crumbs-text">产品大全</span>
-                        </Link>
+                        </a>
                     </CrumbItem>
                     <CrumbItem key="home">
                         <Link to="/">

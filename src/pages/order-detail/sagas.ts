@@ -8,15 +8,20 @@ import {infoCreator} from './info/actions';
 import {cartCreator} from './cart/actions';
 import {purchaserCreator} from './purchaser/actions';
 import {receiverCreator} from './receiver/actions';
+import {getText} from '@/pages/common/intl';
 import {infoSaga} from './info/saga';
 import {cartSagas} from './cart/sagas';
 import {listSaga} from './list/saga';
 import {editSaga} from './edit/saga';
 import {importFileSaga} from './import-file/saga';
 import {API_PREFIX} from '@/config';
+import {crumbsCreator} from '@/pages/common/crumbs/actions';
 
 function* initOrderDetailController(action) {
     const orderCode = action.payload.orderCode;
+    const crumbs = getCrumbs(orderCode);
+    yield put(crumbsCreator.setCrumbs(crumbs));
+
     const filters = rebuildFieldsToFilters({
         orderCode
     });
@@ -27,6 +32,20 @@ function* initOrderDetailController(action) {
     yield put(actions.orderDetailCreator.setOrderCode({
         orderCode
     }));
+}
+
+function getCrumbs(orderCode) {
+    return [{
+        code: '1',
+        label: null,
+        name: getText('order.a1'),
+        url: '/orders'
+    }, {
+       code: '2',
+        label: getText('order.a2'),
+        name: orderCode,
+        url: null
+    }];
 }
 
 function* loadInfoController(action) {

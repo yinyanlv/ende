@@ -4,9 +4,22 @@ import {http} from '@/common/http';
 import {buildQueryParams} from '@/common/utils';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
+import {getText} from '@/pages/common/intl';
+import {crumbsCreator} from '@/pages/common/crumbs/actions';
 
 function* initOrdersController() {
+    const crumbs = getCrumbs();
+    yield put(crumbsCreator.setCrumbs(crumbs));
     yield put(actions.ordersCreator.doQuery(buildQueryParams()));
+}
+
+function getCrumbs() {
+    return [{
+        code: '-1',
+        label: '',
+        name: getText('order.a1'),
+        url: ''
+    }];
 }
 
 function* doQueryController(action) {
@@ -15,7 +28,7 @@ function* doQueryController(action) {
         const data = yield call(doQuery, action.payload);
         yield put(actions.ordersCreator.setOrders(data));
         yield put(actions.ordersCreator.setIsLoading({isLoading: false}));
-    } catch(err) {
+    } catch (err) {
         yield put(actions.ordersCreator.setIsLoading({isLoading: false}));
         message.error(err.message);
     }
@@ -30,7 +43,7 @@ function* deleteOrderController(action) {
         yield call(deleteOrder, action.payload);
         yield put(actions.ordersCreator.doQuery(buildQueryParams()));
         message.success('删除成功');
-    } catch(err) {
+    } catch (err) {
         message.error(err.message);
     }
 }

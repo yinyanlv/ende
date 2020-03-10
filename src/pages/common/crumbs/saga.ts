@@ -34,6 +34,8 @@ function loadCrumbs(params) {
     return http.post('/dictionary/name', params);
 }
 
+// codeMap，请求参数
+// nameMap，响应的数据
 function rebuildCrumbs(codeMap, nameMap) {
     const list: any[] = [];
     const keys = Object.keys(codeMap).sort();
@@ -95,7 +97,6 @@ function buildUrl(params, key) {
                 m_4: defaultCode
             });
         case 'm_4':
-            // TODO，与五菱耦合严重
             return '/usage?' + queryString.stringify({
                 m_1: params.m_1,
                 m_2: params.m_2,
