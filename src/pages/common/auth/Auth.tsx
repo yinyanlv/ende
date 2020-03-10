@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {jwtService} from './jwtService';
+import {storageService} from '@/common/storageService';
 import {http} from '@/common/http';
 import {Loading} from '@/components/loading';
 import {configCreator} from '@/store/config/actions';
@@ -22,7 +22,7 @@ class InnerAuth extends PureComponent<AuthProps> {
 
     private _jwtInit() {
 
-        jwtService.on('authorized', () => {
+        storageService.on('authorized', () => {
             http.get('/sys/config')
                 .then((data) => {
                    this.props.dispatch(configCreator.setConfig(data));
@@ -35,11 +35,20 @@ class InnerAuth extends PureComponent<AuthProps> {
                 });
         });
 
-        jwtService.on('unauthorized', () => {
-            jwtService.removeAccessToken();
+        storageService.on('unauthorized', () => {
+            http.get('/sys/config')
+                .then((data) => {
+                    this.props.dispatch(configCreator.setConfig(data));
+                    this.setState({
+                        isLoading: false
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         });
 
-        jwtService.init();
+        storageService.init();
     }
 
     render() {
