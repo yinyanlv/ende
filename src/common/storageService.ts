@@ -5,49 +5,45 @@ class StorageService extends EventEmitter {
 
     private _tokenKey = 'token';
     private _langKey = 'lang';
-    private _headersTokenKey = 'authorization';
-    private _headersLangKey = 'lang';
+    private _headersTokenKey = 'Authorization';
+    private _headersLangKey = 'Lang';
 
-    init() {
-        this._authorize();
+    initHttpHeadersFromStorage(): void {
+        const params = this.getStorage();
+        this.setHttpHeaders(params);
     }
 
-    private _authorize(): boolean {
-        const token = this.getToken();
-
-        if (!token) {
-            this._removeStorage();
-            this.emit('unauthorized', 'Invalid token!');
-            return false;
-        } else {
-            this.emit('authorized', true);
-            return true;
-        }
-    }
-
-    private _setStorage(params: { token: string, lang: string }): void {
-        localStorage.setItem(this._tokenKey, params.token);
-        localStorage.setItem(this._langKey, params.lang);
+    setHttpHeaders(params): void {
         instance.defaults.headers.common[this._headersTokenKey] = `Bearer ${params.token}`;
         instance.defaults.headers.common[this._headersLangKey] = `${params.lang}`;
     }
 
-    private _removeStorage(): void {
-        localStorage.removeItem(this._tokenKey);
-        localStorage.removeItem(this._langKey);
+    removeHttpHeaders(): void {
         delete instance.defaults.headers.common[this._headersTokenKey];
         delete instance.defaults.headers.common[this._headersTokenKey];
     }
 
-    getToken() {
+    setStorage(params: { token: string, lang: string }): void {
+        localStorage.setItem(this._tokenKey, params.token);
+        localStorage.setItem(this._langKey, params.lang);
+        this.setHttpHeaders(params);
+    }
+
+    removeStorage(): void {
+        localStorage.removeItem(this._tokenKey);
+        localStorage.removeItem(this._langKey);
+        this.removeHttpHeaders();
+    }
+
+    getToken(): string {
         return localStorage.getItem(this._tokenKey) || '';
     }
 
-    getLang() {
+    getLang(): string {
         return localStorage.getItem(this._langKey) || '';
     }
 
-    getStorage() {
+    getStorage(): { token: string, lang: string } {
         return {
             token: this.getToken(),
             lang: this.getLang()

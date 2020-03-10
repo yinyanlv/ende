@@ -11,7 +11,10 @@ export function AutoLayout() {
                 <PagePrintLegend />
             </Route>
             <Route path={'/404'} exact>
-                <PageError/>
+                <PageError status={'404'} title={'404'} subTitle={'对不起，您所访问的页面不存在！'}/>
+            </Route>
+            <Route path={'/599'} exact>
+                <PageError status={'500'} title={'500'} subTitle={'对不起，服务器端出错！'}/>
             </Route>
             <Redirect to={'/404'}/>
         </Switch>

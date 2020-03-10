@@ -3,13 +3,19 @@ import {Link} from 'react-router-dom';
 import {Result, Button} from 'antd';
 import styles from './Error.module.scss';
 
-export function PageError() {
+interface PageErrorProps {
+   status: string | number;
+   title: string;
+   subTitle: string;
+}
+
+export function PageError(props: PageErrorProps) {
     return (
         <div className={styles.error}>
             <Result
-                status="404"
-                title="404"
-                subTitle="对不起，您所访问的页面不存在！"
+                status={props.status as any}
+                title={props.title}
+                subTitle={props.subTitle}
                 extra={
                     <Link to={'/'}>
                         <Button type="primary">回到首页</Button>

@@ -1,73 +1,56 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {storageService} from '@/common/storageService';
+import {getHashObj} from '@/common/utils';
 import {http} from '@/common/http';
+import history from '@/common/history';
 import {Loading} from '@/components/loading';
 import {configCreator} from '@/store/config/actions';
 
-interface AuthProps {
-    dispatch: any;
-}
+export function Auth(props) {
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    const hashObj = getHashObj();
 
-class InnerAuth extends PureComponent<AuthProps> {
-
-    state = {
-        isLoading: true
-    };
-
-    constructor(props) {
-        super(props);
-        this._jwtInit();
-    }
-
-    private _jwtInit() {
-
-        storageService.on('authorized', () => {
-            http.get('/sys/config')
-                .then((data) => {
-                   this.props.dispatch(configCreator.setConfig(data));
-                   this.setState({
-                       isLoading: false
-                   });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        });
-
-        storageService.on('unauthorized', () => {
-            http.get('/sys/config')
-                .then((data) => {
-                    this.props.dispatch(configCreator.setConfig(data));
-                    this.setState({
-                        isLoading: false
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        });
-
-        storageService.init();
-    }
-
-    render() {
-
-        if (this.state.isLoading) {
-            return (
-                <Loading isLoading={this.state.isLoading}>
-                    <div style={{width: '100%', height: '100vh'}}></div>
-                </Loading>
-            );
+    useEffect(() => {
+        if (hashObj && hashObj.access_token) {
+            storageService.setStorage({
+                token: hashObj.access_token as any,
+                lang: 'zh'
+            });
+            history.push({
+                pathname: history.location.pathname,
+                search: history.location.search,
+                hash: ''
+            });
+        } else {
+            storageService.initHttpHeadersFromStorage();
         }
+    }, []);
 
+    useEffect(() => {
+        http.get('/sys/config')
+            .then((data) => {
+                dispatch(configCreator.setConfig(data));
+                setIsLoading(false);
+            })
+            .catch((_err) => {
+                setIsLoading(false);
+            });
+    }, []);
+
+    if (isLoading) {
         return (
-            <>
-                {this.props.children}
-            </>
+            <Loading isLoading={isLoading}>
+                <div style={{width: '100%', height: '100vh'}}></div>
+            </Loading>
         );
     }
+
+    return (
+        <>
+            {props.children}
+        </>
+    );
 }
 
-
-export const Auth = connect()(InnerAuth);
