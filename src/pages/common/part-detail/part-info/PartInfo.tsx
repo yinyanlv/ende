@@ -80,18 +80,17 @@ export function PartInfo() {
                     </tr>
                     <tr>
                         <td>价格:</td>
-                        <td>{info.saleProps && info.saleProps.price.formatString}</td>
+                        <td>{info.saleProps && info.saleProps.price && info.saleProps.price.formatString}</td>
                     </tr>
                     </tbody>
                 </table>
                 {
-                    info.saleProps && info.saleProps.canSale && (
-                        <div className="btn-line">
-                            <Button type="primary" size={'large'} icon={<ShoppingCartOutlined/>} onClick={(e) => {
-                                handleClickBuy(e, info.code);
-                            }}>购买</Button>
-                        </div>
-                    )
+                    <div className="btn-line">
+                        <Button disabled={!(info.salesProps && info.saleProps.canSale)} type="primary" size={'large'}
+                                icon={<ShoppingCartOutlined/>} onClick={(e) => {
+                            handleClickBuy(e, info.code);
+                        }}>购买</Button>
+                    </div>
                 }
             </div>
         </div>

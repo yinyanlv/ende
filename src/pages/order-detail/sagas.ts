@@ -30,6 +30,13 @@ function* initOrderDetailController(action) {
         orderCode
     }));
     yield put(cartCreator.doQuery(buildQueryParams(filters)));
+    // yield put(infoCreator.loadTransport());
+    // yield put(infoCreator.loadType());
+    // yield put(infoCreator.loadOrganization());
+    // yield put(infoCreator.loadChannel());
+    // yield put(infoCreator.loadProductGroup());
+    // yield put(infoCreator.loadFactory());
+    // yield put(infoCreator.loadPlanning());
     yield put(actions.orderDetailCreator.setOrderCode({
         orderCode
     }));
@@ -53,9 +60,9 @@ function* loadInfoController(action) {
     try {
         const info = yield call(loadInfo, action.payload);
         yield put(actions.orderDetailCreator.setInfo(info));
-        yield put(infoCreator.setFieldsValue(info));
-        yield put(purchaserCreator.setInfo(info.purchaser));
-        yield put(receiverCreator.setInfo(info.receiver));
+        yield put(infoCreator.setFieldsValue(Object.assign({}, info)));
+        yield put(purchaserCreator.setInfo(Object.assign({},info.purchaser)));
+        yield put(receiverCreator.setInfo(Object.assign({},info.receiver)));
     } catch (err) {
         message.error(err.message);
     }

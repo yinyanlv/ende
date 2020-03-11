@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button} from 'antd';
@@ -11,10 +11,10 @@ import {Receiver} from './receiver';
 import {ImportFile} from './import-file';
 import {importFileCreator} from './import-file/actions';
 
-
 export function PageOrderDetail() {
     const dispatch = useDispatch();
     const match: any = useRouteMatch();
+    const infoFormRef = useRef();
 
     const {orderCode, info} = useSelector((state: any) => {
         return state.orderDetail.self;
@@ -32,7 +32,6 @@ export function PageOrderDetail() {
         }));
     }, []);
 
-
     function saveAsNewOrder() {
        dispatch(orderDetailCreator.saveAsNewOrder({
            orderCode
@@ -46,7 +45,8 @@ export function PageOrderDetail() {
     }
 
     function saveOrder() {
-        const params = Object.assign({}, info, {
+        const fieldsValue = (infoFormRef.current as any).getFieldsValue();
+        const params = Object.assign({}, info, fieldsValue, {
             purchaser: purchaserInfo,
             receiver: receiverInfo
         });
@@ -64,7 +64,6 @@ export function PageOrderDetail() {
             isShow: true
         }));
     }
-
     return (
         <div className={styles.orderDetail}>
             <div className="panel">
@@ -84,7 +83,7 @@ export function PageOrderDetail() {
                     <ImportFile/>
                 </div>
                 <div className="panel-content">
-                    <Info/>
+                    <Info ref={infoFormRef}/>
                     <Purchaser/>
                     <Receiver/>
                     <Cart/>

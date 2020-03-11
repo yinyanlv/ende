@@ -71,7 +71,7 @@ export function List() {
             title: '配件员',
             width: 100,
             ellipsis: true,
-            dataIndex: 'dealerName'
+            dataIndex: 'contact'
         },
         {
             title: '配件员电话',

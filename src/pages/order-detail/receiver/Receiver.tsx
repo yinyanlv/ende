@@ -47,7 +47,7 @@ export function Receiver() {
                         <label className={'item-label'}>邮编:</label>{info.postcode}
                     </Col>
                     <Col span={6}>
-                        <label className={'item-label'}>配件员:</label>{info.cantact}
+                        <label className={'item-label'}>配件员:</label>{info.contact}
                     </Col>
                     <Col span={6}>
                         <label className={'item-label'}>配件员电话:</label>{info.phone}

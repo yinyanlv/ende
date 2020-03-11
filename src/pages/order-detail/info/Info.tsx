@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, forwardRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Form, Input, Row, Col, Select} from 'antd';
 import {infoCreator} from './actions';
@@ -7,7 +7,7 @@ import styles from './Info.module.scss';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-export function Info() {
+function InnerInfo(props, parentRef) {
     const dispatch = useDispatch();
     const {
         fieldsValue,
@@ -33,6 +33,12 @@ export function Info() {
         dispatch(infoCreator.loadPlanning());
     }, []);
 
+    useEffect(() => {
+        if (Object.keys(fieldsValue).length) {
+            form.setFieldsValue(fieldsValue);
+        }
+    }, [fieldsValue]);
+
     return (
         <div className={styles.info}>
             <Form
@@ -40,6 +46,7 @@ export function Info() {
                 labelAlign="left"
                 form={form}
                 initialValues={fieldsValue}
+                ref={parentRef}
             >
                 <Row>
                     <Col span={6}>
@@ -121,7 +128,7 @@ export function Info() {
                     </Col>
                     <Col span={6}>
                         <FormItem label="订单备注" name={'note'}>
-                            <Input placeholder={'请输入'} style={{width: 155}}  />
+                            <Input placeholder={'请输入'} style={{width: 155}}/>
                         </FormItem>
                     </Col>
                 </Row>
@@ -129,3 +136,5 @@ export function Info() {
         </div>
     );
 }
+
+export const Info = forwardRef(InnerInfo);

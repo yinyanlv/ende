@@ -1,21 +1,20 @@
 import {createAction} from '@/common/utils';
 
-export const SET_FIELDS_VALUE = 'order-detail:set-fields-value';
-export const LOAD_TRANSPORT = 'order-detail:load-transport';
-export const SET_TRANSPORT = 'order-detail:set-transport';
-export const LOAD_TYPE = 'order-detail:load-type';
-export const SET_TYPE= 'order-detail:set-type';
-export const LOAD_ORGANIZATION = 'order-detail:load-organization';
-export const SET_ORGANIZATION = 'order-detail:set-organization';
-export const LOAD_CHANNEL = 'order-detail:load-channel';
-export const SET_CHANNEL = 'order-detail:set-channel';
-export const LOAD_PRODUCT_GROUP = 'order-detail:load-product-group';
-export const SET_PRODUCT_GROUP = 'order-detail:set-product-group';
-export const LOAD_FACTORY = 'order-detail:load-factory';
-export const SET_FACTORY = 'order-detail:set-factory';
-export const LOAD_PLANNING = 'order-detail:load-planning';
-export const SET_PLANNING = 'order-detail:set-planning';
-
+export const SET_FIELDS_VALUE = 'order-detail:info:set-fields-value';
+export const LOAD_TRANSPORT = 'order-detail:info:load-transport';
+export const SET_TRANSPORT = 'order-detail:info:set-transport';
+export const LOAD_TYPE = 'order-detail:info:load-type';
+export const SET_TYPE= 'order-detail:info:set-type';
+export const LOAD_ORGANIZATION = 'order-detail:info:load-organization';
+export const SET_ORGANIZATION = 'order-detail:info:set-organization';
+export const LOAD_CHANNEL = 'order-detail:info:load-channel';
+export const SET_CHANNEL = 'order-detail:info:set-channel';
+export const LOAD_PRODUCT_GROUP = 'order-detail:info:load-product-group';
+export const SET_PRODUCT_GROUP = 'order-detail:info:set-product-group';
+export const LOAD_FACTORY = 'order-detail:info:load-factory';
+export const SET_FACTORY = 'order-detail:info:set-factory';
+export const LOAD_PLANNING = 'order-detail:info:load-planning';
+export const SET_PLANNING = 'order-detail:info:set-planning';
 
 export const infoCreator = {
     setFieldsValue: (params) => {
