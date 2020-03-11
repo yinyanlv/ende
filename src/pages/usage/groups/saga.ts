@@ -17,10 +17,6 @@ function* loadGroupsController(action) {
         if (nodeInfo) {
             yield put(actions.groupsCreator.setActiveTreeNodeCode(nodeInfo.activeTreeNodeCode));
             yield put(actions.groupsCreator.setExpandedTreeNodeCodes(nodeInfo.parentCodes));
-        } else {  // 当url上无需要恢复的数据时，清除usage页之前的状态
-            // yield put(usageCreator.resetUsage());
-            // yield put(legendsCreator.resetLegends());
-            // yield put(actions.groupsCreator.resetGroups());
         }
 
         const groups = yield call(loadGroup, mQueryObj);

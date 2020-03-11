@@ -23,7 +23,7 @@ function importFile(params) {
 function* downloadTplController() {
     const data = storageService.getStorage();
     try {
-        window.open(`${API_PREFIX}/order-detail/export?token=${data.token}&lang=${data.lang}`);
+        window.open(`${API_PREFIX}/order-detail/export?access_token=${data.token}&lang=${data.lang}`);
     } catch(err) {
         message.error(err.message);
     }

@@ -3,12 +3,17 @@ import {message} from 'antd';
 import {getHashObj} from '@/common/utils';
 import * as actions from './actions';
 import {groupsCreator} from './groups/actions';
+import {legendsCreator} from './legends/actions';
 import {groupsSaga} from './groups/saga';
 import {legendsSaga} from './legends/saga';
 import {partsSagas} from './parts/sagas';
 
 function* initUsageController() {
     try {
+
+        yield put(actions.usageCreator.resetUsage());
+        yield put(legendsCreator.resetLegends());
+        yield put(groupsCreator.resetGroups());
         const hashObj = getHashObj();
 
         if (hashObj && hashObj.callout) {

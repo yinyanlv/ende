@@ -120,7 +120,7 @@ function* exportOrderController(action) {
     const data = storageService.getStorage();
     try {
         const orderCode = action.payload.orderCode;
-        window.open(`${API_PREFIX}/order-detail/export?orderCode=${orderCode}&token=${data.token}&lang=${data.lang}`);
+        window.open(`${API_PREFIX}/order-detail/export?orderCode=${orderCode}&access_token=${data.token}&lang=${data.lang}`);
         yield call(saveOrder, action.payload);
     } catch (err) {
         message.error(err.message);
