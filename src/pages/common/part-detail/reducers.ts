@@ -8,6 +8,7 @@ import {bulletinReducer} from './bulletin/reducer';
 const initialState = {
     isShow: false,
     activeTab: 'applicability',
+    zIndex: 1000,
     bulletinCount: 0,
     partCode: null
 };
@@ -19,6 +20,7 @@ function partDetailReducer(state = initialState, action) {
             return {
                 ...state,
                 isShow: payload.isShow,
+                zIndex: payload.zIndex || initialState.zIndex,
                 activeTab: payload.activeTab || initialState.activeTab,
                 partCode: payload.partCode
             };

@@ -3,6 +3,7 @@ import {API_PREFIX} from '@/config';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import * as actions from './actions';
+import {storageService} from '@/common/storageService';
 
 function* importFileController(action) {
     try {
@@ -20,8 +21,9 @@ function importFile(params) {
 }
 
 function* downloadTplController() {
+    const data = storageService.getStorage();
     try {
-        window.open(API_PREFIX);
+        window.open(`${API_PREFIX}/order-detail/export?token=${data.token}&lang=${data.lang}`);
     } catch(err) {
         message.error(err.message);
     }

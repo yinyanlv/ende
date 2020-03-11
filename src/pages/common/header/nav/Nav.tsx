@@ -94,11 +94,9 @@ export function Nav(props) {
                         </span>
                     </NavLink>
                     <Dropdown overlay={helpMenu}>
-                        <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
                            <QuestionCircleOutlined/>
                         </span>
-                        </NavLink>
                     </Dropdown>
                 </div>
                 <div>

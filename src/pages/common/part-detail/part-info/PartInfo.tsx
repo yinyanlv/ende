@@ -11,6 +11,12 @@ export function PartInfo() {
     const {info} = useSelector((state: any) => {
         return state.partDetail.partInfo;
     });
+    const {zIndex} = useSelector((state: any) => {
+        return state.partDetail.self;
+    });
+    const cartZIndex = useSelector((state: any) => {
+        return state.shoppingCart.self.zIndex;
+    });
     const {
         resHost
     } = useSelector((state: any) => {
@@ -20,7 +26,8 @@ export function PartInfo() {
     function handleClickBuy(e, partCode) {
         e.stopPropagation();
         dispatch(shoppingCartCreator.addAndShowShoppingCart({
-            partCode: partCode
+            partCode: partCode,
+            zIndex: Math.max(zIndex, cartZIndex) + 5
         }));
     }
 

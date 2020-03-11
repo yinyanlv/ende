@@ -98,7 +98,8 @@ function* addAndShowShoppingCartController(action) {
     const params = buildQueryParams();
     yield put(actions.shoppingCartCreator.addToCart({partCode: payload.partCode}));
     yield put(actions.shoppingCartCreator.setIsShowShoppingCart({
-        isShow: true
+        isShow: true,
+        zIndex: action.payload.zIndex
     }));
 
     yield put(actions.shoppingCartCreator.doQuery(params));

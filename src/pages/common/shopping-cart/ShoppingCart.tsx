@@ -10,10 +10,12 @@ import {Loading} from "@/components/loading";
 export function ShoppingCart(props) {
 
     const dispatch = useDispatch();
-    const {total, list, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
+    const {total, list, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
-
+    const detailZIndex = useSelector((state: any) => {
+        return state.partDetail.self.zIndex;
+    });
     function doQuery(page, size) {
         queryParams.paging = {
             page,
@@ -25,7 +27,8 @@ export function ShoppingCart(props) {
 
     function handleClickPartCode(partCode) {
         dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode: partCode
+            partCode: partCode,
+            zIndex: Math.max(zIndex, detailZIndex) + 5
         }));
     }
 
@@ -109,7 +112,7 @@ export function ShoppingCart(props) {
                             src={record.coverImageUri || '/images/nopic.gif'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
-                                <span className="btn"
+                                <span className="text-btn"
                                       onClick={handleClickPartCode.bind(null, record.partCode)}>{record.partCode}</span>
                                 <span className="gap">-</span>
                                 <span>{record.partName}</span>
@@ -168,6 +171,7 @@ export function ShoppingCart(props) {
             visible={isShow}
             onClose={handleClose}
             width={850}
+            zIndex={zIndex}
         >
             <div className={styles.shoppingCart}>
                 <div className="drawer-title">

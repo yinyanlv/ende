@@ -81,7 +81,8 @@ export function Cart(props) {
         {
             title: '零件编号',
             dataIndex: 'partCode',
-            width: 200,
+            width: 150,
+            ellipsis: true,
             render(val) {
                 return <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
             }
@@ -89,7 +90,8 @@ export function Cart(props) {
         {
             title: '描述',
             dataIndex: 'partName',
-            width: 140
+            width: 250,
+            ellipsis: true
         },
         {
             title: '量',

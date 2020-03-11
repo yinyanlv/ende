@@ -18,7 +18,8 @@ function* loadAndShowPartDetailController(action) {
         yield put(actions.partDetailCreator.setIsShowPartDetail({
             isShow: true,
             activeTab: action.payload.activeTab,
-            partCode
+            partCode,
+            zIndex: action.payload.zIndex
         }));
         yield put(applicabilityCreator.loadApplicability({partCode}));
         yield put(replaceCreator.loadReplace({partCode}));

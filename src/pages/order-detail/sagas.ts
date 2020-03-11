@@ -16,6 +16,7 @@ import {editSaga} from './edit/saga';
 import {importFileSaga} from './import-file/saga';
 import {API_PREFIX} from '@/config';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
+import {storageService} from '@/common/storageService';
 
 function* initOrderDetailController(action) {
     const orderCode = action.payload.orderCode;
@@ -116,15 +117,15 @@ function saveOrder(params) {
 }
 
 function* exportOrderController(action) {
+    const data = storageService.getStorage();
     try {
         const orderCode = action.payload.orderCode;
-        window.open(`${API_PREFIX}/order-detail/export?orderCode=${orderCode}`);
+        window.open(`${API_PREFIX}/order-detail/export?orderCode=${orderCode}&token=${data.token}&lang=${data.lang}`);
         yield call(saveOrder, action.payload);
     } catch (err) {
         message.error(err.message);
     }
 }
-
 
 function* orderDetailSaga() {
     yield takeLatest(actions.INIT_ORDER_DETAIL, initOrderDetailController);

@@ -6,6 +6,7 @@ const initialState = {
     isShow: false,
     queryParams: {},
     isLoading: false,
+    zIndex: 1000,
     list: [],
     total: 0,
     pageNo: 1,
@@ -18,7 +19,8 @@ function shoppingCartReducer(state = initialState, action) {
         case actions.IS_SHOW_SHOPPING_CART:
             return {
                 ...state,
-                isShow: action.payload.isShow
+                isShow: action.payload.isShow,
+                zIndex: action.payload.zIndex || initialState.zIndex
             };
         case actions.SET_SELECTED_RECORDS:
             return {

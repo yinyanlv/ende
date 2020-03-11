@@ -11,7 +11,7 @@ const TabPane = Tabs.TabPane;
 
 export function PartDetail() {
     const dispatch = useDispatch();
-    const {isShow, activeTab, partCode} = useSelector((state: any) => {
+    const {isShow, activeTab, partCode, zIndex} = useSelector((state: any) => {
         return state.partDetail.self;
     });
 
@@ -28,6 +28,7 @@ export function PartDetail() {
             onClose={handleClose}
             width={850}
             destroyOnClose={true}
+            zIndex={zIndex}
         >
             <div className={styles.partDetail}>
                 <div className="drawer-title">
