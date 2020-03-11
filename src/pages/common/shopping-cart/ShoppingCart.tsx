@@ -39,7 +39,8 @@ export function ShoppingCart(props) {
     function handleEditPartCartCount(partCode, qty) {
         dispatch(shoppingCartCreator.editPartCartCount({
             partCode,
-            qty
+            qty,
+            list
         }));
     }
 
@@ -130,8 +131,11 @@ export function ShoppingCart(props) {
             render: (val, record) => {
                 return (
                     <div>
-                        <InputNumber defaultValue={val}
-                                     onChange={handleEditPartCartCount.bind(null, record.partCode, val)}/>
+                        <InputNumber value={val}
+                                     onBlur={(e) => {
+                                         const val = e.target.value;
+                                         handleEditPartCartCount(record.partCode, val)
+                                     }}/>
                     </div>
                 );
             }

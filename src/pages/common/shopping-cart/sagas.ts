@@ -59,9 +59,31 @@ function deleteFromCart(params) {
 function* editPartCartCountController(action) {
     try {
         const data = yield call(editPartCartCount, action.payload);
+        const partCode = action.payload.partCode;
+        const list = action.payload.list;
+        const tip = data.tip;
+        if (tip) {
+            message.success(tip);
+        }
+        const newList = updateRecord(partCode, list, {
+            qty: data.qty,
+            amount: data.amount
+        });
+
+        yield put(actions.shoppingCartCreator.updateRecord(newList));
     } catch(err) {
         message.error(err.message);
     }
+}
+
+function updateRecord(partCode, list, params) {
+    return list.map((item) => {
+        if (item.partCode === partCode) {
+           item.amount = params.amount;
+           item.qty = params.qty;
+        }
+        return item;
+    });
 }
 
 function editPartCartCount(params) {
@@ -78,6 +100,7 @@ function* addAndShowShoppingCartController(action) {
     yield put(actions.shoppingCartCreator.setIsShowShoppingCart({
         isShow: true
     }));
+
     yield put(actions.shoppingCartCreator.doQuery(params));
 }
 

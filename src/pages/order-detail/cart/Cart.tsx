@@ -5,6 +5,7 @@ import {Loading} from '@/components/loading';
 import {cartCreator} from './actions';
 import styles from './Cart.module.scss';
 import {Query} from './query';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 export function Cart(props) {
 
@@ -30,7 +31,8 @@ export function Cart(props) {
         dispatch(cartCreator.editQty({
             orderCode,
             partCode: params.partCode,
-            qty: params.qty
+            qty: params.qty,
+            list
         }));
     }
 
@@ -69,11 +71,20 @@ export function Cart(props) {
         });
     }
 
+    function handleClickPartCode(partCode) {
+        dispatch(partDetailCreator.loadAndShowPartDetail({
+            partCode
+        }));
+    }
+
     const columns = [
         {
             title: '零件编号',
             dataIndex: 'partCode',
-            width: 200
+            width: 200,
+            render(val) {
+                return <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
+            }
         },
         {
             title: '描述',
@@ -84,14 +95,14 @@ export function Cart(props) {
             title: '量',
             dataIndex: 'qty',
             render: (val, record) => {
-                console.log(val);
-                return <InputNumber defaultValue={val}
-                                    onChange={(val) => {
+                return <InputNumber value={val}
+                                    onBlur={(e) => {
+                                        const val = e.target.value;
                                         handleEditQty({
                                             partCode: record.partCode,
                                             qty: val
                                         });
-                                    }} />
+                                    }}/>
             }
         },
         {

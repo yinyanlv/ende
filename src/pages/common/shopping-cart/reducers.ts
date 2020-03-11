@@ -30,6 +30,11 @@ function shoppingCartReducer(state = initialState, action) {
                 ...state,
                 isLoading: action.payload.isLoading
             };
+        case actions.UPDATE_RECORD:
+            return {
+                ...state,
+                list: action.payload
+            };
         case actions.SET_SHOPPING_CART:
             const payload = action.payload;
             return {

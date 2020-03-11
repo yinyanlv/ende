@@ -7,6 +7,7 @@ export const SET_SELECTED_RECORDS = 'order-detail:cart:set-selected-records';
 export const DELETE_PARTS = 'order-detail:cart:delete-parts';
 export const ADD_PART = 'order-detail:cart:add-part';
 export const EDIT_QTY = 'order-detail:cart:edit-qty';
+export const UPDATE_RECORD = 'order-detail:cart:update-record';
 
 export const cartCreator = {
     setIsLoading: (params) => {
@@ -29,5 +30,8 @@ export const cartCreator = {
     },
     editQty: (params) => {
         return createAction(EDIT_QTY, params);
+    },
+    updateRecord: (params) => {
+        return createAction(UPDATE_RECORD, params);
     }
 };

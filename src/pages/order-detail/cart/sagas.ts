@@ -63,10 +63,32 @@ function addPart(params) {
 
 function* editQtyController(action) {
     try {
-        yield call(editQty, action.payload);
+        const data = yield call(editQty, action.payload);
+        const partCode = action.payload.partCode;
+        const list = action.payload.list;
+        const tip = data.tip;
+        if (tip) {
+            message.success(tip);
+        }
+        const newList = updateRecord(partCode, list, {
+            qty: data.qty,
+            amount: data.amount
+        });
+
+        yield put(actions.cartCreator.updateRecord(newList));
     } catch(err) {
         message.error(err.message);
     }
+}
+
+function updateRecord(partCode, list, params) {
+    return list.map((item) => {
+        if (item.partCode === partCode) {
+            item.amount = params.amount;
+            item.qty = params.qty;
+        }
+        return item;
+    });
 }
 
 function editQty(params) {

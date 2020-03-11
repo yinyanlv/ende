@@ -33,8 +33,8 @@ function Groups(props: GroupsProps) {
     });
 
     function handleClickTreeNode(e, node) {
-        const nodeCode = node.props.eventKey;
-        const codes = node.props['data-code-path'].split('/');
+        const nodeCode = node.key;
+        const codes = node['data-code-path'].split('/');
         const codesMap = rebuildCodes(codes);
 
         e.persist();
@@ -47,7 +47,7 @@ function Groups(props: GroupsProps) {
                 return;
             }
 
-            const svgUrl = node.props['data-svg-url'];
+            const svgUrl = node['data-svg-url'];
 
             props.onClickTreeNode({
                 code: nodeCode,
@@ -55,9 +55,9 @@ function Groups(props: GroupsProps) {
                 svgUri: svgUrl
             });
         } else {
-            const expandedCodes = node.props.expanded
-                ? expandedTreeNodeCodes.filter(code => code !== node.props.eventKey)
-                : expandedTreeNodeCodes.concat(node.props.eventKey);
+            const expandedCodes = node.expanded
+                ? expandedTreeNodeCodes.filter(code => code !== node.key)
+                : expandedTreeNodeCodes.concat(node.key);
 
             dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
 
