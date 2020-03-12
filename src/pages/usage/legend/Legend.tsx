@@ -26,6 +26,13 @@ function Legend(props: LegendProps) {
     } = useSelector((state: any) => {
         return state.legend;
     });
+    const {
+        groups,
+        activeTreeNodeCode,
+        expandedTreeNodeCodes
+    } = useSelector((state: any) => {
+        return state.groups;
+    });
 
     useEffect(() => {
 
@@ -63,7 +70,9 @@ function Legend(props: LegendProps) {
     }
 
     function handleClickPrev() {
-
+        console.log(groups);
+        console.log(activeTreeNodeCode);
+        console.log(expandedTreeNodeCodes);
     }
 
     function handleClickNext() {

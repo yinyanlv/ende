@@ -1,6 +1,5 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import Img from 'react-image';
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {Panel} from '@/components/panel';
 import styles from  './Legends.module.scss';
@@ -54,8 +53,8 @@ function Legends(props: LegendsProps) {
                                         svgUri: item.svgFileUri
                                     })}>
                                                 <span className="image-wrapper">
-                                                    <Img
-                                                        src={[resHost + item.imageFileUri + imageSuffix, '/images/nopic.gif']}
+                                                    <img
+                                                        src={resHost + item.imageFileUri + imageSuffix}
                                                         alt={item.text}
                                                     />
                                                 </span>

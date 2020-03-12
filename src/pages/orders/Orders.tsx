@@ -46,6 +46,7 @@ export function PageOrders(props) {
             title: '订单编号',
             dataIndex: 'code',
             width: 220,
+            ellipsis: true,
             render: (val, record) => {
                 return (
                     <a className={'text-btn'} onClick={handleClickOrderCode.bind(null, record.code)}>{val}</a>
@@ -60,7 +61,8 @@ export function PageOrders(props) {
         {
             title: '订单备注',
             dataIndex: 'note',
-            width: 180
+            width: 180,
+            ellipsis: true
         },
         {
             title: '状态',
@@ -75,7 +77,8 @@ export function PageOrders(props) {
         {
             title: '下单维修站名称',
             dataIndex: 'purchaserDealerName',
-            width: 180
+            width: 200,
+            ellipsis: true
         },
         {
             title: '收货维修站编码',
@@ -85,12 +88,8 @@ export function PageOrders(props) {
         {
             title: '收货维修站名称',
             dataIndex: 'receiverDealerName',
-            width: 180
-        },
-        {
-            title: '订单金额',
-            dataIndex: 'amount',
-            width: 120
+            width: 200,
+            ellipsis: true
         },
         {
             title: '操作',

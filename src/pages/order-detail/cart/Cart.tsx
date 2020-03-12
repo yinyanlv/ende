@@ -114,10 +114,16 @@ export function Cart(props) {
         {
             title: '价格',
             dataIndex: 'price',
+            render: function (val) {
+                return val && val.formatString;
+            }
         },
         {
             title: '小计(元)',
             dataIndex: 'amount',
+            render: function (val) {
+                return val && val.formatString;
+            }
         },
         {
             title: '操作',

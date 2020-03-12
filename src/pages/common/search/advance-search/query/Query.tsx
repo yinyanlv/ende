@@ -80,28 +80,6 @@ export function Query() {
         }
     }
 
-    function handleModelChange(value, selectedOptions) {
-        // alert(1);
-        // if (value.length === 1) {
-        //     return dispatch(queryCreator.loadM2({
-        //         m1: value[0]
-        //     }));
-        // } else if (value.length === 2) {
-        //
-        //     return dispatch(queryCreator.loadM3({
-        //         m1: value[0],
-        //         m2: value[1]
-        //     }));
-        // } else if (value.length === 3) {
-        //
-        //     return dispatch(queryCreator.loadM4({
-        //         m1: value[0],
-        //         m2: value[1],
-        //         m3: value[2]
-        //     }));
-        // }
-    }
-
     function showVinDetail() {
         const vinVsn = form.getFieldValue('vinVsn');
 
@@ -169,7 +147,7 @@ export function Query() {
                     </Col>
                     <Col span={16} className="model-wrapper">
                         <FormItem label="车型" name={'model'}>
-                            <Cascader options={modelOptions} onChange={handleModelChange} loadData={handleLoadModel} placeholder="品牌/目录/年份/车型"/>
+                            <Cascader options={modelOptions} loadData={handleLoadModel} placeholder="品牌/目录/年份/车型"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
