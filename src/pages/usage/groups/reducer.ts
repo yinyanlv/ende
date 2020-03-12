@@ -22,11 +22,12 @@ export function groupsReducer(state = initialState, action: any) {
                 isGroupsLoading: true
             };
         case actions.LOAD_GROUPS_SUCCESS:
+            const result = rebuildGroups(action.payload);
             return {
                 ...state,
                 isGroupsLoading: false,
-                groups: action.payload,
-                flatPathList: getFlatPathList(action.payload)
+                groups: result.groups,
+                flatPathList: result.flatPathList
             };
         case actions.LOAD_GROUPS_FAILED:
             return {
@@ -48,16 +49,28 @@ export function groupsReducer(state = initialState, action: any) {
     }
 }
 
-function getFlatPathList(groups) {
+function rebuildGroups(groups) {
     const list: string[] = [];
-    for (let i = 0; i < groups.length; i++) {
-        const code = groups[i].code;
-        const children = groups[i].children;
 
+    for (let i = 0; i < groups.length; i++) {
+        let temp = groups[i];
+        const code = temp.code;
+        temp.key = code;
+        temp.codePathStr = code;
+        temp.title = temp.text;
+        const children = groups[i].children;
         for (let j = 0; j < children.length; j++) {
-            list.push(`${code}/${children[j].code}`);
+            let item = children[j];
+            item.key = item.code;
+            item.codePathStr = `${code}/${item.code}`;
+            item.title = item.text;
+            item.isLeaf = item.leaf;
+            list.push(item.codePathStr);
         }
     }
 
-    return list;
+    return {
+        groups: groups,
+        flatPathList: list
+    };
 }

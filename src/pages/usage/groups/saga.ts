@@ -13,7 +13,6 @@ function* loadGroupsController(action) {
         const sQueryObj = getSQueryObj();
 
         const nodeInfo = getActiveTreeNodeInfo(sQueryObj);
-
         if (nodeInfo) {
             yield put(actions.groupsCreator.setActiveTreeNodeCode(nodeInfo.activeTreeNodeCode));
             yield put(actions.groupsCreator.setExpandedTreeNodeCodes(nodeInfo.parentCodes));
@@ -67,7 +66,6 @@ const LOAD_GROUP_URL_MAP = {
 
 function loadGroup(params) {
     const result = getUrlAndParams(LOAD_GROUP_URL_MAP, params);
-
     return http.post(result.url, result.params);
 }
 

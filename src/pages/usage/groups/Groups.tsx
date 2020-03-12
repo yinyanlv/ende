@@ -33,35 +33,28 @@ function Groups(props: GroupsProps) {
     });
 
     function handleClickTreeNode(e, node) {
-        const nodeCode = node.key;
-        const codes = node['data-code-path'].split('/');
+        const nodeKey = node.key;
+        const nodeInfo = getNodeInfo(nodeKey);
+        const codes = nodeInfo.codePathList;
         const codesMap = rebuildCodes(codes);
 
-        e.persist();
+        // e.persist();
 
-        dispatch(groupsCreator.setActiveTreeNodeCode(nodeCode));
-
-        if (!node.children) {
+        dispatch(groupsCreator.setActiveTreeNodeCode(nodeInfo.code));
+        if (node.leaf) {
 
             // if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
             //     return;
             // }
-
-            const svgUrl = node['data-svg-url'];
-
-            props.onClickTreeNode({
-                code: nodeCode,
-                codePathList: codes,
-                svgUri: svgUrl
-            });
+            props.onClickTreeNode(nodeInfo);
         } else {
             const expandedCodes = node.expanded
-                ? expandedTreeNodeCodes.filter(code => code !== node.key)
-                : expandedTreeNodeCodes.concat(node.key);
+                ? expandedTreeNodeCodes.filter(code => code !== nodeInfo.code)
+                : expandedTreeNodeCodes.concat(nodeInfo.code);
 
             dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
 
-            if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
+            if (!props.isFirstLoad && (activeTreeNodeCode === nodeInfo.code)) {
                 return;
             }
 
@@ -73,6 +66,34 @@ function Groups(props: GroupsProps) {
             dispatch(crumbsCreator.load(params));
             updateLocationSearch(params);
         }
+    }
+
+    function getNodeInfo(nodeKey) {
+        for (let i = 0; i < groups.length; i++) {
+            const temp = groups[i];
+            if (temp.key === nodeKey) {
+                const codeList = temp.codePathStr.split('/');
+                return {
+                    code: temp.key,
+                    codePathList: codeList,
+                    svgUri: temp.svgFileUri,
+                };
+            }
+            const children = groups[i].children;
+            for (let j = 0; j < children.length; j++) {
+                const item = children[j];
+                if (item.key === nodeKey) {
+                    const codeList = item.codePathStr.split('/');
+                    return {
+                        code: item.key,
+                        codePathList: codeList,
+                        svgUri: item.svgFileUri,
+                    };
+                }
+            }
+        }
+
+        return {};
     }
 
     function rebuildCodes(codes) {
@@ -119,16 +140,15 @@ function Groups(props: GroupsProps) {
             <DirectoryTree
                 expandAction="click"
                 style={{width: '238px'}}
+                // height={610}
                 defaultExpandAll={true}
                 defaultExpandedKeys={expandedTreeNodeCodes}
                 expandedKeys={expandedTreeNodeCodes}
                 defaultSelectedKeys={[activeTreeNodeCode]}
                 selectedKeys={[activeTreeNodeCode]}
                 onClick={handleClickTreeNode}
+                treeData={groups}
             >
-                {
-                    renderTreeNodes(groups)
-                }
             </DirectoryTree>
         </Panel>
     );
