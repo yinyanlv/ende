@@ -6,6 +6,7 @@ import {searchCreator} from '@/pages/common/search/actions';
 import {vinDetailCreator} from './actions';
 import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 import styles from './VinDetail.module.scss';
+import {configCreator} from '@/store/config/actions';
 
 export function VinDetail(props) {
 
@@ -13,8 +14,8 @@ export function VinDetail(props) {
     const {data, isShow, zIndex} = useSelector((state: any) => {
         return state.vinDetail;
     });
-    const searchZIndex = useSelector((state: any) => {
-        return state.search.self.zIndex;
+    const {maxZIndex} = useSelector((state: any) => {
+        return state.config;
     });
 
     useEffect(() => {
@@ -39,10 +40,14 @@ export function VinDetail(props) {
 
     function doAdvanceQuery() {
         const mappings = data.mappings;
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(searchCreator.queryAndShowSearch({
             vinVsn: data.code,
             vsnModel: mappings.m_4,
-            zIndex: Math.max(zIndex, searchZIndex) + 5
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
         handleClose();
     }

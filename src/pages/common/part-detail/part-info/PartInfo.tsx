@@ -5,6 +5,7 @@ import {ShoppingCartOutlined} from '@ant-design/icons';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {ImageGallery} from '@/components/image-gallery';
 import styles from './PartInfo.module.scss';
+import {configCreator} from '@/store/config/actions';
 
 export function PartInfo() {
     const dispatch = useDispatch();
@@ -14,8 +15,8 @@ export function PartInfo() {
     const {zIndex} = useSelector((state: any) => {
         return state.partDetail.self;
     });
-    const cartZIndex = useSelector((state: any) => {
-        return state.shoppingCart.self.zIndex;
+    const {maxZIndex} = useSelector((state: any) => {
+        return state.config;
     });
     const {
         resHost
@@ -25,9 +26,13 @@ export function PartInfo() {
 
     function handleClickBuy(e, partCode) {
         e.stopPropagation();
+        const newMaxZIndex = maxZIndex;
         dispatch(shoppingCartCreator.addAndShowShoppingCart({
             partCode: partCode,
-            zIndex: Math.max(zIndex, cartZIndex) + 5
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
     }
 

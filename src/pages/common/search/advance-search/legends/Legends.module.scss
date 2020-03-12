@@ -60,12 +60,6 @@ $table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
       .title-line {
         height: 26px;
         line-height: 26px;
-        text-decoration: underline;
-        cursor: pointer;
-
-        &:hover {
-          color: $primary-color;
-        }
 
         & > span {
           margin-right: 5px;

@@ -53,9 +53,15 @@ function Parts(props: PartsProps) {
                             }}/>
                           </Tooltip>
                         <Tooltip title={'替换关系'}>
-                            <RetweetOutlined onClick={(e) => {
-                                handleClickReplace(e, val);
-                            }}/>
+                            {
+                                record.hasSupersession ? (
+                                        <RetweetOutlined onClick={(e) => {
+                                            handleClickReplace(e, val);
+                                        }}/>) :
+                                        <RetweetOutlined className={'disabled'} onClick={(e) => {
+                                            e.stopPropagation();
+                                        }}/>
+                            }
                         </Tooltip>
                     </span>
                 </div>

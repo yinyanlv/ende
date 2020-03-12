@@ -129,6 +129,17 @@
       text-decoration: underline;
     }
   }
+
+  .text-btn{
+    color: $primary-color;
+    cursor:pointer;
+    text-decoration: underline;
+  }
+
+  .anticon.disabled {
+    color: $lightest-font-color;
+    cursor: text;
+  }
 }
 
 .mainContainer{

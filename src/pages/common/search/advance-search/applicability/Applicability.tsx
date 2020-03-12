@@ -9,6 +9,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {applicabilityCreator} from './actions';
 import styles from './Applicability.module.scss';
 import {Loading} from "@/components/loading";
+import {configCreator} from '@/store/config/actions';
 
 export function Applicability() {
 
@@ -16,14 +17,22 @@ export function Applicability() {
     const {list, total, pageNo, pageSize, isLoading} = useSelector((state: any) => {
         return state.search.advanceSearch.applicability;
     });
+    const {maxZIndex} = useSelector((state: any) => {
+        return state.config;
+    });
     const {queryParams} = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
 
     function handleClickPartCode(e, partCode) {
         e.stopPropagation();
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode: partCode
+            partCode: partCode,
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
     }
 
@@ -41,8 +50,7 @@ export function Applicability() {
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <a className="btn" onClick={(e) => {
-
+                    <a className="text-btn" onClick={(e) => {
                         handleClickPartCode(e, val);
                     }}>{val}</a>
                 );

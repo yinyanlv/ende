@@ -5,7 +5,8 @@ const initialState = {
     productCatalogUrl: '',
     logoutUrl: '',
     oemCode: '',
-    resHost: ''
+    resHost: '',
+    maxZIndex: 1000
 };
 
 export function configReducer(state = initialState, action) {
@@ -14,6 +15,11 @@ export function configReducer(state = initialState, action) {
             return {
                 ...state,
                 ...action.payload
+            };
+        case actions.SET_MAX_Z_INDEX:
+            return {
+                ...state,
+                maxZIndex: action.payload.maxZindex || initialState.maxZIndex
             };
         default:
             return state;

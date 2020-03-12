@@ -8,6 +8,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
+import {configCreator} from '@/store/config/actions';
 
 export function Parts() {
     const dispatch = useDispatch();
@@ -17,16 +18,29 @@ export function Parts() {
     const {queryParams} = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
+    const {maxZIndex} = useSelector((state: any) => {
+        return state.config;
+    });
 
     function handleClickPartCode(partCode) {
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode
+            partCode,
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
     }
 
     function handleClickBuy(partCode) {
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(shoppingCartCreator.addAndShowShoppingCart({
-            partCode
+            partCode,
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
     }
 
@@ -51,7 +65,7 @@ export function Parts() {
                                             src={item.coverImageUri || '/images/nopic.gif'} alt={item.name}/></div>
                                         <div className="info-box">
                                             <div className="title-line">
-                                                <span className="btn"
+                                                <span className="text-btn"
                                                       onClick={handleClickPartCode.bind(null, item.code)}>{item.code}</span>
                                                 <span className="gap">-</span>
                                                 <span>{item.name}</span>

@@ -63,14 +63,6 @@ $table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
         & > span {
           margin-right: 5px;
         }
-        .btn {
-          text-decoration: underline;
-          cursor: pointer;
-
-          &:hover {
-            color: $primary-color;
-          }
-        }
       }
 
       .content-line{

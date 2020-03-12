@@ -6,6 +6,7 @@ import styles from './ShoppingCart.module.scss';
 import {Query} from './query';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Loading} from "@/components/loading";
+import {configCreator} from '@/store/config/actions';
 
 export function ShoppingCart(props) {
 
@@ -13,9 +14,10 @@ export function ShoppingCart(props) {
     const {total, list, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
-    const detailZIndex = useSelector((state: any) => {
-        return state.partDetail.self.zIndex;
+    const {maxZIndex} = useSelector((state: any) => {
+        return state.config;
     });
+
     function doQuery(page, size) {
         queryParams.paging = {
             page,
@@ -26,9 +28,13 @@ export function ShoppingCart(props) {
     }
 
     function handleClickPartCode(partCode) {
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
-            zIndex: Math.max(zIndex, detailZIndex) + 5
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
     }
 

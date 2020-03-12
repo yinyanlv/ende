@@ -6,6 +6,7 @@ import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 import {vinSearchCreator} from "@/pages/common/vin-search/actions";
+import {configCreator} from '@/store/config/actions';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -13,14 +14,8 @@ const Option = Select.Option;
 export function Query() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
-    const {zIndex} = useSelector((state: any) => {
-        return state.search.self;
-    });
-    const detailZIndex = useSelector((state: any) => {
-        return state.vinDetail.zIndex;
-    });
-    const selectorZIndex = useSelector((state: any) => {
-        return state.vsnSelector.zIndex;
+    const {maxZIndex} = useSelector((state: any) => {
+       return state.config;
     });
     const {groupList, modelOptions, fieldsValue} = useSelector((state: any) => {
         return state.search.advanceSearch.query;
@@ -45,11 +40,15 @@ export function Query() {
             if (result.type === 'vin') {
                 dispatch(queryCreator.doQuery(params));
             } else if (result.type === 'vsn') {
+                const newMaxZIndex = maxZIndex + 5;
                 dispatch(vinSearchCreator.doVsnSelectModel({
                     code,
                     doNotRedirect: true,
                     advanceSearchParams: params,
-                    zIndex: Math.max(zIndex, selectorZIndex) + 5
+                    zIndex: newMaxZIndex
+                }));
+                dispatch(configCreator.setMaxZIndex({
+                    maxZIndex: newMaxZIndex
                 }));
             }
         } else {
@@ -123,10 +122,14 @@ export function Query() {
         const result = checkAndGetType(code);
         if (result.isValid) {
             if (result.type === 'vin') {
+                const newMaxZIndex = maxZIndex + 5;
                 dispatch(vinSearchCreator.doVinSearch({
                     code,
                     doNotRedirect: true,
-                    zIndex: Math.max(zIndex, detailZIndex) + 5
+                    zIndex: newMaxZIndex
+                }));
+                dispatch(configCreator.setMaxZIndex({
+                    maxZIndex: newMaxZIndex
                 }));
             } else if (result.type === 'vsn') {
                 dispatch(vinSearchCreator.doVsnSelectModel({

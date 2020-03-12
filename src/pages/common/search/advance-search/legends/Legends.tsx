@@ -53,7 +53,7 @@ export function Legends() {
                                             src={item.legendFileUri || '/images/nopic.gif'} alt={item.name}/></div>
                                         <div className="info-box">
                                             <div className="title-line" onClick={handleClickLegend.bind(null, item)}>
-                                                <span>{item.legendCode}</span>
+                                                <span className={'text-btn'}>{item.legendCode}</span>
                                                 <span className="gap">-</span>
                                                 <span>{item.legendName}</span>
                                                 <span className="gap">-</span>
