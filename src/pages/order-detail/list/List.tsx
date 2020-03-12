@@ -127,6 +127,7 @@ export function List() {
                         rowKey={'id'}
                         tableLayout={'fixed'}
                         rowSelection={{
+                            type: 'radio',
                             selectedRowKeys: selectedKeys,
                             onSelect: (record) => {
                                 setDefault(record);

@@ -6,6 +6,7 @@ const initialState = {
     logoutUrl: '',
     oemCode: '',
     resHost: '',
+    user: null,
     maxZIndex: 1000
 };
 

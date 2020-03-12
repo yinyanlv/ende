@@ -43,9 +43,9 @@ function Groups(props: GroupsProps) {
 
         if (!node.children) {
 
-            if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
-                return;
-            }
+            // if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
+            //     return;
+            // }
 
             const svgUrl = node['data-svg-url'];
 

@@ -25,7 +25,7 @@ export function Nav(props) {
     const {cartCount} = useSelector((state: any) => {
         return state.nav;
     });
-    const {logoutUrl} = useSelector((state: any) => {
+    const {logoutUrl, user} = useSelector((state: any) => {
         return state.config;
     });
 
@@ -116,7 +116,7 @@ export function Nav(props) {
                         <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner item-user'}>
                        <UserOutlined/>
-                        <span className={'username'}>系统管理员</span>
+                        <span className={'username'}>{user && user.username}</span>
                     </span>
                         </NavLink>
                     </Dropdown>

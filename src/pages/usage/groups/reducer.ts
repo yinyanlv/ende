@@ -4,6 +4,7 @@ import {defaultCode} from '@/pages/common/crumbs/reducer';
 const initialState = {
     isGroupsLoading: false,
     groups: [],
+    flatPathList: [],
     expandedTreeNodeCodes: [],
     activeTreeNodeCode: defaultCode
 };
@@ -24,7 +25,8 @@ export function groupsReducer(state = initialState, action: any) {
             return {
                 ...state,
                 isGroupsLoading: false,
-                groups: action.payload
+                groups: action.payload,
+                flatPathList: getFlatPathList(action.payload)
             };
         case actions.LOAD_GROUPS_FAILED:
             return {
@@ -46,3 +48,16 @@ export function groupsReducer(state = initialState, action: any) {
     }
 }
 
+function getFlatPathList(groups) {
+    const list: string[] = [];
+    for (let i = 0; i < groups.length; i++) {
+        const code = groups[i].code;
+        const children = groups[i].children;
+
+        for (let j = 0; j < children.length; j++) {
+            list.push(`${code}/${children[j].code}`);
+        }
+    }
+
+    return list;
+}

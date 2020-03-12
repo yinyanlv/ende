@@ -6,6 +6,8 @@ import {API_PREFIX} from '@/config';
 import styles from './Legend.module.scss';
 import queryString from 'query-string';
 import {getQueryObj} from '@/common/utils';
+import {message} from 'antd';
+import {groupsCreator} from '@/pages/usage/groups/actions';
 
 const svgPrefix = '/res';
 
@@ -27,7 +29,7 @@ function Legend(props: LegendProps) {
         return state.legend;
     });
     const {
-        groups,
+        flatPathList,
         activeTreeNodeCode,
         expandedTreeNodeCodes
     } = useSelector((state: any) => {
@@ -70,13 +72,43 @@ function Legend(props: LegendProps) {
     }
 
     function handleClickPrev() {
-        console.log(groups);
-        console.log(activeTreeNodeCode);
-        console.log(expandedTreeNodeCodes);
+        const curIndex = getIndex(activeTreeNodeCode);
+        if (curIndex === 0) {
+           return message.error('当前已经是第一张');
+        }
+        const prevIndex = curIndex - 1;
+        const pathList = flatPathList[prevIndex].split('/');
+        dispatch(groupsCreator.setExpandedTreeNodeCodes([...expandedTreeNodeCodes, pathList[0]]));
+        dispatch(groupsCreator.setActiveTreeNodeCode(pathList[1]));
+        loadParts();
     }
 
     function handleClickNext() {
+        const curIndex = getIndex(activeTreeNodeCode);
+        if (curIndex === flatPathList.length - 1) {
+            return message.error('当前已经是第一张');
+        }
+        const nextIndex = curIndex + 1;
+        const pathList = flatPathList[nextIndex].split('/');
+        dispatch(groupsCreator.setExpandedTreeNodeCodes([...expandedTreeNodeCodes, pathList[0]]));
+        dispatch(groupsCreator.setActiveTreeNodeCode(pathList[1]));
+        loadParts();
+    }
 
+    function getIndex(code): number {
+        for (let i = 0; i < flatPathList.length; i++) {
+            if(flatPathList[i].endsWith(`/${code}`)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    function loadParts() {
+        const node: any = document.querySelector('.panel-tree .ant-tree-node-selected');
+        if (node && node.click) {
+            node.click();
+        }
     }
 
     function handleClickPrint() {
