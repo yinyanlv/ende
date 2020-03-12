@@ -12,7 +12,8 @@ function* queryAndShowSearchController(action) {
 
     yield put(queryCreator.setFieldsValue(action.payload));
     yield put(actions.searchCreator.setIsShowSearch({
-        isShow: true
+        isShow: true,
+        zIndex: action.payload.zIndex
     }));
     yield put(advanceSearchCreator.doQuery(queryParams));
 }

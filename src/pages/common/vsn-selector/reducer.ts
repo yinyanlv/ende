@@ -4,7 +4,9 @@ const initialState = {
     isShow: false,
     vsnCode: '',
     doNotRedirect: false,
-    list: []
+    list: [],
+    advanceSearchParams: null,
+    zIndex: 1000
 };
 
 export function vsnSelectorReducer(state = initialState, action) {
@@ -15,6 +17,8 @@ export function vsnSelectorReducer(state = initialState, action) {
                 vsnCode: action.payload.vsnCode || initialState.vsnCode,
                 doNotRedirect: action.payload.doNotRedirect || initialState.doNotRedirect,
                 list: action.payload.list || initialState.list,
+                advanceSearchParams: action.payload.advanceSearchParams || initialState.advanceSearchParams,
+                zIndex: action.payload.zIndex || initialState.zIndex
             };
         default:
             return state;

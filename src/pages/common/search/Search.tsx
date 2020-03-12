@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 
 export function Search(props) {
     const dispatch = useDispatch();
-    const {isShow, activeTab} = useSelector((state: any) => {
+    const {isShow, activeTab, zIndex} = useSelector((state: any) => {
         return state.search.self;
     });
 
@@ -27,6 +27,7 @@ export function Search(props) {
             visible={isShow}
             width={900}
             destroyOnClose={true}
+            zIndex={zIndex}
         >
             <div className={styles.search}>
                 <Tabs defaultActiveKey={activeTab} type={'card'}>

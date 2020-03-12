@@ -3,20 +3,32 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Table} from 'antd';
 import {vsnSelectorCreator} from './actions';
 import {vinSearchCreator} from '@/pages/common/vin-search/actions';
+import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 import styles from './VsnSelector.module.scss';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
-    const {isShow, list, vsnCode, doNotRedirect} = useSelector((state: any) => {
+    const {isShow, list, vsnCode, doNotRedirect, advanceSearchParams, zIndex} = useSelector((state: any) => {
         return state.vsnSelector;
     });
 
     function handleClickRow(record) {
-        dispatch(vinSearchCreator.doVsnSearch({
-            code: vsnCode,
-            model: record.modelId,
-            doNotRedirect
-        }));
+
+        if (advanceSearchParams) {
+            advanceSearchParams.filters.push({
+                name: 'vsnModel',
+                value: record.modelId
+            });
+
+            dispatch(queryCreator.doQuery(advanceSearchParams));
+            handleClose();
+        } else {
+            dispatch(vinSearchCreator.doVsnSearch({
+                code: vsnCode,
+                model: record.modelId,
+                doNotRedirect
+            }));
+        }
     }
 
     function handleClose() {
@@ -52,6 +64,7 @@ export function VsnSelector() {
             onClose={handleClose}
             destroyOnClose={true}
             width={500}
+            zIndex={zIndex}
         >
             <div className={styles.vsnSelector}>
                 <div className="drawer-title">

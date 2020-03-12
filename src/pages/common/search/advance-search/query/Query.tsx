@@ -13,19 +13,54 @@ const Option = Select.Option;
 export function Query() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const {zIndex} = useSelector((state: any) => {
+        return state.search.self;
+    });
+    const detailZIndex = useSelector((state: any) => {
+        return state.vinDetail.zIndex;
+    });
+    const selectorZIndex = useSelector((state: any) => {
+        return state.vsnSelector.zIndex;
+    });
     const {groupList, modelOptions, fieldsValue} = useSelector((state: any) => {
         return state.search.advanceSearch.query;
     });
 
     function doQuery() {
         let fieldsValue = form.getFieldsValue();
-        fieldsValue = rebuildModelField(fieldsValue);
-        const filters = rebuildFieldsToFilters(fieldsValue);
-        if (filters.length > 0) {
+        let code = fieldsValue.vinVsn && fieldsValue.vinVsn.trim();
+
+        // 如果填写了vinVsn，走特殊的流程
+        if (code) {
+            const result = checkAndGetType(code);
+
+            if (!result.isValid) {
+                return message.error('输入的VIN或VSN编码不合法');
+            }
+
+            fieldsValue = rebuildModelField(fieldsValue);
+            const filters = rebuildFieldsToFilters(fieldsValue);
             const params = buildQueryParams(filters);
-            dispatch(queryCreator.doQuery(params));
+
+            if (result.type === 'vin') {
+                dispatch(queryCreator.doQuery(params));
+            } else if (result.type === 'vsn') {
+                dispatch(vinSearchCreator.doVsnSelectModel({
+                    code,
+                    doNotRedirect: true,
+                    advanceSearchParams: params,
+                    zIndex: Math.max(zIndex, selectorZIndex) + 5
+                }));
+            }
         } else {
-            message.error('请输入查询条件');
+            fieldsValue = rebuildModelField(fieldsValue);
+            const filters = rebuildFieldsToFilters(fieldsValue);
+            if (filters.length > 0) {
+                const params = buildQueryParams(filters);
+                dispatch(queryCreator.doQuery(params));
+            } else {
+                message.error('请输入查询条件');
+            }
         }
     }
 
@@ -36,6 +71,7 @@ export function Query() {
                 values[`m${index + 1}`] = item;
             });
         }
+
         delete values.model;
 
         return values;
@@ -43,12 +79,7 @@ export function Query() {
 
     useEffect(() => {
         dispatch(queryCreator.loadGroup());
-        const model = fieldsValue.model;
-        if (model && model.length > 0) {
-            dispatch(queryCreator.loadModelOptions(model));
-        } else {
-            dispatch(queryCreator.loadM1());
-        }
+        dispatch(queryCreator.loadM1());
     }, []);
 
     function doReset() {
@@ -94,7 +125,8 @@ export function Query() {
             if (result.type === 'vin') {
                 dispatch(vinSearchCreator.doVinSearch({
                     code,
-                    doNotRedirect: true
+                    doNotRedirect: true,
+                    zIndex: Math.max(zIndex, detailZIndex) + 5
                 }));
             } else if (result.type === 'vsn') {
                 dispatch(vinSearchCreator.doVsnSelectModel({

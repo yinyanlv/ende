@@ -5,6 +5,7 @@ import {replaceReducers} from './replace/reducers';
 
 const initialState = {
     isShow: false,
+    zIndex: 1000,
     activeTab: 'advance-search',
 };
 
@@ -13,7 +14,8 @@ function searchReducer(state = initialState, action) {
         case actions.IS_SHOW_SEARCH:
             return {
                 ...state,
-                isShow: action.payload.isShow
+                isShow: action.payload.isShow,
+                zIndex: action.payload.zIndex || initialState.zIndex
             };
         default:
             return state;

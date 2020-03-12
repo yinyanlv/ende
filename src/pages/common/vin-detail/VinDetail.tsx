@@ -10,8 +10,11 @@ import styles from './VinDetail.module.scss';
 export function VinDetail(props) {
 
     const dispatch = useDispatch();
-    const {data, isShow} = useSelector((state: any) => {
+    const {data, isShow, zIndex} = useSelector((state: any) => {
         return state.vinDetail;
+    });
+    const searchZIndex = useSelector((state: any) => {
+        return state.search.self.zIndex;
     });
 
     useEffect(() => {
@@ -38,7 +41,8 @@ export function VinDetail(props) {
         const mappings = data.mappings;
         dispatch(searchCreator.queryAndShowSearch({
             vinVsn: data.code,
-            model: [mappings.m_1, mappings.m_2, mappings.m_3, mappings.m_4]
+            vsnModel: mappings.m_4,
+            zIndex: Math.max(zIndex, searchZIndex) + 5
         }));
         handleClose();
     }
@@ -50,6 +54,7 @@ export function VinDetail(props) {
             onClose={handleClose}
             destroyOnClose={true}
             width={500}
+            zIndex={zIndex}
         >
            <div className={styles.vinDetail}>
                <div className="drawer-title">

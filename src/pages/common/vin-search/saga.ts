@@ -8,7 +8,7 @@ import {isAtPateUsage} from '@/common/utils';
 import {vsnSelectorCreator} from '@/pages/common/vsn-selector/actions';
 import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
 import {usageCreator} from '@/pages/usage/actions';
-
+import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 
 function* vinSearchController(action) {
     try {
@@ -32,7 +32,8 @@ function* vinSearchController(action) {
         yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vin',
             data: data,
-            isShow: true
+            isShow: true,
+            zIndex: action.payload.zIndex
         }));
     } catch (err) {
         message.error(err.message);
@@ -48,8 +49,17 @@ function doVinSearch(params) {
 function* vsnSelectModelController(action) {
     try {
         const list = yield call(doVsnSelectModel, action.payload);
+        const advanceSearchParams = action.payload.advanceSearchParams;
 
         if (list.length === 1) {
+            if (advanceSearchParams) {
+                advanceSearchParams.filters.push({
+                    name: 'vsnModel',
+                    value: list[0].modelId
+                });
+
+                return yield put(queryCreator.doQuery(advanceSearchParams));
+            }
 
             yield put(actions.vinSearchCreator.doVsnSearch({
                 code: action.payload.code,
@@ -61,7 +71,9 @@ function* vsnSelectModelController(action) {
                 isShow: true,
                 vsnCode: action.payload.code,
                 doNotRedirect: !!action.payload.doNotRedirect,
-                list
+                list,
+                advanceSearchParams,
+                zIndex: action.payload.zIndex
             }));
         }
     } catch (err) {
@@ -78,6 +90,10 @@ function doVsnSelectModel(params) {
 function* vsnSearchController(action) {
     try {
         const data: any = yield call(doVsnSearch, action.payload);
+        yield put(vsnSelectorCreator.setIsShowVsnSelector({
+            isShow: false,
+            list: []
+        }));
         const mappings = Object.assign({}, data.mappings, {
             type: 'vsn',
             code: action.payload.code
