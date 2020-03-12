@@ -12,7 +12,7 @@ export function Crumbs(props) {
     const {list, isShowCollect} = useSelector((state: any) => {
         return state.crumbs;
     });
-    const {} = useSelector((state: any) => {
+    const {productCatalogUrl} = useSelector((state: any) => {
         return state.config;
     });
 
@@ -21,7 +21,7 @@ export function Crumbs(props) {
             <div className="left-box">
                 <Breadcrumb>
                     <CrumbItem key="home">
-                        <a href={'/'}>
+                        <a href={productCatalogUrl}>
                             <HomeOutlined />
                             <span className="crumbs-text">产品大全</span>
                         </a>

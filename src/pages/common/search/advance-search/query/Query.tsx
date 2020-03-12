@@ -55,25 +55,51 @@ export function Query() {
         form.resetFields();
     }
 
-    function handleModelChange(value, selectedOptions) {
-        if (value.length === 1) {
+    function handleLoadModel(selectedOptions) {
+        const targetOption = selectedOptions[selectedOptions.length - 1];
+        const len = selectedOptions.length;
+        targetOption.loading = true;
+
+        if (len === 1) {
             return dispatch(queryCreator.loadM2({
-                m1: value[0]
+                m1: selectedOptions[0].value
             }));
-        } else if (value.length === 2) {
+        } else if (len === 2) {
 
             return dispatch(queryCreator.loadM3({
-                m1: value[0],
-                m2: value[1]
+                m1: selectedOptions[0].value,
+                m2: selectedOptions[1].value
             }));
-        } else if (value.length === 3) {
+        } else if (len === 3) {
 
             return dispatch(queryCreator.loadM4({
-                m1: value[0],
-                m2: value[1],
-                m3: value[2]
+                m1: selectedOptions[0].value,
+                m2: selectedOptions[1].value,
+                m3: selectedOptions[2].value
             }));
         }
+    }
+
+    function handleModelChange(value, selectedOptions) {
+        // alert(1);
+        // if (value.length === 1) {
+        //     return dispatch(queryCreator.loadM2({
+        //         m1: value[0]
+        //     }));
+        // } else if (value.length === 2) {
+        //
+        //     return dispatch(queryCreator.loadM3({
+        //         m1: value[0],
+        //         m2: value[1]
+        //     }));
+        // } else if (value.length === 3) {
+        //
+        //     return dispatch(queryCreator.loadM4({
+        //         m1: value[0],
+        //         m2: value[1],
+        //         m3: value[2]
+        //     }));
+        // }
     }
 
     function showVinDetail() {
@@ -102,6 +128,7 @@ export function Query() {
             message.error('输入的VIN或VSN编码不合法');
         }
     }
+
 
     function checkAndGetType(val) {
         // vin查询，包含lzw或mk3,不包含中文就查询vin
@@ -142,7 +169,7 @@ export function Query() {
                     </Col>
                     <Col span={16} className="model-wrapper">
                         <FormItem label="车型" name={'model'}>
-                            <Cascader options={modelOptions} onChange={handleModelChange} placeholder="品牌/目录/年份/车型"/>
+                            <Cascader options={modelOptions} onChange={handleModelChange} loadData={handleLoadModel} placeholder="品牌/目录/年份/车型"/>
                         </FormItem>
                     </Col>
                     <Col span={8}>

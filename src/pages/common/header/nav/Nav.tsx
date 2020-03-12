@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link, NavLink} from 'react-router-dom';
-import {Menu, Dropdown, Badge, Popover, Tabs} from 'antd';
+import {NavLink} from 'react-router-dom';
+import {Menu, Dropdown} from 'antd';
 import {
     SearchOutlined,
     GlobalOutlined,
@@ -25,14 +25,21 @@ export function Nav(props) {
     const {cartCount} = useSelector((state: any) => {
         return state.nav;
     });
+    const {logoutUrl} = useSelector((state: any) => {
+        return state.config;
+    });
 
     useEffect(() => {
         dispatch(navCreator.loadCartCount());
     }, []);
 
+    function logout() {
+        window.location.href = logoutUrl;
+    }
+
     const userMenu = (
         <Menu>
-            <MenuItem>退出登录</MenuItem>
+            <MenuItem onClick={logout}>退出登录</MenuItem>
         </Menu>
     );
 

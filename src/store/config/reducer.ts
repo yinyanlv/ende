@@ -1,8 +1,11 @@
 import * as actions from './actions';
 
 const initialState = {
-    lang: 'zh-CN',
-    productsUrl: ''
+    lang: 'zh',
+    productCatalogUrl: '',
+    logoutUrl: '',
+    oemCode: '',
+    resHost: ''
 };
 
 export function configReducer(state = initialState, action) {

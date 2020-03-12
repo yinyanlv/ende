@@ -55,6 +55,7 @@ export function insertModelOptions(options, targetLevel, currentLevel, parentVal
             if (targetLevel === 0) {
                 if (options[i].value === path[currentLevel]) {
                     if (!options[i].children) {
+                        options[i].loading = false;
                         options[i].children = list;
                     }
                 }
@@ -62,6 +63,7 @@ export function insertModelOptions(options, targetLevel, currentLevel, parentVal
             } else if (parentValue === path[currentLevel -1]) {
                 if (options[i].value === path[currentLevel]) {
                     if (!options[i].children) {
+                        options[i].loading = false;
                         options[i].children = list;
                     }
                 }
@@ -70,6 +72,7 @@ export function insertModelOptions(options, targetLevel, currentLevel, parentVal
     } else {
         for (let i = 0; i < options.length; i++) {
             if (options[i].children) {
+                options[i].loading = false;
                 options[i].children = insertModelOptions(options[i].children, targetLevel, currentLevel + 1, options[i].value, path, list);
             }
         }
