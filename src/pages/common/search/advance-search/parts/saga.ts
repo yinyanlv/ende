@@ -14,6 +14,9 @@ function* doQueryController(action) {
             isLoading: false
         }));
     } catch(err) {
+        yield put(actions.partsCreator.setIsLoading({
+            isLoading: false
+        }));
         message.error(err.message);
     }
 }
