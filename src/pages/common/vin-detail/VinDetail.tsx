@@ -11,7 +11,7 @@ import {configCreator} from '@/store/config/actions';
 export function VinDetail(props) {
 
     const dispatch = useDispatch();
-    const {data, isShow, zIndex} = useSelector((state: any) => {
+    const {data, isShow, zIndex, type} = useSelector((state: any) => {
         return state.vinDetail;
     });
     const {maxZIndex} = useSelector((state: any) => {
@@ -41,11 +41,18 @@ export function VinDetail(props) {
     function doAdvanceQuery() {
         const mappings = data.mappings;
         const newMaxZIndex = maxZIndex + 5;
-        dispatch(searchCreator.queryAndShowSearch({
-            vinVsn: data.code,
-            vsnModel: mappings.m_4,
-            zIndex: newMaxZIndex
-        }));
+        if (type === 'vin') {
+            dispatch(searchCreator.queryAndShowSearch({
+                vinVsn: data.code,
+                zIndex: newMaxZIndex
+            }));
+        } else {
+            dispatch(searchCreator.queryAndShowSearch({
+                vinVsn: data.code,
+                vsnModel: mappings.m_4,
+                zIndex: newMaxZIndex
+            }));
+        }
         dispatch(configCreator.setMaxZIndex({
             maxZIndex: newMaxZIndex
         }));
