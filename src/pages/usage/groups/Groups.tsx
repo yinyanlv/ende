@@ -2,13 +2,15 @@ import React, {HTMLProps} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIntl} from 'react-intl';
 import {Tree} from 'antd';
+import cls from 'classnames';
 import {Panel} from '@/components/panel';
 import {usageCreator} from '@/pages/usage/actions';
 import {legendsCreator} from '@/pages/usage/legends/actions';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
 import {updateLocationSearch, getMQueryObj} from '@/common/utils';
 import {groupsCreator} from './actions';
-import './Groups.module.scss';
+import styles from './Groups.module.scss';
+
 
 const DirectoryTree = Tree.DirectoryTree;
 const TreeNode = Tree.TreeNode;
@@ -136,20 +138,21 @@ function Groups(props: GroupsProps) {
     return (
         <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
             id: 'crumbs.s_1'
-        })} className={'panel-tree'} style={{marginLeft: props.isShowGroups ? '0' : '-260px'}}>
-            <DirectoryTree
-                expandAction="click"
-                style={{width: '238px'}}
-                // height={610}
-                defaultExpandAll={true}
-                defaultExpandedKeys={expandedTreeNodeCodes}
-                expandedKeys={expandedTreeNodeCodes}
-                defaultSelectedKeys={[activeTreeNodeCode]}
-                selectedKeys={[activeTreeNodeCode]}
-                onClick={handleClickTreeNode}
-                treeData={groups}
-            >
-            </DirectoryTree>
+        })} className={styles.groups} style={{marginLeft: props.isShowGroups ? '0' : '-260px'}}>
+                <DirectoryTree
+                    className={'panel-tree'}
+                    expandAction="click"
+                    style={{width: '238px'}}
+                    // height={610}
+                    defaultExpandAll={true}
+                    defaultExpandedKeys={expandedTreeNodeCodes}
+                    expandedKeys={expandedTreeNodeCodes}
+                    defaultSelectedKeys={[activeTreeNodeCode]}
+                    selectedKeys={[activeTreeNodeCode]}
+                    onClick={handleClickTreeNode}
+                    treeData={groups}
+                >
+                </DirectoryTree>
         </Panel>
     );
 }

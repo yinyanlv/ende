@@ -57,13 +57,13 @@ function rebuildGroups(groups) {
         const code = temp.code;
         temp.key = code;
         temp.codePathStr = code;
-        temp.title = temp.text;
+        temp.title = code + ' - ' + temp.text;
         const children = groups[i].children;
         for (let j = 0; j < children.length; j++) {
             let item = children[j];
             item.key = item.code;
             item.codePathStr = `${code}/${item.code}`;
-            item.title = item.text;
+            item.title = item.code + ' - ' + item.text;
             item.isLeaf = item.leaf;
             list.push(item.codePathStr);
         }

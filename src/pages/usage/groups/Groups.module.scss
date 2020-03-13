@@ -1,15 +1,21 @@
 @import "src/scss/sdk/index";
 
-:global {
-  .panel-tree {
-    width: 250px;
-    height: 100%;
-    transition: margin .3s ease-in-out;
+.groups {
+  width: 250px;
+  height: 100%;
+  transition: margin .3s ease-in-out;
+
+  :global {
 
     .panel-content-inner {
       padding: 5px;
       overflow-x: hidden;
       overflow-y: auto;
+    }
+
+    .panel-tree {
+      width: 100%;
+      display: flex;
     }
 
     .ant-tree{
