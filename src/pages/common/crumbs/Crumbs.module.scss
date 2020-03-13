@@ -24,6 +24,14 @@
         text-overflow: ellipsis;
         overflow: hidden;
       }
+
+      & > span:nth-child(8) {
+        display: inline-block;
+        max-width: 200px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
     .ant-breadcrumb-link {
 

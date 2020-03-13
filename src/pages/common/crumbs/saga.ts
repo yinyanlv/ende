@@ -31,6 +31,7 @@ function* loadCrumbsController(action) {
 }
 
 function loadCrumbs(params) {
+
     return http.post('/dictionary/name', params);
 }
 
