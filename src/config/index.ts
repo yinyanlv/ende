@@ -1,13 +1,14 @@
 export const config: any = {};
 
-const apiMode = process.env.REACT_APP_API_MODE;
+const env = process.env.NODE_ENV;
 
-if (apiMode === 'test') {
-   config.apiPrefix = 'http://192.168.1.71:8083/api';
-} else if (apiMode === 'prod') {
-   config.apiPrefix = 'http://192.168.1.71:8083/api';
+if (env === 'test') {
+    config.apiPrefix = 'http://192.168.1.71:8083/api';
+} else if (env === 'production') {
+    config.apiPrefix = 'http://192.168.1.71:8083/api';
 } else {
-   config.apiPrefix = '/api';
+    config.apiPrefix = 'http://192.168.1.71:8083/api';
+    // config.apiPrefix = '/api';
 }
 
 export const API_PREFIX = config.apiPrefix;

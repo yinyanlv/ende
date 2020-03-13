@@ -5,9 +5,9 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_API_MODE !== 'test') {
-    require('../mock');
-}
+// if (process.env.NODE_ENV === 'development') {
+//     require('../mock');
+// }
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

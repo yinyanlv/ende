@@ -54,3 +54,5 @@ tsconfig.base.json增加配置项
 ```text
 config-overrides.js增加配置removeModuleScopePlugin
 ```
+
+## cross-env不可以使用&&
