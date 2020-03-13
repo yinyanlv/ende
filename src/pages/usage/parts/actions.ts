@@ -1,8 +1,9 @@
 import {createAction} from '@/common/utils';
 
-export const LOAD_PARTS = 'usage:load-parts';
-export const LOAD_PARTS_SUCCESS = 'usage:load-parts-success';
-export const LOAD_PARTS_FAILED = 'usage:load-parts-failed';
+export const LOAD_PARTS = 'usage:parts:load-parts';
+export const LOAD_PARTS_SUCCESS = 'usage:parts:load-parts-success';
+export const LOAD_PARTS_FAILED = 'usage:parts:load-parts-failed';
+export const SET_SELECTED_KEYS = 'usage:parts:set-selected-keys';
 
 export const partsCreator = {
     load: (params) => {
@@ -13,6 +14,9 @@ export const partsCreator = {
     },
     failed: (message) => {
         return createAction(LOAD_PARTS_FAILED, message);
+    },
+    setSelectedKeys: (params) => {
+        return createAction(SET_SELECTED_KEYS, params);
     }
 };
 

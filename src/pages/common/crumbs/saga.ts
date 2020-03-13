@@ -97,7 +97,7 @@ function buildUrl(params, key) {
                 m_4: defaultCode
             });
         case 'm_4':
-            return '/usage?' + queryString.stringify({
+            return '/?' + queryString.stringify({
                 m_1: params.m_1,
                 m_2: params.m_2,
                 m_3: params.m_3,

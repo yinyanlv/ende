@@ -108,6 +108,7 @@ function Legend(props: LegendProps) {
         const node: any = document.querySelector('.panel-tree .ant-tree-node-selected');
         if (node && node.click) {
             node.click();
+            node.scrollIntoView();
         }
     }
 

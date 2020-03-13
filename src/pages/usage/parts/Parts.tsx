@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Button, Table, Tooltip, message} from 'antd';
 import {ShoppingCartOutlined, CopyOutlined, RetweetOutlined, RightOutlined, LeftOutlined} from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
@@ -7,6 +7,7 @@ import {Panel} from '@/components/panel';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {Application} from './application';
 import styles from './Parts.module.scss';
+import {partsCreator} from './actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 
@@ -23,12 +24,12 @@ function Parts(props: PartsProps) {
     const dispatch = useDispatch();
     const {
         isPartsLoading,
-        parts
+        parts,
+        selectedKeys
     } = useSelector((state: any) => {
         return state.parts;
     });
     const usages = parts.usages || [];
-    const [selectedKeys, setSelectedKeys]: [any[], any] = useState([]);
 
     const columns = [{
         title: '#',
@@ -107,7 +108,8 @@ function Parts(props: PartsProps) {
     useEffect(() => {
         if (props.activeCallout) {
             const keys = getKeysByCallout(props.activeCallout);
-            setSelectedKeys(keys);
+            dispatch(partsCreator.setSelectedKeys(keys));
+            scrollIntoView();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.activeCallout, isPartsLoading]);
@@ -143,7 +145,8 @@ function Parts(props: PartsProps) {
     function handleSelect(record) {
         const keys = getKeysByCallout(record.callout);
         props.onSelectParts(record.callout);
-        setSelectedKeys(keys);
+        dispatch(partsCreator.setSelectedKeys(keys));
+        scrollIntoView();
     }
 
     function getKeysByCallout(callout) {
@@ -164,6 +167,15 @@ function Parts(props: PartsProps) {
 
     function handleClickRightArrow() {
         props.onClickRightArrow && props.onClickRightArrow();
+    }
+
+    function scrollIntoView() {
+        setTimeout(() => {
+            const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
+            if (nodes && nodes.length > 0) {
+                nodes[0].scrollIntoView();
+            }
+        }, 200);
     }
 
     return (

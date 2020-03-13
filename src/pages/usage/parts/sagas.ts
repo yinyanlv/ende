@@ -3,11 +3,13 @@ import {http} from '@/common/http';
 import {getUrlAndParams} from '@/common/utils';
 import {applicationSaga} from './application/saga';
 import * as actions from './actions';
+import {usageCreator} from '@/pages/usage/actions';
 
 function* loadPartsController(action) {
     try {
         const params = action.payload;
         const parts = yield call(loadParts, params);
+        yield put(usageCreator.setActiveCallout(''));
         yield put(actions.partsCreator.success(parts));
     } catch (err) {
         yield put(actions.partsCreator.failed(err.message));

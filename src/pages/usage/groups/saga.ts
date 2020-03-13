@@ -28,6 +28,7 @@ function* loadGroupsController(action) {
 
         if (node && node.click) {
             node.click();
+            node.scrollIntoView();
         }
     } catch (err) {
         yield put(actions.groupsCreator.failed(err.message));
