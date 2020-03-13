@@ -17,6 +17,7 @@ import {searchCreator} from '@/pages/common/search/actions';
 import {navCreator} from './actions';
 import styles from './nav.module.scss';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
+import {storageService} from '@/common/storageService';
 
 const MenuItem = Menu.Item;
 
@@ -34,7 +35,8 @@ export function Nav(props) {
     }, []);
 
     function logout() {
-        window.location.href = logoutUrl;
+        const storage = storageService.getStorage();
+        window.location.href = logoutUrl + '?access_token=' + storage.token;
     }
 
     const userMenu = (
