@@ -11,7 +11,7 @@ function* loadPartsController(action) {
         yield put(actions.printLegendCreator.setIsLoading({isLoading: false}));
         setTimeout(() => {
            window.print();
-        }, 1000);
+        }, 2000);
     } catch(err) {
         yield put(actions.printLegendCreator.setIsLoading({isLoading: false}));
         message.error(err.message);

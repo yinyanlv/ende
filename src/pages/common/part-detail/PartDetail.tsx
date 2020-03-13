@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, Drawer, Tabs} from 'antd';
+import {Drawer, Tabs} from 'antd';
 import {partDetailCreator} from './actions';
 import {PartInfo} from './part-info';
 import {Applicability} from './applicability';

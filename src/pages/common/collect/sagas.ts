@@ -2,7 +2,6 @@ import {put, call, all, fork, takeLatest} from 'redux-saga/effects';
 import {message} from 'antd';
 import {http} from '@/common/http';
 import {buildQueryParams} from '@/common/utils';
-import {navCreator} from '@/pages/common/header/nav/actions';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 
@@ -53,20 +52,20 @@ function deleteFromCollect(params) {
     });
 }
 
-function* editItemController(action) {
+function editItemController(action) {
     try {
-        const data = yield call(editItem, action.payload);
+        // const data = yield call(editItem, action.payload);
     } catch(err) {
         message.error(err.message);
     }
 }
 
-function editItem(params) {
-    return http.post('/cart/update-qty', {
-        partCode: params.partCode,
-        qty: params.qty
-    });
-}
+// function editItem(params) {
+//     return http.post('/cart/update-qty', {
+//         partCode: params.partCode,
+//         qty: params.qty
+//     });
+// }
 
 function* collectSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);

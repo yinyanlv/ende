@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
-import {updateLocationSearch, updateLocationHash, getMQueryObj, getHashObj} from '@/common/utils';
+import {updateLocationSearch, updateLocationHash, getMQueryObj} from '@/common/utils';
 import {crumbsCreator} from '@/pages/common/crumbs/actions';
 import {usageCreator} from './actions';
 import {legendCreator} from '@/pages/usage/legend/actions';

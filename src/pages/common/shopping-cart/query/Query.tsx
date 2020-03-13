@@ -2,7 +2,6 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {Button, Form, Input} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
-import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
 const FormItem = Form.Item;

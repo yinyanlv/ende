@@ -1,8 +1,7 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {message, Button, Col, Form, Input, Row} from 'antd';
+import {useDispatch} from 'react-redux';
+import {message, Button, Form, Input} from 'antd';
 import {rebuildFieldsToFilters} from '@/common/utils';
-import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 
 const FormItem = Form.Item;
@@ -10,9 +9,6 @@ const FormItem = Form.Item;
 export function Query() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
-    const {fieldsValue} = useSelector((state: any) => {
-        return state.search.replace.query;
-    });
 
     function doQuery() {
         const fieldsValue = form.getFieldsValue();

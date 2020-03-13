@@ -1,10 +1,8 @@
 import axios from 'axios';
-import {message} from 'antd';
 import queryString from 'query-string';
 import history from '@/common/history';
 
 import {API_PREFIX} from '@/config';
-import {rejects} from 'assert';
 
 // 每次请求携带cookies信息
 axios.defaults.withCredentials = true;

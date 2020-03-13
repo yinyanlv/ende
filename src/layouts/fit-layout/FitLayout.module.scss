@@ -136,6 +136,11 @@
     text-decoration: underline;
   }
 
+  .pure-text-btn{
+    color: $primary-color;
+    cursor:pointer;
+  }
+
   .anticon.disabled {
     color: $lightest-font-color;
     cursor: text;

@@ -1,4 +1,4 @@
-import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
+import {takeLatest, put} from 'redux-saga/effects';
 import * as actions from './actions';
 import {collectCreator} from '../actions';
 

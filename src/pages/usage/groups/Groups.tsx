@@ -2,7 +2,6 @@ import React, {HTMLProps} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIntl} from 'react-intl';
 import {Tree} from 'antd';
-import cls from 'classnames';
 import {Panel} from '@/components/panel';
 import {usageCreator} from '@/pages/usage/actions';
 import {legendsCreator} from '@/pages/usage/legends/actions';
@@ -13,7 +12,7 @@ import styles from './Groups.module.scss';
 
 
 const DirectoryTree = Tree.DirectoryTree;
-const TreeNode = Tree.TreeNode;
+// const TreeNode = Tree.TreeNode;
 
 interface GroupsProps extends HTMLProps<HTMLDivElement> {
     isFirstLoad: boolean;
@@ -109,31 +108,31 @@ function Groups(props: GroupsProps) {
         return result;
     }
 
-    function renderTreeNodes(list: any, codePathStr = '') {
-
-        return list.map(item => {
-            const title = item.code + ' - ' + item.text;
-            const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
-
-            if (!item.leaf) {
-                return (
-                    <TreeNode active={false} title={title} key={item.code} data-code-path={tempCodePathStr}>
-                        {renderTreeNodes(item.children, tempCodePathStr)}
-                    </TreeNode>
-                );
-            }
-            return (
-                <TreeNode
-                    icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
-                    title={title}
-                    key={item.code}
-                    active={false}
-                    data-code-path={tempCodePathStr}
-                    data-svg-url={item.svgFileUri}
-                />
-            );
-        });
-    }
+    // function renderTreeNodes(list: any, codePathStr = '') {
+    //
+    //     return list.map(item => {
+    //         const title = item.code + ' - ' + item.text;
+    //         const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
+    //
+    //         if (!item.leaf) {
+    //             return (
+    //                 <TreeNode active={false} title={title} key={item.code} data-code-path={tempCodePathStr}>
+    //                     {renderTreeNodes(item.children, tempCodePathStr)}
+    //                 </TreeNode>
+    //             );
+    //         }
+    //         return (
+    //             <TreeNode
+    //                 icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
+    //                 title={title}
+    //                 key={item.code}
+    //                 active={false}
+    //                 data-code-path={tempCodePathStr}
+    //                 data-svg-url={item.svgFileUri}
+    //             />
+    //         );
+    //     });
+    // }
 
     return (
         <Panel isLoading={isGroupsLoading} title={intl.formatMessage({

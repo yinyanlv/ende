@@ -20,7 +20,7 @@ function importFile(params) {
     return http.post('/order/receiver/save', params);
 }
 
-function* downloadTplController() {
+function downloadTplController() {
     const data = storageService.getStorage();
     try {
         window.open(`${API_PREFIX}/order-detail/export?access_token=${data.token}&lang=${data.lang}`);

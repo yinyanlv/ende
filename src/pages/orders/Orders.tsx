@@ -50,7 +50,7 @@ export function PageOrders(props) {
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <a className={'text-btn'} onClick={handleClickOrderCode.bind(null, record.code)}>{val}</a>
+                    <span className={'text-btn'} onClick={handleClickOrderCode.bind(null, record.code)}>{val}</span>
                 );
             }
         },
@@ -105,7 +105,7 @@ export function PageOrders(props) {
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <a className={'text-btn'} onClick={handleClickDelete.bind(null, record.code)}>删除</a>
+                    <span className={'pure-text-btn'} onClick={handleClickDelete.bind(null, record.code)}>删除</span>
                 );
             }
         }

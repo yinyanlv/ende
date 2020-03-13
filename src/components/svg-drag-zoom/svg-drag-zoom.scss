@@ -30,6 +30,10 @@
     cursor: pointer;
   }
 
+  span.disabled {
+    //cursor: not-allowed;
+  }
+
   .legend-toolbar-reset {
     background-position: 0 0;
 
@@ -125,4 +129,5 @@
       background-position: -47px -188px;
     }
   }
+
 }

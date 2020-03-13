@@ -3,8 +3,6 @@ import {http} from '@/common/http';
 import {getQueryObj, getMQueryObj, getSQueryObj, getUrlAndParams} from '@/common/utils';
 import * as actions from './actions';
 import * as crumbsActions from '@/pages/common/crumbs/actions';
-import {usageCreator} from '@/pages/usage/actions';
-import {legendsCreator} from "@/pages/usage/legends/actions";
 
 function* loadGroupsController(action) {
     try {

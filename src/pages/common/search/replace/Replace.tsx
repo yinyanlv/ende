@@ -33,7 +33,7 @@ export function Replace() {
                         );
                     } else {
                         return (
-                            <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                            <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
                         );
                     }
                 } else {
@@ -60,7 +60,7 @@ export function Replace() {
                         );
                     } else {
                         return (
-                            <a className="btn" onClick={handleClickPartCode.bind(null, val)}>{val}</a>
+                            <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
                         );
                     }
                 } else {

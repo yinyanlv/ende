@@ -12,9 +12,6 @@ export function PartInfo() {
     const {info} = useSelector((state: any) => {
         return state.partDetail.partInfo;
     });
-    const {zIndex} = useSelector((state: any) => {
-        return state.partDetail.self;
-    });
     const {maxZIndex} = useSelector((state: any) => {
         return state.config;
     });
@@ -26,7 +23,7 @@ export function PartInfo() {
 
     function handleClickBuy(e, partCode) {
         e.stopPropagation();
-        const newMaxZIndex = maxZIndex;
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(shoppingCartCreator.addAndShowShoppingCart({
             partCode: partCode,
             zIndex: newMaxZIndex

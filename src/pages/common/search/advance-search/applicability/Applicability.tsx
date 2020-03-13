@@ -41,7 +41,7 @@ export function Applicability() {
             title: '目录',
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 80
+            width: 140
         },
         {
             title: '零件号',
@@ -50,9 +50,9 @@ export function Applicability() {
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <a className="text-btn" onClick={(e) => {
+                    <span className="text-btn" onClick={(e) => {
                         handleClickPartCode(e, val);
-                    }}>{val}</a>
+                    }}>{val}</span>
                 );
             }
         },

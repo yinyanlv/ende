@@ -7,9 +7,6 @@ import styles from './PrintLegend.module.scss';
 import {Table} from 'antd';
 import {printLegendCreator} from './actions';
 
-import {API_PREFIX} from '@/config';
-const svgPrefix = '/res';
-
 export function PagePrintLegend() {
 
     const dispatch = useDispatch();

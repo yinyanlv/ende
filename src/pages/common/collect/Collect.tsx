@@ -43,13 +43,6 @@ export function Collect(props) {
         }));
     }
 
-    function handleEditItem(partCode, qty) {
-        dispatch(collectCreator.editItem({
-            partCode,
-            qty
-        }));
-    }
-
     function handleClose() {
         dispatch(collectCreator.setIsShowCollect({
             isShow: false
@@ -113,12 +106,12 @@ export function Collect(props) {
             render: (val, record) => {
                 return (
                     <div className="btns">
-                        <a className={'text-btn'} onClick={(e) => {
+                        <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickEdit(e, record.partCode);
-                        }}>编辑</a>
-                        <a className={'text-btn'} onClick={(e) => {
+                        }}>编辑</span>
+                        <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickDelete(e, record.partCode);
-                        }}>删除</a>
+                        }}>删除</span>
                     </div>
                 );
             }

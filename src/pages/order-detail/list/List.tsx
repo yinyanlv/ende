@@ -92,12 +92,12 @@ export function List() {
             render: (val, record) => {
                 return (
                     <div>
-                        <a className={'text-btn'} onClick={(e) => {
+                        <span className={'text-btn'} onClick={(e) => {
                             handleClickEdit(e, record);
-                        }}>编辑</a>
-                        <a className={'text-btn'} onClick={(e) => {
+                        }}>编辑</span>
+                        <span className={'text-btn'} onClick={(e) => {
                             handleClickDelete(e, record);
-                        }}>删除</a>
+                        }}>删除</span>
                     </div>
                 );
             }

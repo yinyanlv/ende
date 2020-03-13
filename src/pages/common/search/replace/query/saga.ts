@@ -1,4 +1,4 @@
-import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
+import {takeLatest, put} from 'redux-saga/effects';
 import {message} from 'antd';
 import * as actions from './actions';
 import {replaceCreator} from '../actions';

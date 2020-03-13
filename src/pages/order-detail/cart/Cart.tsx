@@ -133,9 +133,9 @@ export function Cart(props) {
             render: (val, record) => {
                 return (
                     <div>
-                        <a className={'btn'} onClick={(e) => {
+                        <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickDelete(e, record.partCode);
-                        }}>删除</a>
+                        }}>删除</span>
                     </div>
                 );
             }

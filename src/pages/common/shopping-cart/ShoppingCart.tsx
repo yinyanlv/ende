@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Drawer, Button, Form, Row, Col, Input, Table, InputNumber, Tooltip, Pagination} from 'antd';
+import {Drawer, Button, Table, InputNumber, Pagination} from 'antd';
 import {shoppingCartCreator} from './actions';
 import styles from './ShoppingCart.module.scss';
 import {Query} from './query';
@@ -164,9 +164,9 @@ export function ShoppingCart(props) {
             render: (val, record) => {
                 return (
                     <div>
-                        <a className={'btn'} onClick={(e) => {
+                        <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickDelete(e, record.partCode);
-                        }}>删除</a>
+                        }}>删除</span>
                     </div>
                 );
             }
