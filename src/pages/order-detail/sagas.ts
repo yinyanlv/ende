@@ -30,13 +30,6 @@ function* initOrderDetailController(action) {
         orderCode
     }));
     yield put(cartCreator.doQuery(buildQueryParams(filters)));
-    // yield put(infoCreator.loadTransport());
-    // yield put(infoCreator.loadType());
-    // yield put(infoCreator.loadOrganization());
-    // yield put(infoCreator.loadChannel());
-    // yield put(infoCreator.loadProductGroup());
-    // yield put(infoCreator.loadFactory());
-    // yield put(infoCreator.loadPlanning());
     yield put(actions.orderDetailCreator.setOrderCode({
         orderCode
     }));
@@ -81,6 +74,7 @@ function* saveAsNewOrderController(action) {
         yield put(actions.orderDetailCreator.initOrderDetail({
             orderCode
         }));
+        message.success('创建成功');
     } catch (err) {
         message.error(err.message);
     }
@@ -98,6 +92,7 @@ function* deleteOrderController(action) {
         history.push({
             pathname: '/orders'
         });
+        message.success('删除成功');
     } catch (err) {
         message.error(err.message);
     }

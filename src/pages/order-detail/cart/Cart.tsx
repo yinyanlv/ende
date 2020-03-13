@@ -45,7 +45,9 @@ export function Cart(props) {
     }
 
     function handleSelect(keys, records) {
-        const rows = records.map((item) => {
+        const rows = records.filter((item) => {
+            return item ? true : false;
+        }).map((item) => {
             return {
                 id: item.id,
                 partCode: item.partCode

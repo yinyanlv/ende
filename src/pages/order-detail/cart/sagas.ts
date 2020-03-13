@@ -9,6 +9,7 @@ function* doQueryController(action) {
     try {
         yield put(actions.cartCreator.setIsLoading({isLoading: true}));
         const data = yield call(doQuery, action.payload);
+        yield put(actions.cartCreator.setSelectedRecords([]));
         yield put(actions.cartCreator.setCart(data));
         yield put(actions.cartCreator.setIsLoading({isLoading: false}));
     } catch(err) {

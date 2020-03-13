@@ -11,6 +11,7 @@ function* doQueryController(action) {
     try {
         yield put(actions.shoppingCartCreator.setIsLoading({isLoading: true}));
         const data = yield call(doQuery, action.payload);
+        yield put(actions.shoppingCartCreator.setSelectedRecords([]));
         yield put(actions.shoppingCartCreator.setShoppingCart(data));
         yield put(actions.shoppingCartCreator.setIsLoading({isLoading: false}));
     } catch(err) {
@@ -27,6 +28,8 @@ function* addToCartController(action) {
     try {
         yield call(addToCart, action.payload);
         yield put(navCreator.loadCartCount());
+        const params = buildQueryParams();
+        yield put(actions.shoppingCartCreator.doQuery(params));
         message.success('加入成功');
     } catch(err) {
         message.error(err.message);
@@ -95,14 +98,11 @@ function editPartCartCount(params) {
 
 function* addAndShowShoppingCartController(action) {
     const payload = action.payload;
-    const params = buildQueryParams();
     yield put(actions.shoppingCartCreator.addToCart({partCode: payload.partCode}));
     yield put(actions.shoppingCartCreator.setIsShowShoppingCart({
         isShow: true,
         zIndex: action.payload.zIndex
     }));
-
-    yield put(actions.shoppingCartCreator.doQuery(params));
 }
 
 function* generateOrderController() {
