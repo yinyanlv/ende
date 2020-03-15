@@ -34,8 +34,14 @@ export function Auth(props) {
                 dispatch(configCreator.setConfig(data));
                 setIsLoading(false);
             })
-            .catch((_err) => {
-                setIsLoading(false);
+            .catch((err) => {
+                const res = err.response;
+                if (res.status !== 401) {
+                    setIsLoading(false);
+                    history.push({
+                        pathname: '/599'
+                    });
+                }
             });
     }, []);
 
