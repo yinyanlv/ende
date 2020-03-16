@@ -66,7 +66,10 @@ export function ShoppingCart(props) {
 
     function handleSelect(record) {
         const key = record.id;
-        const isIncluded = isInclude(key);
+        const isIncluded = utils.isInclude({
+            name: 'id',
+            value: key
+        }, selectedRecords);
         const rows = [...selectedRecords];
         let records: any[] = [];
 
@@ -98,13 +101,6 @@ export function ShoppingCart(props) {
         } else {
             dispatch(shoppingCartCreator.setSelectedRecords([]));
         }
-    }
-
-    function isInclude(key) {
-
-        return selectedRecords.some((item) => {
-            return item.id === key;
-        });
     }
 
     function getSelectedPartCodes() {

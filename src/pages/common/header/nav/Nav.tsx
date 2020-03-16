@@ -6,7 +6,6 @@ import {
     SearchOutlined,
     GlobalOutlined,
     ShoppingCartOutlined,
-    FileTextOutlined,
     QuestionCircleOutlined,
     HomeOutlined,
     UserOutlined

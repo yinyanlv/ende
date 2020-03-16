@@ -5,6 +5,11 @@ export function useUtils() {
         getText,
         stopPropagation: (e) => {
             e.stopPropagation();
+        },
+        isInclude: (options, records) => {
+            return records.some((item) => {
+                return item[options.name] === options.value;
+            });
         }
-    };
+    }
 }

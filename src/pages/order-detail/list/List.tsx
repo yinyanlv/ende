@@ -94,10 +94,10 @@ export function List() {
             render: (val, record) => {
                 return (
                     <div>
-                        <span className={'text-btn'} onClick={(e) => {
+                        <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickEdit(e, record);
                         }}>编辑</span>
-                        <span className={'text-btn'} onClick={(e) => {
+                        <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickDelete(e, record);
                         }}>删除</span>
                     </div>

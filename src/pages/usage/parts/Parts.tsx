@@ -84,7 +84,7 @@ function Parts(props: PartsProps) {
         ellipsis: true,
         width: 140,
         render: (val, record) => (
-            <Application params={{id: record.id}}>
+            <Application list={record.options || []}>
                 <span>{val}</span>
             </Application>
         )

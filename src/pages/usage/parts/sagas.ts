@@ -1,7 +1,6 @@
 import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {http} from '@/common/http';
 import {getUrlAndParams} from '@/common/utils';
-import {applicationSaga} from './application/saga';
 import * as actions from './actions';
 import {usageCreator} from '@/pages/usage/actions';
 
@@ -34,8 +33,7 @@ function* partsSaga() {
 
 export function* partsSagas() {
     yield all([
-        fork(partsSaga),
-        fork(applicationSaga)
+        fork(partsSaga)
     ]);
 }
 
