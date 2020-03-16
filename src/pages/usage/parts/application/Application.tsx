@@ -58,7 +58,7 @@ export function Application(props: PropsWithChildren<ApplicationProps>) {
             onVisibleChange={handleVisibleChange}
         >
             {
-                props.children
+                props.children as any
             }
         </Popover>
     );
