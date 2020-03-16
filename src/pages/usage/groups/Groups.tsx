@@ -2,6 +2,7 @@ import React, {HTMLProps} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIntl} from 'react-intl';
 import {Tree} from 'antd';
+import {Resizable} from 're-resizable';
 import {Panel} from '@/components/panel';
 import {usageCreator} from '@/pages/usage/actions';
 import {legendsCreator} from '@/pages/usage/legends/actions';
@@ -10,8 +11,8 @@ import {updateLocationSearch, getMQueryObj} from '@/common/utils';
 import {groupsCreator} from './actions';
 import styles from './Groups.module.scss';
 
-
 const DirectoryTree = Tree.DirectoryTree;
+
 // const TreeNode = Tree.TreeNode;
 
 interface GroupsProps extends HTMLProps<HTMLDivElement> {
@@ -28,9 +29,13 @@ function Groups(props: GroupsProps) {
         groups,
         isGroupsLoading,
         activeTreeNodeCode,
-        expandedTreeNodeCodes
+        expandedTreeNodeCodes,
+        width
     } = useSelector((state: any) => {
         return state.groups;
+    });
+    const partsWidth = useSelector((state: any) => {
+        return state.parts.width;
     });
 
     function handleClickTreeNode(e, node) {
@@ -108,6 +113,12 @@ function Groups(props: GroupsProps) {
         return result;
     }
 
+    function handleResize(e, direction, ref, delta) {
+        dispatch(groupsCreator.setWidth({
+            width: width + delta.width
+        }));
+    }
+
     // function renderTreeNodes(list: any) {
     //
     //     return list.map(item => {
@@ -130,13 +141,20 @@ function Groups(props: GroupsProps) {
     // }
 
     return (
-        <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
-            id: 'crumbs.s_1'
-        })} className={styles.groups} style={{marginLeft: props.isShowGroups ? '0' : '-260px'}}>
+        <Resizable
+            minWidth={150}
+            maxWidth={window.innerWidth - partsWidth - 295}
+            defaultSize={{width: width, height: window.innerHeight - 100}}
+            enable={{right: true}}
+            onResizeStop={handleResize}
+            style={{marginLeft: props.isShowGroups ? '0' : -(width + 10) + 'px'}}
+        >
+            <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
+                id: 'crumbs.s_1'
+            })} className={styles.groups}>
                 <DirectoryTree
                     className={'panel-tree'}
                     expandAction="click"
-                    style={{width: '238px'}}
                     // height={610}
                     defaultExpandAll={true}
                     defaultExpandedKeys={expandedTreeNodeCodes}
@@ -147,7 +165,8 @@ function Groups(props: GroupsProps) {
                     treeData={groups}
                 >
                 </DirectoryTree>
-        </Panel>
+            </Panel>
+        </Resizable>
     );
 }
 

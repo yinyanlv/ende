@@ -7,6 +7,7 @@ export const LOAD_GROUPS_FAILED = 'usage:load-groups-failed';
 export const RESET_GROUPS = 'usage:reset-groups';
 export const SET_ACTIVE_TREE_NODE_CODE = 'usage:set-active-tree-node-code';
 export const SET_EXPANDED_TREE_NODE_CODES = 'usage:set-expanded-tree-node-codes';
+export const SET_WIDTH = 'usage:set-width';
 
 export const groupsCreator = {
     resetGroups: function () {
@@ -26,5 +27,8 @@ export const groupsCreator = {
     },
     setExpandedTreeNodeCodes: (params) => {
         return createAction(SET_EXPANDED_TREE_NODE_CODES, params);
+    },
+    setWidth: (params) => {
+        return createAction(SET_WIDTH, params);
     }
 };

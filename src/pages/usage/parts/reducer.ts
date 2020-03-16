@@ -2,6 +2,7 @@ import * as actions from './actions';
 
 const initialState = {
     isPartsLoading: false,
+    width: 720,
     selectedKeys: [],
     parts: {
         usages: []
@@ -31,6 +32,11 @@ export function partsReducer(state = initialState, action: any) {
             return {
                 ...state,
                 selectedKeys: action.payload
+            };
+        case actions.SET_WIDTH:
+            return {
+                ...state,
+                width: action.payload.width
             };
         default:
             return state;

@@ -9,6 +9,7 @@ import {Application} from '@/pages/common/application';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {Resizable} from 're-resizable';
 
 
 interface PartsProps {
@@ -25,9 +26,13 @@ function Parts(props: PartsProps) {
     const {
         isPartsLoading,
         parts,
-        selectedKeys
+        selectedKeys,
+        width
     } = useSelector((state: any) => {
         return state.parts;
+    });
+    const groupsWidth = useSelector((state: any) => {
+        return state.groups.width;
     });
     const usages = parts.usages || [];
 
@@ -110,6 +115,12 @@ function Parts(props: PartsProps) {
         }, 200);
     }
 
+    function handleResize(e, direction, ref, delta) {
+        dispatch(partsCreator.setWidth({
+            width: width + delta.width
+        }));
+    }
+
     const columns = [{
         title: '#',
         dataIndex: 'callout',
@@ -186,38 +197,47 @@ function Parts(props: PartsProps) {
     }];
 
     return (
-        <div className={styles.parts} style={{marginRight: props.isShowParts ? '0' : '-730px'}}>
-            <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
-                <Table columns={columns}
-                       dataSource={usages}
-                       className={usages.length > 0 ? 'part-list' : 'part-list empty-table'}
-                       rowKey={'id'}
-                       size={'small'}
-                       scroll={{
-                           y: styles.tableBodyHeight
-                       } as any}
-                       tableLayout={'fixed'}
-                       pagination={false}
-                       onRow={(record) => {
-                           return {
-                               onClick: () => {
-                                   handleSelect(record);
-                               }
-                           };
-                       }}
-                       rowSelection={{
-                           selectedRowKeys: selectedKeys
-                       }}
-                />
-            </Panel>
-            {
-                props.isShowParts ? (
-                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined/></span>
-                ) : (
-                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined/></span>
-                )
-            }
-        </div>
+        <Resizable
+            minWidth={400}
+            maxWidth={window.innerWidth - groupsWidth - 295}
+            defaultSize={{width: width, height: window.innerHeight - 100}}
+            enable={{left: true}}
+            onResizeStop={handleResize}
+            style={{marginRight: props.isShowParts ? '0' : -(width + 10) + 'px'}}
+        >
+            <div className={styles.parts}>
+                <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
+                    <Table columns={columns}
+                           dataSource={usages}
+                           className={usages.length > 0 ? 'part-list' : 'part-list empty-table'}
+                           rowKey={'id'}
+                           size={'small'}
+                           scroll={{
+                               y: styles.tableBodyHeight
+                           } as any}
+                           tableLayout={'fixed'}
+                           pagination={false}
+                           onRow={(record) => {
+                               return {
+                                   onClick: () => {
+                                       handleSelect(record);
+                                   }
+                               };
+                           }}
+                           rowSelection={{
+                               selectedRowKeys: selectedKeys
+                           }}
+                    />
+                </Panel>
+                {
+                    props.isShowParts ? (
+                        <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined/></span>
+                    ) : (
+                        <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined/></span>
+                    )
+                }
+            </div>
+        </Resizable>
     );
 }
 

@@ -6,6 +6,7 @@ const initialState = {
     groups: [],
     flatPathList: [],
     expandedTreeNodeCodes: [],
+    width: 250,
     activeTreeNodeCode: defaultCode
 };
 
@@ -43,6 +44,11 @@ export function groupsReducer(state = initialState, action: any) {
             return {
                 ...state,
                 expandedTreeNodeCodes: action.payload
+            };
+        case actions.SET_WIDTH:
+            return {
+                ...state,
+                width: action.payload.width
             };
         default:
             return state;

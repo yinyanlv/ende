@@ -12,8 +12,7 @@ $empty-table-body-height: calc(100vh - 100px);
 
 .parts {
   position: relative;
-  width: $parts-width;
-  margin-left: 20px;
+  width: 100%;
   transition: margin .3s ease-in-out;
 
   :global {
