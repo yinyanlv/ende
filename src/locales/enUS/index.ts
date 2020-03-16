@@ -15,5 +15,12 @@ export const enUS: any = {
         a1: 'Back Home',
         a2: 'Sorry, the page you visited does not exist.',
         a3: 'Sorry, the server is wrong.'
+    },
+    operate: {
+        a1: 'Create',
+        a2: 'Edit',
+        a3: 'Delete',
+        a4: 'Buy',
+        a5: 'Operate'
     }
 };

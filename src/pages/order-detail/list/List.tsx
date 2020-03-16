@@ -5,12 +5,14 @@ import {Loading} from '@/components/loading';
 import styles from './List.module.scss';
 import {listCreator} from './actions';
 import {editCreator} from '../edit/actions';
+import {useUtils} from '@/hooks';
 
 export function List() {
     const dispatch = useDispatch();
     const {isShow, type, isLoading, list, selectedKeys} = useSelector((state: any) => {
         return state.orderDetail.list;
     });
+    const utils = useUtils();
     const title = type === 'purchase' ? '下单人信息' : '收货人信息';
 
     function handleClickDelete(e, record) {
@@ -116,7 +118,7 @@ export function List() {
         >
             <Loading isLoading={isLoading}>
                 <div className={'operators-line'}>
-                    <Button type={'primary'} onClick={handleClickCreate}>新增</Button>
+                    <Button type={'primary'} onClick={handleClickCreate}>{utils.getText('operate.a1')}</Button>
                 </div>
                 <div className={styles.list}>
                     <Table
