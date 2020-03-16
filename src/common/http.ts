@@ -50,8 +50,8 @@ class Http {
                 let message = res.data.message;
                 const host = message.authHost;
                 const queryObj = {
-                    client_id: 'yyl' || message.clientId,
-                    // client_id: message.clientId,
+                    // client_id: 'yyl' || message.clientId,
+                    client_id: message.clientId,
                     redirect_uri: window.location.href,
                     response_type: message.responseType,
                     scope: message.scope,

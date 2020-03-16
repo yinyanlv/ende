@@ -99,7 +99,7 @@ export function Nav(props) {
                     </span>
                     <NavLink to={'/orders'} className="nav-item">
                        <span className={'nav-item-inner'}>
-                           <FileTextOutlined/>
+                           <i className="iconfont icon-order"></i>
                         </span>
                     </NavLink>
                     <Dropdown overlay={helpMenu}>

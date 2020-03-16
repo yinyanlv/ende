@@ -1,0 +1,16 @@
+{
+  "id": "1693462",
+  "name": "tis",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "13484281",
+      "name": "订单",
+      "font_class": "order",
+      "unicode": "e6fb",
+      "unicode_decimal": 59131
+    }
+  ]
+}

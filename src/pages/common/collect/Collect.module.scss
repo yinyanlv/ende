@@ -37,16 +37,11 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
       .image-box {
         width: 92px;
         height: 78px;
-        border: 1px solid $bd-color;
+        border: 1px solid transparent;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        @include transition(border-color .3s ease-in-out);
-
-        &:hover {
-          border: 1px solid $primary-color;
-        }
 
         img {
           max-width:80px;
