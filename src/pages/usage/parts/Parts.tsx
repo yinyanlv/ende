@@ -170,12 +170,12 @@ function Parts(props: PartsProps) {
     }
 
     function scrollIntoView() {
-        setTimeout(() => {
-            const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
-            if (nodes && nodes.length > 0) {
-                nodes[0].scrollIntoView();
-            }
-        }, 200);
+        // setTimeout(() => {
+        //     const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
+        //     if (nodes && nodes.length > 0) {
+        //         nodes[0].scrollIntoView();
+        //     }
+        // }, 200);
     }
 
     return (
@@ -200,10 +200,7 @@ function Parts(props: PartsProps) {
                            };
                        }}
                        rowSelection={{
-                           selectedRowKeys: selectedKeys,
-                           onSelect: (record) => {
-                               handleSelect(record);
-                           }
+                           selectedRowKeys: selectedKeys
                        }}
                 />
             </Panel>

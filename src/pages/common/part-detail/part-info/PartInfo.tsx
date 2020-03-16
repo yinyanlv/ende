@@ -88,7 +88,7 @@ export function PartInfo() {
                 </table>
                 {
                     <div className="btn-line">
-                        <Button disabled={!(info.salesProps && info.saleProps.canSale)} type="primary" size={'large'}
+                        <Button type="primary" size={'large'}
                                 icon={<ShoppingCartOutlined/>} onClick={(e) => {
                             handleClickBuy(e, info.code);
                         }}>购买</Button>

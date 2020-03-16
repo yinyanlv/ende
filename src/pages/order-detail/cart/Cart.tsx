@@ -6,6 +6,7 @@ import {cartCreator} from './actions';
 import styles from './Cart.module.scss';
 import {Query} from './query';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {useUtils} from '@/hooks';
 
 export function Cart(props) {
 
@@ -13,10 +14,13 @@ export function Cart(props) {
     const {orderCode} = useSelector((state: any) => {
         return state.orderDetail.self;
     });
-
     const {total, list, pageNo, pageSize, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.orderDetail.cart.self;
     });
+    const selectedKeys = selectedRecords.map((item) => {
+        return item.id;
+    });
+    const utils = useUtils();
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -36,26 +40,55 @@ export function Cart(props) {
         }));
     }
 
-    function handleClickDelete(e, partCode) {
-        e.stopPropagation();
+    function handleClickDelete(partCode) {
         dispatch(cartCreator.deleteParts({
             orderCode,
             partCodes: [partCode]
         }));
     }
 
-    function handleSelect(keys, records) {
-        const rows = records.filter((item) => {
-            return item ? true : false;
-        }).map((item) => {
-            return {
-                id: item.id,
-                partCode: item.partCode
-            }
-        });
-        dispatch(cartCreator.setSelectedRecords(rows));
+    function handleSelect(record) {
+        const key = record.id;
+        const isIncluded = isInclude(key);
+        const rows = [...selectedRecords];
+        let records: any[] = [];
+
+        if (isIncluded) {
+            records = rows.filter((item) => {
+                return item.id !== key ? true : false;
+            });
+        } else {
+            rows.push({
+                id: record.id,
+                partCode: record.partCode
+            });
+            records = rows;
+        }
+
+        dispatch(cartCreator.setSelectedRecords(records));
     }
 
+    function handleSelectAll(selected, _selectedRows, _changeRows) {
+
+        if (selected) {
+            const records = list.map((item) => {
+                return {
+                    id: item.id,
+                    partCode: item.partCode
+                };
+            });
+            dispatch(cartCreator.setSelectedRecords(records));
+        } else {
+            dispatch(cartCreator.setSelectedRecords([]));
+        }
+    }
+
+    function isInclude(key) {
+
+        return selectedRecords.some((item) => {
+            return item.id === key;
+        });
+    }
 
     function handleDeleteSelected() {
         const partCodes = getSelectedPartCodes();
@@ -86,7 +119,10 @@ export function Cart(props) {
             width: 150,
             ellipsis: true,
             render(val) {
-                return <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
+                return <span className="text-btn" onClick={(e) => {
+                    e.stopPropagation();
+                    handleClickPartCode(val);
+                }}>{val}</span>
             }
         },
         {
@@ -99,14 +135,17 @@ export function Cart(props) {
             title: '量',
             dataIndex: 'qty',
             render: (val, record) => {
-                return <InputNumber value={val}
-                                    onBlur={(e) => {
-                                        const val = e.target.value;
-                                        handleEditQty({
-                                            partCode: record.partCode,
-                                            qty: val
-                                        });
-                                    }}/>
+                return (
+                    <div onClick={utils.stopPropagation}>
+                        <InputNumber value={val}
+                                     onChange={(val) => {
+                                         handleEditQty({
+                                             partCode: record.partCode,
+                                             qty: val
+                                         });
+                                     }}/>
+                    </div>
+                );
             }
         },
         {
@@ -134,7 +173,8 @@ export function Cart(props) {
                 return (
                     <div>
                         <span className={'pure-text-btn'} onClick={(e) => {
-                            handleClickDelete(e, record.partCode);
+                            e.stopPropagation();
+                            handleClickDelete(record.partCode);
                         }}>删除</span>
                     </div>
                 );
@@ -154,11 +194,19 @@ export function Cart(props) {
                         <Table
                             columns={columns}
                             dataSource={list}
-                            rowKey={'partCode'}
+                            rowKey={'id'}
                             tableLayout={'fixed'}
                             pagination={false}
+                            onRow={(record) => {
+                                return {
+                                    onClick: () => {
+                                        handleSelect(record);
+                                    }
+                                };
+                            }}
                             rowSelection={{
-                                onChange: handleSelect
+                                selectedRowKeys: selectedKeys,
+                                onSelectAll: handleSelectAll
                             }}
                         />
                     </div>

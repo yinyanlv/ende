@@ -7,6 +7,7 @@ import {Query} from './query';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Loading} from "@/components/loading";
 import {configCreator} from '@/store/config/actions';
+import {useUtils} from '@/hooks';
 
 export function ShoppingCart(props) {
 
@@ -17,6 +18,10 @@ export function ShoppingCart(props) {
     const {maxZIndex} = useSelector((state: any) => {
         return state.config;
     });
+    const selectedKeys = selectedRecords.map((item) => {
+        return item.id;
+    });
+    const utils = useUtils();
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -59,16 +64,47 @@ export function ShoppingCart(props) {
         }));
     }
 
-    function handleSelect(keys, records) {
-        const rows = records.filter((item) => {
-            return item ? true : false;
-        }).map((item) => {
-            return {
-                id: item.id,
-                partCode: item.partCode
-            }
+    function handleSelect(record) {
+        const key = record.id;
+        const isIncluded = isInclude(key);
+        const rows = [...selectedRecords];
+        let records: any[] = [];
+
+        if (isIncluded) {
+            records = rows.filter((item) => {
+                return item.id !== key ? true : false;
+            });
+        } else {
+            rows.push({
+                id: record.id,
+                partCode: record.partCode
+            });
+            records = rows;
+        }
+
+        dispatch(shoppingCartCreator.setSelectedRecords(records));
+    }
+
+    function handleSelectAll(selected, _selectedRows, _changeRows) {
+
+        if (selected) {
+            const records = list.map((item) => {
+                return {
+                    id: item.id,
+                    partCode: item.partCode
+                };
+            });
+            dispatch(shoppingCartCreator.setSelectedRecords(records));
+        } else {
+            dispatch(shoppingCartCreator.setSelectedRecords([]));
+        }
+    }
+
+    function isInclude(key) {
+
+        return selectedRecords.some((item) => {
+            return item.id === key;
         });
-        dispatch(shoppingCartCreator.setSelectedRecords(rows));
     }
 
     function getSelectedPartCodes() {
@@ -116,12 +152,18 @@ export function ShoppingCart(props) {
                 const modelsString = getModelsString(record.applyList);
                 return (
                     <div className="item">
-                        <div className="image-box" onClick={handleClickPartCode.bind(null, record.partCode)}><img
+                        <div className="image-box" onClick={(e) => {
+                            e.stopPropagation();
+                            handleClickPartCode(record.partCode);
+                        }}><img
                             src={record.coverImageUri || '/images/nopic.gif'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="text-btn"
-                                      onClick={handleClickPartCode.bind(null, record.partCode)}>{record.partCode}</span>
+                                      onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleClickPartCode(record.partCode)
+                                      }}>{record.partCode}</span>
                                 <span className="gap">-</span>
                                 <span>{record.partName}</span>
                                 <span>(<span>{record.partNote}</span>)</span>
@@ -141,10 +183,9 @@ export function ShoppingCart(props) {
             dataIndex: 'qty',
             render: (val, record) => {
                 return (
-                    <div>
+                    <div onClick={utils.stopPropagation}>
                         <InputNumber value={val}
-                                     onBlur={(e) => {
-                                         const val = e.target.value;
+                                     onChange={(val) => {
                                          handleEditPartCartCount(record.partCode, val)
                                      }}/>
                     </div>
@@ -195,8 +236,16 @@ export function ShoppingCart(props) {
                             rowKey={'id'}
                             tableLayout={'fixed'}
                             pagination={false}
+                            onRow={(record) => {
+                                return {
+                                    onClick: () => {
+                                        handleSelect(record);
+                                    }
+                                };
+                            }}
                             rowSelection={{
-                                onChange: handleSelect
+                                selectedRowKeys: selectedKeys,
+                                onSelectAll: handleSelectAll
                             }}
                             scroll={{
                                 y: styles.tableBodyHeight
