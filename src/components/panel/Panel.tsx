@@ -15,7 +15,7 @@ export function Panel(props: PropsWithChildren<PanelProps>) {
     delete innerProps.isLoading;
 
     return (
-        <div {...innerProps} className={cls(styles.panel, props.className)}>
+        <div {...innerProps} title={''} className={cls(styles.panel, props.className)}>
             <Loading isLoading={props.isLoading}>
                 {
                     props.mode && props.mode === 'empty' ? (

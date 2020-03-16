@@ -121,7 +121,12 @@
     overflow: auto !important;
   }
 
+
   table {
+    .row-number{
+      padding-left:15px !important;
+    }
+
     .text-btn{
       color: $primary-color;
       margin-right: 10px;

@@ -108,27 +108,22 @@ function Groups(props: GroupsProps) {
         return result;
     }
 
-    // function renderTreeNodes(list: any, codePathStr = '') {
+    // function renderTreeNodes(list: any) {
     //
     //     return list.map(item => {
-    //         const title = item.code + ' - ' + item.text;
-    //         const tempCodePathStr = codePathStr ? codePathStr + '/' + item.code : item.code;
-    //
     //         if (!item.leaf) {
     //             return (
-    //                 <TreeNode active={false} title={title} key={item.code} data-code-path={tempCodePathStr}>
-    //                     {renderTreeNodes(item.children, tempCodePathStr)}
+    //                 <TreeNode active={false} title={item.title} key={item.key}>
+    //                     {renderTreeNodes(item.children)}
     //                 </TreeNode>
     //             );
     //         }
     //         return (
     //             <TreeNode
     //                 icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
-    //                 title={title}
-    //                 key={item.code}
+    //                 title={item.title}
+    //                 key={item.key}
     //                 active={false}
-    //                 data-code-path={tempCodePathStr}
-    //                 data-svg-url={item.svgFileUri}
     //             />
     //         );
     //     });

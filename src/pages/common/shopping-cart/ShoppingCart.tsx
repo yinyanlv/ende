@@ -251,7 +251,7 @@ export function ShoppingCart(props) {
                     <div className="pagination">
                         <div className="operators">
                             <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
-                            <Button type="primary" onClick={handleCreateOrder}>生成订单</Button>
+                            <Button type="primary" disabled={!list.length} onClick={handleCreateOrder}>生成订单</Button>
                         </div>
                         <Pagination
                             total={total}

@@ -5,7 +5,7 @@ import copy from 'copy-to-clipboard';
 import {useSelector, useDispatch} from 'react-redux';
 import {Panel} from '@/components/panel';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
-import {Application} from './application';
+import {Application} from '@/pages/common/application';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
@@ -31,10 +31,90 @@ function Parts(props: PartsProps) {
     });
     const usages = parts.usages || [];
 
+    useEffect(() => {
+        if (props.activeCallout) {
+            const keys = getKeysByCallout(props.activeCallout);
+            dispatch(partsCreator.setSelectedKeys(keys));
+            scrollIntoView();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.activeCallout, isPartsLoading]);
+
+
+    function showPartDetail(e, partCode) {
+        e.stopPropagation();
+        dispatch(partDetailCreator.loadAndShowPartDetail({
+            partCode: partCode
+        }));
+    }
+
+    function handleClickCart(e, partCode) {
+        e.stopPropagation();
+        dispatch(shoppingCartCreator.addAndShowShoppingCart({
+            partCode: partCode
+        }));
+    }
+
+    function handleClickCopy(e, val) {
+        e.stopPropagation();
+        copy(val);
+        message.success('已复制到剪贴板');
+    }
+
+    function handleClickReplace(e, partCode) {
+        e.stopPropagation();
+        dispatch(partDetailCreator.loadAndShowPartDetail({
+            partCode: partCode,
+            activeTab: 'replace'
+        }));
+    }
+
+    function handleSelect(record) {
+        const keys = getKeysByCallout(record.callout);
+
+        if (keys.length && selectedKeys.includes(keys[0])) {
+            props.onSelectParts('');
+            dispatch(partsCreator.setSelectedKeys([]));
+        } else {
+            props.onSelectParts(record.callout);
+            dispatch(partsCreator.setSelectedKeys(keys));
+        }
+    }
+
+    function getKeysByCallout(callout) {
+        let keys: any[] = [];
+
+        usages.forEach((record) => {
+            if (record.callout === callout) {
+                keys.push(record.id);
+            }
+        });
+
+        return keys;
+    }
+
+    function handleClickLeftArrow() {
+        props.onClickLeftArrow && props.onClickLeftArrow();
+    }
+
+    function handleClickRightArrow() {
+        props.onClickRightArrow && props.onClickRightArrow();
+    }
+
+    function scrollIntoView() {
+        setTimeout(() => {
+            const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
+            if (nodes && nodes.length > 0) {
+                nodes[0].scrollIntoView();
+            }
+        }, 200);
+    }
+
     const columns = [{
         title: '#',
         dataIndex: 'callout',
-        width: 40,
+        className: 'row-number',
+        width: 50,
         ellipsis: true
     }, {
         title: '零件编号',
@@ -72,7 +152,7 @@ function Parts(props: PartsProps) {
         title: '左右',
         dataIndex: 'handName',
         ellipsis: true,
-        width: 80
+        width: 100
     }, {
         title: '名称描述',
         dataIndex: 'name',
@@ -105,79 +185,6 @@ function Parts(props: PartsProps) {
         )
     }];
 
-    useEffect(() => {
-        if (props.activeCallout) {
-            const keys = getKeysByCallout(props.activeCallout);
-            dispatch(partsCreator.setSelectedKeys(keys));
-            scrollIntoView();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.activeCallout, isPartsLoading]);
-
-    function showPartDetail(e, partCode) {
-        e.stopPropagation();
-        dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode: partCode
-        }));
-    }
-
-    function handleClickCart(e, partCode) {
-        e.stopPropagation();
-        dispatch(shoppingCartCreator.addAndShowShoppingCart({
-            partCode: partCode
-        }));
-    }
-
-    function handleClickCopy(e, val) {
-        e.stopPropagation();
-        copy(val);
-        message.success('已复制到剪贴板');
-    }
-
-    function handleClickReplace(e, partCode) {
-        e.stopPropagation();
-        dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode: partCode,
-            activeTab: 'replace'
-        }));
-    }
-
-    function handleSelect(record) {
-        const keys = getKeysByCallout(record.callout);
-        props.onSelectParts(record.callout);
-        dispatch(partsCreator.setSelectedKeys(keys));
-        scrollIntoView();
-    }
-
-    function getKeysByCallout(callout) {
-        let keys: any[] = [];
-
-        usages.forEach((record) => {
-            if (record.callout === callout) {
-                keys.push(record.id);
-            }
-        });
-
-        return keys;
-    }
-
-    function handleClickLeftArrow() {
-        props.onClickLeftArrow && props.onClickLeftArrow();
-    }
-
-    function handleClickRightArrow() {
-        props.onClickRightArrow && props.onClickRightArrow();
-    }
-
-    function scrollIntoView() {
-        // setTimeout(() => {
-        //     const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
-        //     if (nodes && nodes.length > 0) {
-        //         nodes[0].scrollIntoView();
-        //     }
-        // }, 200);
-    }
-
     return (
         <div className={styles.parts} style={{marginRight: props.isShowParts ? '0' : '-730px'}}>
             <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
@@ -187,7 +194,6 @@ function Parts(props: PartsProps) {
                        rowKey={'id'}
                        size={'small'}
                        scroll={{
-                           x: styles.tableInnerWidth,
                            y: styles.tableBodyHeight
                        } as any}
                        tableLayout={'fixed'}

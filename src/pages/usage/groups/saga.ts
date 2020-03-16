@@ -19,6 +19,14 @@ function* loadGroupsController(action) {
         const groups = yield call(loadGroup, mQueryObj);
 
         const list = groups && groups.list;
+
+        if (!nodeInfo) {
+            if (list.length && list[0]) {
+                const nodeInfo = list[0];
+                yield put(actions.groupsCreator.setActiveTreeNodeCode(nodeInfo.code));
+            }
+        }
+
         yield put(actions.groupsCreator.success(list));
         yield put(crumbsActions.crumbsCreator.load(queryObj));
 
