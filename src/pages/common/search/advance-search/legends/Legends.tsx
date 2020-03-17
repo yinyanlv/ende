@@ -46,9 +46,9 @@ export function Legends() {
             <div className={styles.legends}>
                 <div className="inner-wrapper">
                     {
-                        list && list.length > 0 ? list.map((item) => {
+                        list && list.length > 0 ? list.map((item, index) => {
                                 return (
-                                    <div className="item" key={item.catalogueCode + item.legendCode}>
+                                    <div className="item" key={item.catalogueCode + item.legendCode + index}>
                                         <div className="image-box" onClick={handleClickLegend.bind(null, item)}><img
                                             src={item.legendFileUri || '/images/nopic.gif'} alt={item.name}/></div>
                                         <div className="info-box">
