@@ -69,7 +69,9 @@ export function Parts() {
                                                       onClick={handleClickPartCode.bind(null, item.code)}>{item.code}</span>
                                                 <span className="gap">-</span>
                                                 <span>{item.name}</span>
-                                                <span>(<span>{item.note}</span>)</span>
+                                                {
+                                                    item.note && <span>(<span>{item.note}</span>)</span>
+                                                }
                                             </div>
                                             <div className="content-line">
                                                 <span><label>最小包装数：</label>{item.unitPkgQty}</span>

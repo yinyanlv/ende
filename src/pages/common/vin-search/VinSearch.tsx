@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {Input, message} from 'antd';
+import {Input} from 'antd';
 import {searchCreator} from '@/pages/common/search/actions';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator} from './actions';
@@ -23,7 +23,9 @@ export function VinSearch(props: VinSearchProps) {
     function doVinSearch(val: string) {
         val = val.trim();
         if (val === '') {
-            message.error('请输入查询所需的关键字');
+            dispatch(searchCreator.setIsShowSearch({
+                isShow: true
+            }));
             return;
         }
         const searchType = getSearchType(val);

@@ -12,8 +12,7 @@ function* editRecordController(action) {
             type
         }));
         yield put(actions.editCreator.setIsShowEdit({
-            isShow: false,
-            fieldsValue: {}
+            isShow: false
         }));
     } catch(err) {
         message.error(err.message);

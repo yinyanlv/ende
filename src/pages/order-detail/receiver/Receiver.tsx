@@ -57,8 +57,6 @@ export function Receiver() {
                     </Col>
                 </Row>
             </div>
-            <List/>
-            <Edit/>
         </div>
     )
 }

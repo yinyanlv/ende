@@ -32,7 +32,8 @@ export function ShoppingCart(props) {
         dispatch(shoppingCartCreator.doQuery(queryParams));
     }
 
-    function handleClickPartCode(partCode) {
+    function handleClickPartCode(e, partCode) {
+        e.stopPropagation();
         const newMaxZIndex = maxZIndex + 5;
         dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
@@ -149,25 +150,25 @@ export function ShoppingCart(props) {
                 return (
                     <div className="item">
                         <div className="image-box" onClick={(e) => {
-                            e.stopPropagation();
-                            handleClickPartCode(record.partCode);
+                            handleClickPartCode(e, record.partCode);
                         }}><img
                             src={record.coverImageUri || '/images/nopic.gif'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="text-btn"
                                       onClick={(e) => {
-                                          e.stopPropagation();
-                                          handleClickPartCode(record.partCode)
+                                          handleClickPartCode(e, record.partCode);
                                       }}>{record.partCode}</span>
                                 <span className="gap">-</span>
                                 <span>{record.partName}</span>
-                                <span>(<span>{record.partNote}</span>)</span>
+                                {
+                                    record.partNote && <span>(<span>{record.partNote}</span>)</span>
+                                }
                             </div>
                             <div className="content-line">
                                 <span><label>最小包装数：</label>{record.unitPkgPackage}</span>
                                 <span><label>配件价格：</label>{record.price && record.price.formatString}</span>
-                                <span style={{width: '100%'}}><label>适用车型：</label>{modelsString}</span>
+                                <span className={'model'} title={modelsString}><label>适用车型：</label>{modelsString}</span>
                             </div>
                         </div>
                     </div>
@@ -177,6 +178,7 @@ export function ShoppingCart(props) {
         {
             title: '量',
             dataIndex: 'qty',
+            width: 120,
             render: (val, record) => {
                 return (
                     <div onClick={utils.stopPropagation}>
@@ -189,14 +191,16 @@ export function ShoppingCart(props) {
             }
         },
         {
-            title: '小计(元)',
+            title: '小计',
             dataIndex: 'amount',
+            width: 120,
             render: (val) => {
                 return val && val.formatString;
             }
         },
         {
             title: '操作',
+            width: 100,
             dataIndex: 'operator',
             render: (val, record) => {
                 return (

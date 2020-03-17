@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {Breadcrumb} from 'antd';
+import {Breadcrumb, Tooltip} from 'antd';
 import {HomeOutlined, StarOutlined} from '@ant-design/icons';
 import {VinSearch} from '@/pages/common/vin-search';
 import styles from './Crumbs.module.scss';
@@ -22,7 +22,7 @@ export function Crumbs(props) {
                 <Breadcrumb>
                     <CrumbItem key="home">
                         <a href={productCatalogUrl}>
-                            <HomeOutlined />
+                            <HomeOutlined/>
                             <span className="crumbs-text">产品大全</span>
                         </a>
                     </CrumbItem>
@@ -32,16 +32,19 @@ export function Crumbs(props) {
                         </Link>
                     </CrumbItem>
                     {
-                        list && list.map((item, index) => {
+                        list && list.map((item, _index) => {
+                            const title = (item.label ? item.label + ' : ' : '') + item.name;
                             return (
                                 <CrumbItem key={item.code}>
                                     {
                                         item.url ? (
                                             <Link to={item.url}>
-                                                <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
+                                                <span className="crumbs-text">{title}</span>
                                             </Link>
                                         ) : (
-                                            <span className="crumbs-text">{item.label ? (item.label + ' : ') : ''}{item.name}</span>
+                                            <Tooltip title={title}>
+                                                <span className="crumbs-text">{title}</span>
+                                            </Tooltip>
                                         )
                                     }
                                 </CrumbItem>
@@ -53,7 +56,7 @@ export function Crumbs(props) {
                     isShowCollect && <div className="operator-wrapper"><StarOutlined/></div>
                 }
             </div>
-            <VinSearch />
+            <VinSearch/>
         </div>
     );
 }

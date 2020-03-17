@@ -83,6 +83,10 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
           float: left;
           @extend %textOverflowEllipsis;
         }
+
+        & > .model {
+          width: 100%;
+        }
       }
     }
 

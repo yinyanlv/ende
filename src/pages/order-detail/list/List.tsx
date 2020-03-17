@@ -128,12 +128,16 @@ export function List() {
                         pagination={false}
                         rowKey={'id'}
                         tableLayout={'fixed'}
+                        onRow={(record) => {
+                            return {
+                                onClick: () => {
+                                    setDefault(record);
+                                }
+                            }
+                        }}
                         rowSelection={{
                             type: 'radio',
-                            selectedRowKeys: selectedKeys,
-                            onSelect: (record) => {
-                                setDefault(record);
-                            }
+                            selectedRowKeys: selectedKeys
                         }}
                     />
                 </div>

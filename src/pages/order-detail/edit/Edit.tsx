@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Modal, Form, Row, Col, Input} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './Edit.module.scss';
@@ -25,8 +25,14 @@ export function Edit() {
 
     function handleCancel() {
         dispatch(editCreator.setIsShowEdit({
-            isShow: false,
-            fieldsValue: {}
+            isShow: false
+        }));
+    }
+
+    function afterClose() {
+        form.resetFields();
+        dispatch(editCreator.setIsShowEdit({
+            isShow: false
         }));
     }
 
@@ -42,13 +48,14 @@ export function Edit() {
             okText='保存'
             cancelText='取消'
             destroyOnClose={true}
+            afterClose={afterClose}
         >
             <Form
                 layout="inline"
                 labelAlign="left"
                 form={form}
-                initialValues={fieldsValue}
                 className={styles.edit}
+                initialValues={fieldsValue}
             >
                 <Row>
                     <Col span={24}>
@@ -90,6 +97,7 @@ export function Edit() {
                         </FormItem>
                     </Col>
                     <Col span={12}>
+
                         <FormItem label="电子邮件" name={'mail'} rules={[{required: true, message:'请填写电子邮件'}]}>
                             <Input placeholder="请输入"/>
                         </FormItem>

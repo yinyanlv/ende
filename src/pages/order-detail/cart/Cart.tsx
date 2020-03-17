@@ -156,7 +156,7 @@ export function Cart(props) {
             }
         },
         {
-            title: '小计(元)',
+            title: '小计',
             dataIndex: 'amount',
             render: function (val) {
                 return val && val.formatString;

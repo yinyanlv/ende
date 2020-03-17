@@ -4,6 +4,7 @@ import {http} from '@/common/http';
 import * as actions from './actions';
 import {purchaserCreator} from '../purchaser/actions';
 import {receiverCreator} from '../receiver/actions';
+import {listCreator} from './actions';
 
 function* loadListController(action) {
     try {
@@ -44,6 +45,7 @@ function loadList(params) {
 
 function* setDefaultController(action) {
     try {
+        yield put(listCreator.setSelectedKeys([action.payload.id]));
         const type = action.payload.type;
         yield call(setDefault, action.payload);
         const params = Object.assign({}, action.payload);
