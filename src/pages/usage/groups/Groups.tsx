@@ -39,39 +39,51 @@ function Groups(props: GroupsProps) {
     });
 
     function handleClickTreeNode(e, node) {
+        // e.persist();
+        if (node.children && node.children.length) {
+            handleClickParentNode(node);
+        } else {
+            handleClickChildNode(node);
+        }
+    }
+
+    function handleClickChildNode(node) {
+        const nodeKey = node.key;
+        const nodeInfo = getNodeInfo(nodeKey);
+
+        dispatch(groupsCreator.setActiveTreeNodeCode(nodeInfo.code));
+
+        // if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
+        //     return;
+        // }
+
+        props.onClickTreeNode(nodeInfo);
+    }
+
+    function handleClickParentNode(node) {
         const nodeKey = node.key;
         const nodeInfo = getNodeInfo(nodeKey);
         const codes = nodeInfo.codePathList;
         const codesMap = rebuildCodes(codes);
 
-        // e.persist();
-
         dispatch(groupsCreator.setActiveTreeNodeCode(nodeInfo.code));
-        if (node.leaf) {
+        const expandedCodes = node.expanded
+            ? expandedTreeNodeCodes.filter(code => code !== nodeInfo.code)
+            : expandedTreeNodeCodes.concat(nodeInfo.code);
 
-            // if (!props.isFirstLoad && (activeTreeNodeCode === nodeCode)) {
-            //     return;
-            // }
-            props.onClickTreeNode(nodeInfo);
-        } else {
-            const expandedCodes = node.expanded
-                ? expandedTreeNodeCodes.filter(code => code !== nodeInfo.code)
-                : expandedTreeNodeCodes.concat(nodeInfo.code);
+        dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
 
-            dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
-
-            if (!props.isFirstLoad && (activeTreeNodeCode === nodeInfo.code)) {
-                return;
-            }
-
-            const queryObj = getMQueryObj();
-            const params = Object.assign({}, queryObj, codesMap);
-
-            dispatch(usageCreator.setIsShowLegendParts(false));
-            dispatch(legendsCreator.load(params));
-            dispatch(crumbsCreator.load(params));
-            updateLocationSearch(params);
+        if (!props.isFirstLoad && (activeTreeNodeCode === nodeInfo.code)) {
+            return;
         }
+
+        const queryObj = getMQueryObj();
+        const params = Object.assign({}, queryObj, codesMap);
+
+        dispatch(usageCreator.setIsShowLegendParts(false));
+        dispatch(legendsCreator.load(params));
+        dispatch(crumbsCreator.load(params));
+        updateLocationSearch(params);
     }
 
     function getNodeInfo(nodeKey) {
@@ -119,6 +131,10 @@ function Groups(props: GroupsProps) {
         }));
     }
 
+    function handleExpand(expandedKeys, meta) {
+        handleClickParentNode(meta.node);
+    }
+
     function renderTreeNodes(list: any) {
 
         return list.map(item => {
@@ -131,7 +147,7 @@ function Groups(props: GroupsProps) {
             }
             return (
                 <TreeNode
-                    icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
+                    icon={<span className={'icon-dot-wrapper'}><i className="icon-child-dot"></i></span>}
                     title={item.title}
                     key={item.key}
                     active={false}
@@ -161,11 +177,11 @@ function Groups(props: GroupsProps) {
                     defaultSelectedKeys={[activeTreeNodeCode]}
                     selectedKeys={[activeTreeNodeCode]}
                     onClick={handleClickTreeNode}
-                    treeData={groups}
+                    onExpand={handleExpand}
                 >
-                    {/*{*/}
-                    {/*    renderTreeNodes(groups)*/}
-                    {/*}*/}
+                    {
+                        renderTreeNodes(groups)
+                    }
                 </DirectoryTree>
             </Panel>
         </Resizable>

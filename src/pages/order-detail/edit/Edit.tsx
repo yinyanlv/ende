@@ -1,8 +1,9 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {Modal, Form, Row, Col, Input} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './Edit.module.scss';
 import {editCreator} from './actions';
+import {findDOMNode} from 'react-dom';
 
 const FormItem = Form.Item;
 
@@ -32,6 +33,11 @@ export function Edit() {
 
     const title = type === 'purchaser' ? '下单人' : '收货人';
 
+    useEffect(() => {
+       form.resetFields();
+       form.setFieldsValue(fieldsValue);
+    }, [isShow]);
+
     return (
         <Modal
             visible={isShow}
@@ -48,7 +54,6 @@ export function Edit() {
                 labelAlign="left"
                 form={form}
                 className={styles.edit}
-                initialValues={fieldsValue}
             >
                 <Row>
                     <Col span={24}>

@@ -29,7 +29,7 @@ export function List() {
             isShow: true,
             mode: 'edit',
             type,
-            fieldsValue: record
+            fieldsValue: Object.assign({}, record)
         }));
     }
 

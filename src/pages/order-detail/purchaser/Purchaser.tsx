@@ -5,8 +5,6 @@ import {EditOutlined} from '@ant-design/icons';
 import cls from 'classnames';
 import {listCreator} from '../list/actions';
 import styles from './Purchaser.module.scss';
-import {List} from '../list';
-import {Edit} from '../edit';
 
 export function Purchaser() {
     const dispatch = useDispatch();
@@ -57,8 +55,6 @@ export function Purchaser() {
                     </Col>
                 </Row>
             </div>
-            <List/>
-            <Edit/>
         </div>
     )
 }

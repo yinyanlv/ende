@@ -16,7 +16,7 @@ export function editReducer(state = initialState, action) {
                 isShow: action.payload.isShow,
                 type: action.payload.type || initialState.type,
                 mode: action.payload.mode || initialState.mode,
-                fieldsValue: action.payload.fieldsValue || initialState.fieldsValue
+                fieldsValue: action.payload.fieldsValue || {}
             };
         case actions.SET_FIELDS_VALUE:
             return {

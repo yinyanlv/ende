@@ -10,6 +10,8 @@ import {orderDetailCreator} from './actions';
 import {Receiver} from './receiver';
 import {ImportFile} from './import-file';
 import {importFileCreator} from './import-file/actions';
+import {List} from './list';
+import {Edit} from './edit';
 
 export function PageOrderDetail() {
     const dispatch = useDispatch();
@@ -89,6 +91,9 @@ export function PageOrderDetail() {
                     <Cart/>
                 </div>
             </div>
+            <List/>
+            <Edit/>
+
         </div>
     );
 }

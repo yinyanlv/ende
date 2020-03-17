@@ -20,6 +20,12 @@
 
     .ant-tree{
 
+      .ant-tree-node-content-wrapper {
+        .ant-tree-iconEle {
+          width: 18px;
+        }
+      }
+
       .ant-tree-treenode-selected{
 
         &::before {
@@ -37,35 +43,9 @@
 
       .ant-tree-node-selected{
         & > .ant-tree-iconEle {
-          .icon-dot {
+          .icon-child-dot {
             background: $primary-color;
           }
-        }
-      }
-
-      & > li > .ant-tree-node-content-wrapper{
-        //width: 214px;
-        //white-space: pre-wrap;
-        white-space: nowrap;
-      }
-
-      li .ant-tree-node-content-wrapper {
-        //height: auto;
-
-        &::before{
-          //height: auto !important;
-        }
-
-        .ant-tree-iconEle{
-          text-align: left;
-          width:20px;
-        }
-      }
-
-      .ant-tree-child-tree {
-        .ant-tree-node-content-wrapper {
-          //width: 200px;
-          //white-space: pre-wrap;
         }
       }
 
@@ -87,7 +67,7 @@
       align-items: center;
       justify-content: center;
 
-      .icon-dot{
+      .icon-child-dot{
         display: inline-block;
         width:4px;
         height: 4px;
