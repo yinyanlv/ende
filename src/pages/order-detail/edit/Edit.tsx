@@ -41,9 +41,7 @@ export function Edit() {
             width={600}
             okText='保存'
             cancelText='取消'
-            forceRender={true}
             destroyOnClose={true}
-
         >
             <Form
                 layout="inline"

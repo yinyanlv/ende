@@ -127,7 +127,10 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
         buttons.on('click', function (a, idx, els) {
             const el = self.viewport;
             const action = buttons[0][idx].getAttribute('data-action');
-
+            const classList = buttons[0][idx].classList;
+            if (classList.contains('disabled')) {
+                return;
+            }
             switch (action) {
                 case 'zoomin':
                     self.zoomIn(el, self.step);
@@ -373,14 +376,14 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
         return (
             <Loading isLoading={this.state.isLoading}>
                 <div className="legend-toolbar" ref={this.legendToolbarRef}>
-                    <span data-action="zoomin" className="legend-toolbar-zoomin disabled"></span>
-                    <span data-action="zoomout" className="legend-toolbar-zoomout disabled"></span>
-                    <span data-action="reset" className="legend-toolbar-reset disabled"></span>
-                    <span data-action="rightrotate" className="legend-toolbar-right-rotate disabled"></span>
-                    <span data-action="leftrotate" className="legend-toolbar-left-rotate disabled"></span>
-                    <span data-action="showprev" className="legend-toolbar-prev disabled"></span>
-                    <span data-action="shownext" className="legend-toolbar-next disabled"></span>
-                    <span data-action="print" className="legend-toolbar-print disabled"></span>
+                    <span data-action="zoomin" className={"disabled"}><i className={"iconfont icon-zoom-in"}></i></span>
+                    <span data-action="zoomout" className={"disabled"}><i className={"iconfont icon-zoom-out"}></i></span>
+                    <span data-action="reset" className={"disabled"}><i className={"iconfont icon-magnifier"}></i></span>
+                    <span data-action="rightrotate" className={"disabled"}><i className={"iconfont icon-rotate-right"}></i></span>
+                    <span data-action="leftrotate" className={"disabled"}><i className={"iconfont icon-rotate-left"}></i></span>
+                    <span data-action="showprev" className={"disabled"}><i className={"iconfont icon-prev"}></i></span>
+                    <span data-action="shownext" className={"disabled"}><i className={"iconfont icon-next"}></i></span>
+                    <span data-action="print" className={"disabled"}><i className={"iconfont icon-print"}></i></span>
                 </div>
                 <div className="svg-wrap" ref={this.legendBodyRef}></div>
             </Loading>

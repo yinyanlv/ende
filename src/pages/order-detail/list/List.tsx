@@ -115,7 +115,6 @@ export function List() {
             destroyOnClose={true}
             width={950}
             className={styles.list}
-            forceRender={true}
         >
             <Loading isLoading={isLoading}>
                 <div className={'operators-line'}>

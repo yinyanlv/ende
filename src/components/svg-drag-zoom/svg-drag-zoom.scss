@@ -1,3 +1,5 @@
+@import "src/scss/sdk/index";
+
 .svg-wrap {
   width: 100%;
   height: 100%;
@@ -13,121 +15,32 @@
 }
 
 .legend-toolbar {
-  height: 30px;
   border-radius: 5px;
-  background: #d3d3d3;
+  background: #eaeaea;
   position: absolute;
   z-index: 60;
   margin: 5px;
+  display: flex;
+  align-items: center;
+  height: 30px;
 
   span {
+    font-size:14px;
     display: inline-block;
     float: left;
-    height: 18px;
-    margin: 6px 5px;
-    width: 18px;
-    background: url('./svg-tool-bg.png') no-repeat;
+    padding: 2px 4px;
     cursor: pointer;
-  }
 
-  span.disabled {
-    //cursor: not-allowed;
-  }
-
-  .legend-toolbar-reset {
-    background-position: 0 0;
-
-    &:hover {
-      background-position: -22px 0;
+    &:first-child{
+      margin-left: 4px;
     }
 
-    &.disabled {
-      background-position: -47px 0;
+    &:last-child{
+      margin-right: 4px;
     }
   }
 
-  .legend-toolbar-zoomout {
-    background-position: 0 -26px;
-
-    &:hover {
-      background-position: -23px -26px;
-    }
-
-    &.disabled {
-      background-position: -47px -26px;
-    }
+  span:not(.disabled):hover {
+    color: $primary-color;
   }
-
-  .legend-toolbar-zoomin {
-    background-position: 0 -54px;
-
-    &:hover {
-      background-position: -23px -54px;
-    }
-
-    &.disabled {
-      background-position: -47px -54px;
-    }
-  }
-
-  .legend-toolbar-print {
-    background-position: 0 -81px;
-
-    &:hover {
-      background-position: -23px -81px;
-    }
-
-    &.disabled {
-      background-position: -47px -81px;
-    }
-  }
-
-  .legend-toolbar-prev {
-    background-position: 0 -111px;
-
-    &:hover {
-      background-position: -23px -111px;
-    }
-
-    &.disabled {
-      background-position: -47px -111px;
-    }
-  }
-
-  .legend-toolbar-next {
-    background-position: 0 -136px;
-
-    &:hover {
-      background-position: -23px -136px;
-    }
-
-    &.disabled {
-      background-position: -47px -136px;
-    }
-  }
-
-  .legend-toolbar-left-rotate {
-    background-position: 0 -160px;
-
-    &:hover {
-      background-position: -22px -160px;
-    }
-
-    &.disabled {
-      background-position: -47px -160px;
-    }
-  }
-
-  .legend-toolbar-right-rotate {
-    background-position: 0 -188px;
-
-    &:hover {
-      background-position: -22px -188px;
-    }
-
-    &.disabled {
-      background-position: -47px -188px;
-    }
-  }
-
 }
