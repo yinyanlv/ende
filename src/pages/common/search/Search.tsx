@@ -3,8 +3,8 @@ import { Drawer, Tabs} from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Search.module.scss';
 import { searchCreator } from './actions';
-import {AdvanceSearch} from './advance-search'
-import {Replace} from './replace'
+import {AdvanceSearch} from './advance-search';
+import {Replace} from './replace';
 
 const TabPane = Tabs.TabPane;
 
@@ -26,7 +26,6 @@ export function Search(props) {
             onClose={handleClose}
             visible={isShow}
             width={900}
-            destroyOnClose={true}
             zIndex={zIndex}
         >
             <div className={styles.search}>

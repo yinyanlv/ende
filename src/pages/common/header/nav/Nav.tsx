@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {Menu, Dropdown} from 'antd';
+import {Menu, Dropdown, Tooltip} from 'antd';
 import {
     SearchOutlined,
     GlobalOutlined,
@@ -54,9 +54,12 @@ export function Nav(props) {
     const helpMenu = (
         <Menu>
             <MenuItem><a href={'http://help.tis.servision.com.cn/SGMW/tis/4s/'} target={'_blank'}>用户手册</a></MenuItem>
-            <MenuItem><a href={'http://help.tis.servision.com.cn/SGMW/epc/zh/'} target={'_blank'}>EPC查询指导手册</a></MenuItem>
-            <MenuItem><a href={'http://home.tis.servision.com.cn/help/contact-service'} target={'_blank'}>联系客服</a></MenuItem>
-            <MenuItem><a href={'http://home.tis.servision.com.cn/help/service-agreement'} target={'_blank'}>服务协议</a></MenuItem>
+            <MenuItem><a href={'http://help.tis.servision.com.cn/SGMW/epc/zh/'}
+                         target={'_blank'}>EPC查询指导手册</a></MenuItem>
+            <MenuItem><a href={'http://home.tis.servision.com.cn/help/contact-service'}
+                         target={'_blank'}>联系客服</a></MenuItem>
+            <MenuItem><a href={'http://home.tis.servision.com.cn/help/service-agreement'}
+                         target={'_blank'}>服务协议</a></MenuItem>
             <MenuItem><a href={'https://www.servision.com.cn'} target={'_blank'}>关于事成</a></MenuItem>
             <MenuItem><a href={'http://wenjuan.servision.com.cn/jq/5012823.aspx'} target={'_blank'}>反馈建议</a></MenuItem>
         </Menu>
@@ -87,19 +90,25 @@ export function Nav(props) {
             <nav className={styles.nav}>
                 <div className="common-nav">
                     <span className="nav-item">
+                        <Tooltip title={'高级查询'}>
                        <span className={'nav-item-inner'} onClick={handleClickSearch}>
                            <SearchOutlined/>
                         </span>
+                        </Tooltip>
                     </span>
                     <span className="nav-item">
+                        <Tooltip title={'购物车'}>
                        <span className={'nav-item-inner'} onClick={handleClickShoppingCart}>
                             <ShoppingCartOutlined/> <span>(<span>{cartCount}</span>)</span>
                         </span>
+                        </Tooltip>
                     </span>
                     <NavLink to={'/orders'} className="nav-item">
+                        <Tooltip title={'订单'}>
                        <span className={'nav-item-inner'}>
                            <i className="iconfont icon-order"></i>
                         </span>
+                        </Tooltip>
                     </NavLink>
                     <Dropdown overlay={helpMenu}>
                        <span className={'nav-item-inner'}>
@@ -109,9 +118,11 @@ export function Nav(props) {
                 </div>
                 <div>
                     <NavLink to={'/'} className="nav-item">
+                        <Tooltip title={'首页'}>
                         <span className={'nav-item-inner'}>
                             <HomeOutlined/>
                         </span>
+                        </Tooltip>
                     </NavLink>
                     <Dropdown overlay={userMenu}>
                         <NavLink to={'/'} className="nav-item">

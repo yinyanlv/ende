@@ -15,7 +15,7 @@ export function Query() {
     function doQuery() {
         const fieldsValue = form.getFieldsValue();
         const filters = rebuildFieldsToFilters(fieldsValue);
-        const params = buildQueryParams(filters);
+        let params = buildQueryParams(filters, 1, 10, [{field: 'createdDate', asc: false}]);
         dispatch(queryCreator.doQuery(params));
     }
 

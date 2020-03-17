@@ -75,10 +75,10 @@ export function getHashObj() {
  *
  *  {total: 111, list: [{}], pageSize: 0, totalPage: 1, pageNo: 0}
  */
-export function buildQueryParams(params = [], page = 1, size = 10) {
+export function buildQueryParams(params = [], page = 1, size = 10, sorts: any[] = []) {
     return {
         filters: params,
-        sorts: [],
+        sorts: sorts,
         paging: {
             page,
             size
@@ -90,7 +90,12 @@ export function rebuildFieldsToFilters(fieldsObj) {
     const list: any = [];
 
     Object.keys(fieldsObj).forEach((key) => {
-        const value = fieldsObj[key];
+        let value = fieldsObj[key];
+
+        if (typeof(value) === 'string') {
+            value = value.trim();
+        }
+
         if (value !== undefined && value !== null && value !== '') {
             list.push({
                 name: key,

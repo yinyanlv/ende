@@ -5,8 +5,6 @@ import {EditOutlined} from '@ant-design/icons';
 import cls from 'classnames';
 import {listCreator} from '../list/actions';
 import styles from './Receiver.module.scss';
-import {List} from '../list';
-import {Edit} from '../edit';
 
 export function Receiver() {
     const dispatch = useDispatch();

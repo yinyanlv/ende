@@ -41,7 +41,7 @@ export function Applicability() {
             title: '目录',
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 140
+            width: 100
         },
         {
             title: '零件号',

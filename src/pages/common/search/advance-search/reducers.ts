@@ -27,6 +27,10 @@ function advanceSearchReducer(state = initialState, action) {
                 ...state,
                 count: action.payload
             };
+        case actions.RESET_STATE:
+            return {
+                ...initialState
+            };
         default:
             return state;
     }

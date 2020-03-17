@@ -4,6 +4,7 @@ export const DO_QUERY = 'search:replace:do-query';
 export const IS_LOADING = 'search:replace:is-loading';
 export const SET_REPLACE = 'search:replace:set-replace';
 export const SET_PART_CODE = 'search:replace:set-part-code';
+export const RESET_STATE = 'search:replace:reset-state';
 
 export const replaceCreator = {
     doQuery: (params) => {
@@ -17,5 +18,8 @@ export const replaceCreator = {
     },
     setReplace: (params) => {
         return createAction(SET_REPLACE, params);
+    },
+    resetState: () => {
+        return createAction(RESET_STATE);
     }
 };

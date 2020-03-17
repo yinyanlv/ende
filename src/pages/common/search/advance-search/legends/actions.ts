@@ -3,6 +3,7 @@ import {createAction} from '@/common/utils';
 export const DO_QUERY = 'search:advance-search:legends:do-query';
 export const SET_LEGENDS = 'search:advance-search:legends:set-legends';
 export const IS_LOADING = 'search:advance-search:legends:is-loading';
+export const RESET_STATE = 'search:advance-search:legends:reset-state';
 
 export const legendsCreator = {
     doQuery: (params) => {
@@ -13,5 +14,8 @@ export const legendsCreator = {
     },
     setIsLoading: (params) => {
         return createAction(IS_LOADING, params);
+    },
+    resetState: () => {
+        return createAction(RESET_STATE);
     }
 };

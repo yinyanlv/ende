@@ -13,7 +13,7 @@ import styles from './Groups.module.scss';
 
 const DirectoryTree = Tree.DirectoryTree;
 
-// const TreeNode = Tree.TreeNode;
+const TreeNode = Tree.TreeNode;
 
 interface GroupsProps extends HTMLProps<HTMLDivElement> {
     isFirstLoad: boolean;
@@ -119,26 +119,26 @@ function Groups(props: GroupsProps) {
         }));
     }
 
-    // function renderTreeNodes(list: any) {
-    //
-    //     return list.map(item => {
-    //         if (!item.leaf) {
-    //             return (
-    //                 <TreeNode active={false} title={item.title} key={item.key}>
-    //                     {renderTreeNodes(item.children)}
-    //                 </TreeNode>
-    //             );
-    //         }
-    //         return (
-    //             <TreeNode
-    //                 icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
-    //                 title={item.title}
-    //                 key={item.key}
-    //                 active={false}
-    //             />
-    //         );
-    //     });
-    // }
+    function renderTreeNodes(list: any) {
+
+        return list.map(item => {
+            if (!item.leaf) {
+                return (
+                    <TreeNode active={false} title={item.title} key={item.key}>
+                        {renderTreeNodes(item.children)}
+                    </TreeNode>
+                );
+            }
+            return (
+                <TreeNode
+                    icon={<span className={'icon-dot-wrapper'}><i className="icon-dot"></i></span>}
+                    title={item.title}
+                    key={item.key}
+                    active={false}
+                />
+            );
+        });
+    }
 
     return (
         <Resizable
@@ -155,7 +155,6 @@ function Groups(props: GroupsProps) {
                 <DirectoryTree
                     className={'panel-tree'}
                     expandAction="click"
-                    // height={610}
                     defaultExpandAll={true}
                     defaultExpandedKeys={expandedTreeNodeCodes}
                     expandedKeys={expandedTreeNodeCodes}
@@ -164,6 +163,9 @@ function Groups(props: GroupsProps) {
                     onClick={handleClickTreeNode}
                     treeData={groups}
                 >
+                    {/*{*/}
+                    {/*    renderTreeNodes(groups)*/}
+                    {/*}*/}
                 </DirectoryTree>
             </Panel>
         </Resizable>

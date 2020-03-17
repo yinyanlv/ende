@@ -46,7 +46,7 @@ export function PageOrders(props) {
         {
             title: '订单编号',
             dataIndex: 'code',
-            width: 220,
+            width: 240,
             ellipsis: true,
             render: (val, record) => {
                 return (
@@ -57,7 +57,7 @@ export function PageOrders(props) {
         {
             title: '下单日期',
             dataIndex: 'createdDate',
-            width: 160,
+            width: 180,
             ellipsis: true,
             render(val) {
                 return val && moment(val).format('YYYY-MM-DD HH:mm:ss')

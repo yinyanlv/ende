@@ -45,14 +45,15 @@
 
       & > li > .ant-tree-node-content-wrapper{
         //width: 214px;
-        white-space: pre-wrap;
+        //white-space: pre-wrap;
+        white-space: nowrap;
       }
 
       li .ant-tree-node-content-wrapper {
-        height: auto;
+        //height: auto;
 
         &::before{
-          height: auto !important;
+          //height: auto !important;
         }
 
         .ant-tree-iconEle{
@@ -64,7 +65,7 @@
       .ant-tree-child-tree {
         .ant-tree-node-content-wrapper {
           //width: 200px;
-          white-space: pre-wrap;
+          //white-space: pre-wrap;
         }
       }
 

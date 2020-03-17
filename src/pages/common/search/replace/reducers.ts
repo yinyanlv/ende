@@ -25,6 +25,10 @@ function replaceReducer(state = initialState, action) {
                 ...state,
                 list: action.payload
             };
+        case actions.RESET_STATE:
+            return {
+                ...initialState
+            };
         default:
             return state;
     }

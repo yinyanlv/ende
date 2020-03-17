@@ -6,6 +6,83 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13514263",
+      "name": "magnifier",
+      "font_class": "magnifier",
+      "unicode": "e704",
+      "unicode_decimal": 59140
+    },
+    {
+      "icon_id": "13514283",
+      "name": "prev",
+      "font_class": "prev1",
+      "unicode": "e707",
+      "unicode_decimal": 59143
+    },
+    {
+      "icon_id": "13514284",
+      "name": "next",
+      "font_class": "next",
+      "unicode": "e708",
+      "unicode_decimal": 59144
+    },
+    {
+      "icon_id": "13514021",
+      "name": "book",
+      "font_class": "book",
+      "unicode": "e6fc",
+      "unicode_decimal": 59132
+    },
+    {
+      "icon_id": "13514022",
+      "name": "dot",
+      "font_class": "dot",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
+      "icon_id": "13514025",
+      "name": "print",
+      "font_class": "print",
+      "unicode": "e700",
+      "unicode_decimal": 59136
+    },
+    {
+      "icon_id": "13514026",
+      "name": "open-book",
+      "font_class": "open-book",
+      "unicode": "e701",
+      "unicode_decimal": 59137
+    },
+    {
+      "icon_id": "13514027",
+      "name": "zoom-out",
+      "font_class": "zoom-out",
+      "unicode": "e702",
+      "unicode_decimal": 59138
+    },
+    {
+      "icon_id": "13514028",
+      "name": "rotate-left ",
+      "font_class": "rotate-left",
+      "unicode": "e703",
+      "unicode_decimal": 59139
+    },
+    {
+      "icon_id": "13514030",
+      "name": "zoom-in",
+      "font_class": "zoom-in",
+      "unicode": "e705",
+      "unicode_decimal": 59141
+    },
+    {
+      "icon_id": "13514031",
+      "name": "rotate-right",
+      "font_class": "rotate-right",
+      "unicode": "e706",
+      "unicode_decimal": 59142
+    },
+    {
       "icon_id": "13484281",
       "name": "订单",
       "font_class": "order",

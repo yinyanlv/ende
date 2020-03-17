@@ -26,7 +26,7 @@ export function Query() {
 
     function handleClickAdd() {
         const fieldsValue = form.getFieldsValue();
-        const partCode = fieldsValue.partCode;
+        const partCode = fieldsValue.partCode.trim();
 
         if (!partCode) {
             return message.error('请输入零件编号');
