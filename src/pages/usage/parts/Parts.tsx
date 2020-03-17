@@ -187,6 +187,7 @@ function Parts(props: PartsProps) {
     }, {
         title: '操作',
         ellipsis: true,
+        width: 80,
         render: (val, record) => (
             <Tooltip title={'加入购物车'}>
                 <Button type="primary" icon={<ShoppingCartOutlined/>} size={'small'} onClick={(e) => {

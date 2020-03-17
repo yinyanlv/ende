@@ -44,7 +44,7 @@ $empty-table-body-height: calc(100vh - 100px);
       }
 
       .ant-table-body {
-        //height: $table-body-height !important;
+        height: $table-body-height !important;
         overflow: auto !important;
       }
 
