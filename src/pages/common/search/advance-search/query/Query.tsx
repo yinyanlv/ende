@@ -81,6 +81,11 @@ export function Query() {
         dispatch(queryCreator.loadM1());
     }, []);
 
+    useEffect(() => {
+        form.resetFields();
+        form.setFieldsValue(fieldsValue);
+    }, [fieldsValue]);
+
     function doReset() {
         form.resetFields();
     }
