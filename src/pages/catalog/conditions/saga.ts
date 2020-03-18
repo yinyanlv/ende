@@ -22,7 +22,7 @@ function rebuildConditions(data) {
                 item.list.unshift({
                     id: defaultCode,
                     code: defaultCode,
-                    name: intl.formatMessage({id: 'crumbs.all'})
+                    name: intl.formatMessage({id: 'crumbs.a1'})
                 });
             }
         });

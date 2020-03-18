@@ -7,12 +7,14 @@ import {importFileCreator} from './actions';
 import {Loading} from '@/components/loading';
 import {API_PREFIX} from '@/config';
 import {orderDetailCreator} from '../actions';
+import {storageService} from '@/common/storageService';
 
 const Dragger = Upload.Dragger;
 
 
 export function ImportFile() {
     const dispatch = useDispatch();
+    const storage = storageService.getStorage();
 
     const {isShow, isUploading} = useSelector((state: any) => {
         return state.orderDetail.importFile;
@@ -72,7 +74,7 @@ export function ImportFile() {
             </div>
             <Loading isLoading={isUploading} text={'Uploading'}>
                 <Dragger
-                    action={API_PREFIX + '/order-detail/import'}
+                    action={API_PREFIX + `/order-detail/import?access_token=${storage.token}&lang=${storage.lang}`}
                     accept={'.xls,.xlsx'}
                     name={'file'}
                     multiple={false}

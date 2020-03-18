@@ -7,6 +7,7 @@ import antdEnUS from 'antd/es/locale/en_US';
 import antdZhCN from 'antd/es/locale/zh_CN';
 import {enUS} from '@/locales/enUS';
 import {zhCN} from '@/locales/zhCN';
+import {storageService} from '@/common/storageService';
 
 export let intl;
 
@@ -14,16 +15,21 @@ interface IntlProps {
 
 }
 
-
 export function Intl(props: PropsWithChildren<IntlProps>) {
     const {
         lang,
     } = useSelector((state: any) => {
         return state.config;
     });
+    const storage = storageService.getStorage();
     const locale = lang || navigator.language;
     const messages = getIntlLocaleMessages(locale);
     const cache = createIntlCache();
+
+    storageService.setStorage({
+        token: storage.token,
+        lang: locale.slice(0, 2)
+    });
 
     intl = createIntl({
         locale,

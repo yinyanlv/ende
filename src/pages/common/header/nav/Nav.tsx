@@ -125,19 +125,15 @@ export function Nav(props) {
                         </Tooltip>
                     </NavLink>
                     <Dropdown overlay={userMenu}>
-                        <NavLink to={'/'} className="nav-item">
                    <span className={'nav-item-inner item-user'}>
                        <UserOutlined/>
                         <span className={'username'}>{user && user.username}</span>
                     </span>
-                        </NavLink>
                     </Dropdown>
                     <Dropdown overlay={langMenu}>
-                        <NavLink to={'/'} className="nav-item">
                        <span className={'nav-item-inner'}>
                            <GlobalOutlined/>
                         </span>
-                        </NavLink>
                     </Dropdown>
                 </div>
             </nav>
