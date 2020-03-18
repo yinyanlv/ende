@@ -6,6 +6,8 @@ import {buildQueryParams} from '@/common/utils';
 import {navCreator} from '@/pages/common/header/nav/actions';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
+import {orderDetailCreator} from '@/pages/order-detail/actions';
+import {partDetailCreator} from '@/pages/common/part-detail/actions';
 
 function* doQueryController(action) {
     try {
@@ -110,10 +112,18 @@ function* generateOrderController() {
         const data = yield call(generateOrder);
         if (data.orderNo) {
             history.push({
-               pathname: `/order/${data.orderNo}`
+                pathname: `/order/${data.orderNo}`
             });
-
+            if (/^\/order\/.+/.test(history.location.pathname)) {
+                yield put(orderDetailCreator.initOrderDetail({
+                    orderCode: data.orderNo
+                }));
+            }
+            yield put(navCreator.loadCartCount());
             yield put(actions.shoppingCartCreator.setIsShowShoppingCart({
+                isShow: false
+            }));
+            yield put(partDetailCreator.setIsShowPartDetail({
                 isShow: false
             }));
         }
