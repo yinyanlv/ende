@@ -2,8 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Header.module.scss';
 import {Nav} from './nav';
+import {useUtils} from '@/hooks';
 
 export function Header(props) {
+    const utils = useUtils();
 
     return (
         <section className={styles.header}>
@@ -12,7 +14,7 @@ export function Header(props) {
                     <img src={'/images/logo.png'} alt="logo"/>
                 </Link>
                 <span className="title">
-                    EPC售后信息发布平台
+                    {utils.getText('app.a1')}
                 </span>
             </div>
             <div className="nav-box">

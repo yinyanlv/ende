@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Table} from 'antd';
 import styles from './Replace.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {useUtils} from '@/hooks';
 
 interface ReplaceProps {
     partCode: any;
@@ -13,6 +14,7 @@ export function Replace(props: ReplaceProps) {
     const {list} = useSelector((state: any) => {
         return state.partDetail.replace;
     });
+    const utils = useUtils();
 
     function handleClickPartCode(partCode) {
         dispatch(partDetailCreator.loadAndShowPartDetail({
@@ -23,7 +25,7 @@ export function Replace(props: ReplaceProps) {
 
     const columns = [
         {
-            title: '老件编号',
+            title: utils.getText('replace.a2'),
             dataIndex: 'oldPartCode',
             width: 120,
             ellipsis: true,
@@ -44,13 +46,13 @@ export function Replace(props: ReplaceProps) {
             }
         },
         {
-            title: '适用车型',
+            title: utils.getText('replace.a3'),
             width: 120,
             ellipsis: true,
             dataIndex: 'oldApplyCode'
         },
         {
-            title: '新件编号',
+            title: utils.getText('replace.a3'),
             dataIndex: 'newPartCode',
             width: 120,
             ellipsis: true,
@@ -71,25 +73,25 @@ export function Replace(props: ReplaceProps) {
             }
         },
         {
-            title: '适用车型',
+            title: utils.getText('replace.a3'),
             width: 120,
             ellipsis: true,
             dataIndex: 'newApplyCode'
         },
         {
-            title: '替换类型',
+            title: utils.getText('replace.a5'),
             width: 120,
             ellipsis: true,
             dataIndex: 'typeName'
         },
         {
-            title: '断点',
+            title: utils.getText('replace.a6'),
             width: 140,
             ellipsis: true,
             dataIndex: 'formattedDateTime'
         },
         {
-            title: '备注',
+            title: utils.getText('part.a14'),
             ellipsis: true,
             width: 140,
             dataIndex: 'note'

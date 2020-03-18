@@ -7,6 +7,7 @@ import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 import {vinSearchCreator} from "@/pages/common/vin-search/actions";
 import {configCreator} from '@/store/config/actions';
+import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -14,6 +15,7 @@ const Option = Select.Option;
 export function Query() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const utils = useUtils();
     const {maxZIndex} = useSelector((state: any) => {
        return state.config;
     });
@@ -30,7 +32,7 @@ export function Query() {
             const result = checkAndGetType(code);
 
             if (!result.isValid) {
-                return message.error('输入的VIN或VSN编码不合法');
+                return message.error(utils.getText('msg.a1'));
             }
 
             fieldsValue = rebuildModelField(fieldsValue);
@@ -58,7 +60,7 @@ export function Query() {
                 const params = buildQueryParams(filters);
                 dispatch(queryCreator.doQuery(params));
             } else {
-                message.error('请输入查询条件');
+                message.error(utils.getText('msg.a2'));
             }
         }
     }
@@ -120,7 +122,7 @@ export function Query() {
         const vinVsn = form.getFieldValue('vinVsn');
 
         if (!vinVsn) {
-            return message.error('请输入VIN或VSN编码');
+            return message.error(utils.getText('msg.a3'));
         }
 
         const code = vinVsn.trim();
@@ -144,7 +146,7 @@ export function Query() {
                 }));
             }
         } else {
-            message.error('输入的VIN或VSN编码不合法');
+            message.error(utils.getText('msg.a1'));
         }
     }
 
@@ -200,22 +202,22 @@ export function Query() {
                     <Col span={8}>
                         <div className="first-column vin-wrapper">
                             <FormItem label="VIN/VSN" name={'vinVsn'}>
-                                <Input placeholder="请输入" onChange={validateVinVsn}/>
+                                <Input placeholder={utils.getText('app.a2')} onChange={validateVinVsn}/>
                             </FormItem>
                             {
-                                isShowBtnDetail && <span className="btn" onClick={showVinDetail}>详细</span>
+                                isShowBtnDetail && <span className="btn" onClick={showVinDetail}>{utils.getText('search.a4')}</span>
                             }
                         </div>
                     </Col>
                     <Col span={16} className="model-wrapper">
-                        <FormItem label="车型" name={'model'}>
-                            <Cascader options={modelOptions} loadData={handleLoadModel} placeholder="品牌/目录/年份/车型"/>
+                        <FormItem label={utils.getText('part.a11')} name={'model'}>
+                            <Cascader options={modelOptions} loadData={handleLoadModel} placeholder={utils.getText('search.a3')}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <div className="first-column">
-                            <FormItem label="主组" name={'legendGroupCode'}>
-                                <Select placeholder={'请选择'} style={{width: 155}} allowClear={true}>
+                            <FormItem label={utils.getText('part.a12')} name={'legendGroupCode'}>
+                                <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                     {
                                         groupList.map((item) => {
                                             return <Option key={item.code} value={item.code}>{item.name}</Option>;
@@ -226,36 +228,36 @@ export function Query() {
                         </div>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="图例编号" name={'legendCode'}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('legend.a1')} name={'legendCode'}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="图例描述" name={'legendName'}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('legend.a2')} name={'legendName'}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <div className="first-column">
-                            <FormItem label="图例备注" name={'legendNote'}>
-                                <Input placeholder="请输入"/>
+                            <FormItem label={utils.getText('legend.a3')} name={'legendNote'}>
+                                <Input placeholder={utils.getText('app.a2')}/>
                             </FormItem>
                         </div>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="零件编号" name={'partCode'}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('part.a1')} name={'partCode'}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="零件描述" name={'partName'}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('part.a2')} name={'partName'}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                 </Row>
                 <div className="btn-line">
-                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
-                    <Button onClick={doReset}>清空</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>{utils.getText('operate.a6')}</Button>
+                    <Button onClick={doReset}>{utils.getText('operate.a7')}</Button>
                 </div>
             </Form>
         </div>

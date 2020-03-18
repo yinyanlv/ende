@@ -3,12 +3,14 @@ import {useDispatch} from 'react-redux';
 import {message, Button, Form, Input} from 'antd';
 import {rebuildFieldsToFilters} from '@/common/utils';
 import {queryCreator} from './actions';
+import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 
 export function Query() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
+    const utils = useUtils();
 
     function doQuery() {
         const fieldsValue = form.getFieldsValue();
@@ -17,7 +19,7 @@ export function Query() {
             fieldsValue.partCode = fieldsValue.partCode.trim();
             dispatch(queryCreator.doQuery(fieldsValue));
         } else {
-            message.error('请输入零件编号');
+            message.error(utils.getText('msg.a4'));
         }
     }
 
@@ -28,12 +30,12 @@ export function Query() {
     return (
         <div className={'query'}>
             <Form layout="inline" form={form} labelAlign="left">
-                <FormItem label="零件编号" name={'partCode'}>
-                    <Input placeholder="请输入"/>
+                <FormItem label={utils.getText('part.a1')} name={'partCode'}>
+                    <Input placeholder={utils.getText('app.a2')}/>
                 </FormItem>
                 <span className="inner-btn-line">
-                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
-                    <Button onClick={doReset}>清空</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>{utils.getText('operate.a6')}</Button>
+                    <Button onClick={doReset}>{utils.getText('operate.a7')}</Button>
                 </span>
             </Form>
         </div>

@@ -6,6 +6,7 @@ import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {ImageGallery} from '@/components/image-gallery';
 import styles from './PartInfo.module.scss';
 import {configCreator} from '@/store/config/actions';
+import {useUtils} from '@/hooks';
 
 export function PartInfo() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export function PartInfo() {
     const {maxZIndex} = useSelector((state: any) => {
         return state.config;
     });
+    const utils = useUtils();
     const {
         resHost
     } = useSelector((state: any) => {
@@ -57,31 +59,31 @@ export function PartInfo() {
                 <table>
                     <tbody>
                     <tr>
-                        <td>零件编号:</td>
+                        <td>{utils.getText('part.a1')}:</td>
                         <td>{info.code}</td>
                     </tr>
                     <tr>
-                        <td>零件名称:</td>
+                        <td>{utils.getText('part.a2')}:</td>
                         <td>{info.name}</td>
                     </tr>
                     <tr>
-                        <td>最小包装数:</td>
+                        <td>{utils.getText('part.a3')}:</td>
                         <td>{info.unitPkgQty}</td>
                     </tr>
                     <tr>
-                        <td>库位:</td>
+                        <td>{utils.getText('part.a4')}:</td>
                         <td>{info.position}</td>
                     </tr>
                     <tr>
-                        <td>运输方式:</td>
+                        <td>{utils.getText('part.a5')}:</td>
                         <td>{info.transportRestrict}</td>
                     </tr>
                     <tr>
-                        <td>备注:</td>
+                        <td>{utils.getText('part.a14')}:</td>
                         <td>{info.note}</td>
                     </tr>
                     <tr>
-                        <td>价格:</td>
+                        <td>{utils.getText('part.a6')}:</td>
                         <td>{info.saleProps && info.saleProps.price && info.saleProps.price.formatString}</td>
                     </tr>
                     </tbody>
@@ -91,7 +93,7 @@ export function PartInfo() {
                         <Button type="primary" size={'large'}
                                 icon={<ShoppingCartOutlined/>} onClick={(e) => {
                             handleClickBuy(e, info.code);
-                        }}>购买</Button>
+                        }}>{utils.getText('operate.a4')}</Button>
                     </div>
                 }
             </div>

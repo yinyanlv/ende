@@ -5,12 +5,14 @@ import {vsnSelectorCreator} from './actions';
 import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 import styles from './VsnSelector.module.scss';
+import {useUtils} from '@/hooks';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
     const {isShow, list, vsnCode, doNotRedirect, advanceSearchParams, zIndex} = useSelector((state: any) => {
         return state.vsnSelector;
     });
+    const utils = useUtils();
 
     function handleClickRow(record) {
 

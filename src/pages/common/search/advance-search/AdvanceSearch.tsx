@@ -6,6 +6,7 @@ import {Query} from './query';
 import {Applicability} from './applicability';
 import {Parts} from './parts';
 import {Legends} from './legends';
+import {useUtils} from '@/hooks';
 
 const TabPane = Tabs.TabPane;
 
@@ -15,19 +16,20 @@ export function AdvanceSearch(props: any) {
     } = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
+    const utils = useUtils();
 
     return (
         <div className={styles.advanceSearch}>
             <Query/>
             <div className="tabs-wrapper">
                 <Tabs defaultActiveKey="applicability">
-                    <TabPane tab={`适用性清单(${count.applyCount})`} key="applicability">
+                    <TabPane tab={`${utils.getText('applicability.a1')}(${count.applyCount})`} key="applicability">
                         <Applicability/>
                     </TabPane>
-                    <TabPane tab={`零件清单(${count.partCount})`} key="parts">
+                    <TabPane tab={`${utils.getText('part.a7')}(${count.partCount})`} key="parts">
                         <Parts/>
                     </TabPane>
-                    <TabPane tab={`图例清单(${count.legendCount})`} key="legends">
+                    <TabPane tab={`${utils.getText('legend.a4')}(${count.legendCount})`} key="legends">
                         <Legends/>
                     </TabPane>
                 </Tabs>

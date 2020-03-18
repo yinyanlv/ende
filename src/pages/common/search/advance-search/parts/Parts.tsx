@@ -9,6 +9,7 @@ import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 import {configCreator} from '@/store/config/actions';
+import {useUtils} from '@/hooks';
 
 export function Parts() {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export function Parts() {
     const {maxZIndex} = useSelector((state: any) => {
         return state.config;
     });
+    const utils = useUtils();
 
     function handleClickPartCode(partCode) {
         const newMaxZIndex = maxZIndex + 5;
@@ -74,15 +76,15 @@ export function Parts() {
                                                 }
                                             </div>
                                             <div className="content-line">
-                                                <span><label>最小包装数：</label>{item.unitPkgQty}</span>
-                                                <span><label>库位：</label>{item.position}</span>
-                                                <span><label>运输方式：</label>{item.transportRestrict}</span>
-                                                <span><label>价格：</label>{item.price}</span>
+                                                <span><label>{utils.getText('part.a3')}：</label>{item.unitPkgQty}</span>
+                                                <span><label>{utils.getText('part.a4')}：</label>{item.position}</span>
+                                                <span><label>{utils.getText('part.a5')}：</label>{item.transportRestrict}</span>
+                                                <span><label>{utils.getText('part.a6')}：</label>{item.price}</span>
                                             </div>
                                         </div>
                                         <div className="btn-box">
                                             <Button type="primary" icon={<ShoppingCartOutlined/>}
-                                                    onClick={handleClickBuy.bind(null, item.code)}>购买</Button>
+                                                    onClick={handleClickBuy.bind(null, item.code)}>{utils.getText('operate.a4')}</Button>
                                         </div>
                                     </div>
                                 );

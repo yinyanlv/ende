@@ -56,8 +56,14 @@ export function Legends() {
                                                 <span className={'text-btn'}>{item.legendCode}</span>
                                                 <span className="gap">-</span>
                                                 <span>{item.legendName}</span>
-                                                <span className="gap">-</span>
-                                                <span>{item.legendName}</span>
+                                                {
+                                                    item.legendNote && (
+                                                        <>
+                                                            <span className="gap">-</span>
+                                                            <span>{item.legendNote}</span>
+                                                        </>
+                                                    )
+                                                }
                                             </div>
                                             <div className="content-line">
                                                 <span>{item.catalogueCode}</span>

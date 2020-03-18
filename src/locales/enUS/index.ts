@@ -1,4 +1,17 @@
 export const enUS: any = {
+    app: {
+        a1: 'Technology Information System',
+        a2: 'Please input',
+        a3: 'Please select',
+        a4: 'Home',
+        a5: 'Logout',
+        a6: 'Documentation',
+        a7: 'EPC Queries Guidebook',
+        a8: 'Contact Service',
+        a9: 'Service Agreement',
+        a10: 'About us',
+        a11: 'Feedback'
+    },
     crumbs: {
         m_1: 'Brand',
         m_2: 'Catalog',
@@ -7,10 +20,6 @@ export const enUS: any = {
         s_1: 'Group',
         a1: 'All',
         a2: 'Products'
-    },
-    order: {
-        a1: 'Orders',
-        a2: 'Order'
     },
     error: {
         a1: 'Back Home',
@@ -22,9 +31,123 @@ export const enUS: any = {
         a2: 'Edit',
         a3: 'Delete',
         a4: 'Buy',
-        a5: 'Operate'
+        a5: 'Operation',
+        a6: 'Query',
+        a7: 'Reset',
+        a8: 'Cancel',
+        a9: 'Save'
+    },
+    search: {
+        a1: 'Advance Search',
+        a2: 'VIN/VSN/Part Number/Description',
+        a3: 'Brand/Catalog/Year/Model',
+        a4: 'Detail'
+    },
+    applicability: {
+        a1: 'Applicability',
+        a2: 'Catalog'
+    },
+    part: {
+        a1: 'Part No.',
+        a2: 'Part Description',
+        a3: 'Pkg Qty',
+        a4: 'Storage Location',
+        a5: 'Transportation Modes',
+        a6: 'Price',
+        a7: 'Parts',
+        a8: 'Hand',
+        a9: 'Usage',
+        a10: 'Qty',
+        a11: 'Model',
+        a12: 'Group',
+        a13: 'Group Description',
+        a14: 'Note',
+        a15: 'Part Detail'
+    },
+    legend: {
+        a1: 'Legend No.',
+        a2: 'Legend Description',
+        a3: 'Legend Note',
+        a4: 'Legends',
+        a5: 'Legend'
+    },
+    replace: {
+        a1: 'Supersession',
+        a2: 'Old Part No.',
+        a3: 'Suitable Model',
+        a4: 'New Part No.',
+        a5: 'Supersession Type',
+        a6: 'Break Point',
+    },
+    cart: {
+        a1: 'Shopping Cart'
+    },
+    vin: {
+        a1: 'VIN/VSN详情',
+        a2: '开始时间',
+        a3: '结束时间',
+        a4: '打开高级查询',
+        a5: '品种代码',
+        a6: '车辆型号',
+        a7: '车型平台',
+        a8: '发动机代码',
+        a9: '发动机名称',
+        a10: '排量',
+        a11: '功率',
+        a12: '生产厂家',
+        a13: '变速器',
+        a14: '面漆颜色',
+        a15: '空调',
+        a16: '批次号',
+        a17: '识别码'
+    },
+    order: {
+        a1: 'Orders',
+        a2: 'Order',
+        a3: '生成订单',
+        a4: '订单编号',
+        a5: '订单备注',
+        a6: '下单日期',
+        a7: '状态',
+        a8: '下单维修站编码',
+        a9: '下单维修站名称',
+        a10: '收货维修站编码',
+        a11: '收货维修站名称',
+        a12: '运输方式',
+        a13: '订单类型',
+        a14: '销售组织',
+        a15: '分销渠道',
+        a16: '产品组',
+        a17: '工厂',
+        a19: '计划编码',
+        a20: '下单人信息',
+        a21: '维修站编码',
+        a22: '维修站名称',
+        a23: '地址',
+        a24: '邮编',
+        a25: '配件员',
+        a26: '配件员电话',
+        a27: '电子邮件',
+        a28: '收货人信息',
+        a29: '商品清单',
+        a30: '另存为新订单',
+        a31: '导出订单',
+        a32: '删除订单',
+        a33: '保存订单',
+        a35: '导入订单',
+        a36: '下载模板',
+        a37: '点击或拖拽文件到该区域上传文件',
+        a38: '注：上传支持格式为xls、xlsx',
+        a39: '修改或使用新地址',
+        a40: '地址别名',
+        a41: '下单人',
+        a42: '收货人',
+        a43: '使用易记的名称帮助您区别不同的收货地址'
     },
     message: {
-
+        a1: 'VIN or VSN is not valid',
+        a2: 'Please input',
+        a3: 'Please input VIN or VSN',
+        a4: 'Please input part NO.'
     }
 };

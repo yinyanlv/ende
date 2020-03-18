@@ -4,6 +4,7 @@ import {Input} from 'antd';
 import {searchCreator} from '@/pages/common/search/actions';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator} from './actions';
+import {useUtils} from '@/hooks';
 
 const AntdSearch = Input.Search;
 
@@ -19,6 +20,7 @@ enum SearchType {
 
 export function VinSearch(props: VinSearchProps) {
     const dispatch = useDispatch();
+    const utils = useUtils();
 
     function doVinSearch(val: string) {
         val = val.trim();
@@ -74,7 +76,7 @@ export function VinSearch(props: VinSearchProps) {
     return (
         <div className={styles.operatorBox}>
             <div className="item item-search">
-                <AntdSearch placeholder="请输入VIN码,VSN码,零件编号或零件描述" onSearch={doVinSearch}/>
+                <AntdSearch placeholder={utils.getText('search.a2')} onSearch={doVinSearch}/>
             </div>
         </div>
     );

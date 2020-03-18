@@ -5,6 +5,7 @@ import {Breadcrumb, Tooltip} from 'antd';
 import {HomeOutlined, StarOutlined} from '@ant-design/icons';
 import {VinSearch} from '@/pages/common/vin-search';
 import styles from './Crumbs.module.scss';
+import {useUtils} from '@/hooks';
 
 const CrumbItem = Breadcrumb.Item;
 
@@ -15,6 +16,7 @@ export function Crumbs(props) {
     const {productCatalogUrl} = useSelector((state: any) => {
         return state.config;
     });
+    const utils = useUtils();
 
     return (
         <div className={styles.crumbs}>
@@ -23,7 +25,7 @@ export function Crumbs(props) {
                     <CrumbItem key="home">
                         <a href={productCatalogUrl}>
                             <HomeOutlined/>
-                            <span className="crumbs-text">产品大全</span>
+                            <span className="crumbs-text">{utils.getText('crumbs.a2')}</span>
                         </a>
                     </CrumbItem>
                     <CrumbItem key="home">

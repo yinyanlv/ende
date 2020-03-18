@@ -90,7 +90,7 @@ function Brands(props: BrandsProps) {
                                                                 <span className="image-wrapper">
                                                                     <img src={resHost + item.src} alt={item.name}/>
                                                                 </span>
-                                                        <span className="text">{item.name}</span>
+                                                        <span className="text">{`${item.code} - ${item.name}`}</span>
                                                     </li>
                                                 );
                                             })

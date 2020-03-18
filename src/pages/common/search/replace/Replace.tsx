@@ -5,12 +5,14 @@ import {Query} from './query';
 import styles from './Replace.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Loading} from "@/components/loading";
+import {useUtils} from '@/hooks';
 
 export function Replace() {
     const dispatch = useDispatch();
     const {list, partCode, isLoading} = useSelector((state: any) => {
         return state.search.replace.self;
     });
+    const utils = useUtils();
 
     function handleClickPartCode(partCode) {
         dispatch(partDetailCreator.loadAndShowPartDetail({
@@ -21,7 +23,7 @@ export function Replace() {
 
     const columns = [
         {
-            title: '老件编号',
+            title: utils.getText('replace.a2'),
             dataIndex: 'oldPartCode',
             width: 120,
             ellipsis: true,
@@ -42,13 +44,13 @@ export function Replace() {
             }
         },
         {
-            title: '适用车型',
+            title: utils.getText('replace.a3'),
             width: 120,
             ellipsis: true,
             dataIndex: 'oldApplyCode'
         },
         {
-            title: '新件编号',
+            title: utils.getText('replace.a3'),
             dataIndex: 'newPartCode',
             width: 120,
             ellipsis: true,
@@ -69,25 +71,25 @@ export function Replace() {
             }
         },
         {
-            title: '适用车型',
+            title: utils.getText('replace.a3'),
             width: 120,
             ellipsis: true,
             dataIndex: 'newApplyCode'
         },
         {
-            title: '替换类型',
+            title: utils.getText('replace.a5'),
             width: 120,
             ellipsis: true,
             dataIndex: 'typeName'
         },
         {
-            title: '断点',
+            title: utils.getText('replace.a6'),
             width: 140,
             ellipsis: true,
             dataIndex: 'formattedDateTime'
         },
         {
-            title: '备注',
+            title: utils.getText('part.a14'),
             ellipsis: true,
             dataIndex: 'note'
         }

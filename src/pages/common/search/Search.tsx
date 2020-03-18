@@ -5,11 +5,13 @@ import styles from './Search.module.scss';
 import { searchCreator } from './actions';
 import {AdvanceSearch} from './advance-search';
 import {Replace} from './replace';
+import {useUtils} from '@/hooks';
 
 const TabPane = Tabs.TabPane;
 
 export function Search(props) {
     const dispatch = useDispatch();
+    const utils = useUtils();
     const {isShow, activeTab, zIndex} = useSelector((state: any) => {
         return state.search.self;
     });
@@ -30,10 +32,10 @@ export function Search(props) {
         >
             <div className={styles.search}>
                 <Tabs defaultActiveKey={activeTab} type={'card'}>
-                    <TabPane tab="高级查询" key="advance-search">
+                    <TabPane tab={utils.getText('search.a1')} key="advance-search">
                         <AdvanceSearch />
                     </TabPane>
-                    <TabPane tab="替换关系" key="replace">
+                    <TabPane tab={utils.getText('replace.a1')} key="replace">
                         <Replace />
                     </TabPane>
                 </Tabs>

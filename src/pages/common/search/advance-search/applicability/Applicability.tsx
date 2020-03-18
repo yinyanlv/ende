@@ -11,6 +11,7 @@ import styles from './Applicability.module.scss';
 import {Loading} from "@/components/loading";
 import {configCreator} from '@/store/config/actions';
 import {Application} from '@/pages/common/application';
+import {useUtils} from '@/hooks';
 
 export function Applicability() {
 
@@ -24,6 +25,7 @@ export function Applicability() {
     const {queryParams} = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
+    const utils = useUtils();
 
     function handleClickPartCode(e, partCode) {
         e.stopPropagation();
@@ -39,13 +41,13 @@ export function Applicability() {
 
     const columns = [
         {
-            title: '目录',
+            title: utils.getText('applicability.a2'),
             dataIndex: 'catalogueCode',
             ellipsis: true,
             width: 100
         },
         {
-            title: '零件号',
+            title: utils.getText('part.a1'),
             dataIndex: 'partCode',
             width: 120,
             ellipsis: true,
@@ -58,19 +60,19 @@ export function Applicability() {
             }
         },
         {
-            title: '零件描述',
+            title: utils.getText('part.a2'),
             dataIndex: 'partName',
             ellipsis: true,
             width: 140
         },
         {
-            title: '左右',
+            title: utils.getText('part.a8'),
             dataIndex: 'hand',
             ellipsis: true,
             width: 60
         },
         {
-            title: '用途',
+            title: utils.getText('part.a9'),
             dataIndex: 'note',
             ellipsis: true,
             width: 140,
@@ -87,25 +89,25 @@ export function Applicability() {
             }
         },
         {
-            title: '图例描述',
+            title: utils.getText('legend.a2'),
             dataIndex: 'legendName',
             ellipsis: true,
             width: 140
         },
         {
-            title: '图例备注',
+            title: utils.getText('legend.a3'),
             dataIndex: 'legendNote',
             ellipsis: true,
             width: 140
         },
         {
-            title: '用量',
+            title: utils.getText('part.a10'),
             dataIndex: 'qty',
             ellipsis: true,
             width: 80
         },
         {
-            title: '主组描述',
+            title: utils.getText('part.a13'),
             dataIndex: 'legendGroupName',
             ellipsis: true,
             width: 140

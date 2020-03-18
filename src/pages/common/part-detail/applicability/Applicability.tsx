@@ -7,28 +7,30 @@ import {usageCreator} from '@/pages/usage/actions';
 import styles from './Applicability.module.scss';
 import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
 import {Application} from '@/pages/common/application';
+import {useUtils} from '@/hooks';
 
 export function Applicability() {
     const dispatch = useDispatch();
     const {list} = useSelector((state: any) => {
         return state.partDetail.applicability;
     });
+    const utils = useUtils();
 
     const columns = [
         {
-            title: '目录',
+            title: utils.getText('applicability.a2'),
             dataIndex: 'catalogueCode',
             ellipsis: true,
             width: 100
         },
         {
-            title: '左右',
+            title: utils.getText('part.a8'),
             dataIndex: 'handName',
             ellipsis: true,
             width: 60
         },
         {
-            title: '用途',
+            title: utils.getText('part.a9'),
             dataIndex: 'note',
             ellipsis: true,
             width: 140,
@@ -45,25 +47,25 @@ export function Applicability() {
             }
         },
         {
-            title: '主组描述',
+            title: utils.getText('part.a13'),
             dataIndex: 'legendGroupName',
             ellipsis: true,
             width: 140
         },
         {
-            title: '图例描述',
+            title: utils.getText('legend.a2'),
             dataIndex: 'legendName',
             ellipsis: true,
             width: 140
         },
         {
-            title: '零件描述',
+            title: utils.getText('part.a2'),
             dataIndex: 'partName',
             ellipsis: true,
             width: 140
         },
         {
-            title: '用量',
+            title: utils.getText('part.a10'),
             dataIndex: 'qty',
             ellipsis: true,
             width: 80

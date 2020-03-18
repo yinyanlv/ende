@@ -6,6 +6,7 @@ import {PartInfo} from './part-info';
 import {Applicability} from './applicability';
 import {Replace} from './replace';
 import styles from './PartDetail.module.scss';
+import {useUtils} from '@/hooks';
 
 const TabPane = Tabs.TabPane;
 
@@ -14,6 +15,7 @@ export function PartDetail() {
     const {isShow, activeTab, partCode, zIndex} = useSelector((state: any) => {
         return state.partDetail.self;
     });
+    const utils = useUtils();
 
     function handleClose() {
         dispatch(partDetailCreator.setIsShowPartDetail({
@@ -32,7 +34,7 @@ export function PartDetail() {
         >
             <div className={styles.partDetail}>
                 <div className="drawer-title">
-                    <span>零件详情</span>
+                    <span>{utils.getText('part.a15')}</span>
                     {/*<Button type="primary">在新页面打开</Button>*/}
                 </div>
                 <PartInfo/>
@@ -40,10 +42,10 @@ export function PartDetail() {
                 <div className="tabs-wrapper">
                     <Tabs
                         defaultActiveKey={activeTab}>
-                        <TabPane tab="适用性" key="applicability">
+                        <TabPane tab={utils.getText('applicability.a1')} key="applicability">
                             <Applicability/>
                         </TabPane>
-                        <TabPane tab="替换关系" key="replace">
+                        <TabPane tab={utils.getText('replace.a1')} key="replace">
                             <Replace partCode={partCode} />
                         </TabPane>
                     </Tabs>
