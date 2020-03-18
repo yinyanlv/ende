@@ -214,10 +214,10 @@ export function Cart(props) {
                                     }
                                 };
                             }}
-                            rowSelection={{
+                            rowSelection={!exported ?{
                                 selectedRowKeys: selectedKeys,
                                 onSelectAll: handleSelectAll
-                            }}
+                            } : undefined}
                         />
                     </div>
                     <div className="pagination">
