@@ -66,6 +66,7 @@ export function PageOrders(props) {
         {
             title: '订单备注',
             dataIndex: 'note',
+            width: 140,
             ellipsis: true
         },
         {
@@ -120,12 +121,14 @@ export function PageOrders(props) {
                 <Query />
                 <Loading isLoading={isLoading}>
                     <div className="panel-content">
-                        <Table
-                            columns={columns}
-                            dataSource={list}
-                            rowKey={'code'}
-                            pagination={false}
-                        />
+                        <div className={'table-wrapper'}>
+                            <Table
+                                columns={columns}
+                                dataSource={list}
+                                rowKey={'code'}
+                                pagination={false}
+                            />
+                        </div>
                     </div>
                     <div className="pagination">
                         <Pagination

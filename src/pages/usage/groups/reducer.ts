@@ -61,15 +61,18 @@ function rebuildGroups(groups) {
     for (let i = 0; i < groups.length; i++) {
         let temp = groups[i];
         const code = temp.code;
+        const note = temp.note ? ` (${temp.note})` : '';
         temp.key = code;
         temp.codePathStr = code;
-        temp.title = code + ' - ' + temp.text;
+        temp.title = code + ' - ' + temp.text + note;
         const children = groups[i].children;
+
         for (let j = 0; j < children.length; j++) {
             let item = children[j];
+            const note = item.note ? ` (${item.note})` : '';
             item.key = item.code;
             item.codePathStr = `${code}/${item.code}`;
-            item.title = item.code + ' - ' + item.text;
+            item.title = item.code + ' - ' + item.text + note;
             item.isLeaf = item.leaf;
             list.push(item.codePathStr);
         }

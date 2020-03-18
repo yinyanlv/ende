@@ -9,7 +9,11 @@ import {cartCreator} from '@/pages/order-detail/cart/actions';
 
 const FormItem = Form.Item;
 
-export function Query() {
+interface QueryProps {
+    isShowAdd: boolean;
+}
+
+export function Query(props: QueryProps) {
     const dispatch = useDispatch();
     const {orderCode} = useSelector((state: any) => {
         return state.orderDetail.self;
@@ -50,7 +54,9 @@ export function Query() {
                 </FormItem>
                 <span className="inner-btn-line">
                     <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
-                    <Button onClick={handleClickAdd}>加入清单</Button>
+                    {
+                        props.isShowAdd && <Button onClick={handleClickAdd}>加入清单</Button>
+                    }
                 </span>
             </Form>
         </div>

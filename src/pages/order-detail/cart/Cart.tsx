@@ -11,7 +11,7 @@ import {useUtils} from '@/hooks';
 export function Cart(props) {
 
     const dispatch = useDispatch();
-    const {orderCode} = useSelector((state: any) => {
+    const {orderCode, info} = useSelector((state: any) => {
         return state.orderDetail.self;
     });
     const {total, list, pageNo, pageSize, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
@@ -21,6 +21,7 @@ export function Cart(props) {
         return item.id;
     });
     const utils = useUtils();
+    const exported = isExported();
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -108,6 +109,10 @@ export function Cart(props) {
         }));
     }
 
+    function isExported() {
+        return info.statusCode === '2';
+    }
+
     const columns = [
         {
             title: '零件编号',
@@ -131,6 +136,9 @@ export function Cart(props) {
             title: '量',
             dataIndex: 'qty',
             render: (val, record) => {
+                if (exported) {
+                    return val;
+                }
                 return (
                     <div onClick={utils.stopPropagation}>
                         <InputNumber value={val}
@@ -162,21 +170,27 @@ export function Cart(props) {
                 return val && val.formatString;
             }
         },
-        {
-            title: '操作',
-            dataIndex: 'operator',
-            render: (val, record) => {
-                return (
-                    <div>
+
+    ];
+
+    if (!exported) {
+        columns.push(
+            {
+                title: '操作',
+                dataIndex: 'operator',
+                render: (val, record) => {
+                    return (
+                        <div>
                         <span className={'pure-text-btn'} onClick={(e) => {
                             e.stopPropagation();
                             handleClickDelete(record.partCode);
                         }}>删除</span>
-                    </div>
-                );
+                        </div>
+                    );
+                }
             }
-        }
-    ];
+        );
+    }
 
     return (
         <div className={styles.cart}>
@@ -184,7 +198,7 @@ export function Cart(props) {
                 <div className="box-title">
                     <span className={'title'}>商品清单</span>
                 </div>
-                <Query/>
+                <Query isShowAdd={!exported}/>
                 <Loading isLoading={isLoading}>
                     <div className="box-content">
                         <Table
@@ -208,7 +222,10 @@ export function Cart(props) {
                     </div>
                     <div className="pagination">
                         <div className="operators">
-                            <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
+                            {
+                                !exported &&
+                                <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
+                            }
                         </div>
                         <Pagination
                             total={total}

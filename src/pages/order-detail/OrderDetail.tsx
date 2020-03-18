@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button} from 'antd';
+import {Button, message} from 'antd';
 import styles from './OrderDetail.module.scss';
 import {Info} from './info';
 import {Purchaser} from './purchaser';
@@ -27,6 +27,7 @@ export function PageOrderDetail() {
     const receiverInfo = useSelector((state: any) => {
         return state.orderDetail.receiver.info;
     });
+    const exported = isExported();
 
     useEffect(() => {
         dispatch(orderDetailCreator.initOrderDetail({
@@ -59,6 +60,12 @@ export function PageOrderDetail() {
         dispatch(orderDetailCreator.exportOrder({
             orderCode
         }));
+        message.success('导出成功');
+        setTimeout(() => {
+            dispatch(orderDetailCreator.initOrderDetail({
+                orderCode
+            }));
+        }, 1000);
     }
 
     function importOrder() {
@@ -66,6 +73,11 @@ export function PageOrderDetail() {
             isShow: true
         }));
     }
+
+    function isExported() {
+        return info.statusCode === '2';
+    }
+
     return (
         <div className={styles.orderDetail}>
             <div className="panel">
@@ -79,8 +91,14 @@ export function PageOrderDetail() {
                         <Button type={'primary'} onClick={saveAsNewOrder}>另存为新订单</Button>
                         <Button type={'primary'} onClick={exportOrder}>导出订单</Button>
                         <Button type={'primary'} onClick={deleteOrder}>删除订单</Button>
-                        <Button type={'primary'} onClick={saveOrder}>保存订单</Button>
-                        <Button type={'primary'} onClick={importOrder}>导入订单</Button>
+                        {
+                            !exported && (
+                                <>
+                                    <Button type={'primary'} onClick={saveOrder}>保存订单</Button>
+                                    <Button type={'primary'} onClick={importOrder}>导入订单</Button>
+                                </>
+                            )
+                        }
                     </div>
                     <ImportFile/>
                 </div>
@@ -93,7 +111,6 @@ export function PageOrderDetail() {
             </div>
             <List/>
             <Edit/>
-
         </div>
     );
 }

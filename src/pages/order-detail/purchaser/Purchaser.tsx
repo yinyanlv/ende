@@ -11,6 +11,10 @@ export function Purchaser() {
     const {info} = useSelector((state: any) => {
         return state.orderDetail.purchaser;
     });
+    const detailInfo = useSelector((state: any) => {
+        return state.orderDetail.self.info;
+    });
+    const exported = isExported();
 
     function handleClickEdit() {
         dispatch(listCreator.setIsShowList({
@@ -22,13 +26,19 @@ export function Purchaser() {
         }));
     }
 
+    function isExported() {
+        return detailInfo.statusCode === '2';
+    }
+
     return (
         <div className={cls([styles.purchaser, 'box'])}>
             <div className={'box-title'}>
                     <span className={'title'}>
                         下单人信息
                     </span>
-                <span className={'btn-edit'} onClick={handleClickEdit}><EditOutlined/> 修改或使用新地址</span>
+                {
+                    !exported && <span className={'btn-edit'} onClick={handleClickEdit}><EditOutlined/> 修改或使用新地址</span>
+                }
             </div>
             <div className={'box-content'}>
                 <Row className={'info'}>

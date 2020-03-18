@@ -178,7 +178,7 @@ function Parts(props: PartsProps) {
             if (record.options && record.options.length) {
                return (
                    <Application list={record.options}>
-                       <span title={val}>{val}</span>
+                       <span className={'ellipsis-text'} title={val}>{val}</span>
                    </Application>
                );
             } else {

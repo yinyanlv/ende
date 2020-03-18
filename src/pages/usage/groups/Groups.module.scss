@@ -24,8 +24,14 @@
     .ant-tree{
 
       .ant-tree-node-content-wrapper {
+        //display: flex;
+
         .ant-tree-iconEle {
           width: 18px;
+        }
+
+        .ant-tree-title {
+          word-break: break-all;
         }
       }
 
