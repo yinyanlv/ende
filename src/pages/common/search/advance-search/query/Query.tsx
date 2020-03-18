@@ -17,7 +17,7 @@ export function Query() {
     const {maxZIndex} = useSelector((state: any) => {
        return state.config;
     });
-    const {groupList, modelOptions, fieldsValue} = useSelector((state: any) => {
+    const {groupList, modelOptions, fieldsValue, isShowBtnDetail} = useSelector((state: any) => {
         return state.search.advanceSearch.query;
     });
 
@@ -142,6 +142,25 @@ export function Query() {
         }
     }
 
+    function validateVinVsn() {
+        const vinVsn = form.getFieldValue('vinVsn');
+
+        if (!vinVsn) {
+            dispatch(queryCreator.setIsShowBtnDetail({isShowBtnDetail: false}));
+            return;
+        }
+        const code = vinVsn.trim();
+        const result = checkAndGetType(code);
+        if (result.isValid) {
+            if (result.type === 'vin') {
+                dispatch(queryCreator.validateVin({code}));
+            } else if (result.type === 'vsn') {
+                dispatch(queryCreator.validateVsn({code}));
+            }
+        } else {
+            dispatch(queryCreator.setIsShowBtnDetail({isShowBtnDetail: false}));
+        }
+    }
 
     function checkAndGetType(val) {
         // vin查询，包含lzw或mk3,不包含中文就查询vin
@@ -175,9 +194,11 @@ export function Query() {
                     <Col span={8}>
                         <div className="first-column vin-wrapper">
                             <FormItem label="VIN/VSN" name={'vinVsn'}>
-                                <Input placeholder="请输入"/>
+                                <Input placeholder="请输入" onChange={validateVinVsn}/>
                             </FormItem>
-                            <span className="btn" onClick={showVinDetail}>详细</span>
+                            {
+                                isShowBtnDetail && <span className="btn" onClick={showVinDetail}>详细</span>
+                            }
                         </div>
                     </Col>
                     <Col span={16} className="model-wrapper">

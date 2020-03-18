@@ -14,6 +14,9 @@ export const SET_M1 = 'search:advance-search:query:set-m1';
 export const SET_M2 = 'search:advance-search:query:set-m2';
 export const SET_M3 = 'search:advance-search:query:set-m3';
 export const SET_M4 = 'search:advance-search:query:set-m4';
+export const VALIDATE_VIN = 'search:advance-search:query:validate-vin';
+export const VALIDATE_VSN = 'search:advance-search:query:validate-vsn';
+export const SET_IS_SHOW_BTN_DETAIL ='search:advance-search:query:set-is-show-btn-detail';
 
 export const queryCreator = {
     setFieldsValue: (params) => {
@@ -57,5 +60,14 @@ export const queryCreator = {
     },
     doQuery: (params) => {
         return createAction(DO_QUERY, params);
+    },
+    validateVin: (params) => {
+        return createAction(VALIDATE_VIN, params);
+    },
+    validateVsn: (params) => {
+        return createAction(VALIDATE_VSN, params);
+    },
+    setIsShowBtnDetail: (params) => {
+        return createAction(SET_IS_SHOW_BTN_DETAIL, params);
     }
 };

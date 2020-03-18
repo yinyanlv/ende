@@ -1,9 +1,8 @@
-import React, {useEffect, useLayoutEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Modal, Form, Row, Col, Input} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './Edit.module.scss';
 import {editCreator} from './actions';
-import {findDOMNode} from 'react-dom';
 
 const FormItem = Form.Item;
 

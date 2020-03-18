@@ -129,6 +129,44 @@ function* loadModelOptionsController(action) {
     }
 }
 
+function* validateVinController(action) {
+    try{
+        yield call(validateVin, action.payload);
+        yield put(actions.queryCreator.setIsShowBtnDetail({
+            isShowBtnDetail: true
+        }));
+    } catch (err) {
+        yield put(actions.queryCreator.setIsShowBtnDetail({
+            isShowBtnDetail: false
+        }));
+    }
+}
+
+function validateVin(params) {
+    return http.post('/vin/detail', {
+        code: params.code
+    });
+}
+
+function* validateVsnController(action) {
+    try{
+        yield call(validateVsn, action.payload);
+        yield put(actions.queryCreator.setIsShowBtnDetail({
+            isShowBtnDetail: true
+        }));
+    } catch (err) {
+        yield put(actions.queryCreator.setIsShowBtnDetail({
+            isShowBtnDetail: false
+        }));
+    }
+}
+
+function validateVsn(params) {
+    return http.post('/vsn/select', {
+        code: params.code
+    });
+}
+
 export function* querySaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.LOAD_GROUP, loadGroupController);
@@ -137,4 +175,6 @@ export function* querySaga() {
     yield takeLatest(actions.LOAD_M2, loadM2Controller);
     yield takeLatest(actions.LOAD_M3, loadM3Controller);
     yield takeLatest(actions.LOAD_M4, loadM4Controller);
+    yield takeLatest(actions.VALIDATE_VIN, validateVinController);
+    yield takeLatest(actions.VALIDATE_VSN, validateVsnController);
 }

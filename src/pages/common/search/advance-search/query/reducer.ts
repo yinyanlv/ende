@@ -1,6 +1,7 @@
 import * as actions from './actions';
 
 export const initialState = {
+    isShowBtnDetail: false,
     fieldsValue: {},
     groupList: [],
     modelOptions: []
@@ -12,6 +13,11 @@ export function queryReducer(state = initialState, action) {
             return {
                 ...state,
                 fieldsValue: action.payload
+            };
+        case actions.SET_IS_SHOW_BTN_DETAIL:
+            return {
+                ...state,
+                isShowBtnDetail: action.payload.isShowBtnDetail
             };
         case actions.SET_GROUP:
             return {
