@@ -14,6 +14,7 @@ export function Query() {
         const fieldsValue = form.getFieldsValue();
         const filters = rebuildFieldsToFilters(fieldsValue);
         if (filters.length > 0) {
+            fieldsValue.partCode = fieldsValue.partCode.trim();
             dispatch(queryCreator.doQuery(fieldsValue));
         } else {
             message.error('请输入零件编号');
