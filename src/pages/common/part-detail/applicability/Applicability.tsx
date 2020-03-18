@@ -32,11 +32,17 @@ export function Applicability() {
             dataIndex: 'note',
             ellipsis: true,
             width: 140,
-            render: (val, record) => (
-                <Application list={record.options || []}>
-                    <span>{val}</span>
-                </Application>
-            )
+            render: (val, record) => {
+                if (record.options && record.options.length) {
+                    return (
+                        <Application list={record.options}>
+                            <span title={val}>{val}</span>
+                        </Application>
+                    );
+                } else {
+                    return <span title={val}>{val}</span>;
+                }
+            }
         },
         {
             title: '主组描述',
