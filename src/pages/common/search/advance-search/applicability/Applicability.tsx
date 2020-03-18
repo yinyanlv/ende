@@ -10,6 +10,7 @@ import {applicabilityCreator} from './actions';
 import styles from './Applicability.module.scss';
 import {Loading} from "@/components/loading";
 import {configCreator} from '@/store/config/actions';
+import {Application} from '@/pages/common/application';
 
 export function Applicability() {
 
@@ -66,13 +67,18 @@ export function Applicability() {
             title: '左右',
             dataIndex: 'hand',
             ellipsis: true,
-            width: 80
+            width: 60
         },
         {
             title: '用途',
             dataIndex: 'note',
             ellipsis: true,
-            width: 100
+            width: 140,
+            render: (val, record) => (
+                <Application list={record.options || []}>
+                    <span>{val}</span>
+                </Application>
+            )
         },
         {
             title: '图例描述',

@@ -10,10 +10,13 @@ $empty-table-body-height: calc(100vh - 100px);
   tableBodyHeight: $table-body-height;
 }
 
+.partsWrapper {
+  transition: margin .3s ease-in-out;
+}
+
 .parts {
   position: relative;
   width: 100%;
-  transition: margin .3s ease-in-out;
 
   :global {
 

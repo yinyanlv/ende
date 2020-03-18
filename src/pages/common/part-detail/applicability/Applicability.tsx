@@ -6,6 +6,7 @@ import history from '@/common/history';
 import {usageCreator} from '@/pages/usage/actions';
 import styles from './Applicability.module.scss';
 import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
+import {Application} from '@/pages/common/application';
 
 export function Applicability() {
     const dispatch = useDispatch();
@@ -24,13 +25,18 @@ export function Applicability() {
             title: '左右',
             dataIndex: 'handName',
             ellipsis: true,
-            width: 80
+            width: 60
         },
         {
             title: '用途',
             dataIndex: 'note',
             ellipsis: true,
-            width: 140
+            width: 140,
+            render: (val, record) => (
+                <Application list={record.options || []}>
+                    <span>{val}</span>
+                </Application>
+            )
         },
         {
             title: '主组描述',

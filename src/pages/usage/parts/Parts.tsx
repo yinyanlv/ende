@@ -202,8 +202,9 @@ function Parts(props: PartsProps) {
             minWidth={400}
             maxWidth={window.innerWidth - groupsWidth - 295}
             defaultSize={{width: width, height: window.innerHeight - 100}}
-            enable={{left: true}}
+            enable={props.isShowParts ? {left: true} : {left: false}}
             onResizeStop={handleResize}
+            className={styles.partsWrapper}
             style={{marginRight: props.isShowParts ? '0' : -(width + 10) + 'px'}}
         >
             <div className={styles.parts}>

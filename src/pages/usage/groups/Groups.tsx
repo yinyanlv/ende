@@ -161,8 +161,9 @@ function Groups(props: GroupsProps) {
             minWidth={150}
             maxWidth={window.innerWidth - partsWidth - 295}
             defaultSize={{width: width, height: window.innerHeight - 100}}
-            enable={{right: true}}
+            enable={props.isShowGroups ? {right: true}: {right: false}}
             onResizeStop={handleResize}
+            className={styles.groupsWrapper}
             style={{marginLeft: props.isShowGroups ? '0' : -(width + 10) + 'px'}}
         >
             <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
