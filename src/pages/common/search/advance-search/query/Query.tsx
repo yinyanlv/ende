@@ -88,6 +88,7 @@ export function Query() {
 
     function doReset() {
         form.resetFields();
+        dispatch(queryCreator.setIsShowBtnDetail({isShowBtnDetail: false}));
     }
 
     function handleLoadModel(selectedOptions) {
