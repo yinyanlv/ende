@@ -10,6 +10,7 @@ import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Resizable} from 're-resizable';
+import {useUtils} from '@/hooks';
 
 
 interface PartsProps {
@@ -35,6 +36,7 @@ function Parts(props: PartsProps) {
         return state.groups.width;
     });
     const usages = parts.usages || [];
+    const utils = useUtils();
 
     useEffect(() => {
         if (props.activeCallout) {
@@ -63,7 +65,7 @@ function Parts(props: PartsProps) {
     function handleClickCopy(e, val) {
         e.stopPropagation();
         copy(val);
-        message.success('已复制到剪贴板');
+        message.success(utils.getText('msg.a7'));
     }
 
     function handleClickReplace(e, partCode) {
@@ -128,7 +130,7 @@ function Parts(props: PartsProps) {
         width: 50,
         ellipsis: true
     }, {
-        title: '零件编号',
+        title: utils.getText('part.a1'),
         dataIndex: 'partCode',
         width: 150,
         ellipsis: true,
@@ -139,12 +141,12 @@ function Parts(props: PartsProps) {
                         showPartDetail(e, val);
                     }}>{val}</span>
                     <span className={'btns'}>
-                          <Tooltip title={'复制'}>
+                          <Tooltip title={utils.getText('operate.a10')}>
                             <CopyOutlined onClick={(e) => {
                                 handleClickCopy(e, val);
                             }}/>
                           </Tooltip>
-                        <Tooltip title={'替换关系'}>
+                        <Tooltip title={utils.getText('replace.a1')}>
                             {
                                 record.hasSupersession ? (
                                         <RetweetOutlined onClick={(e) => {
@@ -160,17 +162,17 @@ function Parts(props: PartsProps) {
             );
         }
     }, {
-        title: '左右',
+        title: utils.getText('part.a8'),
         dataIndex: 'handName',
         ellipsis: true,
         width: 100
     }, {
-        title: '名称描述',
+        title: utils.getText('part.a2'),
         dataIndex: 'name',
         width: 140,
         ellipsis: true
     }, {
-        title: '用途',
+        title: utils.getText('part.a9'),
         dataIndex: 'note',
         ellipsis: true,
         width: 140,
@@ -186,16 +188,16 @@ function Parts(props: PartsProps) {
             }
         }
     }, {
-        title: '量',
+        title: utils.getText('part.a10'),
         dataIndex: 'formattedQty',
         ellipsis: true,
-        width: 40
+        width: 60
     }, {
-        title: '操作',
+        title: utils.getText('operate.a5'),
         ellipsis: true,
         width: 80,
         render: (val, record) => (
-            <Tooltip title={'加入购物车'}>
+            <Tooltip title={utils.getText('operate.a4')}>
                 <Button type="primary" icon={<ShoppingCartOutlined/>} size={'small'} onClick={(e) => {
                     handleClickCart(e, record.partCode);
                 }}/>

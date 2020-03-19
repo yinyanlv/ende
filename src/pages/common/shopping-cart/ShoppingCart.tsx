@@ -15,7 +15,7 @@ export function ShoppingCart(props) {
     const {total, list, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
-    const {maxZIndex} = useSelector((state: any) => {
+    const {maxZIndex, resHost} = useSelector((state: any) => {
         return state.config;
     });
     const selectedKeys = selectedRecords.map((item) => {
@@ -142,7 +142,7 @@ export function ShoppingCart(props) {
 
     const columns = [
         {
-            title: '零件信息',
+            title: utils.getText('part.a18'),
             dataIndex: 'partCode',
             width: 450,
             render: (val, record) => {
@@ -152,7 +152,7 @@ export function ShoppingCart(props) {
                         <div className="image-box" onClick={(e) => {
                             handleClickPartCode(e, record.partCode);
                         }}><img
-                            src={record.coverImageUri || '/images/nopic.gif'} alt={record.partName}/></div>
+                            src={record.coverImageUri ? resHost + record.coverImageUri : '/images/nopic.gif'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="text-btn"
@@ -166,9 +166,9 @@ export function ShoppingCart(props) {
                                 }
                             </div>
                             <div className="content-line">
-                                <span><label>最小包装数：</label>{record.unitPkgPackage}</span>
-                                <span><label>配件价格：</label>{record.price && record.price.formatString}</span>
-                                <span className={'model'} title={modelsString}><label>适用车型：</label>{modelsString}</span>
+                                <span><label>{utils.getText('part.a3')}: </label>{record.unitPkgPackage}</span>
+                                <span><label>{utils.getText('part.a6')}: </label>{record.price && record.price.formatString}</span>
+                                <span className={'model'} title={modelsString}><label>{utils.getText('replace.a3')}: </label>{modelsString}</span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@ export function ShoppingCart(props) {
             }
         },
         {
-            title: '量',
+            title: utils.getText('part.a10'),
             dataIndex: 'qty',
             width: 120,
             render: (val, record) => {
@@ -191,7 +191,7 @@ export function ShoppingCart(props) {
             }
         },
         {
-            title: '小计',
+            title: utils.getText('cart.a2'),
             dataIndex: 'amount',
             width: 120,
             render: (val) => {
@@ -199,7 +199,7 @@ export function ShoppingCart(props) {
             }
         },
         {
-            title: '操作',
+            title: utils.getText('operate.a5'),
             width: 100,
             dataIndex: 'operator',
             render: (val, record) => {
@@ -207,7 +207,7 @@ export function ShoppingCart(props) {
                     <div>
                         <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickDelete(e, record.partCode);
-                        }}>删除</span>
+                        }}>{utils.getText('operate.a3')}</span>
                     </div>
                 );
             }
@@ -224,7 +224,7 @@ export function ShoppingCart(props) {
         >
             <div className={styles.shoppingCart}>
                 <div className="drawer-title">
-                    <span>购物车</span>
+                    <span>{utils.getText('cart.a1')}</span>
                 </div>
                 <Query/>
                 <Loading isLoading={isLoading}>
@@ -254,8 +254,8 @@ export function ShoppingCart(props) {
                     </div>
                     <div className="pagination">
                         <div className="operators">
-                            <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
-                            <Button type="primary" disabled={!list.length} onClick={handleCreateOrder}>生成订单</Button>
+                            <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>{utils.getText('operate.a3')}</Button>
+                            <Button type="primary" disabled={!list.length} onClick={handleCreateOrder}>{utils.getText('order.a3')}</Button>
                         </div>
                         <Pagination
                             total={total}

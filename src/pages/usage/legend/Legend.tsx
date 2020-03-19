@@ -8,6 +8,7 @@ import queryString from 'query-string';
 import {getQueryObj} from '@/common/utils';
 import {message} from 'antd';
 import {groupsCreator} from '@/pages/usage/groups/actions';
+import {useUtils} from '@/hooks';
 
 const svgPrefix = '/res';
 
@@ -35,6 +36,7 @@ function Legend(props: LegendProps) {
     } = useSelector((state: any) => {
         return state.groups;
     });
+    const utils = useUtils();
 
     useEffect(() => {
 
@@ -74,7 +76,7 @@ function Legend(props: LegendProps) {
     function handleClickPrev() {
         const curIndex = getIndex(activeTreeNodeCode);
         if (curIndex === 0) {
-           return message.error('当前已经是第一张');
+           return message.error(utils.getText('msg.a5'));
         }
         const prevIndex = curIndex - 1;
         const pathList = flatPathList[prevIndex].split('/');
@@ -86,7 +88,7 @@ function Legend(props: LegendProps) {
     function handleClickNext() {
         const curIndex = getIndex(activeTreeNodeCode);
         if (curIndex === flatPathList.length - 1) {
-            return message.error('当前已经是第一张');
+            return message.error(utils.getText('msg.a6'));
         }
         const nextIndex = curIndex + 1;
         const pathList = flatPathList[nextIndex].split('/');

@@ -19,7 +19,7 @@ export function Parts() {
     const {queryParams} = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
-    const {maxZIndex} = useSelector((state: any) => {
+    const {maxZIndex, resHost} = useSelector((state: any) => {
         return state.config;
     });
     const utils = useUtils();
@@ -64,7 +64,7 @@ export function Parts() {
                                 return (
                                     <div className="item" key={item.code}>
                                         <div className="image-box" onClick={handleClickPartCode.bind(null, item.code)}><img
-                                            src={item.coverImageUri || '/images/nopic.gif'} alt={item.name}/></div>
+                                            src={item.coverImageUri ? resHost + item.coverImageUri : '/images/nopic.gif'} alt={item.name}/></div>
                                         <div className="info-box">
                                             <div className="title-line">
                                                 <span className="text-btn"
@@ -76,10 +76,10 @@ export function Parts() {
                                                 }
                                             </div>
                                             <div className="content-line">
-                                                <span><label>{utils.getText('part.a3')}：</label>{item.unitPkgQty}</span>
-                                                <span><label>{utils.getText('part.a4')}：</label>{item.position}</span>
-                                                <span><label>{utils.getText('part.a5')}：</label>{item.transportRestrict}</span>
-                                                <span><label>{utils.getText('part.a6')}：</label>{item.price}</span>
+                                                <span><label>{utils.getText('part.a3')}: </label>{item.unitPkgQty}</span>
+                                                <span><label>{utils.getText('part.a4')}: </label>{item.position}</span>
+                                                <span><label>{utils.getText('part.a5')}: </label>{item.transportRestrict}</span>
+                                                <span><label>{utils.getText('part.a6')}: </label>{item.price}</span>
                                             </div>
                                         </div>
                                         <div className="btn-box">

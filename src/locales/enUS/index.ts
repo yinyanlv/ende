@@ -35,7 +35,8 @@ export const enUS: any = {
         a6: 'Query',
         a7: 'Reset',
         a8: 'Cancel',
-        a9: 'Save'
+        a9: 'Save',
+        a10: 'Copy'
     },
     search: {
         a1: 'Advance Search',
@@ -62,7 +63,10 @@ export const enUS: any = {
         a12: 'Group',
         a13: 'Group Description',
         a14: 'Note',
-        a15: 'Part Detail'
+        a15: 'Part Detail',
+        a16: 'Code',
+        a17: 'Description',
+        a18: 'Part Information'
     },
     legend: {
         a1: 'Legend No.',
@@ -80,31 +84,33 @@ export const enUS: any = {
         a6: 'Break Point',
     },
     cart: {
-        a1: 'Shopping Cart'
+        a1: 'Shopping Cart',
+        a2: 'Amount'
     },
     vin: {
-        a1: 'VIN/VSN详情',
-        a2: '开始时间',
-        a3: '结束时间',
-        a4: '打开高级查询',
-        a5: '品种代码',
-        a6: '车辆型号',
-        a7: '车型平台',
-        a8: '发动机代码',
-        a9: '发动机名称',
-        a10: '排量',
-        a11: '功率',
-        a12: '生产厂家',
-        a13: '变速器',
-        a14: '面漆颜色',
-        a15: '空调',
-        a16: '批次号',
-        a17: '识别码'
+        a1: 'VIN/VSN Detail',
+        a2: 'Begin Date',
+        a3: 'End Date',
+        a4: 'Open Advance Query',
+        a5: 'Variety Code',
+        a6: 'Vehicle Type',
+        a7: 'Catalogue',
+        a8: 'Engine Code',
+        a9: 'Engine Name',
+        a10: 'Displacement',
+        a11: 'Power',
+        a12: 'Manufacturer',
+        a13: 'Transmission',
+        a14: 'Body Color',
+        a15: 'Aircondition',
+        a16: 'Batch No.',
+        a17: 'Identifier',
+        a18: 'Production Date'
     },
     order: {
         a1: 'Orders',
         a2: 'Order',
-        a3: '生成订单',
+        a3: 'Generate Order',
         a4: '订单编号',
         a5: '订单备注',
         a6: '下单日期',
@@ -148,6 +154,9 @@ export const enUS: any = {
         a1: 'VIN or VSN is not valid',
         a2: 'Please input',
         a3: 'Please input VIN or VSN',
-        a4: 'Please input part NO.'
+        a4: 'Please input part NO.',
+        a5: 'Current is the first',
+        a6: 'Current is the last',
+        a7: 'Has been copied to the clipboard'
     }
 };

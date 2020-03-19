@@ -42,19 +42,19 @@ export function VsnSelector() {
 
     const columns = [
         {
-            title: '车型',
+            title: utils.getText('part.a11'),
             dataIndex: 'model'
         },
         {
-            title: '目录',
+            title: utils.getText('applicability.a2'),
             dataIndex: 'catalog'
         },
         {
-            title: '开始时间',
+            title: utils.getText('vin.a2'),
             dataIndex: 'beginDate'
         },
         {
-            title: '结束时间',
+            title: utils.getText('vin.a3'),
             key: 'endDate'
         }
     ];
@@ -70,7 +70,7 @@ export function VsnSelector() {
         >
             <div className={styles.vsnSelector}>
                 <div className="drawer-title">
-                    <span>VIN/VSN详情</span>
+                    <span>{utils.getText('vin.a1')}</span>
                 </div>
                 <div>
                     <Table

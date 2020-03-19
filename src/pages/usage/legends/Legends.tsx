@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {Panel} from '@/components/panel';
 import styles from  './Legends.module.scss';
+import {useUtils} from '@/hooks';
 
 const imageSuffix = '?/d/300';
 
@@ -25,6 +26,7 @@ function Legends(props: LegendsProps) {
     } = useSelector((state: any) => {
         return state.config;
     });
+    const utils = useUtils();
 
     function handleClickLegend(params) {
         props.onClickImage(params);
@@ -40,10 +42,11 @@ function Legends(props: LegendsProps) {
 
     return (
         <div className={styles.legends}>
-            <Panel isLoading={isLegendsLoading} className={'panel-legend-list'} title={'图例'}>
+            <Panel isLoading={isLegendsLoading} className={'panel-legend-list'} title={utils.getText('legend.a5')}>
                 <ul className="legend-list">
                     {
                         legends && legends.map((item) => {
+                            const note = item.note ? `(${item.note})` : '';
                             return (
                                 <li className="item"
                                     key={item.code}
@@ -55,10 +58,10 @@ function Legends(props: LegendsProps) {
                                                 <span className="image-wrapper">
                                                     <img
                                                         src={resHost + item.imageFileUri + imageSuffix}
-                                                        alt={item.text}
+                                                        alt={`${item.code} - ${item.text} ${note}`}
                                                     />
                                                 </span>
-                                    <span className="text">{item.code} - {item.text}</span>
+                                    <span className="text">{`${item.code} - ${item.text} ${note}`}</span>
                                 </li>
                             );
                         })

@@ -90,6 +90,7 @@ export function Query() {
 
     function doReset() {
         form.resetFields();
+        dispatch(queryCreator.setFieldsValue({}));
         dispatch(queryCreator.setIsShowBtnDetail({isShowBtnDetail: false}));
     }
 

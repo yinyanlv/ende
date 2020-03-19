@@ -1,19 +1,21 @@
 import React, {PropsWithChildren} from 'react';
 import {Table, Popover} from 'antd';
 import styles from './Application.module.scss';
+import {useUtils} from '@/hooks';
 
 interface ApplicationProps {
     list: any[];
 }
 
 export function Application(props: PropsWithChildren<ApplicationProps>) {
+    const utils = useUtils();
 
     const columns = [{
-        title: '编号',
+        title: utils.getText('part.a16'),
         dataIndex: 'code',
         width: 100
     }, {
-        title: '描述',
+        title: utils.getText('part.a17'),
         dataIndex: 'name'
     }];
 

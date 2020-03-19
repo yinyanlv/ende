@@ -7,6 +7,7 @@ import {vinDetailCreator} from './actions';
 import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 import styles from './VinDetail.module.scss';
 import {configCreator} from '@/store/config/actions';
+import {useUtils} from '@/hooks';
 
 export function VinDetail(props) {
 
@@ -17,6 +18,7 @@ export function VinDetail(props) {
     const {maxZIndex} = useSelector((state: any) => {
         return state.config;
     });
+    const utils = useUtils();
 
     useEffect(() => {
         const queryObj = getQueryObj();
@@ -70,8 +72,8 @@ export function VinDetail(props) {
         >
            <div className={styles.vinDetail}>
                <div className="drawer-title">
-                   <span>VIN/VSN详情</span>
-                   <Button type="primary" onClick={doAdvanceQuery}>打开高级查询</Button>
+                   <span>{utils.getText('vin.a1')}</span>
+                   <Button type="primary" onClick={doAdvanceQuery}>{utils.getText('vin.a4')}</Button>
                </div>
                <div className="drawer-content table-wrapper">
                    <table>
@@ -81,67 +83,67 @@ export function VinDetail(props) {
                            <td>{data.code}</td>
                        </tr>
                        <tr>
-                           <td>品种代码:</td>
+                           <td>{utils.getText('vin.a5')}:</td>
                            <td>{data.vsnVariety && data.vsnVariety.code}</td>
                        </tr>
                        <tr>
-                           <td>车辆型号:</td>
+                           <td>{utils.getText('vin.a6')}:</td>
                            <td>{data.vsnVariety && data.vsnVariety.vehicleCode}</td>
                        </tr>
                        <tr>
-                           <td>车型:</td>
+                           <td>{utils.getText('part.a11')}:</td>
                            <td>{data.vsnVariety && data.vsnVariety.model} - {data.vsnVariety && data.vsnVariety.modelName}</td>
                        </tr>
                        <tr>
-                           <td>车型平台:</td>
+                           <td>{utils.getText('vin.a7')}:</td>
                            <td>{data.vsnVariety && data.vsnVariety.catalog} - {data.vsnVariety && data.vsnVariety.catalogName}</td>
                        </tr>
                        <tr>
-                           <td>发动机代码:</td>
+                           <td>{utils.getText('vin.a8')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.code}</td>
                        </tr>
                        <tr>
-                           <td>发动机名称:</td>
+                           <td>{utils.getText('vin.a9')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.name}</td>
                        </tr>
                        <tr>
-                           <td>排量:</td>
+                           <td>{utils.getText('vin.a10')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.displacement}</td>
                        </tr>
                        <tr>
-                           <td>功率:</td>
+                           <td>{utils.getText('vin.a11')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.power}</td>
                        </tr>
                        <tr>
-                           <td>生产厂家:</td>
+                           <td>{utils.getText('vin.a12')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.manufacturerName}</td>
                        </tr>
                        {/*<tr>*/}
-                       {/*    <td>生产日期:</td>*/}
-                       {/*    <td>{data.vsnEngine && data.vsnEngine.manufacturerName}</td>*/}
+                       {/*    <td>{utils.getText('vin.a18')}:</td>*/}
+                       {/*    <td>{data.vsnEngine && data.vsnEngine.productionDate}</td>*/}
                        {/*</tr>*/}
                        <tr>
-                           <td>备注:</td>
+                           <td>{utils.getText('part.a14')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.note}</td>
                        </tr>
                        <tr>
-                           <td>变速器:</td>
+                           <td>{utils.getText('vin.a13')}:</td>
                            <td>{data.vsnTransmission && data.vsnTransmission.name}</td>
                        </tr>
                        <tr>
-                           <td>面漆颜色:</td>
+                           <td>{utils.getText('vin.a14')}:</td>
                            <td>{data.vsnColor && data.vsnColor.name}</td>
                        </tr>
                        <tr>
-                           <td>空调:</td>
+                           <td>{utils.getText('vin.a15')}:</td>
                            <td>{data.vsnAirCondition && data.vsnAirCondition.name}</td>
                        </tr>
                        <tr>
-                           <td>批次号:</td>
+                           <td>{utils.getText('vin.a16')}:</td>
                            <td>{data.vsnBatch}</td>
                        </tr>
                        <tr>
-                           <td>识别码:</td>
+                           <td>{utils.getText('vin.a17')}:</td>
                            <td>{data.vsnIdentifier}</td>
                        </tr>
                        </tbody>
