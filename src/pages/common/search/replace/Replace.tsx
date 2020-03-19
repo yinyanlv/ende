@@ -9,7 +9,7 @@ import {useUtils} from '@/hooks';
 
 export function Replace() {
     const dispatch = useDispatch();
-    const {list, partCode, isLoading} = useSelector((state: any) => {
+    const {list, isLoading} = useSelector((state: any) => {
         return state.search.replace.self;
     });
     const utils = useUtils();
@@ -29,15 +29,9 @@ export function Replace() {
             ellipsis: true,
             render: (val, record) => {
                 if (record.hasOldPartDetail) {
-                    if (val === partCode) {
-                        return (
-                            <span className="current">{val}</span>
-                        );
-                    } else {
-                        return (
-                            <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
-                        );
-                    }
+                    return (
+                        <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
+                    );
                 } else {
                     return val;
                 }
@@ -50,21 +44,15 @@ export function Replace() {
             dataIndex: 'oldApplyCode'
         },
         {
-            title: utils.getText('replace.a3'),
+            title: utils.getText('replace.a4'),
             dataIndex: 'newPartCode',
             width: 120,
             ellipsis: true,
             render: (val, record) => {
                 if (record.hasNewPartDetail) {
-                    if (val === partCode) {
-                        return (
-                            <span className="current">{val}</span>
-                        );
-                    } else {
-                        return (
-                            <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
-                        );
-                    }
+                    return (
+                        <span className="text-btn" onClick={handleClickPartCode.bind(null, val)}>{val}</span>
+                    );
                 } else {
                     return val;
                 }

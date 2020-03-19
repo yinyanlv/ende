@@ -52,7 +52,7 @@ export function Replace(props: ReplaceProps) {
             dataIndex: 'oldApplyCode'
         },
         {
-            title: utils.getText('replace.a3'),
+            title: utils.getText('replace.a4'),
             dataIndex: 'newPartCode',
             width: 120,
             ellipsis: true,
