@@ -6,6 +6,7 @@ import { searchCreator } from './actions';
 import {AdvanceSearch} from './advance-search';
 import {Replace} from './replace';
 import {useUtils} from '@/hooks';
+import {applicabilityCreator} from './advance-search/applicability/actions';
 
 const TabPane = Tabs.TabPane;
 
@@ -20,6 +21,7 @@ export function Search(props) {
         dispatch(searchCreator.setIsShowSearch({
             isShow: false
         }));
+        dispatch(applicabilityCreator.setSelectedKeys([]));
     }
 
     return (

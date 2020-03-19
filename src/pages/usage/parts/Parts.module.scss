@@ -51,20 +51,6 @@ $empty-table-body-height: calc(100vh - 100px);
         overflow: auto !important;
       }
 
-      colgroup{
-
-        col:first-child{
-          width:0 !important;
-          min-width: 0 !important;
-        }
-      }
-
-      .ant-table-selection-column{
-        width: 0 !important;
-        overflow: hidden;
-        visibility: hidden;
-      }
-
       .operator-wrapper {
         display: flex;
         align-items: center;

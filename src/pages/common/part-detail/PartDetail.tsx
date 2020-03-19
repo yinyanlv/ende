@@ -7,6 +7,7 @@ import {Applicability} from './applicability';
 import {Replace} from './replace';
 import styles from './PartDetail.module.scss';
 import {useUtils} from '@/hooks';
+import {applicabilityCreator} from './applicability/actions';
 
 const TabPane = Tabs.TabPane;
 
@@ -21,6 +22,7 @@ export function PartDetail() {
         dispatch(partDetailCreator.setIsShowPartDetail({
             isShow: false
         }));
+        dispatch(applicabilityCreator.setSelectedKeys([]));
     }
 
     return (

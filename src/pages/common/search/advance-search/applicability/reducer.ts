@@ -5,7 +5,8 @@ const initialState = {
     list: [],
     total: 0,
     pageNo: 1,
-    pageSize: 10
+    pageSize: 10,
+    selectedKeys: []
 };
 
 export function applicabilityReducer(state = initialState, action) {
@@ -23,6 +24,11 @@ export function applicabilityReducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: action.payload.isLoading
+            };
+        case actions.SET_SELECTED_KEYS:
+            return {
+                ...state,
+                selectedKeys: action.payload
             };
         case actions.RESET_STATE:
             return {

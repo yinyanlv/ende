@@ -7,11 +7,12 @@ import {usageCreator} from '@/pages/usage/actions';
 import styles from './Applicability.module.scss';
 import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
 import {Application} from '@/pages/common/application';
+import {applicabilityCreator} from './actions';
 import {useUtils} from '@/hooks';
 
 export function Applicability() {
     const dispatch = useDispatch();
-    const {list} = useSelector((state: any) => {
+    const {list, selectedKeys} = useSelector((state: any) => {
         return state.partDetail.applicability;
     });
     const utils = useUtils();
@@ -75,6 +76,7 @@ export function Applicability() {
     function handleClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
         const isNeedManualRefresh = isAtPateUsage();
+        dispatch(applicabilityCreator.setSelectedKeys([record.id]));
         history.push({
             pathname: '/usage',
             search: queryString.stringify(queryObj)
@@ -89,7 +91,7 @@ export function Applicability() {
             <Table
                 columns={columns}
                 dataSource={list}
-                className={list.length > 0 ? '' : 'empty-table'}
+                className={list.length > 0 ? 'hide-select-column' : 'hide-select-column empty-table'}
                 pagination={false}
                 rowKey={'id'}
                 tableLayout={'fixed'}
@@ -103,6 +105,10 @@ export function Applicability() {
                             handleClickRow(record);
                         }
                     }
+                }}
+                rowSelection={{
+                    type: 'radio',
+                    selectedRowKeys: selectedKeys
                 }}
             />
         </div>

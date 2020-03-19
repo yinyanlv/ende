@@ -4,6 +4,7 @@ export const DO_QUERY = 'search:advance-search:applicability:do-query';
 export const SET_APPLICABILITY = 'search:advance-search:applicability:set-applicability';
 export const IS_LOADING = 'search:advance-search:applicability:is-loading';
 export const RESET_STATE = 'search:advance-search:applicability:reset-state';
+export const SET_SELECTED_KEYS = 'search:advance-search:applicability:set-select-keys';
 
 export const applicabilityCreator = {
     doQuery: (params) => {
@@ -17,5 +18,8 @@ export const applicabilityCreator = {
     },
     resetState: () => {
         return createAction(RESET_STATE);
+    },
+    setSelectedKeys: (params) => {
+        return createAction(SET_SELECTED_KEYS, params);
     }
 };

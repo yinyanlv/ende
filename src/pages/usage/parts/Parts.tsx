@@ -219,7 +219,7 @@ function Parts(props: PartsProps) {
                 <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
                     <Table columns={columns}
                            dataSource={usages}
-                           className={usages.length > 0 ? 'part-list' : 'part-list empty-table'}
+                           className={usages.length > 0 ? 'part-list hide-select-column' : 'part-list hide-select-column empty-table'}
                            rowKey={'id'}
                            size={'small'}
                            scroll={{

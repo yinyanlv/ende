@@ -16,7 +16,7 @@ import {useUtils} from '@/hooks';
 export function Applicability() {
 
     const dispatch = useDispatch();
-    const {list, total, pageNo, pageSize, isLoading} = useSelector((state: any) => {
+    const {list, total, pageNo, pageSize, isLoading, selectedKeys} = useSelector((state: any) => {
         return state.search.advanceSearch.applicability;
     });
     const {maxZIndex} = useSelector((state: any) => {
@@ -126,6 +126,7 @@ export function Applicability() {
     function handleClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
         const isNeedManualRefresh = isAtPateUsage();
+        dispatch(applicabilityCreator.setSelectedKeys([record.id]));
         history.push({
             pathname: '/usage',
             search: queryString.stringify(queryObj)
@@ -141,7 +142,7 @@ export function Applicability() {
                 <Table
                     columns={columns}
                     dataSource={list}
-                    className={list.length > 0 ? '' : 'empty-table'}
+                    className={list.length > 0 ? 'hide-select-column' : 'hide-select-column empty-table'}
                     rowKey={'id'}
                     tableLayout={'fixed'}
                     onRow={(record) => {
@@ -150,6 +151,10 @@ export function Applicability() {
                                 handleClickRow(record);
                             }
                         }
+                    }}
+                    rowSelection={{
+                        type: 'radio',
+                        selectedRowKeys: selectedKeys
                     }}
                     pagination={false}
                     scroll={{
