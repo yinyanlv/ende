@@ -118,7 +118,7 @@ function saveOrder(params) {
     return http.post('/order-detail/save', params);
 }
 
-function* exportOrderController(action) {
+function exportOrderController(action) {
     const data = storageService.getStorage();
     try {
         const orderCode = action.payload.orderCode;
