@@ -6,6 +6,7 @@ import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 import {cartCreator} from '@/pages/order-detail/cart/actions';
+import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 
@@ -19,6 +20,7 @@ export function Query(props: QueryProps) {
         return state.orderDetail.self;
     });
     const [form] = Form.useForm();
+    const utils = useUtils();
 
     function doQuery() {
         const fieldsValue = form.getFieldsValue();
@@ -33,7 +35,7 @@ export function Query(props: QueryProps) {
         const partCode = fieldsValue.partCode.trim();
 
         if (!partCode) {
-            return message.error('请输入零件编号');
+            return message.error(utils.getText('msg.a4'));
         }
 
         dispatch(cartCreator.addPart({
@@ -49,13 +51,13 @@ export function Query(props: QueryProps) {
                 labelAlign="left"
                 form={form}
             >
-                <FormItem label="零件编号" name={'partCode'}>
-                    <Input placeholder="请输入"/>
+                <FormItem label={utils.getText('part.a1')} name={'partCode'}>
+                    <Input placeholder={utils.getText('app.a2')}/>
                 </FormItem>
                 <span className="inner-btn-line">
-                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>{utils.getText('operate.a6')}</Button>
                     {
-                        props.isShowAdd && <Button onClick={handleClickAdd}>加入清单</Button>
+                        props.isShowAdd && <Button onClick={handleClickAdd}>{utils.getText('order.a18')}</Button>
                     }
                 </span>
             </Form>

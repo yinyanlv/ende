@@ -12,11 +12,13 @@ import {ImportFile} from './import-file';
 import {importFileCreator} from './import-file/actions';
 import {List} from './list';
 import {Edit} from './edit';
+import {useUtils} from '@/hooks';
 
 export function PageOrderDetail() {
     const dispatch = useDispatch();
     const match: any = useRouteMatch();
     const infoFormRef = useRef();
+    const utils = useUtils();
 
     const {orderCode, info} = useSelector((state: any) => {
         return state.orderDetail.self;
@@ -60,7 +62,7 @@ export function PageOrderDetail() {
         dispatch(orderDetailCreator.exportOrder({
             orderCode
         }));
-        message.success('导出成功');
+        message.success(utils.getText('msg.a8'));
         setTimeout(() => {
             dispatch(orderDetailCreator.initOrderDetail({
                 orderCode
@@ -83,19 +85,19 @@ export function PageOrderDetail() {
             <div className="panel">
                 <div className="panel-title">
                     <div className={'title-wrapper'}>
-                        <span className={'title'}>订单: {info.code}</span>
+                        <span className={'title'}>{utils.getText('order.a2')}: {info.code}</span>
                         <span className={'separator'}>/</span>
-                        <span className={'status'}>状态：{info.statusDesc}</span>
+                        <span className={'status'}>{utils.getText('order.a7')}：{info.statusDesc}</span>
                     </div>
                     <div className={'btns'}>
-                        <Button type={'primary'} onClick={saveAsNewOrder}>另存为新订单</Button>
-                        <Button type={'primary'} onClick={exportOrder}>导出订单</Button>
-                        <Button type={'primary'} onClick={deleteOrder}>删除订单</Button>
+                        <Button type={'primary'} onClick={saveAsNewOrder}>{utils.getText('order.a30')}</Button>
+                        <Button type={'primary'} onClick={exportOrder}>{utils.getText('order.a31')}</Button>
+                        <Button type={'primary'} onClick={deleteOrder}>{utils.getText('order.a32')}</Button>
                         {
                             !exported && (
                                 <>
-                                    <Button type={'primary'} onClick={saveOrder}>保存订单</Button>
-                                    <Button type={'primary'} onClick={importOrder}>导入订单</Button>
+                                    <Button type={'primary'} onClick={saveOrder}>{utils.getText('order.a33')}</Button>
+                                    <Button type={'primary'} onClick={importOrder}>{utils.getText('order.a35')}</Button>
                                 </>
                             )
                         }

@@ -13,7 +13,7 @@ export function List() {
         return state.orderDetail.list;
     });
     const utils = useUtils();
-    const title = type === 'purchase' ? '下单人信息' : '收货人信息';
+    const title = type === 'purchase' ? utils.getText('order.a20') : utils.getText('order.a28');
 
     function handleClickDelete(e, record) {
         e.stopPropagation();
@@ -52,43 +52,43 @@ export function List() {
 
     const columns = [
         {
-            title: '地址别名',
+            title: utils.getText('order.a40'),
             dataIndex: 'name',
             width: 100,
             ellipsis: true,
         },
         {
-            title: '地址',
+            title: utils.getText('order.a23'),
             width: 180,
             ellipsis: true,
             dataIndex: 'address'
         },
         {
-            title: '邮编',
+            title: utils.getText('order.a24'),
             dataIndex: 'postcode',
             width: 80,
             ellipsis: true
         },
         {
-            title: '配件员',
+            title: utils.getText('order.a25'),
             width: 100,
             ellipsis: true,
             dataIndex: 'contact'
         },
         {
-            title: '配件员电话',
+            title: utils.getText('order.a26'),
             width: 120,
             ellipsis: true,
             dataIndex: 'phone'
         },
         {
-            title: '电子邮件',
+            title: utils.getText('order.a27'),
             width: 140,
             ellipsis: true,
             dataIndex: 'mail'
         },
         {
-            title: '操作',
+            title: utils.getText('operate.a5'),
             width: 120,
             ellipsis: true,
             render: (val, record) => {
@@ -96,10 +96,10 @@ export function List() {
                     <div>
                         <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickEdit(e, record);
-                        }}>编辑</span>
+                        }}>{utils.getText('operate.a2')}</span>
                         <span className={'pure-text-btn'} onClick={(e) => {
                             handleClickDelete(e, record);
-                        }}>删除</span>
+                        }}>{utils.getText('operate.a3')}</span>
                     </div>
                 );
             }

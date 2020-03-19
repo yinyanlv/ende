@@ -8,6 +8,7 @@ import {Loading} from '@/components/loading';
 import {API_PREFIX} from '@/config';
 import {orderDetailCreator} from '../actions';
 import {storageService} from '@/common/storageService';
+import {useUtils} from '@/hooks';
 
 const Dragger = Upload.Dragger;
 
@@ -15,6 +16,7 @@ const Dragger = Upload.Dragger;
 export function ImportFile() {
     const dispatch = useDispatch();
     const storage = storageService.getStorage();
+    const utils = useUtils();
 
     const {isShow, isUploading} = useSelector((state: any) => {
         return state.orderDetail.importFile;
@@ -29,13 +31,13 @@ export function ImportFile() {
         if (file.status === 'done') {
             dispatch(importFileCreator.setIsUploading({isUploading: false}));
             dispatch(importFileCreator.setIsShow({isShow: false}));
-            message.success('导入成功');
+            message.success(utils.getText('msg.a9'));
             dispatch(orderDetailCreator.initOrderDetail({orderCode}));
         }
 
         if (file.status === 'error') {
             dispatch(importFileCreator.setIsUploading({isUploading: false}));
-            message.error('导入失败');
+            message.error(utils.getText('msg.a10'));
         }
 
         if (file.status === 'uploading') {
@@ -64,13 +66,13 @@ export function ImportFile() {
     return (
         <Modal
             visible={isShow}
-            title="导入订单"
+            title={utils.getText('order.a35')}
             footer={null}
             className={styles.importFile}
             onCancel={handleCancel}
         >
             <div className={'operators-line'}>
-                <Button type={'primary'} onClick={downloadTpl}>下载模板</Button>
+                <Button type={'primary'} onClick={downloadTpl}>{utils.getText('order.a36')}</Button>
             </div>
             <Loading isLoading={isUploading} text={'Uploading'}>
                 <Dragger
@@ -82,12 +84,13 @@ export function ImportFile() {
                     data={{orderCode}}
                     beforeUpload={beforeUpload}
                     onChange={handleUpload}
+                    showUploadList={false}
                 >
                     <p className="ant-upload-drag-icon">
                         <InboxOutlined/>
                     </p>
-                    <p className="ant-upload-text">点击或拖拽文件到该区域上传文件</p>
-                    <p className="ant-upload-hint">注：上传支持格式为xls、xlsx</p>
+                    <p className="ant-upload-text">{utils.getText('order.a37')}</p>
+                    <p className="ant-upload-hint">{utils.getText('order.a38')}</p>
                 </Dragger>
             </Loading>
         </Modal>

@@ -7,6 +7,7 @@ import {Loading} from '@/components/loading';
 import {ordersCreator} from './actions';
 import styles from './Orders.module.scss';
 import {Query} from './query';
+import {useUtils} from '@/hooks';
 
 export function PageOrders(props) {
 
@@ -14,6 +15,7 @@ export function PageOrders(props) {
     const {total, list, pageNo, pageSize, queryParams, isLoading} = useSelector((state: any) => {
         return state.orders.self;
     });
+    const utils = useUtils();
 
     useEffect(() => {
        dispatch(ordersCreator.initOrders());
@@ -44,7 +46,7 @@ export function PageOrders(props) {
 
     const columns = [
         {
-            title: '订单编号',
+            title: utils.getText('order.a4'),
             dataIndex: 'code',
             width: 240,
             ellipsis: true,
@@ -55,7 +57,7 @@ export function PageOrders(props) {
             }
         },
         {
-            title: '下单日期',
+            title: utils.getText('order.a6'),
             dataIndex: 'createdDate',
             width: 180,
             ellipsis: true,
@@ -64,49 +66,49 @@ export function PageOrders(props) {
             }
         },
         {
-            title: '订单备注',
+            title: utils.getText('order.a5'),
             dataIndex: 'note',
             width: 140,
             ellipsis: true
         },
         {
-            title: '状态',
+            title: utils.getText('order.a7'),
             dataIndex: 'statusDesc',
             width: 100,
             ellipsis: true
         },
         {
-            title: '下单维修站编码',
+            title: utils.getText('order.a8'),
             dataIndex: 'purchaserDealerCode',
             width: 140,
             ellipsis: true
         },
         {
-            title: '下单维修站名称',
+            title: utils.getText('order.a9'),
             dataIndex: 'purchaserDealerName',
             width: 200,
             ellipsis: true
         },
         {
-            title: '收货维修站编码',
+            title: utils.getText('order.a10'),
             dataIndex: 'receiverDealerCode',
             width: 140,
             ellipsis: true
         },
         {
-            title: '收货维修站名称',
+            title: utils.getText('order.a11'),
             dataIndex: 'receiverDealerName',
             width: 200,
             ellipsis: true
         },
         {
-            title: '操作',
+            title: utils.getText('operate.a5'),
             dataIndex: 'operator',
             width: 80,
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <span className={'pure-text-btn'} onClick={handleClickDelete.bind(null, record.code)}>删除</span>
+                    <span className={'pure-text-btn'} onClick={handleClickDelete.bind(null, record.code)}>{utils.getText('operate.a3')}</span>
                 );
             }
         }
@@ -116,7 +118,7 @@ export function PageOrders(props) {
         <div className={styles.orders}>
             <div className="panel">
                 <div className="panel-title">
-                    <span>订单</span>
+                    <span>{utils.getText('order.a1')}</span>
                 </div>
                 <Query />
                 <Loading isLoading={isLoading}>

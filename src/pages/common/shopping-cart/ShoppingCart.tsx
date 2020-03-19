@@ -35,6 +35,7 @@ export function ShoppingCart(props) {
     function handleClickPartCode(e, partCode) {
         e.stopPropagation();
         const newMaxZIndex = maxZIndex + 5;
+        dispatch(partDetailCreator.setIsShowPartDetail({isShow: false}));
         dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
             zIndex: newMaxZIndex
@@ -183,8 +184,16 @@ export function ShoppingCart(props) {
                 return (
                     <div onClick={utils.stopPropagation}>
                         <InputNumber value={val}
+                                     min={0}
+                                     max={9999}
                                      onChange={(val) => {
-                                         handleEditPartCartCount(record.partCode, val)
+                                         try {
+                                             val = parseInt(val as any);
+                                             if (val <= 9999 && val >= 0) {
+                                                 handleEditPartCartCount(record.partCode, val)
+                                             }
+                                         } catch(err) {
+                                         }
                                      }}/>
                     </div>
                 );

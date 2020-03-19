@@ -115,7 +115,7 @@ export function Cart(props) {
 
     const columns = [
         {
-            title: '零件编号',
+            title: utils.getText('part.a1'),
             dataIndex: 'partCode',
             width: 150,
             ellipsis: true,
@@ -127,13 +127,13 @@ export function Cart(props) {
             }
         },
         {
-            title: '描述',
+            title: utils.getText('part.a2'),
             dataIndex: 'partName',
             width: 250,
             ellipsis: true
         },
         {
-            title: '量',
+            title: utils.getText('part.a10'),
             dataIndex: 'qty',
             render: (val, record) => {
                 if (exported) {
@@ -142,41 +142,48 @@ export function Cart(props) {
                 return (
                     <div onClick={utils.stopPropagation}>
                         <InputNumber value={val}
+                                     min={0}
+                                     max={9999}
                                      onChange={(val) => {
-                                         handleEditQty({
-                                             partCode: record.partCode,
-                                             qty: val
-                                         });
+                                         try {
+                                             val = parseInt(val as any);
+                                             if (val <= 9999 && val >= 0) {
+                                                 handleEditQty({
+                                                     partCode: record.partCode,
+                                                     qty: val
+                                                 });
+                                             }
+                                         } catch(err) {
+                                         }
                                      }}/>
                     </div>
                 );
             }
         },
         {
-            title: '最小包装数',
+            title: utils.getText('part.a3'),
             dataIndex: 'unitPkgQty'
         },
         {
-            title: '价格',
+            title: utils.getText('part.a6'),
             dataIndex: 'price',
             render: function (val) {
                 return val && val.formatString;
             }
         },
         {
-            title: '小计',
+            title: utils.getText('cart.a2'),
             dataIndex: 'amount',
             render: function (val) {
                 return val && val.formatString;
             }
         },
-
     ];
 
     if (!exported) {
         columns.push(
             {
-                title: '操作',
+                title: utils.getText('operate.a5'),
                 dataIndex: 'operator',
                 render: (val, record) => {
                     return (
@@ -184,7 +191,7 @@ export function Cart(props) {
                         <span className={'pure-text-btn'} onClick={(e) => {
                             e.stopPropagation();
                             handleClickDelete(record.partCode);
-                        }}>删除</span>
+                        }}>{utils.getText('operate.a3')}</span>
                         </div>
                     );
                 }
@@ -196,7 +203,7 @@ export function Cart(props) {
         <div className={styles.cart}>
             <div className="box">
                 <div className="box-title">
-                    <span className={'title'}>商品清单</span>
+                    <span className={'title'}>{utils.getText('order.a29')}</span>
                 </div>
                 <Query isShowAdd={!exported}/>
                 <Loading isLoading={isLoading}>
@@ -224,7 +231,7 @@ export function Cart(props) {
                         <div className="operators">
                             {
                                 !exported &&
-                                <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>删除</Button>
+                                <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>{utils.getText('operate.a3')}</Button>
                             }
                         </div>
                         <Pagination

@@ -3,6 +3,7 @@ import {Modal, Form, Row, Col, Input} from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './Edit.module.scss';
 import {editCreator} from './actions';
+import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 
@@ -12,6 +13,7 @@ export function Edit() {
     const {isShow, fieldsValue, mode, type} = useSelector((state: any) => {
         return state.orderDetail.edit;
     });
+    const utils = useUtils();
 
     function handleOk() {
         form.validateFields().then((params) => {
@@ -30,7 +32,7 @@ export function Edit() {
         }));
     }
 
-    const title = type === 'purchaser' ? '下单人' : '收货人';
+    const title = type === 'purchaser' ? utils.getText('order.a41') : utils.getText('order.a42');
 
     useEffect(() => {
        form.resetFields();
@@ -40,7 +42,7 @@ export function Edit() {
     return (
         <Modal
             visible={isShow}
-            title={mode === 'edit' ? `${title}-编辑` : `${title}-新增`}
+            title={mode === 'edit' ? `${title}-${utils.getText('operate.a2')}` : `${title}-${utils.getText('operate.a1')}`}
             onOk={handleOk}
             onCancel={handleCancel}
             width={600}
@@ -57,45 +59,45 @@ export function Edit() {
                 <Row>
                     <Col span={24}>
                         <div className={'guide-line'}>
-                            <FormItem label="地址别名" name={'name'} rules={[{required: true, message:'请填写地址别名'}]}>
-                                <Input placeholder="请输入"/>
+                            <FormItem label={utils.getText('order.a40')} name={'name'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a40')}`}]}>
+                                <Input placeholder={utils.getText('app.a2')}/>
                             </FormItem>
-                            <span className={'text'}>(使用易记的名称帮助您区别不同的收货地址 )</span>
+                            <span className={'text'}>({utils.getText('order.a43')} )</span>
                         </div>
                     </Col>
                     <Col span={12}>
-                        <FormItem label="维修站编码" name={'dealerCode'} rules={[{required: true, message:'请填写维修站编码'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a21')} name={'dealerCode'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a21')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={24} className={'long-width'}>
-                        <FormItem label="维修站名称" name={'dealerName'} rules={[{required: true, message:'请填写维修站名称'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a22')} name={'dealerName'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a22')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={24} className={'long-width'}>
-                        <FormItem label="地址" name={'address'} rules={[{required: true, message:'请填写地址'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a23')} name={'address'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a23')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label="邮编" name={'postcode'} rules={[{required: true, message:'请填写邮编'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a24')} name={'postcode'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a24')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label="配件员" name={'contact'} rules={[{required: true, message:'请填写配件员'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a25')} name={'contact'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a25')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label="配件员电话" name={'phone'} rules={[{required: true, message:'请填写配件员电话'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a26')} name={'phone'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a26')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label="电子邮件" name={'mail'} rules={[{required: true, message:'请填写电子邮件'}]}>
-                            <Input placeholder="请输入"/>
+                        <FormItem label={utils.getText('order.a27')} name={'mail'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a27')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                 </Row>

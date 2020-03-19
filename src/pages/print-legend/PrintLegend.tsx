@@ -6,6 +6,7 @@ import {getQueryObj} from '@/common/utils';
 import styles from './PrintLegend.module.scss';
 import {Table} from 'antd';
 import {printLegendCreator} from './actions';
+import {useUtils} from '@/hooks';
 
 export function PagePrintLegend() {
 
@@ -14,6 +15,7 @@ export function PagePrintLegend() {
         return state.printLegend;
     });
     const queryObj: any = getQueryObj();
+    const utils = useUtils();
 
     useEffect(() => {
         const params = Object.assign({}, queryObj);
@@ -27,27 +29,27 @@ export function PagePrintLegend() {
         width: 40,
         ellipsis: true
     }, {
-        title: '零件编号',
+        title: utils.getText('part.a1'),
         dataIndex: 'partCode',
         width: 150,
         ellipsis: true
     }, {
-        title: '左右',
+        title: utils.getText('part.a8'),
         dataIndex: 'handName',
         ellipsis: true,
         width: 80
     }, {
-        title: '名称描述',
+        title: utils.getText('part.a2'),
         dataIndex: 'name',
         width: 140,
         ellipsis: true
     }, {
-        title: '用途',
+        title: utils.getText('part.a9'),
         dataIndex: 'note',
         ellipsis: true,
         width: 140
     }, {
-        title: '量',
+        title: utils.getText('part.a10'),
         dataIndex: 'formattedQty',
         ellipsis: true,
         width: 40

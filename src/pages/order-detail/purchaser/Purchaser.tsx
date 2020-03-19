@@ -5,6 +5,7 @@ import {EditOutlined} from '@ant-design/icons';
 import cls from 'classnames';
 import {listCreator} from '../list/actions';
 import styles from './Purchaser.module.scss';
+import {useUtils} from '@/hooks';
 
 export function Purchaser() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export function Purchaser() {
         return state.orderDetail.self.info;
     });
     const exported = isExported();
+    const utils = useUtils();
 
     function handleClickEdit() {
         dispatch(listCreator.setIsShowList({
@@ -34,34 +36,34 @@ export function Purchaser() {
         <div className={cls([styles.purchaser, 'box'])}>
             <div className={'box-title'}>
                     <span className={'title'}>
-                        下单人信息
+                        {utils.getText('order.a20')}
                     </span>
                 {
-                    !exported && <span className={'btn-edit'} onClick={handleClickEdit}><EditOutlined/> 修改或使用新地址</span>
+                    !exported && <span className={'btn-edit'} onClick={handleClickEdit}><EditOutlined/> {utils.getText('order.a39')}</span>
                 }
             </div>
             <div className={'box-content'}>
                 <Row className={'info'}>
                     <Col span={6}>
-                        <label className={'item-label'}>维修站编码:</label>{info.dealerCode}
+                        <label className={'item-label'}>{utils.getText('order.a21')}:</label>{info.dealerCode}
                     </Col>
                     <Col span={6}>
-                        <label className={'item-label'}>维修站名称:</label>{info.dealerName}
+                        <label className={'item-label'}>{utils.getText('order.a22')}:</label>{info.dealerName}
                     </Col>
                     <Col span={24}>
-                        <label className={'item-label'}>地址:</label>{info.address}
+                        <label className={'item-label'}>{utils.getText('order.a23')}:</label>{info.address}
                     </Col>
                     <Col span={6}>
-                        <label className={'item-label'}>邮编:</label>{info.postcode}
+                        <label className={'item-label'}>{utils.getText('order.a24')}:</label>{info.postcode}
                     </Col>
                     <Col span={6}>
-                        <label className={'item-label'}>配件员:</label>{info.contact}
+                        <label className={'item-label'}>{utils.getText('order.a25')}:</label>{info.contact}
                     </Col>
                     <Col span={6}>
-                        <label className={'item-label'}>配件员电话:</label>{info.phone}
+                        <label className={'item-label'}>{utils.getText('order.a26')}:</label>{info.phone}
                     </Col>
                     <Col span={6}>
-                        <label className={'item-label'}>电子邮件:</label>{info.mail}
+                        <label className={'item-label'}>{utils.getText('order.a27')}:</label>{info.mail}
                     </Col>
                 </Row>
             </div>

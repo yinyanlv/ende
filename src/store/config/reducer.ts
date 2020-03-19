@@ -20,7 +20,7 @@ export function configReducer(state = initialState, action) {
         case actions.SET_MAX_Z_INDEX:
             return {
                 ...state,
-                maxZIndex: action.payload.maxZindex || initialState.maxZIndex
+                maxZIndex: action.payload.maxZIndex || initialState.maxZIndex
             };
         default:
             return state;

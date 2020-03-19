@@ -5,11 +5,13 @@ import {Button, Form, Input} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import styles from './Query.module.scss';
 import {queryCreator} from './actions';
+import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 
 export function Query() {
     const dispatch = useDispatch();
+    const utils = useUtils();
     const [form] = Form.useForm();
 
     function doQuery() {
@@ -30,15 +32,15 @@ export function Query() {
                 labelAlign="left"
                 form={form}
             >
-                <FormItem label="订单编号" name={'code'}>
-                    <Input placeholder="请输入"/>
+                <FormItem label={utils.getText('order.a4')} name={'code'}>
+                    <Input placeholder={utils.getText('app.a2')}/>
                 </FormItem>
-                <FormItem label="订单备注" name={'note'}>
-                    <Input placeholder="请输入"/>
+                <FormItem label={utils.getText('order.a5')} name={'note'}>
+                    <Input placeholder={utils.getText('app.a2')}/>
                 </FormItem>
                 <span className="inner-btn-line">
-                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>查询</Button>
-                    <Button onClick={doReset}>清空</Button>
+                    <Button type="primary" htmlType={'submit'} onClick={doQuery}>{utils.getText('operate.a6')}</Button>
+                    <Button onClick={doReset}>{utils.getText('operate.a7')}</Button>
                 </span>
             </Form>
         </div>
