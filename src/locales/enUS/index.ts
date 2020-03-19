@@ -10,7 +10,8 @@ export const enUS: any = {
         a8: 'Contact Service',
         a9: 'Service Agreement',
         a10: 'About us',
-        a11: 'Feedback'
+        a11: 'Feedback',
+        a12: 'No Data'
     },
     crumbs: {
         m_1: 'Brand',
@@ -161,6 +162,10 @@ export const enUS: any = {
         a7: 'Has been copied to the clipboard',
         a8: 'Export success',
         a9: 'Import success',
-        a10: 'Import failed'
+        a10: 'Import failed',
+        a11: 'Add success',
+        a12: 'Delete success',
+        a13: 'Create success',
+        a14: 'Save success'
     }
 };

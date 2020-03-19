@@ -4,6 +4,7 @@ import {http} from '@/common/http';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
+import {getText} from '@/pages/common/intl';
 
 function* doQueryController(action) {
     try {
@@ -30,7 +31,7 @@ function* deletePartController(action) {
             orderCode: action.payload.orderCode
         });
         yield put(actions.cartCreator.doQuery(buildQueryParams(filters)));
-        message.success('删除成功');
+        message.success(getText('msg.a12'));
     } catch(err) {
         message.error(err.message);
     }
@@ -50,7 +51,7 @@ function* addPartController(action) {
            orderCode: action.payload.orderCode
         });
         yield put(actions.cartCreator.doQuery(buildQueryParams(filters)));
-        message.success('加入成功');
+        message.success(getText('msg.a11'));
     } catch(err) {
         message.error(err.message);
     }

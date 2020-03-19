@@ -48,8 +48,8 @@ export function Nav(props) {
 
     const langMenu = (
         <Menu>
-            <MenuItem onClick={changeLang.bind(null, 'zh-CN')}>中文</MenuItem>
-            <MenuItem onClick={changeLang.bind(null, 'en-US')}>English</MenuItem>
+            <MenuItem onClick={changeLang.bind(null, 'zh')}>中文</MenuItem>
+            <MenuItem onClick={changeLang.bind(null, 'en')}>English</MenuItem>
         </Menu>
     );
 
@@ -68,6 +68,11 @@ export function Nav(props) {
     );
 
     function changeLang(lang) {
+        const storage = storageService.getStorage();
+        storageService.setStorage({
+            token: storage.token,
+            lang: lang
+        });
         dispatch(configCreator.setConfig({
             lang
         }));

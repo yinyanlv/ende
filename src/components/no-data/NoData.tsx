@@ -1,10 +1,12 @@
 import React from 'react';
+import {useUtils} from '@/hooks';
 
 interface NoDataProps {
     text?: string;
 }
 
 export function NoData(props: NoDataProps) {
+    const utils = useUtils();
     return (
         <div className="ant-empty ant-empty-normal">
             <div className="ant-empty-image">
@@ -21,7 +23,7 @@ export function NoData(props: NoDataProps) {
                     </g>
                 </svg>
             </div>
-            <p className="ant-empty-description">{props.text ? props.text : '暂无数据'}</p>
+            <p className="ant-empty-description">{props.text ? props.text : utils.getText('app.a12')}</p>
         </div>
     );
 }

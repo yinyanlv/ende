@@ -74,7 +74,7 @@ function* saveAsNewOrderController(action) {
         yield put(actions.orderDetailCreator.initOrderDetail({
             orderCode
         }));
-        message.success('创建成功');
+        message.success(getText('msg.a13'));
     } catch (err) {
         message.error(err.message);
     }
@@ -92,7 +92,7 @@ function* deleteOrderController(action) {
         history.push({
             pathname: '/orders'
         });
-        message.success('删除成功');
+        message.success(getText('msg.a12'));
     } catch (err) {
         message.error(err.message);
     }
@@ -108,7 +108,7 @@ function* saveOrderController(action) {
     try {
         yield call(saveOrder, action.payload);
         yield put(actions.orderDetailCreator.setInfo(action.payload));
-        message.success('保存成功');
+        message.success(getText('msg.a14'));
     } catch (err) {
         message.error(err.message);
     }

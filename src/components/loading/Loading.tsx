@@ -9,7 +9,7 @@ interface LoadingProps {
 
 export function Loading(props: PropsWithChildren<LoadingProps>) {
     return (
-        <Spin spinning={props.isLoading} size="large" tip={props.text ? props.text : 'Loading'}>
+        <Spin spinning={props.isLoading} size="large" tip={props.text ? props.text : ''}>
             {props.children}
         </Spin>
     );

@@ -1,11 +1,15 @@
 import {call, takeLatest, put} from 'redux-saga/effects';
+import {message} from 'antd';
 import * as actions from './actions';
 import {http} from '@/common/http';
 
 function* loadPartInfoController(action) {
-    const list = yield call(loadPartInfo, action.payload);
-
-    yield put(actions.partInfoCreator.setPartInfo(list));
+    try {
+        const list = yield call(loadPartInfo, action.payload);
+        yield put(actions.partInfoCreator.setPartInfo(list));
+    } catch(err) {
+        message.error(err.message);
+    }
 }
 
 function loadPartInfo(params) {

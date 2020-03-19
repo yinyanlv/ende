@@ -22,14 +22,9 @@ export function Intl(props: PropsWithChildren<IntlProps>) {
         return state.config;
     });
     const storage = storageService.getStorage();
-    const locale = lang || navigator.language;
+    const locale = storage.lang || lang;
     const messages = getIntlLocaleMessages(locale);
     const cache = createIntlCache();
-
-    storageService.setStorage({
-        token: storage.token,
-        lang: locale.slice(0, 2)
-    });
 
     intl = createIntl({
         locale,
@@ -48,7 +43,7 @@ export function Intl(props: PropsWithChildren<IntlProps>) {
 function getIntlLocaleMessages(locale) {
     let messages;
 
-    if (locale.startsWith('en-')) {
+    if (locale.startsWith('en')) {
         messages = enUS;
     } else {
         messages = zhCN;
@@ -58,7 +53,7 @@ function getIntlLocaleMessages(locale) {
 }
 
 function getAntdLocaleMessages(locale) {
-    if (locale.startsWith('en-')) {
+    if (locale.startsWith('en')) {
         return antdEnUS;
     } else {
         return antdZhCN;

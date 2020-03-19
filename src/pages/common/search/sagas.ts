@@ -1,4 +1,5 @@
 import {fork, put, all, takeLatest} from 'redux-saga/effects';
+import {message} from 'antd';
 import {rebuildFieldsToFilters, buildQueryParams} from '@/common/utils';
 import {advanceSearchSagas} from './advance-search/sagas';
 import {replaceSagas} from './replace/sagas';
@@ -7,17 +8,21 @@ import {advanceSearchCreator} from './advance-search/actions';
 import {queryCreator} from './advance-search/query/actions';
 
 function* queryAndShowSearchController(action) {
-    const zIndex = action.payload.zIndex;
-    delete action.payload.zIndex;
-    const filters = rebuildFieldsToFilters(action.payload);
-    const queryParams = buildQueryParams(filters);
+    try {
+        const zIndex = action.payload.zIndex;
+        delete action.payload.zIndex;
+        const filters = rebuildFieldsToFilters(action.payload);
+        const queryParams = buildQueryParams(filters);
 
-    yield put(queryCreator.setFieldsValue(action.payload));
-    yield put(actions.searchCreator.setIsShowSearch({
-        isShow: true,
-        zIndex: zIndex
-    }));
-    yield put(advanceSearchCreator.doQuery(queryParams));
+        yield put(queryCreator.setFieldsValue(action.payload));
+        yield put(actions.searchCreator.setIsShowSearch({
+            isShow: true,
+            zIndex: zIndex
+        }));
+        yield put(advanceSearchCreator.doQuery(queryParams));
+    } catch(err) {
+        message.error(err.message);
+    }
 }
 
 function* searchSaga() {

@@ -44,7 +44,7 @@ function* deleteOrderController(action) {
     try {
         yield call(deleteOrder, action.payload);
         yield put(actions.ordersCreator.doQuery(buildQueryParams()));
-        message.success('删除成功');
+        message.success(getText('msg.a12'));
     } catch (err) {
         message.error(err.message);
     }

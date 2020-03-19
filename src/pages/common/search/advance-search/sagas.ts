@@ -1,5 +1,6 @@
 import {all, put, call, fork, takeLatest} from 'redux-saga/effects';
 import {http} from '@/common/http';
+import {message} from 'antd';
 import * as actions from './actions';
 import {querySaga} from './query/saga';
 import {applicabilitySaga} from './applicability/saga';
@@ -10,13 +11,17 @@ import {partsCreator} from './parts/actions';
 import {legendsCreator} from './legends/actions';
 
 function* doQueryController(action) {
-    const params = action.payload;
+    try {
+        const params = action.payload;
 
-    yield put(actions.advanceSearchCreator.setQueryParams(params));
-    yield put(actions.advanceSearchCreator.loadCount(params));
-    yield put(applicabilityCreator.doQuery(params));
-    yield put(partsCreator.doQuery(params));
-    yield put(legendsCreator.doQuery(params));
+        yield put(actions.advanceSearchCreator.setQueryParams(params));
+        yield put(actions.advanceSearchCreator.loadCount(params));
+        yield put(applicabilityCreator.doQuery(params));
+        yield put(partsCreator.doQuery(params));
+        yield put(legendsCreator.doQuery(params));
+    } catch(err) {
+        message.error(err.message);
+    }
 }
 
 function* loadCountController(action) {

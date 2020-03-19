@@ -8,6 +8,7 @@ import * as actions from './actions';
 import {querySaga} from './query/saga';
 import {orderDetailCreator} from '@/pages/order-detail/actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
+import {getText} from '@/pages/common/intl';
 
 function* doQueryController(action) {
     try {
@@ -33,7 +34,7 @@ function* addToCartController(action) {
         yield put(navCreator.loadCartCount());
         const params = buildQueryParams();
         yield put(actions.shoppingCartCreator.doQuery(params));
-        message.success('加入成功');
+        message.success(getText('msg.a11'));
     } catch(err) {
         message.error(err.message);
     }
@@ -50,7 +51,7 @@ function* deleteFromCartController(action) {
         yield call(deleteFromCart, action.payload);
         yield put(navCreator.loadCartCount());
         yield put(actions.shoppingCartCreator.doQuery(buildQueryParams()));
-        message.success('删除成功');
+        message.success(getText('msg.a12'));
     } catch(err) {
         message.error(err.message);
     }
