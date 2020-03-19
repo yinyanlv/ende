@@ -38,6 +38,11 @@ function cartReducer(state = initialState, action) {
                 pageSize: payload.pageSize,
                 total: payload.total
             };
+        case actions.SET_QUERY_PARAMS:
+            return {
+              ...state,
+              queryParams: action.payload
+            };
         default:
             return state;
     }

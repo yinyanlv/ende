@@ -70,9 +70,9 @@ export function Parts() {
                                                 <span className="text-btn"
                                                       onClick={handleClickPartCode.bind(null, item.code)}>{item.code}</span>
                                                 <span className="gap">-</span>
-                                                <span>{item.name}</span>
+                                                <span title={item.name}>{item.name}</span>
                                                 {
-                                                    item.note && <span>(<span>{item.note}</span>)</span>
+                                                    item.note && <span>(<span title={item.note}>{item.note}</span>)</span>
                                                 }
                                             </div>
                                             <div className="content-line">

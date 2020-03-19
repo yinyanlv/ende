@@ -6,6 +6,7 @@ export const IS_LOADING = 'orders:is-loading';
 export const SET_ORDERS = 'orders:set-orders';
 export const SET_SELECTED_RECORDS = 'orders:set-selected-records';
 export const DELETE_ORDER = 'orders:delete-order';
+export const SET_QUERY_PARAMS = 'orders:set-query-params';
 
 export const ordersCreator = {
     initOrders: () => {
@@ -25,5 +26,8 @@ export const ordersCreator = {
     },
     deleteOrder: (params) => {
         return createAction(DELETE_ORDER, params);
+    },
+    setQueryParams: (params) => {
+        return createAction(SET_QUERY_PARAMS, params);
     }
 };

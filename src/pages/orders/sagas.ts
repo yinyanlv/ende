@@ -10,7 +10,7 @@ import {crumbsCreator} from '@/pages/common/crumbs/actions';
 function* initOrdersController() {
     const crumbs = getCrumbs();
     yield put(crumbsCreator.setCrumbs(crumbs));
-    const sorts = [{field: 'createdDate', asc: false}]
+    const sorts = [{field: 'createdDate', asc: false}];
     yield put(actions.ordersCreator.doQuery(buildQueryParams([], 1, 10, sorts)));
 }
 
@@ -26,6 +26,7 @@ function getCrumbs() {
 function* doQueryController(action) {
     try {
         yield put(actions.ordersCreator.setIsLoading({isLoading: true}));
+        yield put(actions.ordersCreator.setQueryParams(action.payload));
         const data = yield call(doQuery, action.payload);
         yield put(actions.ordersCreator.setOrders(data));
         yield put(actions.ordersCreator.setIsLoading({isLoading: false}));

@@ -161,9 +161,9 @@ export function ShoppingCart(props) {
                                           handleClickPartCode(e, record.partCode);
                                       }}>{record.partCode}</span>
                                 <span className="gap">-</span>
-                                <span>{record.partName}</span>
+                                <span title={record.partName}>{record.partName}</span>
                                 {
-                                    record.partNote && <span>(<span>{record.partNote}</span>)</span>
+                                    record.partNote && <span>(<span title={record.partNote}>{record.partNote}</span>)</span>
                                 }
                             </div>
                             <div className="content-line">

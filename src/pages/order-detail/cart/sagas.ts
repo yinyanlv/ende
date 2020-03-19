@@ -8,6 +8,7 @@ import {querySaga} from './query/saga';
 function* doQueryController(action) {
     try {
         yield put(actions.cartCreator.setIsLoading({isLoading: true}));
+        yield put(actions.cartCreator.setQueryParams(action.payload));
         const data = yield call(doQuery, action.payload);
         yield put(actions.cartCreator.setSelectedRecords([]));
         yield put(actions.cartCreator.setCart(data));

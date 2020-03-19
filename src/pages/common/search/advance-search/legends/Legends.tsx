@@ -58,12 +58,12 @@ export function Legends() {
                                             <div className="title-line" onClick={handleClickLegend.bind(null, item)}>
                                                 <span className={'text-btn'}>{item.legendCode}</span>
                                                 <span className="gap">-</span>
-                                                <span>{item.legendName}</span>
+                                                <span title={item.legendName}>{item.legendName}</span>
                                                 {
                                                     item.legendNote && (
                                                         <>
                                                             <span className="gap">-</span>
-                                                            <span>{item.legendNote}</span>
+                                                            <span title={item.legendNote}>{item.legendNote}</span>
                                                         </>
                                                     )
                                                 }
