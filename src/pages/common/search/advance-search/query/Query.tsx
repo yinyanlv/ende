@@ -218,10 +218,10 @@ export function Query() {
                     <Col span={8}>
                         <div className="first-column">
                             <FormItem label={utils.getText('part.a12')} name={'legendGroupCode'}>
-                                <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
+                                <Select placeholder={utils.getText('app.a3')} dropdownMatchSelectWidth={250} style={{width: 155}} allowClear={true}>
                                     {
                                         groupList.map((item) => {
-                                            return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                            return <Option key={item.code} value={item.code} title={item.name}>{item.name}</Option>;
                                         })
                                     }
                                 </Select>
