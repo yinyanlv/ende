@@ -43,7 +43,7 @@ function Parts(props: PartsProps) {
         if (props.activeCallout) {
             const keys = getKeysByCallout(props.activeCallout);
             dispatch(partsCreator.setSelectedKeys(keys));
-            scrollIntoView();
+            // scrollIntoView();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.activeCallout, isPartsLoading]);
@@ -109,14 +109,14 @@ function Parts(props: PartsProps) {
         props.onClickRightArrow && props.onClickRightArrow();
     }
 
-    function scrollIntoView() {
-        setTimeout(() => {
-            const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
-            if (nodes && nodes.length > 0) {
-                nodes[0].scrollIntoView();
-            }
-        }, 200);
-    }
+    // function scrollIntoView() {
+    //     setTimeout(() => {
+    //         const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
+    //         if (nodes && nodes.length > 0) {
+    //             nodes[0].scrollIntoView();
+    //         }
+    //     }, 200);
+    // }
 
     function handleResize(e, direction, ref, delta) {
         dispatch(partsCreator.setWidth({
