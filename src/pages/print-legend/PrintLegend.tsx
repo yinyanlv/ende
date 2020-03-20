@@ -60,7 +60,7 @@ export function PagePrintLegend() {
         <div className={styles.printLegend}>
             <div className={'image-wrapper'}>
                 <Img
-                    src={[queryObj.src, '/images/nopic.gif']}
+                    src={[queryObj.src, '/images/no_legend.png']}
                     alt={''}
                 />
             </div>

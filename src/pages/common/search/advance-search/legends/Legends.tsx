@@ -53,7 +53,7 @@ export function Legends() {
                                 return (
                                     <div className="item" key={item.catalogueCode + item.legendCode + index}>
                                         <div className="image-box" onClick={handleClickLegend.bind(null, item)}><img
-                                            src={item.legendFileUri ? resHost + item.legendFileUri : '/images/nopic.gif'} alt={item.name}/></div>
+                                            src={item.legendFileUri ? resHost + item.legendFileUri : '/images/no_legend.png'} alt={item.name}/></div>
                                         <div className="info-box">
                                             <div className="title-line" onClick={handleClickLegend.bind(null, item)}>
                                                 <span className={'text-btn'}>{item.legendCode}</span>

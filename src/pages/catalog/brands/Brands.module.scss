@@ -35,6 +35,7 @@ $panel-level-2-width: 185px;
         &.active, &:hover {
           .image-wrapper{
             border-color:$primary-color;
+            box-shadow: 0 0 3px $primary-color;
           }
 
           .text {
@@ -45,11 +46,11 @@ $panel-level-2-width: 185px;
         .image-wrapper{
           display: flex;
           align-items: center;
-          border:2px solid $bd-color;
+          border:1px solid $bd-color;
           justify-content: center;
           width: 100%;
           height: 122px;
-          transition: border-color .3s ease-in-out;
+          transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out;
         }
 
         img{

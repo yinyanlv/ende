@@ -84,7 +84,7 @@ export function Collect(props) {
                 return (
                     <div className="item">
                         <div className="image-box" onClick={handleClickPartCode.bind(null, record.partCode)}><img
-                            src={record.coverImageUri || '/images/nopic.gif'} alt={record.partName}/></div>
+                            src={record.coverImageUri || '/images/no_pic.png'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span>收藏的名称</span>

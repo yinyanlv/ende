@@ -153,7 +153,7 @@ export function ShoppingCart(props) {
                         <div className="image-box" onClick={(e) => {
                             handleClickPartCode(e, record.partCode);
                         }}><img
-                            src={record.coverImageUri ? resHost + record.coverImageUri : '/images/nopic.gif'} alt={record.partName}/></div>
+                            src={record.coverImageUri ? resHost + record.coverImageUri : '/images/no_pic.png'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="text-btn"

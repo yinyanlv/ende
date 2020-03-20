@@ -127,7 +127,7 @@ function Legend(props: LegendProps) {
             <div className="panel panel-legend">
                 <SvgHotPoint
                     ref={svgHotPointRef}
-                    noPicPath={'/images/nopic.gif'}
+                    noPicPath={'/images/no_legend.png'}
                     onSelectCallout={handleSelectCallout}
                     onLegendLoaded={handleLegendLoaded}
                     onClickPrev={handleClickPrev}

@@ -145,6 +145,9 @@ export function Applicability() {
                     className={list.length > 0 ? 'hide-select-column' : 'hide-select-column empty-table'}
                     rowKey={'id'}
                     tableLayout={'fixed'}
+                    locale={{
+                        emptyText: <img src={'/images/no_pic.png'} />
+                    }}
                     onRow={(record) => {
                         return {
                             onClick: () => {

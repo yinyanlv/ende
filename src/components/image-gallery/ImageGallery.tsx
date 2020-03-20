@@ -49,7 +49,7 @@ function ImageGallery(props: ImageGalleryProps) {
                     </>
                 ) : (
                     <div className="no-image">
-                        <img src={props.noImageUrl ? props.noImageUrl : '/images/nopic.gif'}  alt=""/>
+                        <img src={props.noImageUrl ? props.noImageUrl : '/images/no_pic.png'}  alt=""/>
                     </div>
                 )
             }
