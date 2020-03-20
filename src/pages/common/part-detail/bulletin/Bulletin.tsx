@@ -35,7 +35,7 @@ export function Bulletin() {
                         </div>
                     );
                 }) :
-                <NoData text={'暂无数据'} />
+                <NoData />
             }
         </div>
     );

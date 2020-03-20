@@ -7,6 +7,7 @@ import styles from './Cart.module.scss';
 import {Query} from './query';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 export function Cart(props) {
 
@@ -214,6 +215,9 @@ export function Cart(props) {
                             rowKey={'id'}
                             tableLayout={'fixed'}
                             pagination={false}
+                            locale={{
+                                emptyText: <NoData/>
+                            }}
                             onRow={(record) => {
                                 return {
                                     onClick: () => {

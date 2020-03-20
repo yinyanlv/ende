@@ -11,6 +11,7 @@ import {partsCreator} from './actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Resizable} from 're-resizable';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 
 interface PartsProps {
@@ -227,6 +228,9 @@ function Parts(props: PartsProps) {
                            } as any}
                            tableLayout={'fixed'}
                            pagination={false}
+                           locale={{
+                               emptyText: <NoData type={'list'} />
+                           }}
                            onRow={(record) => {
                                return {
                                    onClick: () => {

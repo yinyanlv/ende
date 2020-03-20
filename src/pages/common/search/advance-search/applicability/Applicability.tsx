@@ -12,6 +12,7 @@ import {Loading} from "@/components/loading";
 import {configCreator} from '@/store/config/actions';
 import {Application} from '@/pages/common/application';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 export function Applicability() {
 
@@ -146,7 +147,7 @@ export function Applicability() {
                     rowKey={'id'}
                     tableLayout={'fixed'}
                     locale={{
-                        emptyText: <img src={'/images/no_pic.png'} />
+                        emptyText: <NoData />
                     }}
                     onRow={(record) => {
                         return {

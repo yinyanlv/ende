@@ -6,6 +6,7 @@ import styles from './Replace.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Loading} from "@/components/loading";
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 export function Replace() {
     const dispatch = useDispatch();
@@ -93,6 +94,9 @@ export function Replace() {
                         dataSource={list}
                         className={list.length > 0 ? '' : 'empty-table'}
                         pagination={false}
+                        locale={{
+                            emptyText: <NoData/>
+                        }}
                         rowKey={'newPartCode'}
                         tableLayout={'fixed'}
                         scroll={{

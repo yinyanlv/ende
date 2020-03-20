@@ -4,6 +4,7 @@ import {Table} from 'antd';
 import styles from './Replace.module.scss';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 interface ReplaceProps {
     partCode: any;
@@ -107,6 +108,9 @@ export function Replace(props: ReplaceProps) {
                 pagination={false}
                 rowKey={'newPartCode'}
                 tableLayout={'fixed'}
+                locale={{
+                    emptyText: <NoData type={'list'}/>
+                }}
                 scroll={{
                     x: styles.tableInnerWidth,
                     y: styles.tableBodyHeight

@@ -1,0 +1,15 @@
+@import "src/scss/sdk/index";
+
+.noData {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+
+  :global {
+    img {
+      margin-top: 20px;
+      display: inline-block;
+    }
+  }
+}

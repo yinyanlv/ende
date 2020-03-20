@@ -8,6 +8,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Loading} from "@/components/loading";
 import {configCreator} from '@/store/config/actions';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 export function ShoppingCart(props) {
 
@@ -153,7 +154,7 @@ export function ShoppingCart(props) {
                         <div className="image-box" onClick={(e) => {
                             handleClickPartCode(e, record.partCode);
                         }}><img
-                            src={record.coverImageUri ? resHost + record.coverImageUri : '/images/no_pic.png'} alt={record.partName}/></div>
+                            src={record.coverImageUri ? resHost + record.coverImageUri : '/images/pure_no_pic.png'} alt={record.partName}/></div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="text-btn"
@@ -245,6 +246,9 @@ export function ShoppingCart(props) {
                             rowKey={'id'}
                             tableLayout={'fixed'}
                             pagination={false}
+                            locale={{
+                                emptyText: <NoData/>
+                            }}
                             onRow={(record) => {
                                 return {
                                     onClick: () => {

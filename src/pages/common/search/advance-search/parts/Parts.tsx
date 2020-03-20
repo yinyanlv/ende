@@ -64,7 +64,7 @@ export function Parts() {
                                 return (
                                     <div className="item" key={item.code}>
                                         <div className="image-box" onClick={handleClickPartCode.bind(null, item.code)}><img
-                                            src={item.coverImageUri ? resHost + item.coverImageUri : '/images/no_pic.png'} alt={item.name}/></div>
+                                            src={item.coverImageUri ? resHost + item.coverImageUri : '/images/pure_no_pic.png'} alt={item.name}/></div>
                                         <div className="info-box">
                                             <div className="title-line">
                                                 <span className="text-btn"

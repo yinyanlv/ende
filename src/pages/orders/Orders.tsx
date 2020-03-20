@@ -8,6 +8,7 @@ import {ordersCreator} from './actions';
 import styles from './Orders.module.scss';
 import {Query} from './query';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 export function PageOrders(props) {
 
@@ -129,6 +130,9 @@ export function PageOrders(props) {
                                 dataSource={list}
                                 rowKey={'code'}
                                 pagination={false}
+                                locale={{
+                                    emptyText: <NoData/>
+                                }}
                             />
                         </div>
                     </div>

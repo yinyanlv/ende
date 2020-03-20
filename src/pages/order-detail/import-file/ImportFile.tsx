@@ -29,10 +29,16 @@ export function ImportFile() {
         const file = params.file;
 
         if (file.status === 'done') {
+            const res = file.response;
+
             dispatch(importFileCreator.setIsUploading({isUploading: false}));
-            dispatch(importFileCreator.setIsShow({isShow: false}));
-            message.success(utils.getText('msg.a9'));
-            dispatch(orderDetailCreator.initOrderDetail({orderCode}));
+            if (res.success) {
+                dispatch(importFileCreator.setIsShow({isShow: false}));
+                message.success(utils.getText('msg.a9'));
+                dispatch(orderDetailCreator.initOrderDetail({orderCode}));
+            }  else {
+                message.error(res.message);
+            }
         }
 
         if (file.status === 'error') {
@@ -41,7 +47,6 @@ export function ImportFile() {
         }
 
         if (file.status === 'uploading') {
-            console.log(params.event);
         }
     }
 
@@ -74,7 +79,7 @@ export function ImportFile() {
             <div className={'operators-line'}>
                 <Button type={'primary'} onClick={downloadTpl}>{utils.getText('order.a36')}</Button>
             </div>
-            <Loading isLoading={isUploading} text={'Uploading'}>
+            <Loading isLoading={isUploading} text={utils.getText('msg.a15')}>
                 <Dragger
                     action={API_PREFIX + `/order-detail/import?access_token=${storage.token}&lang=${storage.lang}`}
                     accept={'.xls,.xlsx'}

@@ -166,6 +166,7 @@ export const enUS: any = {
         a11: 'Add success',
         a12: 'Delete success',
         a13: 'Create success',
-        a14: 'Save success'
+        a14: 'Save success',
+        a15: 'Uploading...'
     }
 };

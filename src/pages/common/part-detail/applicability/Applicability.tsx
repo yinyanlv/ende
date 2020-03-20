@@ -9,6 +9,7 @@ import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
 import {Application} from '@/pages/common/application';
 import {applicabilityCreator} from './actions';
 import {useUtils} from '@/hooks';
+import {NoData} from '@/components/no-data';
 
 export function Applicability() {
     const dispatch = useDispatch();
@@ -95,6 +96,9 @@ export function Applicability() {
                 pagination={false}
                 rowKey={'id'}
                 tableLayout={'fixed'}
+                locale={{
+                    emptyText: <NoData type={'list'}/>
+                }}
                 scroll={{
                     x: styles.tableInnerWidth,
                     y: styles.tableBodyHeight
