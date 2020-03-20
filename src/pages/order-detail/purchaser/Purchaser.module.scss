@@ -19,7 +19,13 @@
 
     .item-label {
       display: inline-block;
-      width: 80px;
+      width: 85px;
+    }
+
+    .info.en {
+      .item-label{
+        width: 200px;
+      }
     }
   }
 }

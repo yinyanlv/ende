@@ -1,4 +1,5 @@
 import {getText} from '@/pages/common/intl';
+import {storageService} from '@/common/storageService';
 
 export function useUtils() {
     return {
@@ -10,6 +11,9 @@ export function useUtils() {
             return records.some((item) => {
                 return item[options.name] === options.value;
             });
+        },
+        getLang: () => {
+            return storageService.getStorage().lang;
         }
     }
 }

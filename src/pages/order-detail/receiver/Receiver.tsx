@@ -17,6 +17,7 @@ export function Receiver() {
     });
     const exported = isExported();
     const utils = useUtils();
+    const lang = utils.getLang();
 
     function handleClickEdit() {
         dispatch(listCreator.setIsShowList({
@@ -43,7 +44,7 @@ export function Receiver() {
                 }
             </div>
             <div className={'box-content'}>
-                <Row className={'info'}>
+                <Row className={lang.startsWith('en') ? 'info en' : 'info'}>
                     <Col span={6}>
                         <label className={'item-label'}>{utils.getText('order.a21')}:</label>{info.dealerCode}
                     </Col>
