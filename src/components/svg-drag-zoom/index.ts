@@ -1,1 +1,1 @@
-export * from './SvgDragZoom';
+export {SvgDragZoom} from './SvgDragZoom';

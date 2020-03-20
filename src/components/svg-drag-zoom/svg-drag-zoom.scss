@@ -40,6 +40,10 @@
     }
   }
 
+  span.disabled {
+    cursor: not-allowed;
+  }
+
   span:not(.disabled):hover {
     color: $primary-color;
   }

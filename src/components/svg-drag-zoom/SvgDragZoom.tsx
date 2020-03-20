@@ -63,6 +63,7 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
     }
 
     componentDidMount(): void {
+        this.addToolsEvents();
     }
 
     // 提供url加载svg图
@@ -128,9 +129,11 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
             const el = self.viewport;
             const action = buttons[0][idx].getAttribute('data-action');
             const classList = buttons[0][idx].classList;
+
             if (classList.contains('disabled')) {
                 return;
             }
+
             switch (action) {
                 case 'zoomin':
                     self.zoomIn(el, self.step);
@@ -351,7 +354,7 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
 
     // 禁用或启用工具栏
     public disableLegendToolbar(disabled) {
-        let buttons = d3.selection(this.legendToolbarRef.current).selectAll('[data-action]');
+        let buttons = d3.selection(this.legendToolbarRef.current).selectAll('[data-control]');
 
         if (disabled) {
             buttons.classed('disabled', true);
@@ -376,14 +379,14 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
         return (
             <Loading isLoading={this.state.isLoading}>
                 <div className="legend-toolbar" ref={this.legendToolbarRef}>
-                    <span data-action="zoomin" className={"disabled"}><i className={"iconfont icon-zoom-in"}></i></span>
-                    <span data-action="zoomout" className={"disabled"}><i className={"iconfont icon-zoom-out"}></i></span>
-                    <span data-action="reset" className={"disabled"}><i className={"iconfont icon-magnifier"}></i></span>
-                    <span data-action="rightrotate" className={"disabled"}><i className={"iconfont icon-rotate-right"}></i></span>
-                    <span data-action="leftrotate" className={"disabled"}><i className={"iconfont icon-rotate-left"}></i></span>
-                    <span data-action="showprev" className={"disabled"}><i className={"iconfont icon-prev"}></i></span>
-                    <span data-action="shownext" className={"disabled"}><i className={"iconfont icon-next"}></i></span>
-                    <span data-action="print" className={"disabled"}><i className={"iconfont icon-print"}></i></span>
+                    <span data-control="true" data-action="zoomin" className={"disabled"}><i className={"iconfont icon-zoom-in"}></i></span>
+                    <span data-control="true" data-action="zoomout" className={"disabled"}><i className={"iconfont icon-zoom-out"}></i></span>
+                    <span data-control="true" data-action="reset" className={"disabled"}><i className={"iconfont icon-magnifier"}></i></span>
+                    <span data-control="true" data-action="rightrotate" className={"disabled"}><i className={"iconfont icon-rotate-right"}></i></span>
+                    <span data-control="true" data-action="leftrotate" className={"disabled"}><i className={"iconfont icon-rotate-left"}></i></span>
+                    <span data-action="showprev"><i className={"iconfont icon-prev"}></i></span>
+                    <span data-action="shownext"><i className={"iconfont icon-next"}></i></span>
+                    <span data-control="true" data-action="print" className={"disabled"}><i className={"iconfont icon-print"}></i></span>
                 </div>
                 <div className="svg-wrap" ref={this.legendBodyRef}></div>
             </Loading>
