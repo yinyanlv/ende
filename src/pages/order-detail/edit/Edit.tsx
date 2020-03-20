@@ -59,44 +59,44 @@ export function Edit() {
                 <Row>
                     <Col span={24}>
                         <div className={'guide-line'}>
-                            <FormItem label={utils.getText('order.a40')} name={'name'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a40')}`}]}>
+                            <FormItem label={utils.getText('order.a40')} name={'name'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                                 <Input placeholder={utils.getText('app.a2')}/>
                             </FormItem>
                             <span className={'text'}>({utils.getText('order.a43')} )</span>
                         </div>
                     </Col>
                     <Col span={12}>
-                        <FormItem label={utils.getText('order.a21')} name={'dealerCode'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a21')}`}]}>
+                        <FormItem label={utils.getText('order.a21')} name={'dealerCode'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={24} className={'long-width'}>
-                        <FormItem label={utils.getText('order.a22')} name={'dealerName'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a22')}`}]}>
+                        <FormItem label={utils.getText('order.a22')} name={'dealerName'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={24} className={'long-width'}>
-                        <FormItem label={utils.getText('order.a23')} name={'address'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a23')}`}]}>
+                        <FormItem label={utils.getText('order.a23')} name={'address'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label={utils.getText('order.a24')} name={'postcode'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a24')}`}]}>
+                        <FormItem label={utils.getText('order.a24')} name={'postcode'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label={utils.getText('order.a25')} name={'contact'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a25')}`}]}>
+                        <FormItem label={utils.getText('order.a25')} name={'contact'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label={utils.getText('order.a26')} name={'phone'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a26')}`}]}>
+                        <FormItem label={utils.getText('order.a26')} name={'phone'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
                     <Col span={12}>
-                        <FormItem label={utils.getText('order.a27')} name={'mail'} rules={[{required: true, message:`${utils.getText('app.a2')}${utils.getText('order.a27')}`}]}>
+                        <FormItem label={utils.getText('order.a27')} name={'mail'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>

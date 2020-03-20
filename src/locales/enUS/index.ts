@@ -152,7 +152,7 @@ export const enUS: any = {
         a42: 'Receiver',
         a43: 'Help you to identify the different places of receipts by the simple aliases'
     },
-    message: {
+    msg: {
         a1: 'VIN or VSN is not valid',
         a2: 'Please input',
         a3: 'Please input VIN or VSN',

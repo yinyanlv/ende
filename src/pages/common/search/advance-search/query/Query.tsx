@@ -79,6 +79,8 @@ export function Query() {
     }
 
     useEffect(() => {
+        // fix: 中英文切换时，详细按钮不消失
+        dispatch(queryCreator.setIsShowBtnDetail({isShowBtnDetail: false}));
         dispatch(queryCreator.loadGroup());
         dispatch(queryCreator.loadM1());
     }, []);

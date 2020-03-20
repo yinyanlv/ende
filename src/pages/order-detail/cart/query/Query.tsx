@@ -32,7 +32,11 @@ export function Query(props: QueryProps) {
 
     function handleClickAdd() {
         const fieldsValue = form.getFieldsValue();
-        const partCode = fieldsValue.partCode.trim();
+
+        if (!fieldsValue.partCode) {
+            return message.error(utils.getText('msg.a4'));
+        }
+        const partCode = fieldsValue.partCode && fieldsValue.partCode.trim();
 
         if (!partCode) {
             return message.error(utils.getText('msg.a4'));

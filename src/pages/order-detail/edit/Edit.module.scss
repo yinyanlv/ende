@@ -10,6 +10,15 @@
 
     .ant-form-item-label{
       width: 95px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      line-height: 32px;
+
+      & > label {
+        width: 100%;
+        display: inline;
+      }
     }
 
     .ant-form-item-control{
