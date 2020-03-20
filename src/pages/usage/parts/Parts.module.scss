@@ -35,7 +35,6 @@ $empty-table-body-height: calc(100vh - 100px);
         height: $empty-table-body-height;
       }
       .ant-table-tbody {
-        display: block;
         height: $table-body-height !important;
       }
     }
