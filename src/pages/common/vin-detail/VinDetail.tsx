@@ -15,6 +15,9 @@ export function VinDetail(props) {
     const {data, isShow, zIndex, type} = useSelector((state: any) => {
         return state.vinDetail;
     });
+    const isSearchShow = useSelector((state: any) => {
+        return state.search.self.isShow;
+    });
     const {maxZIndex} = useSelector((state: any) => {
         return state.config;
     });
@@ -73,7 +76,9 @@ export function VinDetail(props) {
            <div className={styles.vinDetail}>
                <div className="drawer-title">
                    <span>{utils.getText('vin.a1')}</span>
-                   <Button type="primary" onClick={doAdvanceQuery}>{utils.getText('vin.a4')}</Button>
+                   {
+                       !isSearchShow && <Button type="primary" onClick={doAdvanceQuery}>{utils.getText('vin.a4')}</Button>
+                   }
                </div>
                <div className="drawer-content table-wrapper">
                    <table>

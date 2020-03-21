@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button, Table, InputNumber, Pagination} from 'antd';
 import {shoppingCartCreator} from './actions';
@@ -11,8 +11,8 @@ import {useUtils} from '@/hooks';
 import {NoData} from '@/components/no-data';
 
 export function ShoppingCart(props) {
-
     const dispatch = useDispatch();
+    const formRef = useRef();
     const {total, list, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
@@ -65,6 +65,7 @@ export function ShoppingCart(props) {
         dispatch(shoppingCartCreator.setIsShowShoppingCart({
             isShow: false
         }));
+        // (formRef.current as any).resetFields();
     }
 
     function handleSelect(record) {
@@ -236,7 +237,7 @@ export function ShoppingCart(props) {
                 <div className="drawer-title">
                     <span>{utils.getText('cart.a1')}</span>
                 </div>
-                <Query/>
+                <Query ref={formRef}/>
                 <Loading isLoading={isLoading}>
                     <div>
                         <Table

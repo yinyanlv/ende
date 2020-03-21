@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {Button, Form, Input} from 'antd';
 import {buildQueryParams, rebuildFieldsToFilters} from '@/common/utils';
@@ -7,7 +7,7 @@ import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 
-export function Query() {
+function InnerQuery(props, parentRef) {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const utils = useUtils();
@@ -29,6 +29,7 @@ export function Query() {
                 layout="inline"
                 labelAlign="left"
                 form={form}
+                ref={parentRef}
             >
                     <FormItem label={utils.getText('part.a1')} name={'partCode'}>
                         <Input placeholder={utils.getText('app.a2')}/>
@@ -42,3 +43,4 @@ export function Query() {
     );
 }
 
+export const Query = forwardRef(InnerQuery);
