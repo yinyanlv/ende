@@ -52,6 +52,8 @@ function Legend(props: LegendProps) {
     useEffect(() => {
         if (props.activeCallout) {
             svgHotPointRef.current.activeCallout([props.activeCallout]);
+        } else {
+            svgHotPointRef.current.activeCallout([]);
         }
     }, [dispatch, props.activeCallout]);
 

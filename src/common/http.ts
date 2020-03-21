@@ -39,27 +39,24 @@ class Http {
         const res = err.response;
 
         if (!res) {
-           return history.push({
-               pathname: '/599'
-           });
+            return history.push({
+                pathname: '/599'
+            });
         }
 
         if (res.status === 401) {
-
-            if (res.config.url === '/sys/config') {
-                let message = res.data.message;
-                const host = message.authHost;
-                const queryObj = {
-                    // client_id: 'yyl' || message.clientId,
-                    client_id: message.clientId,
-                    redirect_uri: window.location.href,
-                    response_type: message.responseType,
-                    scope: message.scope,
-                    grant_type: message.grantType
-                };
-                const url = host + '?' + queryString.stringify(queryObj);
-                window.location.href = url;
-            }
+            let message = res.data.message;
+            const host = message.authHost;
+            const queryObj = {
+                // client_id: 'yyl' || message.clientId,
+                client_id: message.clientId,
+                redirect_uri: window.location.href,
+                response_type: message.responseType,
+                scope: message.scope,
+                grant_type: message.grantType
+            };
+            const url = host + '?' + queryString.stringify(queryObj);
+            window.location.href = url;
         }
     }
 
@@ -96,7 +93,7 @@ class Http {
 
                     if (body.success) {
                         if (body.list) {
-                           resolve(body);
+                            resolve(body);
                         } else {
                             resolve(body.result);
                         }
