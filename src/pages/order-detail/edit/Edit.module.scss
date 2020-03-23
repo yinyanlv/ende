@@ -32,15 +32,9 @@
       flex: 1;
     }
 
-    .guide-line{
-      display: flex;
-      width: 100%;
-
-      .text {
-        font-size: 13px;
-        color: $lightest-font-color;
-        line-height: 30px;
-      }
+    .text {
+      font-size: 13px;
+      color: $lightest-font-color;
     }
   }
 }

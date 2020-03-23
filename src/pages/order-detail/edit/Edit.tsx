@@ -57,25 +57,25 @@ export function Edit() {
                 form={form}
             >
                 <Row>
-                    <Col span={24}>
-                        <div className={'guide-line'}>
-                            <FormItem label={utils.getText('order.a40')} name={'name'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
-                                <Input placeholder={utils.getText('app.a2')}/>
-                            </FormItem>
-                            <span className={'text'}>({utils.getText('order.a43')} )</span>
-                        </div>
+                    <Col span={12}>
+                        <FormItem label={utils.getText('order.a40')} name={'name'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
+                            <Input placeholder={utils.getText('app.a2')}/>
+                        </FormItem>
+                    </Col>
+                    <Col span={12}>
+                        <span className={'text'}>({utils.getText('order.a43')} )</span>
                     </Col>
                     <Col span={12}>
                         <FormItem label={utils.getText('order.a21')} name={'dealerCode'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
-                    <Col span={24} className={'long-width'}>
+                    <Col span={24}>
                         <FormItem label={utils.getText('order.a22')} name={'dealerName'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
-                    <Col span={24} className={'long-width'}>
+                    <Col span={24}>
                         <FormItem label={utils.getText('order.a23')} name={'address'} rules={[{required: true, message:`${utils.getText('app.a2')}`}]}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>

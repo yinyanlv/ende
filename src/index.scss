@@ -64,6 +64,12 @@ html, body {
     align-items: center;
   }
 
+  .ant-form-inline  {
+    .ant-form-item {
+      min-width: 250px;
+    }
+  }
+
   &.multi-line {
 
     .ant-row{
