@@ -34,7 +34,7 @@ function* loadGroupsController(action) {
 
         if (node && node.click) {
             node.click();
-            node.scrollIntoView();
+            node.closest('.ant-tree-treenode-selected').scrollIntoView();
         }
     } catch (err) {
         yield put(actions.groupsCreator.failed(err.message));

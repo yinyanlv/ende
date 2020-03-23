@@ -4,6 +4,11 @@
   padding-top: 10px;
 
   :global {
+    .ant-form{
+      .ant-row {
+        width: 100%;
+      }
+    }
 
     .ant-form-item {
       margin-bottom: 10px;

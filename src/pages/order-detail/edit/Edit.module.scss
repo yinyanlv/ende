@@ -4,6 +4,13 @@
 
   :global {
 
+    .ant-form {
+
+      & > .ant-row {
+        width: 100%;
+      }
+    }
+
     .ant-form-item{
       margin-bottom: 10px;
     }
@@ -27,6 +34,7 @@
 
     .guide-line{
       display: flex;
+      width: 100%;
 
       .text {
         font-size: 13px;

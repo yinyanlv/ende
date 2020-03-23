@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './FitLayout.module.scss';
 import {Route} from 'react-router-dom';
 import {Header} from '@/pages/common/header';
@@ -17,6 +17,9 @@ const PageOrderDetail = React.lazy(() => import('@/pages/order-detail'));
 
 export function FitLayout() {
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden;';
+    }, []);
     return (
         <>
             <Header />

@@ -56,7 +56,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     transportList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>
@@ -67,7 +67,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     typeList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>
@@ -78,7 +78,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     organizationList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>
@@ -89,7 +89,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     channelList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>
@@ -100,7 +100,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     productGroupList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>
@@ -111,7 +111,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     factoryList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>
@@ -122,7 +122,7 @@ function InnerInfo(props, parentRef) {
                             <Select placeholder={utils.getText('app.a3')} style={{width: 155}} allowClear={true}>
                                 {
                                     planningList.map((item) => {
-                                        return <Option key={item.code} value={item.code}>{item.name}</Option>;
+                                        return <Option key={item.code} title={item.name} value={item.code}>{item.name}</Option>;
                                     })
                                 }
                             </Select>

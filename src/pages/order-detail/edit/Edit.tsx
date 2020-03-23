@@ -49,12 +49,12 @@ export function Edit() {
             okText='保存'
             cancelText='取消'
             destroyOnClose={true}
+            className={styles.edit}
         >
             <Form
                 layout="inline"
                 labelAlign="left"
                 form={form}
-                className={styles.edit}
             >
                 <Row>
                     <Col span={24}>

@@ -65,6 +65,11 @@ html, body {
   }
 
   &.multi-line {
+
+    .ant-row{
+      width: 100%;
+    }
+
     .ant-form-item {
       margin-bottom: 10px;
     }

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import PageError from '@/pages/error';
 import {getText} from '@/pages/common/intl';
+import './AutoLayout.module.scss';
 
 const PagePrintLegend = React.lazy(() => import('@/pages/print-legend'));
 
 export function AutoLayout() {
+    useEffect(() => {
+        document.body.style.overflow = 'auto';
+    }, []);
     return (
         <Switch>
             <Route path={'/print-legend'} exact>
