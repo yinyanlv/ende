@@ -47,6 +47,7 @@ function Legends(props: LegendsProps) {
                     {
                         legends && legends.map((item) => {
                             const note = item.note ? `(${item.note})` : '';
+                            const title =`${item.code} - ${item.text} ${note}`;
                             return (
                                 <li className="item"
                                     key={item.code}
@@ -58,10 +59,10 @@ function Legends(props: LegendsProps) {
                                                 <span className="image-wrapper">
                                                     <img
                                                         src={resHost + item.imageFileUri + imageSuffix}
-                                                        alt={`${item.code} - ${item.text} ${note}`}
+                                                        alt={title}
                                                     />
                                                 </span>
-                                    <span className="text">{`${item.code} - ${item.text} ${note}`}</span>
+                                    <span className="text" title={title}>{title}</span>
                                 </li>
                             );
                         })
