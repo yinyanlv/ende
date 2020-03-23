@@ -13,7 +13,7 @@ import {getText} from '@/pages/common/intl';
 function* doQueryController(action) {
     try {
         yield put(actions.shoppingCartCreator.setIsLoading({isLoading: true}));
-        action.payload.sorts = [{field: 'createdDate', asc: false}];
+        action.payload.sorts = [{field: 'modifiedDate', asc: false}];
         const data = yield call(doQuery, action.payload);
         yield put(actions.shoppingCartCreator.setSelectedRecords([]));
         yield put(actions.shoppingCartCreator.setShoppingCart(data));
