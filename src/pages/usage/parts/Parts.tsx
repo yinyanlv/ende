@@ -58,7 +58,7 @@ function Parts(props: PartsProps) {
 
     function handleClickCart(e, partCode) {
         e.stopPropagation();
-        dispatch(shoppingCartCreator.addAndShowShoppingCart({
+        dispatch(shoppingCartCreator.addToCartNoQuery({
             partCode: partCode
         }));
     }

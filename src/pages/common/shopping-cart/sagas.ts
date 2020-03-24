@@ -40,6 +40,16 @@ function* addToCartController(action) {
     }
 }
 
+function* addToCartNoQueryController(action) {
+    try {
+        yield call(addToCart, action.payload);
+        yield put(navCreator.loadCartCount());
+        message.success(getText('msg.a11'));
+    } catch(err) {
+        message.error(err.message);
+    }
+}
+
 function addToCart(params) {
     return http.post('/cart/add', {
         partCode: params.partCode
@@ -141,6 +151,7 @@ function generateOrder() {
 function* shoppingCartSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.ADD_TO_CART, addToCartController);
+    yield takeLatest(actions.ADD_TO_CART_NO_QUERY, addToCartNoQueryController);
     yield takeLatest(actions.DELETE_FROM_CART, deleteFromCartController);
     yield takeLatest(actions.EDIT_PART_CART_COUNT, editPartCartCountController);
     yield takeLatest(actions.ADD_AND_SHOW_SHOPPING_CART, addAndShowShoppingCartController);

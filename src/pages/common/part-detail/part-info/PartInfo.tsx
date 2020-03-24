@@ -25,13 +25,8 @@ export function PartInfo() {
 
     function handleClickBuy(e, partCode) {
         e.stopPropagation();
-        const newMaxZIndex = maxZIndex + 5;
-        dispatch(shoppingCartCreator.addAndShowShoppingCart({
-            partCode: partCode,
-            zIndex: newMaxZIndex
-        }));
-        dispatch(configCreator.setMaxZIndex({
-            maxZIndex: newMaxZIndex
+        dispatch(shoppingCartCreator.addToCartNoQuery({
+            partCode: partCode
         }));
     }
 
