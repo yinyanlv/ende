@@ -65,7 +65,7 @@ export function ShoppingCart(props) {
         dispatch(shoppingCartCreator.setIsShowShoppingCart({
             isShow: false
         }));
-        // (formRef.current as any).resetFields();
+        (formRef.current as any).resetFields();
     }
 
     function handleSelect(record) {
@@ -232,6 +232,7 @@ export function ShoppingCart(props) {
             onClose={handleClose}
             width={850}
             zIndex={zIndex}
+            destroyOnClose={true}
         >
             <div className={styles.shoppingCart}>
                 <div className="drawer-title">

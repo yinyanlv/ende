@@ -68,7 +68,7 @@ export function Applicability() {
         },
         {
             title: utils.getText('part.a8'),
-            dataIndex: 'hand',
+            dataIndex: 'handName',
             ellipsis: true,
             width: 60
         },

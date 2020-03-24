@@ -45,12 +45,14 @@ export function VinSearch(props: VinSearchProps) {
                 break;
             case SearchType.PART_CODE:
                 dispatch(searchCreator.queryAndShowSearch({
-                    partCode: val
+                    partCode: val,
+                    activeTab: 'advance-search'
                 }));
                 break;
             case SearchType.PART_NAME:
                 dispatch(searchCreator.queryAndShowSearch({
-                    partName: val
+                    partName: val,
+                    activeTab: 'advance-search'
                 }));
                 break;
             default:

@@ -36,7 +36,7 @@ export function Auth(props) {
             })
             .catch((err) => {
                 const res = err.response;
-                if (!res || res && res.status !== 401) {
+                if (!res || (res && res.status !== 401)) {
                     setIsLoading(false);
                     history.push({
                         pathname: '/599'

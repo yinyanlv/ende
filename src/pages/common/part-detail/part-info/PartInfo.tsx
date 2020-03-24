@@ -5,16 +5,12 @@ import {ShoppingCartOutlined} from '@ant-design/icons';
 import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {ImageGallery} from '@/components/image-gallery';
 import styles from './PartInfo.module.scss';
-import {configCreator} from '@/store/config/actions';
 import {useUtils} from '@/hooks';
 
 export function PartInfo() {
     const dispatch = useDispatch();
     const {info} = useSelector((state: any) => {
         return state.partDetail.partInfo;
-    });
-    const {maxZIndex} = useSelector((state: any) => {
-        return state.config;
     });
     const utils = useUtils();
     const {

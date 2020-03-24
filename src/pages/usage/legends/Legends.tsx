@@ -58,7 +58,7 @@ function Legends(props: LegendsProps) {
                                     })}>
                                                 <span className="image-wrapper">
                                                     <img
-                                                        src={resHost + item.imageFileUri + imageSuffix}
+                                                        src={item.imageFileUri ?  resHost + item.imageFileUri + imageSuffix : '/images/pure_no_legend.png'}
                                                         alt={title}
                                                     />
                                                 </span>

@@ -49,13 +49,15 @@ export function VinDetail(props) {
         if (type === 'vin') {
             dispatch(searchCreator.queryAndShowSearch({
                 vinVsn: data.code,
-                zIndex: newMaxZIndex
+                zIndex: newMaxZIndex,
+                activeTab: 'advance-search'
             }));
         } else {
             dispatch(searchCreator.queryAndShowSearch({
                 vinVsn: data.code,
                 vsnModel: mappings.m_4,
-                zIndex: newMaxZIndex
+                zIndex: newMaxZIndex,
+                activeTab: 'advance-search'
             }));
         }
         dispatch(configCreator.setMaxZIndex({

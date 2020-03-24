@@ -140,7 +140,7 @@ function Parts(props: PartsProps) {
                 <div className="operator-wrapper">
                     <span className="link-button" onClick={(e) => {
                         showPartDetail(e, val);
-                    }}>{val}</span>
+                    }} title={val}>{val}</span>
                     <span className={'btns'}>
                           <Tooltip title={utils.getText('operate.a10')}>
                             <CopyOutlined onClick={(e) => {

@@ -12,7 +12,7 @@ function* loadPartsController(action) {
 
         // 当url的hash部分有callout参数时，不重置store中的callout
         // 清空callout的目的是切换图例时不被上一次的状态污染
-        if (!hashObj || hashObj && typeof hashObj.callout === 'undefined') {
+        if (!hashObj || (hashObj && typeof hashObj.callout === 'undefined')) {
             yield put(usageCreator.setActiveCallout(''));
         }
         yield put(actions.partsCreator.success(parts));

@@ -15,7 +15,13 @@ function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 isShow: action.payload.isShow,
+                activeTab: action.payload.activeTab || state.activeTab || initialState.activeTab,
                 zIndex: action.payload.zIndex || initialState.zIndex
+            };
+        case actions.SET_ACTIVE_TAB:
+            return {
+                ...state,
+                activeTab: action.payload.activeTab
             };
         default:
             return state;

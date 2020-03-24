@@ -24,6 +24,12 @@ export function Search(props) {
         dispatch(applicabilityCreator.setSelectedKeys([]));
     }
 
+    function handleTabChange(activeKey) {
+        dispatch(searchCreator.setActiveTab({
+            activeTab: activeKey
+        }));
+    }
+
     return (
         <Drawer
             closable={false}
@@ -33,7 +39,7 @@ export function Search(props) {
             zIndex={zIndex}
         >
             <div className={styles.search}>
-                <Tabs defaultActiveKey={activeTab} type={'card'}>
+                <Tabs defaultActiveKey={activeTab} onChange={handleTabChange} activeKey={activeTab} type={'card'}>
                     <TabPane tab={utils.getText('search.a1')} key="advance-search">
                         <AdvanceSearch />
                     </TabPane>

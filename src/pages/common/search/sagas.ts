@@ -10,14 +10,17 @@ import {queryCreator} from './advance-search/query/actions';
 function* queryAndShowSearchController(action) {
     try {
         const zIndex = action.payload.zIndex;
+        const activeTab = action.payload.activeTab;
         delete action.payload.zIndex;
+        delete action.payload.activeTab;
         const filters = rebuildFieldsToFilters(action.payload);
         const queryParams = buildQueryParams(filters);
 
         yield put(queryCreator.setFieldsValue(action.payload));
         yield put(actions.searchCreator.setIsShowSearch({
             isShow: true,
-            zIndex: zIndex
+            zIndex: zIndex,
+            activeTab
         }));
         yield put(advanceSearchCreator.doQuery(queryParams));
     } catch(err) {
