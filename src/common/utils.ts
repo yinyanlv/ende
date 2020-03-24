@@ -107,11 +107,11 @@ export function rebuildFieldsToFilters(fieldsObj) {
     return list;
 }
 
-export function rebuildListToOptions(list, isLeaf = false) {
+export function rebuildListToOptions(list, isLeaf = false, labelWithCode = false) {
     return list.map((item) => {
         return {
             value: item.code,
-            label: item.name,
+            label: labelWithCode ? `${item.code} - ${item.name}` : item.name,
             isLeaf: isLeaf
         };
     });

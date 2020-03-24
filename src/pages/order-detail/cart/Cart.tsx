@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Table, InputNumber, Pagination, Button} from 'antd';
 import {Loading} from '@/components/loading';
@@ -23,6 +23,7 @@ export function Cart(props) {
     });
     const utils = useUtils();
     const exported = isExported();
+    const formRef = useRef();
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -43,6 +44,7 @@ export function Cart(props) {
     }
 
     function handleClickDelete(partCode) {
+        (formRef.current as any).resetFields();
         dispatch(cartCreator.deleteParts({
             orderCode,
             partCodes: [partCode]
@@ -90,6 +92,8 @@ export function Cart(props) {
 
     function handleDeleteSelected() {
         const partCodes = getSelectedPartCodes();
+
+        (formRef.current as any).resetFields();
 
         dispatch(cartCreator.deleteParts({
             orderCode,
@@ -206,7 +210,7 @@ export function Cart(props) {
                 <div className="box-title">
                     <span className={'title'}>{utils.getText('order.a29')}</span>
                 </div>
-                <Query isShowAdd={!exported}/>
+                <Query isShowAdd={!exported} ref={formRef}/>
                 <Loading isLoading={isLoading}>
                     <div className="box-content">
                         <Table

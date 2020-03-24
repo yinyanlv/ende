@@ -41,12 +41,10 @@ export function Crumbs(props) {
                                     {
                                         item.url ? (
                                             <Link to={item.url}>
-                                                <span className="crumbs-text">{title}</span>
+                                                <span className="crumbs-text" title={title}>{title}</span>
                                             </Link>
                                         ) : (
-                                            <Tooltip title={title}>
-                                                <span className="crumbs-text">{title}</span>
-                                            </Tooltip>
+                                            <span className="crumbs-text" title={title}>{title}</span>
                                         )
                                     }
                                 </CrumbItem>

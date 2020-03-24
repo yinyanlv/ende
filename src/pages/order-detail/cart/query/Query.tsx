@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cls from 'classnames';
 import {message, Button, Form, Input} from 'antd';
@@ -7,6 +7,7 @@ import styles from './Query.module.scss';
 import {queryCreator} from './actions';
 import {cartCreator} from '@/pages/order-detail/cart/actions';
 import {useUtils} from '@/hooks';
+import {formatWithOptions} from 'util';
 
 const FormItem = Form.Item;
 
@@ -14,7 +15,7 @@ interface QueryProps {
     isShowAdd: boolean;
 }
 
-export function Query(props: QueryProps) {
+function InnerQuery(props: QueryProps, parentRef) {
     const dispatch = useDispatch();
     const {orderCode} = useSelector((state: any) => {
         return state.orderDetail.self;
@@ -42,6 +43,7 @@ export function Query(props: QueryProps) {
             return message.error(utils.getText('msg.a4'));
         }
 
+        form.resetFields();
         dispatch(cartCreator.addPart({
             orderCode,
             partCode
@@ -54,6 +56,7 @@ export function Query(props: QueryProps) {
                 layout="inline"
                 labelAlign="left"
                 form={form}
+                ref={parentRef}
             >
                 <FormItem label={utils.getText('part.a1')} name={'partCode'}>
                     <Input placeholder={utils.getText('app.a2')}/>
@@ -69,3 +72,4 @@ export function Query(props: QueryProps) {
     );
 }
 
+export const Query = forwardRef(InnerQuery);

@@ -37,7 +37,7 @@ function* loadM2Controller(action) {
     try {
         const list = yield call(loadM2, action.payload);
         const params = action.payload;
-        const options = rebuildListToOptions(list);
+        const options = rebuildListToOptions(list, false, true);
 
         yield put(actions.queryCreator.setM2({
             path: [params.m1],

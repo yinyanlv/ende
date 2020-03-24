@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button} from 'antd';
 import {getQueryObj} from '@/common/utils';
 import {searchCreator} from '@/pages/common/search/actions';
+import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 import {vinDetailCreator} from './actions';
 import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 import styles from './VinDetail.module.scss';
@@ -62,6 +63,9 @@ export function VinDetail(props) {
         }
         dispatch(configCreator.setMaxZIndex({
             maxZIndex: newMaxZIndex
+        }));
+        dispatch(queryCreator.setIsShowBtnDetail({
+            isShowBtnDetail: true
         }));
         handleClose();
     }

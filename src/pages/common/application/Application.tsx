@@ -21,7 +21,9 @@ export function Application(props: PropsWithChildren<ApplicationProps>) {
 
     function getPopoverContent() {
         return (
-            <div className={styles.applicationContent}>
+            <div className={styles.applicationContent} onClick={(e) => {
+                e.stopPropagation();
+            }}>
                 <Table columns={columns}
                        dataSource={props.list}
                        rowKey={'code'}
