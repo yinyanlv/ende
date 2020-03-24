@@ -40,10 +40,16 @@ export function PageUsage() {
     }
 
     function handleSelectParts(callout) {
+        dispatch(partsCreator.setIsScrollIntoView({
+            isScrollIntoView: false
+        }));
         updateCallout(callout);
     }
 
     function handleSelectCallout(callout) {
+        dispatch(partsCreator.setIsScrollIntoView({
+            isScrollIntoView: true
+        }));
         updateCallout(callout);
     }
 

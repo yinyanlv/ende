@@ -3,6 +3,7 @@ import * as actions from './actions';
 const initialState = {
     isPartsLoading: false,
     width: 720,
+    isScrollIntoView: true,
     selectedKeys: [],
     parts: {
         usages: []
@@ -37,6 +38,11 @@ export function partsReducer(state = initialState, action: any) {
             return {
                 ...state,
                 width: action.payload.width
+            };
+        case actions.SET_IS_SCROLL_INTO_VIEW:
+            return {
+                ...state,
+                isScrollIntoView: action.payload.isScrollIntoView
             };
         default:
             return state;
