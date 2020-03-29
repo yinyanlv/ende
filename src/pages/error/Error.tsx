@@ -5,9 +5,10 @@ import styles from './Error.module.scss';
 import {getText} from '@/pages/common/intl';
 
 interface PageErrorProps {
-   status: string | number;
-   title: string;
-   subTitle: string;
+    status: string | number;
+    title: string;
+    subTitle: string;
+    isHideBackBtn?: boolean;
 }
 
 export function PageError(props: PageErrorProps) {
@@ -18,9 +19,12 @@ export function PageError(props: PageErrorProps) {
                 title={props.title}
                 subTitle={props.subTitle}
                 extra={
-                    <Link to={'/'}>
-                        <Button type="primary">{getText('error.a1')}</Button>
-                    </Link>
+                    props.isHideBackBtn ?
+                        <></>
+                        :
+                        <Link to={'/'}>
+                            <Button type="primary">{getText('error.a1')}</Button>
+                        </Link>
                 }
             />
         </div>

@@ -4,6 +4,7 @@ export const IS_SHOW_PART_DETAIL = 'part-detail:is-show-part-detail';
 export const LOAD_AND_SHOW_PART_DETAIL= 'part-detail:load-and-show-part-detail';
 export const LOAD_COUNT = 'part-detail:load-count';
 export const SET_COUNT = 'part-detail:set-count';
+export const SET_ACTIVE_TAB = 'part-detail:set-active-tab';
 
 export const partDetailCreator = {
     loadAndShowPartDetail: (params) => {
@@ -17,5 +18,8 @@ export const partDetailCreator = {
     },
     setCount: (params) => {
         return createAction(SET_COUNT, params);
+    },
+    setActiveTab: (params) => {
+        return createAction(SET_ACTIVE_TAB, params);
     }
 };

@@ -5,6 +5,7 @@ class StorageService extends EventEmitter {
 
     private _tokenKey = 'token';
     private _langKey = 'lang';
+    private _returnUrlKey = 'return-url';
     private _headersTokenKey = 'Authorization';
     private _headersLangKey = 'Lang';
 
@@ -39,15 +40,35 @@ class StorageService extends EventEmitter {
         return localStorage.getItem(this._tokenKey) || '';
     }
 
-    getLang(): string {
-        return localStorage.getItem(this._langKey) || '';
-    }
-
     getStorage(): { token: string, lang: string } {
         return {
             token: this.getToken(),
             lang: this.getLang()
         };
+    }
+
+    setLang(lang: string): void {
+        localStorage.setItem(this._langKey, lang);
+    }
+
+    getLang(): string {
+        return localStorage.getItem(this._langKey) || 'zh';
+    }
+
+    removeLang(): void {
+        localStorage.removeItem(this._langKey);
+    }
+
+    setReturnUrl(returnUrl: string): void {
+        localStorage.setItem(this._returnUrlKey, returnUrl);
+    }
+
+    getReturnUrl(): string {
+        return localStorage.getItem(this._returnUrlKey) || '/';
+    }
+
+    removeReturnUrl(): void {
+        localStorage.removeItem(this._returnUrlKey);
     }
 }
 

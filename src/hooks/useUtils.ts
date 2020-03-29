@@ -13,7 +13,17 @@ export function useUtils() {
             });
         },
         getLang: () => {
-            return storageService.getStorage().lang;
+            return storageService.getLang();
+        },
+        getTisLang: () => {
+            const lang = storageService.getLang();
+            if (lang === 'zh') {
+                return 'zh_CN'
+            } else if (lang === 'en') {
+                return 'en_US';
+            } else {
+                return '';
+            }
         }
     }
 }

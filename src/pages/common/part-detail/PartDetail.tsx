@@ -25,6 +25,12 @@ export function PartDetail() {
         dispatch(applicabilityCreator.setSelectedKeys([]));
     }
 
+    function handleTabChange(activeKey) {
+        dispatch(partDetailCreator.setActiveTab({
+            activeTab: activeKey
+        }));
+    }
+
     return (
         <Drawer
             closable={false}
@@ -43,7 +49,7 @@ export function PartDetail() {
 
                 <div className="tabs-wrapper">
                     <Tabs
-                        defaultActiveKey={activeTab}>
+                        defaultActiveKey={activeTab} activeKey={activeTab} onChange={handleTabChange}>
                         <TabPane tab={utils.getText('applicability.a1')} key="applicability">
                             <Applicability/>
                         </TabPane>

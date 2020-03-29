@@ -1,5 +1,5 @@
-import React, {PropsWithChildren} from 'react';
-import {useSelector} from 'react-redux';
+import React, {PropsWithChildren, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {createIntl, createIntlCache, RawIntlProvider} from 'react-intl';
 import flatten from 'flat';
 import {ConfigProvider} from 'antd';
@@ -8,6 +8,9 @@ import antdZhCN from 'antd/es/locale/zh_CN';
 import {enUS} from '@/locales/enUS';
 import {zhCN} from '@/locales/zhCN';
 import {storageService} from '@/common/storageService';
+import {usePreviousValue} from '@/hooks';
+import {advanceSearchCreator} from '@/pages/common/search/advance-search/actions';
+import {replaceCreator} from '@/pages/common/search/replace/actions';
 
 export let intl;
 
@@ -16,11 +19,13 @@ interface IntlProps {
 }
 
 export function Intl(props: PropsWithChildren<IntlProps>) {
+    const dispatch = useDispatch();
     const {
         lang,
     } = useSelector((state: any) => {
         return state.config;
     });
+    const prevLang = usePreviousValue(lang);
     const storage = storageService.getStorage();
     const locale = storage.lang || lang;
     const messages = getIntlLocaleMessages(locale);
@@ -30,6 +35,12 @@ export function Intl(props: PropsWithChildren<IntlProps>) {
         locale,
         messages
     }, cache);
+
+    useEffect(() => {
+        dispatch(advanceSearchCreator.resetState());
+        dispatch(advanceSearchCreator.resetChildrenState());
+        dispatch(replaceCreator.resetChildrenState());
+    }, [prevLang]);
 
     return (
         <RawIntlProvider key={locale} value={intl}>

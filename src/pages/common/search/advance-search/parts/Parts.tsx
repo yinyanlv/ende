@@ -10,6 +10,7 @@ import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 import {configCreator} from '@/store/config/actions';
 import {useUtils} from '@/hooks';
+import Img from 'react-image';
 
 export function Parts() {
     const dispatch = useDispatch();
@@ -58,8 +59,11 @@ export function Parts() {
                         list && list.length > 0 ? list.map((item) => {
                                 return (
                                     <div className="item" key={item.code}>
-                                        <div className="image-box" onClick={handleClickPartCode.bind(null, item.code)}><img
-                                            src={item.coverImageUri ? resHost + item.coverImageUri : '/images/pure_no_pic.png'} alt={item.name}/></div>
+                                        <div className="image-box" onClick={handleClickPartCode.bind(null, item.code)}>
+                                            <Img
+                                                src={[resHost + item.coverImageUri, '/images/pure_no_pic.png']}
+                                                alt={item.name}/>
+                                        </div>
                                         <div className="info-box">
                                             <div className="title-line">
                                                 <span className="text-btn"

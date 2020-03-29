@@ -386,7 +386,7 @@ export class SvgDragZoom<T extends SvgDragZoomProps> extends React.PureComponent
                     <span data-control="true" data-action="leftrotate" className={"disabled"}><i className={"iconfont icon-rotate-left"}></i></span>
                     <span data-action="showprev"><i className={"iconfont icon-prev"}></i></span>
                     <span data-action="shownext"><i className={"iconfont icon-next"}></i></span>
-                    <span data-control="true" data-action="print" className={"disabled"}><i className={"iconfont icon-print"}></i></span>
+                    <span data-action="print"><i className={"iconfont icon-print"}></i></span>
                 </div>
                 <div className="svg-wrap" ref={this.legendBodyRef}></div>
             </Loading>

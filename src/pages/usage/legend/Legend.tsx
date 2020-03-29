@@ -9,6 +9,7 @@ import {getQueryObj} from '@/common/utils';
 import {message} from 'antd';
 import {groupsCreator} from '@/pages/usage/groups/actions';
 import {useUtils} from '@/hooks';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 const svgPrefix = '/res';
 
@@ -112,7 +113,11 @@ function Legend(props: LegendProps) {
         const node: any = document.querySelector('.panel-tree .ant-tree-node-selected');
         if (node && node.click) {
             node.click();
-            node.scrollIntoView();
+            scrollIntoView(node, {
+                scrollMode: 'if-needed',
+                block: 'nearest',
+                inline: 'nearest'
+            });
         }
     }
 

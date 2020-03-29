@@ -23,7 +23,16 @@ export function Applicability() {
             title: utils.getText('applicability.a2'),
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 100
+            width: 160,
+            render: (val, record) => {
+                return record && record.catalogueName ? `${val} - ${record.catalogueName}` : val;
+            }
+        },
+        {
+            title: utils.getText('part.a2'),
+            dataIndex: 'partName',
+            ellipsis: true,
+            width: 140
         },
         {
             title: utils.getText('part.a8'),
@@ -35,7 +44,7 @@ export function Applicability() {
             title: utils.getText('part.a9'),
             dataIndex: 'note',
             ellipsis: true,
-            width: 140,
+            width: 160,
             render: (val, record) => {
                 if (record.options && record.options.length) {
                     return (
@@ -49,38 +58,38 @@ export function Applicability() {
             }
         },
         {
-            title: utils.getText('part.a13'),
-            dataIndex: 'legendGroupName',
-            ellipsis: true,
-            width: 140
-        },
-        {
             title: utils.getText('legend.a2'),
             dataIndex: 'legendName',
             ellipsis: true,
-            width: 140
-        },
-        {
-            title: utils.getText('part.a2'),
-            dataIndex: 'partName',
-            ellipsis: true,
-            width: 140
+            width: 200,
+            render: (val, record) => {
+                const note = record.legendNote ? `(${record.legendNote})` : '';
+                return val ? val + note : '';
+            }
         },
         {
             title: utils.getText('part.a10'),
             dataIndex: 'qty',
             ellipsis: true,
             width: 80
+        },
+        {
+            title: utils.getText('part.a13'),
+            dataIndex: 'legendGroupName',
+            ellipsis: true,
+            width: 160
         }
     ];
 
     function handleClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
+        const callout = record.callout;
         const isNeedManualRefresh = isAtPateUsage();
         dispatch(applicabilityCreator.setSelectedKeys([record.id]));
         history.push({
             pathname: '/usage',
-            search: queryString.stringify(queryObj)
+            search: queryString.stringify(queryObj),
+            hash: callout ? `callout=${callout}` : ''
         });
         if (isNeedManualRefresh) {
             dispatch(usageCreator.initUsage());
@@ -95,7 +104,6 @@ export function Applicability() {
                 className={list.length > 0 ? 'hide-select-column' : 'hide-select-column empty-table'}
                 pagination={false}
                 rowKey={'id'}
-                tableLayout={'fixed'}
                 locale={{
                     emptyText: <NoData type={'list'}/>
                 }}

@@ -15,6 +15,9 @@ export function AutoLayout() {
             <Route path={'/print-legend'} exact>
                 <PagePrintLegend />
             </Route>
+            <Route path={'/403'} exact>
+                <PageError status={'403'} title={'403'} subTitle={getText('error.a4')} />
+            </Route>
             <Route path={'/404'} exact>
                 <PageError status={'404'} title={'404'} subTitle={getText('error.a2')}/>
             </Route>

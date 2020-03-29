@@ -1,4 +1,4 @@
 export {useTimeout} from './useTimeout';
-export {usePrevious} from './usePrevious';
+export {usePreviousValue} from './usePreviousValue';
 export {useUtils} from './useUtils';
 

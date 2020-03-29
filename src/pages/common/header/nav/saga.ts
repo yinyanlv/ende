@@ -17,6 +17,20 @@ function loadCartCount() {
     return http.get('/cart/num');
 }
 
+function* logoutController() {
+    try {
+        yield call(logout);
+
+    } catch (err) {
+        message.error(err.message);
+    }
+}
+
+function logout() {
+    return http.get('/logout');
+}
+
 export function* navSaga() {
     yield takeLatest(actions.LOAD_CART_COUNT, loadCartCountController);
+    yield takeLatest(actions.LOGOUT, logoutController);
 }

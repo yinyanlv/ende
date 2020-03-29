@@ -8,6 +8,7 @@ import {legendsReducer} from './legends/reducer';
 const initialState = {
     fieldsValue: {},
     queryParams: {},
+    activeTab: 'applicability',
     count: {
         applyCount: 0,
         partCount: 0,
@@ -26,6 +27,11 @@ function advanceSearchReducer(state = initialState, action) {
             return {
                 ...state,
                 count: action.payload
+            };
+        case actions.SET_ACTIVE_TAB:
+            return {
+                ...state,
+                activeTab: action.payload.activeTab
             };
         case actions.RESET_STATE:
             return {

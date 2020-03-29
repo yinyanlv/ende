@@ -12,7 +12,7 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Resizable} from 're-resizable';
 import {useUtils} from '@/hooks';
 import {NoData} from '@/components/no-data';
-
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 interface PartsProps {
     isShowParts: boolean;
@@ -45,7 +45,7 @@ function Parts(props: PartsProps) {
             const keys = getKeysByCallout(props.activeCallout);
             dispatch(partsCreator.setSelectedKeys(keys));
             if (isScrollIntoView) {
-                scrollIntoView();
+                doScrollIntoView();
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,9 +75,13 @@ function Parts(props: PartsProps) {
     function handleClickReplace(e, partCode) {
         e.stopPropagation();
         dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode: partCode,
-            activeTab: 'replace'
+            partCode: partCode
         }));
+        setTimeout(() => {
+            dispatch(partDetailCreator.setActiveTab({
+                activeTab: 'replace'
+            }));
+        }, 200);
     }
 
     function handleSelect(record) {
@@ -112,11 +116,16 @@ function Parts(props: PartsProps) {
         props.onClickRightArrow && props.onClickRightArrow();
     }
 
-    function scrollIntoView() {
+    function doScrollIntoView() {
         setTimeout(() => {
             const nodes: any = document.querySelectorAll('.part-list .ant-table-row-selected');
             if (nodes && nodes.length > 0) {
-                nodes[0].scrollIntoView();
+
+                scrollIntoView(nodes[0], {
+                    scrollMode: 'if-needed',
+                    block: 'nearest',
+                    inline: 'nearest'
+                });
             }
         }, 200);
     }

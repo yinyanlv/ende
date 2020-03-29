@@ -8,6 +8,7 @@ import {queryCreator} from './actions';
 import {vinSearchCreator} from "@/pages/common/vin-search/actions";
 import {configCreator} from '@/store/config/actions';
 import {useUtils} from '@/hooks';
+import {advanceSearchCreator} from '@/pages/common/search/advance-search/actions';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -22,6 +23,16 @@ export function Query() {
     const {groupList, modelOptions, fieldsValue, isShowBtnDetail} = useSelector((state: any) => {
         return state.search.advanceSearch.query;
     });
+
+    useEffect(() => {
+        dispatch(queryCreator.loadGroup());
+        dispatch(queryCreator.loadM1());
+    }, []);
+
+    useEffect(() => {
+        form.resetFields();
+        form.setFieldsValue(fieldsValue);
+    }, [fieldsValue]);
 
     function doQuery() {
         let fieldsValue = form.getFieldsValue();
@@ -53,12 +64,18 @@ export function Query() {
                     maxZIndex: newMaxZIndex
                 }));
             }
+            dispatch(advanceSearchCreator.setActiveTab({
+                activeTab: 'applicability'
+            }));
         } else {
             fieldsValue = rebuildModelField(fieldsValue);
             const filters = rebuildFieldsToFilters(fieldsValue);
             if (filters.length > 0) {
                 const params = buildQueryParams(filters);
                 dispatch(queryCreator.doQuery(params));
+                dispatch(advanceSearchCreator.setActiveTab({
+                    activeTab: 'applicability'
+                }));
             } else {
                 message.error(utils.getText('msg.a2'));
             }
@@ -77,18 +94,6 @@ export function Query() {
 
         return values;
     }
-
-    useEffect(() => {
-        // fix: 中英文切换时，详细按钮不消失
-        dispatch(queryCreator.setIsShowBtnDetail({isShowBtnDetail: false}));
-        dispatch(queryCreator.loadGroup());
-        dispatch(queryCreator.loadM1());
-    }, []);
-
-    useEffect(() => {
-        form.resetFields();
-        form.setFieldsValue(fieldsValue);
-    }, [fieldsValue]);
 
     function doReset() {
         form.resetFields();
@@ -220,7 +225,7 @@ export function Query() {
                     <Col span={8}>
                         <div className="first-column">
                             <FormItem label={utils.getText('part.a12')} name={'legendGroupCode'}>
-                                <Select placeholder={utils.getText('app.a3')} dropdownMatchSelectWidth={250} style={{width: 155}} allowClear={true}>
+                                <Select placeholder={utils.getText('app.a3')} dropdownMatchSelectWidth={250} style={{width: 160}} allowClear={true}>
                                     {
                                         groupList.map((item) => {
                                             return <Option key={item.code} value={item.code} title={item.name}>{item.name}</Option>;
@@ -241,16 +246,11 @@ export function Query() {
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <div className="first-column">
-                            <FormItem label={utils.getText('legend.a3')} name={'legendNote'}>
+                        <div className={'first-column'}>
+                            <FormItem label={utils.getText('part.a1')} name={'partCode'}>
                                 <Input placeholder={utils.getText('app.a2')}/>
                             </FormItem>
                         </div>
-                    </Col>
-                    <Col span={8}>
-                        <FormItem label={utils.getText('part.a1')} name={'partCode'}>
-                            <Input placeholder={utils.getText('app.a2')}/>
-                        </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label={utils.getText('part.a2')} name={'partName'}>

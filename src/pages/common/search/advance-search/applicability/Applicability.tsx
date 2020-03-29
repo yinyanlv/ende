@@ -45,7 +45,10 @@ export function Applicability() {
             title: utils.getText('applicability.a2'),
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 100
+            width: 160,
+            render: (val, record) => {
+                return record && record.catalogueName ? `${val} - ${record.catalogueName}` : val;
+            }
         },
         {
             title: utils.getText('part.a1'),
@@ -76,7 +79,7 @@ export function Applicability() {
             title: utils.getText('part.a9'),
             dataIndex: 'note',
             ellipsis: true,
-            width: 140,
+            width: 160,
             render: (val, record) => {
                 if (record.options && record.options.length) {
                     return (
@@ -93,13 +96,11 @@ export function Applicability() {
             title: utils.getText('legend.a2'),
             dataIndex: 'legendName',
             ellipsis: true,
-            width: 140
-        },
-        {
-            title: utils.getText('legend.a3'),
-            dataIndex: 'legendNote',
-            ellipsis: true,
-            width: 140
+            width: 200,
+            render: (val, record) => {
+                const note = record.legendNote ? `(${record.legendNote})` : '';
+                return val ? val + note : '';
+            }
         },
         {
             title: utils.getText('part.a10'),
@@ -111,7 +112,7 @@ export function Applicability() {
             title: utils.getText('part.a13'),
             dataIndex: 'legendGroupName',
             ellipsis: true,
-            width: 140
+            width: 160
         }
     ];
 
@@ -126,11 +127,13 @@ export function Applicability() {
 
     function handleClickRow(record) {
         const queryObj = getQueryObjFromRecord(record);
+        const callout = record.callout;
         const isNeedManualRefresh = isAtPateUsage();
         dispatch(applicabilityCreator.setSelectedKeys([record.id]));
         history.push({
             pathname: '/usage',
-            search: queryString.stringify(queryObj)
+            search: queryString.stringify(queryObj),
+            hash: callout ? `callout=${callout}` : ''
         });
         if (isNeedManualRefresh) {
             dispatch(usageCreator.initUsage());

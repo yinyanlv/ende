@@ -25,7 +25,8 @@ export const enUS: any = {
     error: {
         a1: 'Back Home',
         a2: 'Sorry, the page you visited does not exist.',
-        a3: 'Sorry, the server is wrong.'
+        a3: 'Sorry, the server is wrong.',
+        a4: 'Sorry, you are not authorized to access this page.'
     },
     operate: {
         a1: 'Create',
@@ -163,7 +164,7 @@ export const enUS: any = {
         a8: 'Export success',
         a9: 'Import success',
         a10: 'Import failed',
-        a11: 'Add success',
+        a11: 'Add to shopping cart success',
         a12: 'Delete success',
         a13: 'Create success',
         a14: 'Save success',

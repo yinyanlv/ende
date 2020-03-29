@@ -36,8 +36,10 @@ export function Nav(props) {
     }, []);
 
     function logout() {
-        const storage = storageService.getStorage();
-        window.location.href = logoutUrl + '?access_token=' + storage.token;
+        const lang = utils.getTisLang();
+        const returnUrl = window.location.href;
+        storageService.removeStorage();
+        window.location.href = `${logoutUrl}?service=${returnUrl}&locale=${lang}`;
     }
 
     const userMenu = (

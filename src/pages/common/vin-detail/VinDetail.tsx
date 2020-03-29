@@ -47,6 +47,9 @@ export function VinDetail(props) {
     function doAdvanceQuery() {
         const mappings = data.mappings;
         const newMaxZIndex = maxZIndex + 5;
+        dispatch(vinDetailCreator.setIsShowVinDetail({
+            isShow: false
+        }));
         if (type === 'vin') {
             dispatch(searchCreator.queryAndShowSearch({
                 vinVsn: data.code,
@@ -67,7 +70,6 @@ export function VinDetail(props) {
         dispatch(queryCreator.setIsShowBtnDetail({
             isShowBtnDetail: true
         }));
-        handleClose();
     }
 
     return (
@@ -129,10 +131,10 @@ export function VinDetail(props) {
                            <td>{utils.getText('vin.a12')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.manufacturerName}</td>
                        </tr>
-                       {/*<tr>*/}
-                       {/*    <td>{utils.getText('vin.a18')}:</td>*/}
-                       {/*    <td>{data.vsnEngine && data.vsnEngine.productionDate}</td>*/}
-                       {/*</tr>*/}
+                       <tr>
+                           <td>{utils.getText('vin.a18')}:</td>
+                           <td>{data.proDate}</td>
+                       </tr>
                        <tr>
                            <td>{utils.getText('part.a14')}:</td>
                            <td>{data.vsnEngine && data.vsnEngine.note}</td>

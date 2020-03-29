@@ -4,6 +4,7 @@ import {Input} from 'antd';
 import {searchCreator} from '@/pages/common/search/actions';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator} from './actions';
+import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 import {useUtils} from '@/hooks';
 
 const AntdSearch = Input.Search;
@@ -32,6 +33,9 @@ export function VinSearch(props: VinSearchProps) {
         }
         const searchType = getSearchType(val);
 
+        dispatch(queryCreator.setIsShowBtnDetail({
+            isShowBtnDetail: false
+        }));
         switch (searchType) {
             case SearchType.VIN:
                 dispatch(vinSearchCreator.doVinSearch({

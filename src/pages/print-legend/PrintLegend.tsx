@@ -26,35 +26,27 @@ export function PagePrintLegend() {
     const columns = [{
         title: '#',
         dataIndex: 'callout',
-        width: 40,
-        ellipsis: true
+        width: 70
     }, {
         title: utils.getText('part.a1'),
         dataIndex: 'partCode',
-        width: 150,
-        ellipsis: true
+        width: 150
     }, {
         title: utils.getText('part.a8'),
         dataIndex: 'handName',
-        ellipsis: true,
         width: 80
     }, {
         title: utils.getText('part.a2'),
         dataIndex: 'name',
-        width: 140,
-        ellipsis: true
+        width: 200
     }, {
         title: utils.getText('part.a9'),
         dataIndex: 'note',
-        ellipsis: true,
-        width: 140
+        width: 300
     }, {
         title: utils.getText('part.a10'),
-        dataIndex: 'formattedQty',
-        ellipsis: true,
-        width: 40
+        dataIndex: 'formattedQty'
     }];
-
 
     return (
         <div className={styles.printLegend}>
@@ -62,6 +54,11 @@ export function PagePrintLegend() {
                 <Img
                     src={[queryObj.src, '/images/no_legend.png']}
                     alt={''}
+                    onLoad={() => {
+                        setTimeout(() => {
+                            window.print();
+                        }, 1000);
+                    }}
                 />
             </div>
             <div className={'table-wrapper'}>
@@ -69,7 +66,6 @@ export function PagePrintLegend() {
                     <Table columns={columns}
                            dataSource={list}
                            rowKey={'id'}
-                           tableLayout={'fixed'}
                            pagination={false}
                     />
                 </Loading>

@@ -19,6 +19,10 @@ export function queryReducer(state = initialState, action) {
                 ...state,
                 isShowBtnDetail: action.payload.isShowBtnDetail
             };
+        case actions.RESET_STATE:
+            return {
+                ...initialState
+            };
         case actions.SET_GROUP:
             return {
                 ...state,

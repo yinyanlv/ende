@@ -12,6 +12,7 @@ export const EDIT_PART_CART_COUNT = 'shopping-cart:change-part-cart-count';
 export const ADD_AND_SHOW_SHOPPING_CART = 'shopping-cart:add-and-show-shopping-cart';
 export const GENERATE_ORDER = 'shopping-cart:generate-order';
 export const UPDATE_RECORD = 'shopping-cart:update-record';
+export const SET_IS_GENERATING = 'shopping-cart:set-is-generating';
 
 export const shoppingCartCreator = {
     setIsShowShoppingCart: (params) => {
@@ -49,5 +50,8 @@ export const shoppingCartCreator = {
     },
     updateRecord: (params) => {
         return createAction(UPDATE_RECORD, params);
+    },
+    setIsGenerating: (params) => {
+        return createAction(SET_IS_GENERATING, params);
     }
 };

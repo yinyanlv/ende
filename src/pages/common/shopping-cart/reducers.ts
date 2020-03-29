@@ -11,7 +11,8 @@ const initialState = {
     total: 0,
     pageNo: 1,
     pageSize: 10,
-    selectedRecords: []
+    selectedRecords: [],
+    isGenerating: false
 };
 
 function shoppingCartReducer(state = initialState, action) {
@@ -36,6 +37,11 @@ function shoppingCartReducer(state = initialState, action) {
             return {
                 ...state,
                 list: action.payload
+            };
+        case actions.SET_IS_GENERATING:
+            return {
+                ...state,
+                isGenerating: action.payload.isGenerating
             };
         case actions.SET_SHOPPING_CART:
             const payload = action.payload;

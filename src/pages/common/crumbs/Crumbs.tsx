@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {Breadcrumb, Tooltip} from 'antd';
+import {Breadcrumb} from 'antd';
 import {HomeOutlined, StarOutlined} from '@ant-design/icons';
 import {VinSearch} from '@/pages/common/vin-search';
 import styles from './Crumbs.module.scss';
@@ -23,7 +23,7 @@ export function Crumbs(props) {
             <div className="left-box">
                 <Breadcrumb>
                     <CrumbItem key="home">
-                        <a href={productCatalogUrl}>
+                        <a href={productCatalogUrl + '?locale=' + utils.getTisLang()}>
                             <HomeOutlined/>
                             <span className="crumbs-text">{utils.getText('crumbs.a2')}</span>
                         </a>

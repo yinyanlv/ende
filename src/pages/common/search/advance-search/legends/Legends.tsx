@@ -8,6 +8,7 @@ import {usageCreator} from '@/pages/usage/actions';
 import {Loading} from '@/components/loading';
 import styles from './Legends.module.scss';
 import {legendsCreator} from './actions';
+import Img from 'react-image';
 import {getQueryObjFromRecord, isAtPateUsage} from "@/common/utils";
 
 export function Legends() {
@@ -52,8 +53,11 @@ export function Legends() {
                         list && list.length > 0 ? list.map((item, index) => {
                                 return (
                                     <div className="item" key={item.catalogueCode + item.legendCode + index}>
-                                        <div className="image-box" onClick={handleClickLegend.bind(null, item)}><img
-                                            src={item.legendFileUri ? resHost + item.legendFileUri : '/images/pure_no_legend.png'} alt={item.name}/></div>
+                                        <div className="image-box" onClick={handleClickLegend.bind(null, item)}>
+                                            <Img
+                                                src={[resHost + item.legendFileUri, '/images/pure_no_legend.png']}
+                                                alt={item.name}/>
+                                        </div>
                                         <div className="info-box">
                                             <div className="title-line" onClick={handleClickLegend.bind(null, item)}>
                                                 <span className={'text-btn'}>{item.legendCode}</span>

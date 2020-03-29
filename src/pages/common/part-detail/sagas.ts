@@ -17,7 +17,6 @@ function* loadAndShowPartDetailController(action) {
         yield put(partInfoCreator.loadPartInfo({partCode}));
         yield put(actions.partDetailCreator.setIsShowPartDetail({
             isShow: true,
-            activeTab: action.payload.activeTab,
             partCode,
             zIndex: action.payload.zIndex
         }));

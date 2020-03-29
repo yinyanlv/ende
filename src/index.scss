@@ -138,6 +138,14 @@ html, body {
   overflow: auto !important;
 }
 
+.ant-table {
+  tbody > tr.ant-table-row-selected > td {
+    background: #e6d8d8;
+  }
+  tbody > tr.ant-table-row-selected:hover > td {
+    background: #e6d8d8!important;
+  }
+}
 
 table {
   .row-number {
@@ -197,4 +205,8 @@ table {
     overflow: hidden;
     visibility: hidden;
   }
+}
+
+.ant-message{
+  z-index: 15000 !important;
 }

@@ -5,6 +5,7 @@ export const IS_LOADING = 'search:replace:is-loading';
 export const SET_REPLACE = 'search:replace:set-replace';
 export const SET_PART_CODE = 'search:replace:set-part-code';
 export const RESET_STATE = 'search:replace:reset-state';
+export const RESET_CHILDREN_STATE = 'search:replace:reset-children-state';
 
 export const replaceCreator = {
     doQuery: (params) => {
@@ -21,5 +22,8 @@ export const replaceCreator = {
     },
     resetState: () => {
         return createAction(RESET_STATE);
+    },
+    resetChildrenState: () => {
+        return createAction(RESET_CHILDREN_STATE);
     }
 };

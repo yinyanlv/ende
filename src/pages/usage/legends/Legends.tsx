@@ -2,8 +2,9 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import {Panel} from '@/components/panel';
-import styles from  './Legends.module.scss';
+import styles from './Legends.module.scss';
 import {useUtils} from '@/hooks';
+import Img from 'react-image';
 
 const imageSuffix = '?/d/300';
 
@@ -47,7 +48,7 @@ function Legends(props: LegendsProps) {
                     {
                         legends && legends.map((item) => {
                             const note = item.note ? `(${item.note})` : '';
-                            const title =`${item.code} - ${item.text} ${note}`;
+                            const title = `${item.code} - ${item.text} ${note}`;
                             return (
                                 <li className="item"
                                     key={item.code}
@@ -57,8 +58,8 @@ function Legends(props: LegendsProps) {
                                         svgUri: item.svgFileUri
                                     })}>
                                                 <span className="image-wrapper">
-                                                    <img
-                                                        src={item.imageFileUri ?  resHost + item.imageFileUri + imageSuffix : '/images/pure_no_legend.png'}
+                                                    <Img
+                                                        src={[resHost + item.imageFileUri + imageSuffix, '/images/pure_no_legend.png']}
                                                         alt={title}
                                                     />
                                                 </span>
@@ -71,9 +72,9 @@ function Legends(props: LegendsProps) {
             </Panel>
             {
                 props.isShowGroups ? (
-                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined /></span>
+                    <span className="btn-arrow left-arrow" onClick={handleClickLeftArrow}><LeftOutlined/></span>
                 ) : (
-                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined /></span>
+                    <span className="btn-arrow right-arrow" onClick={handleClickRightArrow}><RightOutlined/></span>
                 )
             }
         </div>

@@ -5,6 +5,8 @@ export const LOAD_COUNT = 'search:advance-search:load-count';
 export const SET_COUNT = 'search:advance-search:set-count';
 export const DO_QUERY = 'search:advance-search:do-query';
 export const RESET_STATE = 'search:advance-search:reset-state';
+export const RESET_CHILDREN_STATE = 'search:advance-search:reset-children-state';
+export const SET_ACTIVE_TAB = 'search:advance-search:set-active-tab';
 
 export const advanceSearchCreator = {
     setQueryParams: (params) => {
@@ -21,6 +23,12 @@ export const advanceSearchCreator = {
     },
     resetState: () => {
         return createAction(RESET_STATE);
+    },
+    resetChildrenState: () => {
+        return createAction(RESET_CHILDREN_STATE);
+    },
+    setActiveTab: (params) => {
+        return createAction(SET_ACTIVE_TAB, params);
     }
 };
 

@@ -163,3 +163,4 @@ export function getQueryObjFromRecord(record) {
 export function isAtPateUsage(): boolean {
     return window.location.pathname === '/usage' ? true : false;
 }
+

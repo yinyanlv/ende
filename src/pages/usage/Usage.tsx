@@ -36,6 +36,8 @@ export function PageUsage() {
     }
 
     function handleClickImage(params) {
+        const expandedCodes = params.codePathList.slice(0, params.codePathList.length - 1);
+        dispatch(groupsCreator.setExpandedTreeNodeCodes(expandedCodes));
         loadParts(params);
     }
 

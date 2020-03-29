@@ -13,7 +13,7 @@ import {NoData} from '@/components/no-data';
 export function ShoppingCart(props) {
     const dispatch = useDispatch();
     const formRef = useRef();
-    const {total, list, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
+    const {total, list, isGenerating, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
     const {maxZIndex, resHost} = useSelector((state: any) => {
@@ -123,7 +123,7 @@ export function ShoppingCart(props) {
     }
 
     function handleCreateOrder() {
-
+        dispatch(shoppingCartCreator.setIsGenerating({isGenerating: true}));
         dispatch(shoppingCartCreator.generateOrder());
     }
 
@@ -188,6 +188,7 @@ export function ShoppingCart(props) {
                         <InputNumber value={val}
                                      min={0}
                                      max={9999}
+                                     step={record.unitPkgPackage || 1}
                                      onChange={(val) => {
                                          try {
                                              val = parseInt(val as any);
@@ -270,7 +271,7 @@ export function ShoppingCart(props) {
                     <div className="pagination">
                         <div className="operators">
                             <Button onClick={handleDeleteSelected} disabled={!selectedRecords.length}>{utils.getText('operate.a3')}</Button>
-                            <Button type="primary" disabled={!list.length} onClick={handleCreateOrder}>{utils.getText('order.a3')}</Button>
+                            <Button type="primary" disabled={!list.length || isGenerating} onClick={handleCreateOrder}>{utils.getText('order.a3')}</Button>
                         </div>
                         <Pagination
                             total={total}

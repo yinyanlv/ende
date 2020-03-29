@@ -29,6 +29,11 @@ function partDetailReducer(state = initialState, action) {
                 ...state,
                 bulletinCount: action.payload
             };
+        case actions.SET_ACTIVE_TAB:
+            return {
+                ...state,
+                activeTab: action.payload.activeTab
+            };
         default:
             return state;
     }

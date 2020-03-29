@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Tabs} from 'antd';
 import styles from './AdvanceSearch.module.scss';
 import {Query} from './query';
@@ -7,22 +7,31 @@ import {Applicability} from './applicability';
 import {Parts} from './parts';
 import {Legends} from './legends';
 import {useUtils} from '@/hooks';
+import {advanceSearchCreator} from './actions';
 
 const TabPane = Tabs.TabPane;
 
 export function AdvanceSearch(props: any) {
+    const dispatch = useDispatch();
     const {
-        count
+        count,
+        activeTab
     } = useSelector((state: any) => {
         return state.search.advanceSearch.self;
     });
     const utils = useUtils();
 
+    function handleTabChange(activeKey) {
+        dispatch(advanceSearchCreator.setActiveTab({
+            activeTab: activeKey
+        }));
+    }
+
     return (
         <div className={styles.advanceSearch}>
             <Query/>
             <div className="tabs-wrapper">
-                <Tabs defaultActiveKey="applicability">
+                <Tabs defaultActiveKey={activeTab} activeKey={activeTab} onChange={handleTabChange}>
                     <TabPane tab={`${utils.getText('applicability.a1')}(${count.applyCount})`} key="applicability">
                         <Applicability/>
                     </TabPane>

@@ -9,6 +9,7 @@ import {querySaga} from './query/saga';
 import {orderDetailCreator} from '@/pages/order-detail/actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {getText} from '@/pages/common/intl';
+import {shoppingCartCreator} from './actions';
 
 function* doQueryController(action) {
     try {
@@ -139,7 +140,9 @@ function* generateOrderController() {
                 isShow: false
             }));
         }
+        yield put(shoppingCartCreator.setIsGenerating({isGenerating: false}));
     } catch(err) {
+        yield put(shoppingCartCreator.setIsGenerating({isGenerating: false}));
         message.error(err.message);
     }
 }

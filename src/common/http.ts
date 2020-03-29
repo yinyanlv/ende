@@ -1,6 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import history from '@/common/history';
+import {storageService} from '@/common/storageService';
 
 import {API_PREFIX} from '@/config';
 
@@ -44,18 +45,27 @@ class Http {
             });
         }
 
+        if (res.status === 403) {
+            storageService.removeStorage();
+            return history.push({
+                pathname: '/403'
+            });
+        }
+
         if (res.status === 401) {
             let message = res.data.message;
             const host = message.authHost;
+            const returnUrl = window.location.href;
+            const authUrl = window.location.protocol + '//' + window.location.host + '/auth-callback';
             const queryObj = {
-                // client_id: 'yyl' || message.clientId,
                 client_id: message.clientId,
-                redirect_uri: window.location.href,
+                redirect_uri: authUrl,
                 response_type: message.responseType,
                 scope: message.scope,
                 grant_type: message.grantType
             };
             const url = host + '?' + queryString.stringify(queryObj);
+            storageService.setReturnUrl(returnUrl);
             window.location.href = url;
         }
     }

@@ -17,6 +17,7 @@ export const SET_M4 = 'search:advance-search:query:set-m4';
 export const VALIDATE_VIN = 'search:advance-search:query:validate-vin';
 export const VALIDATE_VSN = 'search:advance-search:query:validate-vsn';
 export const SET_IS_SHOW_BTN_DETAIL ='search:advance-search:query:set-is-show-btn-detail';
+export const RESET_STATE ='search:advance-search:query:reset-state';
 
 export const queryCreator = {
     setFieldsValue: (params) => {
@@ -69,5 +70,8 @@ export const queryCreator = {
     },
     setIsShowBtnDetail: (params) => {
         return createAction(SET_IS_SHOW_BTN_DETAIL, params);
+    },
+    resetState: () => {
+        return createAction(RESET_STATE);
     }
 };

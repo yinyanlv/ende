@@ -13,11 +13,37 @@ export function Auth(props) {
     const hashObj = getHashObj();
 
     useEffect(() => {
-        if (hashObj && hashObj.access_token) {
-            storageService.setStorage({
-                token: hashObj.access_token as any,
-                lang: 'zh'
-            });
+
+        if (history.location.pathname === '/auth-callback' && hashObj) {
+            if (hashObj.access_token) {
+                const returnUrl = storageService.getReturnUrl();
+                let lang;
+
+                // 如果returnUrl中包含locale，则以returnUrl为准
+                if (returnUrl.includes('#locale=')) {
+                    const match = returnUrl.match(/#locale=(.*)$/) || [];
+                    lang = match[1] ? match.slice(0, 2) : 'zh';
+                } else {
+                    lang = hashObj.locale ? hashObj.locale.slice(0, 2) as string :'zh'
+                }
+                storageService.setStorage({
+                    token: hashObj.access_token as any,
+                    lang: lang
+                });
+                window.location.href =  returnUrl.replace(/#locale=(.*)$/, '');
+            } else {
+                storageService.setStorage({
+                    token: '',
+                    lang: hashObj.locale ? hashObj.locale.slice(0, 2) as string :'zh'
+                });
+                history.push({
+                    pathname: '/403'
+                });
+            }
+        } else if (hashObj && hashObj.locale) {
+            storageService.setLang(hashObj.locale.slice(0, 2) as string);
+            storageService.initHttpHeadersFromStorage();
+            // 清空hash中的locale，避免切换语言时一直以url为准，导致不能切换语言
             history.push({
                 pathname: history.location.pathname,
                 search: history.location.search,
@@ -38,9 +64,15 @@ export function Auth(props) {
                 const res = err.response;
                 if (!res || (res && res.status !== 401)) {
                     setIsLoading(false);
-                    history.push({
-                        pathname: '/599'
-                    });
+                    if (res.status === 403) {
+                        history.push({
+                            pathname: '/403'
+                        });
+                    } else {
+                        history.push({
+                            pathname: '/599'
+                        });
+                    }
                 }
             });
     }, []);

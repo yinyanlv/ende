@@ -26,8 +26,13 @@ function doQuery(params) {
     });
 }
 
+function* resetChildrenStateController() {
+    yield put(actions.replaceCreator.resetState());
+}
+
 function* replaceSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
+    yield takeLatest(actions.RESET_CHILDREN_STATE, resetChildrenStateController);
 }
 
 export function* replaceSagas() {

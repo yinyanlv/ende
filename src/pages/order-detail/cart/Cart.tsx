@@ -149,6 +149,7 @@ export function Cart(props) {
                         <InputNumber value={val}
                                      min={0}
                                      max={9999}
+                                     step={record.unitPkgQty || 1}
                                      onChange={(val) => {
                                          try {
                                              val = parseInt(val as any);

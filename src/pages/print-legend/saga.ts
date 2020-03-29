@@ -9,9 +9,6 @@ function* loadPartsController(action) {
         const result = yield call(loadParts, action.payload);
         yield put(actions.printLegendCreator.setParts(result.usages));
         yield put(actions.printLegendCreator.setIsLoading({isLoading: false}));
-        setTimeout(() => {
-           window.print();
-        }, 2000);
     } catch(err) {
         yield put(actions.printLegendCreator.setIsLoading({isLoading: false}));
         message.error(err.message);

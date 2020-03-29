@@ -3,6 +3,7 @@ import {http} from '@/common/http';
 import {getQueryObj, getMQueryObj, getSQueryObj, getUrlAndParams} from '@/common/utils';
 import * as actions from './actions';
 import * as crumbsActions from '@/pages/common/crumbs/actions';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 function* loadGroupsController(action) {
     try {
@@ -34,7 +35,11 @@ function* loadGroupsController(action) {
 
         if (node && node.click) {
             node.click();
-            node.closest('.ant-tree-treenode-selected').scrollIntoView();
+            scrollIntoView(node.closest('.ant-tree-treenode-selected'), {
+                scrollMode: 'if-needed',
+                block: 'nearest',
+                inline: 'nearest'
+            });
         }
     } catch (err) {
         yield put(actions.groupsCreator.failed(err.message));
