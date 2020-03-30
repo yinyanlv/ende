@@ -24,6 +24,7 @@ export function ShoppingCart(props) {
     });
     const utils = useUtils();
 
+
     function doQuery(page, size) {
         queryParams.paging = {
             page,
