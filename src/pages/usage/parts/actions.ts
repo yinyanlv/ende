@@ -6,6 +6,7 @@ export const LOAD_PARTS_FAILED = 'usage:parts:load-parts-failed';
 export const SET_SELECTED_KEYS = 'usage:parts:set-selected-keys';
 export const SET_IS_SCROLL_INTO_VIEW = 'usage:parts:set-is-scroll-into-view';
 export const SET_WIDTH = 'usage:parts:set-width';
+export const UPDATE_RECORDS = 'usage:parts:update-records';
 
 export const partsCreator = {
     load: (params) => {
@@ -25,6 +26,9 @@ export const partsCreator = {
     },
     setWidth: (params) => {
         return createAction(SET_WIDTH, params);
+    },
+    updateRecords: (params) => {
+        return createAction(UPDATE_RECORDS, params);
     }
 };
 

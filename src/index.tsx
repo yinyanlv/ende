@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 // if (process.env.NODE_ENV === 'development') {
 //     require('../mock');
 // }
-
+console.log('%c APP VERSION: 0.1.1', 'color:red;font-weight:bold;');
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

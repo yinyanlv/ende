@@ -13,7 +13,7 @@ export function Application(props: PropsWithChildren<ApplicationProps>) {
     const columns = [{
         title: utils.getText('part.a16'),
         dataIndex: 'code',
-        width: 100
+        width: 60
     }, {
         title: utils.getText('part.a17'),
         dataIndex: 'name'

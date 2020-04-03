@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import {updateRecords} from '@/common/utils';
 
 const initialState = {
     isPartsLoading: false,
@@ -38,6 +39,13 @@ export function partsReducer(state = initialState, action: any) {
             return {
                 ...state,
                 width: action.payload.width
+            };
+        case actions.UPDATE_RECORDS:
+            return {
+                ...state,
+                parts: {
+                    usages: updateRecords(action.payload.partCodes, state.parts.usages, action.payload.value)
+                }
             };
         case actions.SET_IS_SCROLL_INTO_VIEW:
             return {

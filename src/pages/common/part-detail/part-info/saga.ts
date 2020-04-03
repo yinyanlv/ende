@@ -5,8 +5,8 @@ import {http} from '@/common/http';
 
 function* loadPartInfoController(action) {
     try {
-        const list = yield call(loadPartInfo, action.payload);
-        yield put(actions.partInfoCreator.setPartInfo(list));
+        const data = yield call(loadPartInfo, action.payload);
+        yield put(actions.partInfoCreator.setPartInfo(data));
     } catch(err) {
         message.error(err.message);
     }

@@ -140,10 +140,10 @@ html, body {
 
 .ant-table {
   tbody > tr.ant-table-row-selected > td {
-    background: #e6d8d8;
+    background: $table-row-active-bg-color;
   }
   tbody > tr.ant-table-row-selected:hover > td {
-    background: #e6d8d8!important;
+    background: $table-row-active-bg-color!important;
   }
 }
 

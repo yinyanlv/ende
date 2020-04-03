@@ -22,6 +22,10 @@ $table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
       align-items: center;
       justify-content: flex-start;
 
+      &:hover{
+        background: $table-row-hover-bg-color;
+      }
+
       &:last-child{
         height: 100px;
         border-bottom: 1px dotted $bd-color;
@@ -72,6 +76,10 @@ $table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
           @extend %textOverflowEllipsis;
         }
       }
+    }
+
+    .label-cart{
+      color: $primary-color;
     }
 
     .btn-box {

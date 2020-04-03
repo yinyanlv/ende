@@ -30,6 +30,10 @@ function InnerQuery(props: QueryProps, parentRef) {
         dispatch(queryCreator.doQuery(params));
     }
 
+    function doReset() {
+        form.resetFields();
+    }
+
     function handleClickAdd() {
         const fieldsValue = form.getFieldsValue();
 
@@ -62,6 +66,7 @@ function InnerQuery(props: QueryProps, parentRef) {
                 </FormItem>
                 <span className="inner-btn-line">
                     <Button type="primary" htmlType={'submit'} onClick={doQuery}>{utils.getText('operate.a6')}</Button>
+                    <Button onClick={doReset}>{utils.getText('operate.a7')}</Button>
                     {
                         props.isShowAdd && <Button onClick={handleClickAdd}>{utils.getText('order.a18')}</Button>
                     }

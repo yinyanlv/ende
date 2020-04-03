@@ -4,7 +4,6 @@ import {ShoppingCartOutlined, CopyOutlined, RetweetOutlined, RightOutlined, Left
 import copy from 'copy-to-clipboard';
 import {useSelector, useDispatch} from 'react-redux';
 import {Panel} from '@/components/panel';
-import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import {Application} from '@/pages/common/application';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
@@ -13,6 +12,7 @@ import {Resizable} from 're-resizable';
 import {useUtils} from '@/hooks';
 import {NoData} from '@/components/no-data';
 import scrollIntoView from 'scroll-into-view-if-needed';
+import {Buy} from '@/pages/common/buy';
 
 interface PartsProps {
     isShowParts: boolean;
@@ -39,6 +39,7 @@ function Parts(props: PartsProps) {
     });
     const usages = parts.usages || [];
     const utils = useUtils();
+    const resizeHandle = document.querySelector('.resize-handle-left');
 
     useEffect(() => {
         if (props.activeCallout) {
@@ -55,13 +56,6 @@ function Parts(props: PartsProps) {
     function showPartDetail(e, partCode) {
         e.stopPropagation();
         dispatch(partDetailCreator.loadAndShowPartDetail({
-            partCode: partCode
-        }));
-    }
-
-    function handleClickCart(e, partCode) {
-        e.stopPropagation();
-        dispatch(shoppingCartCreator.addToCartNoQuery({
             partCode: partCode
         }));
     }
@@ -126,11 +120,22 @@ function Parts(props: PartsProps) {
                     block: 'nearest',
                     inline: 'nearest'
                 });
+
+                if (nodes.length - 1 !== 0) {
+                    scrollIntoView(nodes[nodes.length - 1], {
+                        scrollMode: 'if-needed',
+                        block: 'nearest',
+                        inline: 'nearest'
+                    });
+                }
             }
         }, 200);
     }
 
     function handleResize(e, direction, ref, delta) {
+        if (resizeHandle) {
+            resizeHandle.className = 'resize-handle-left';
+        }
         dispatch(partsCreator.setWidth({
             width: width + delta.width
         }));
@@ -140,12 +145,12 @@ function Parts(props: PartsProps) {
         title: '#',
         dataIndex: 'callout',
         className: 'row-number',
-        width: 50,
+        width: 40,
         ellipsis: true
     }, {
         title: utils.getText('part.a1'),
         dataIndex: 'partCode',
-        width: 150,
+        width: 165,
         ellipsis: true,
         render: (val, record) => {
             return (
@@ -165,11 +170,21 @@ function Parts(props: PartsProps) {
                                         <RetweetOutlined onClick={(e) => {
                                             handleClickReplace(e, val);
                                         }}/>) :
-                                        <RetweetOutlined className={'disabled'} onClick={(e) => {
-                                            e.stopPropagation();
-                                        }}/>
+                                    <RetweetOutlined className={'disabled'} onClick={(e) => {
+                                        e.stopPropagation();
+                                    }}/>
                             }
                         </Tooltip>
+                        {
+                            record.price && <Tooltip title={record.price}>
+                                <i className={'iconfont icon-money'}/>
+                            </Tooltip>
+                        }
+                        {
+                            record.cart && <Tooltip title={utils.getText('cart.a7')}>
+                                <i className={'iconfont icon-add-cart'}/>
+                            </Tooltip>
+                        }
                     </span>
                 </div>
             );
@@ -178,11 +193,11 @@ function Parts(props: PartsProps) {
         title: utils.getText('part.a8'),
         dataIndex: 'handName',
         ellipsis: true,
-        width: 100
+        width: 45
     }, {
         title: utils.getText('part.a2'),
         dataIndex: 'name',
-        width: 140,
+        width: 180,
         ellipsis: true
     }, {
         title: utils.getText('part.a9'),
@@ -191,11 +206,11 @@ function Parts(props: PartsProps) {
         width: 140,
         render: (val, record) => {
             if (record.options && record.options.length) {
-               return (
-                   <Application list={record.options}>
-                       <span className={'ellipsis-text'} title={val}>{val}</span>
-                   </Application>
-               );
+                return (
+                    <Application list={record.options}>
+                        <span className={'ellipsis-text'} title={val}>{val}</span>
+                    </Application>
+                );
             } else {
                 return <span title={val}>{val}</span>;
             }
@@ -204,17 +219,18 @@ function Parts(props: PartsProps) {
         title: utils.getText('part.a10'),
         dataIndex: 'formattedQty',
         ellipsis: true,
-        width: 60
+        width: 50
     }, {
         title: utils.getText('operate.a5'),
         ellipsis: true,
-        width: 80,
+        width: 60,
         render: (val, record) => (
-            <Tooltip title={utils.getText('operate.a4')}>
-                <Button type="primary" icon={<ShoppingCartOutlined/>} size={'small'} onClick={(e) => {
-                    handleClickCart(e, record.partCode);
-                }}/>
-            </Tooltip>
+            <Buy partCode={record.partCode} checkContainerScroll={true}
+                 containerSelector={'#parts-table-container div.ant-table-body'}>
+                <Button type="primary" title={utils.getText('operate.a4')}
+                        icon={<ShoppingCartOutlined/>}
+                        size={'small'}/>
+            </Buy>
         )
     }];
 
@@ -224,13 +240,19 @@ function Parts(props: PartsProps) {
             maxWidth={window.innerWidth - groupsWidth - 295}
             defaultSize={{width: width, height: window.innerHeight - 100}}
             enable={props.isShowParts ? {left: true} : {left: false}}
-            onResizeStop={handleResize}
             className={styles.partsWrapper}
             style={{marginRight: props.isShowParts ? '0' : -(width + 10) + 'px'}}
+            handleWrapperClass={'resize-handle-left'}
+            onResizeStart={() => {
+                if (resizeHandle) {
+                    resizeHandle.className = 'resize-handle-left active';
+                }
+            }}
+            onResizeStop={handleResize}
         >
-            <div className={styles.parts}>
+            <div className={styles.parts} id={'parts-table-container'}>
                 <Panel isLoading={isPartsLoading} mode={'empty'} className={'panel-part-list'}>
-                    <Table columns={columns}
+                    <Table columns={columns as any}
                            dataSource={usages}
                            className={usages.length > 0 ? 'part-list hide-select-column' : 'part-list hide-select-column empty-table'}
                            rowKey={'id'}
@@ -241,7 +263,7 @@ function Parts(props: PartsProps) {
                            tableLayout={'fixed'}
                            pagination={false}
                            locale={{
-                               emptyText: <NoData type={'list'} />
+                               emptyText: <NoData type={'list'}/>
                            }}
                            onRow={(record) => {
                                return {

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Table, Pagination} from 'antd';
 import moment from 'moment';
@@ -11,8 +11,8 @@ import {useUtils} from '@/hooks';
 import {NoData} from '@/components/no-data';
 
 export function PageOrders(props) {
-
     const dispatch = useDispatch();
+    const formRef = useRef();
     const {total, list, pageNo, pageSize, queryParams, isLoading} = useSelector((state: any) => {
         return state.orders.self;
     });
@@ -40,6 +40,7 @@ export function PageOrders(props) {
     }
 
     function handleClickDelete( orderCode) {
+        (formRef.current as any).resetFields();
         dispatch(ordersCreator.deleteOrder({
             orderCode: orderCode
         }));
@@ -121,7 +122,7 @@ export function PageOrders(props) {
                 <div className="panel-title">
                     <span>{utils.getText('order.a1')}</span>
                 </div>
-                <Query />
+                <Query ref={formRef} />
                 <Loading isLoading={isLoading}>
                     <div className="panel-content">
                         <div className={'table-wrapper'}>

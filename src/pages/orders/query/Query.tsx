@@ -9,7 +9,7 @@ import {useUtils} from '@/hooks';
 
 const FormItem = Form.Item;
 
-export function Query() {
+function InnerQuery(props, parentRef) {
     const dispatch = useDispatch();
     const utils = useUtils();
     const [form] = Form.useForm();
@@ -31,6 +31,7 @@ export function Query() {
                 layout="inline"
                 labelAlign="left"
                 form={form}
+                ref={parentRef}
             >
                 <FormItem label={utils.getText('order.a4')} name={'code'}>
                     <Input placeholder={utils.getText('app.a2')}/>
@@ -47,3 +48,4 @@ export function Query() {
     );
 }
 
+export const Query = React.forwardRef(InnerQuery);

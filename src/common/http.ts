@@ -85,7 +85,7 @@ class Http {
                     } else if (body.list) {
                         resolve(body);
                     } else {
-                        reject(new Error(body.message || 'Unknown error!'));
+                        reject(new Error(body.message || ''));
                     }
                 })
                 .catch((err) => {
@@ -110,7 +110,7 @@ class Http {
                     } else if (body.list) {
                         resolve(body);
                     } else {
-                        reject(new Error(body.message || 'Unknown error!'));
+                        reject(new Error(body.message || ''));
                     }
                 })
                 .catch((err) => {

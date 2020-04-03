@@ -37,6 +37,7 @@ function Groups(props: GroupsProps) {
     const partsWidth = useSelector((state: any) => {
         return state.parts.width;
     });
+    const resizeHandle = document.querySelector('.resize-handle-right');
 
     function handleClickTreeNode(e, node) {
         // e.persist();
@@ -126,6 +127,9 @@ function Groups(props: GroupsProps) {
     }
 
     function handleResize(e, direction, ref, delta) {
+        if (resizeHandle) {
+            resizeHandle.className = 'resize-handle-right';
+        }
         dispatch(groupsCreator.setWidth({
             width: width + delta.width
         }));
@@ -161,10 +165,16 @@ function Groups(props: GroupsProps) {
             minWidth={150}
             maxWidth={window.innerWidth - partsWidth - 295}
             defaultSize={{width: width, height: window.innerHeight - 100}}
-            enable={props.isShowGroups ? {right: true}: {right: false}}
-            onResizeStop={handleResize}
+            enable={props.isShowGroups ? {right: true} : {right: false}}
             className={styles.groupsWrapper}
             style={{marginLeft: props.isShowGroups ? '0' : -(width + 10) + 'px'}}
+            handleWrapperClass={'resize-handle-right'}
+            onResizeStart={() => {
+                if (resizeHandle) {
+                    resizeHandle.className = 'resize-handle-right active';
+                }
+            }}
+            onResizeStop={handleResize}
         >
             <Panel isLoading={isGroupsLoading} title={intl.formatMessage({
                 id: 'crumbs.s_1'

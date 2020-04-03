@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {Input} from 'antd';
 import {searchCreator} from '@/pages/common/search/actions';
+import {advanceSearchCreator} from '@/pages/common/search/advance-search/actions';
 import styles from './VinSearch.module.scss';
 import {vinSearchCreator} from './actions';
 import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
@@ -35,6 +36,12 @@ export function VinSearch(props: VinSearchProps) {
 
         dispatch(queryCreator.setIsShowBtnDetail({
             isShowBtnDetail: false
+        }));
+        dispatch(searchCreator.setActiveTab({
+            activeTab: 'advance-search'
+        }));
+        dispatch(advanceSearchCreator.setActiveTab({
+            activeTab: 'applicability'
         }));
         switch (searchType) {
             case SearchType.VIN:

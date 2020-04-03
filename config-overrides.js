@@ -13,7 +13,9 @@ module.exports = override(
     addLessLoader({
         javascriptEnabled: true,
         modifyVars: {
-            '@primary-color': '#a61f38'
+            '@primary-color': '#a61f38',
+            '@heading-color': '#333',
+            '@text-color': '#333'
         }
     }),
     removeModuleScopePlugin(),

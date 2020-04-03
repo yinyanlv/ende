@@ -6,10 +6,13 @@ import * as actions from './actions';
 function* loadCartCountController() {
     try {
         const data = yield call(loadCartCount);
+        const totalPrice = data && data.amount ? data.amount.formatString : '';
 
-        yield put(actions.navCreator.setCartCount({cartCount: data.num}))
+        yield put(actions.navCreator.setCartCount({cartCount: data.num, totalPrice}));
     } catch (err) {
-        message.error(err.message);
+        if (err.message) {
+            message.error(err.message);
+        }
     }
 }
 

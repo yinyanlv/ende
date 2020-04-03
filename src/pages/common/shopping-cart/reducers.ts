@@ -21,6 +21,7 @@ function shoppingCartReducer(state = initialState, action) {
             return {
                 ...state,
                 isShow: action.payload.isShow,
+                list: initialState.list,
                 zIndex: action.payload.zIndex || initialState.zIndex
             };
         case actions.SET_SELECTED_RECORDS:

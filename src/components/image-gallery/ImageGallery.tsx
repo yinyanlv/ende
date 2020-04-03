@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import ReactImageGallery from 'react-image-gallery';
-import ImageMagnify from 'react-image-magnify';
+import {ImageMagnify} from '@/components/image-magnify';
 import 'react-image-gallery/styles/css/image-gallery-no-icon.css';
 import styles from './ImageGallery.module.scss';
 
@@ -11,32 +11,9 @@ interface ImageGalleryProps {
 
 function ImageGallery(props: ImageGalleryProps) {
 
-    const handleMagnifyError = useCallback((e) => {
-        e.target.src = '/images/no_pic.png';
-    }, []);
-
     const renderImageMagnify = useCallback((item) => {
-
-        return (
-            <div className={'image-magnify-wrapper'}>
-                <ImageMagnify {...{
-                    smallImage: {
-                        isFluidWidth: true,
-                        src: item.thumbnail,
-                        onError: handleMagnifyError
-                    },
-                    largeImage: {
-                        src: item.original,
-                        width: 1200,
-                        height: 1200,
-                        onError: handleMagnifyError
-                    },
-                    enlargedImagePortalId: 'image-magnify-portal',
-                }} />
-            </div>
-        );
+        return <ImageMagnify smallImageSrc={item.thumbnail} largeImageSrc={item.original} portalId={'image-magnify-portal'}/>;
     }, []);
-
 
     const handleThumbnailError = useCallback((e) => {
         e.target.src = '/images/pure_no_pic.png';

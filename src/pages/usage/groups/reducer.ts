@@ -15,7 +15,8 @@ export function groupsReducer(state = initialState, action: any) {
     switch (action.type) {
         case actions.RESET_GROUPS:
             return {
-                ...initialState
+                ...initialState,
+                width: state.width ? state.width : initialState.width
             };
         case actions.LOAD_GROUPS:
             return {

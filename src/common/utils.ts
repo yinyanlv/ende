@@ -164,3 +164,21 @@ export function isAtPateUsage(): boolean {
     return window.location.pathname === '/usage' ? true : false;
 }
 
+export function updateRecords(partCodes, list, value = true, judgeKey = 'partCode') {
+    if (!partCodes || !list) {
+        return list;
+    }
+    for (let i = 0; i < partCodes.length; i++) {
+        const partCode = partCodes[i];
+
+        for(let j = 0; j < list.length; j++) {
+            let item = list[j];
+
+            if (item[judgeKey] === partCode) {
+                item.cart = value;
+            }
+        }
+    }
+    return [...list];
+}
+

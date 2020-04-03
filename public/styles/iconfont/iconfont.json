@@ -6,6 +6,97 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13852519",
+      "name": "add-cart",
+      "font_class": "add-cart",
+      "unicode": "e756",
+      "unicode_decimal": 59222
+    },
+    {
+      "icon_id": "13851024",
+      "name": "money ",
+      "font_class": "money",
+      "unicode": "e755",
+      "unicode_decimal": 59221
+    },
+    {
+      "icon_id": "13814594",
+      "name": "thumb-up",
+      "font_class": "thumb-up",
+      "unicode": "e754",
+      "unicode_decimal": 59220
+    },
+    {
+      "icon_id": "13749174",
+      "name": "book",
+      "font_class": "book",
+      "unicode": "e752",
+      "unicode_decimal": 59218
+    },
+    {
+      "icon_id": "13749175",
+      "name": "open-book",
+      "font_class": "open-book",
+      "unicode": "e753",
+      "unicode_decimal": 59219
+    },
+    {
+      "icon_id": "13725485",
+      "name": "minus",
+      "font_class": "minus",
+      "unicode": "e750",
+      "unicode_decimal": 59216
+    },
+    {
+      "icon_id": "13725486",
+      "name": "plus",
+      "font_class": "plus",
+      "unicode": "e751",
+      "unicode_decimal": 59217
+    },
+    {
+      "icon_id": "13716124",
+      "name": "electronic-manage",
+      "font_class": "electronic-manage",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "13716125",
+      "name": "electronic-query",
+      "font_class": "electronic-query",
+      "unicode": "e74d",
+      "unicode_decimal": 59213
+    },
+    {
+      "icon_id": "13716126",
+      "name": "doc-manage",
+      "font_class": "doc-manage",
+      "unicode": "e74e",
+      "unicode_decimal": 59214
+    },
+    {
+      "icon_id": "13716127",
+      "name": "site-manage",
+      "font_class": "site-manage",
+      "unicode": "e74f",
+      "unicode_decimal": 59215
+    },
+    {
+      "icon_id": "13713082",
+      "name": "user-survey",
+      "font_class": "user-survey",
+      "unicode": "e74b",
+      "unicode_decimal": 59211
+    },
+    {
+      "icon_id": "13713083",
+      "name": "info-manage",
+      "font_class": "info-manage",
+      "unicode": "e74c",
+      "unicode_decimal": 59212
+    },
+    {
       "icon_id": "13655389",
       "name": "trade-plateform",
       "font_class": "trade-plateform",
@@ -165,13 +256,6 @@
       "font_class": "help-manual",
       "unicode": "e71c",
       "unicode_decimal": 59164
-    },
-    {
-      "icon_id": "13600286",
-      "name": "electronic-query",
-      "font_class": "electronic-query",
-      "unicode": "e71d",
-      "unicode_decimal": 59165
     },
     {
       "icon_id": "13600287",
@@ -475,13 +559,6 @@
       "unicode_decimal": 59140
     },
     {
-      "icon_id": "13514021",
-      "name": "book",
-      "font_class": "book",
-      "unicode": "e6fc",
-      "unicode_decimal": 59132
-    },
-    {
       "icon_id": "13514022",
       "name": "dot",
       "font_class": "dot",
@@ -494,13 +571,6 @@
       "font_class": "print",
       "unicode": "e700",
       "unicode_decimal": 59136
-    },
-    {
-      "icon_id": "13514026",
-      "name": "open-book",
-      "font_class": "open-book",
-      "unicode": "e701",
-      "unicode_decimal": 59137
     },
     {
       "icon_id": "13514027",

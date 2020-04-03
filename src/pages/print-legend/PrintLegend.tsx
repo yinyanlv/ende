@@ -18,6 +18,8 @@ export function PagePrintLegend() {
     const utils = useUtils();
 
     useEffect(() => {
+        // fix打印
+        document.documentElement.style.overflow = 'visible';
         const params = Object.assign({}, queryObj);
         delete params.src;
         dispatch(printLegendCreator.loadParts(params));
@@ -38,7 +40,7 @@ export function PagePrintLegend() {
     }, {
         title: utils.getText('part.a2'),
         dataIndex: 'name',
-        width: 200
+        width: 400
     }, {
         title: utils.getText('part.a9'),
         dataIndex: 'note',

@@ -1,13 +1,13 @@
 export const config: any = {};
 
-const env = process.env.NODE_ENV;
+const apiMode = process.env.REACT_APP_API_MODE;
 
-if (env === 'test') {
-    config.apiPrefix = 'http://192.168.1.71:8083/api';
-} else if (env === 'production') {
+if (apiMode === 'test') {
     config.apiPrefix = 'http://miniepc.dev.servision.com.cn/api';
+} else if (apiMode === 'production') {
+    config.apiPrefix = 'http://miniepc.servision.com.cn/api';
 } else {
-    config.apiPrefix = 'http://192.168.1.71:8083/api';
+    config.apiPrefix = 'http://miniepc.dev.servision.com.cn/api';
 }
 
 export const API_PREFIX = config.apiPrefix;

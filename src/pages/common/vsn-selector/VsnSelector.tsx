@@ -9,7 +9,7 @@ import {useUtils} from '@/hooks';
 
 export function VsnSelector() {
     const dispatch = useDispatch();
-    const {isShow, list, vsnCode, doNotRedirect, advanceSearchParams, zIndex} = useSelector((state: any) => {
+    const {isShow, list, vsnCode, advanceSearchParams, zIndex} = useSelector((state: any) => {
         return state.vsnSelector;
     });
     const utils = useUtils();
@@ -27,8 +27,7 @@ export function VsnSelector() {
         } else {
             dispatch(vinSearchCreator.doVsnSearch({
                 code: vsnCode,
-                model: record.modelId,
-                doNotRedirect
+                model: record.modelId
             }));
         }
     }

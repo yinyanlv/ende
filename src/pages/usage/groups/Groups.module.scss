@@ -22,9 +22,13 @@
     }
 
     .ant-tree{
+      .ant-tree-switcher-noop + .ant-tree-node-content-wrapper {
+        font-weight: normal !important;
+      }
 
       .ant-tree-node-content-wrapper {
         //display: flex;
+        font-weight: bold;
 
         .ant-tree-iconEle {
           width: 18px;

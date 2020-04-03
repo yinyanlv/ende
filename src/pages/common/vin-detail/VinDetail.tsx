@@ -1,14 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button} from 'antd';
-import {getQueryObj} from '@/common/utils';
+import {isAtPateUsage} from '@/common/utils';
 import {searchCreator} from '@/pages/common/search/actions';
 import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 import {vinDetailCreator} from './actions';
-import {vinSearchCreator} from '@/pages/common/vin-search/actions';
 import styles from './VinDetail.module.scss';
 import {configCreator} from '@/store/config/actions';
 import {useUtils} from '@/hooks';
+import history from '@/common/history';
+import queryString from 'query-string';
+import {usageCreator} from '@/pages/usage/actions';
 
 export function VinDetail(props) {
 
@@ -23,20 +25,6 @@ export function VinDetail(props) {
         return state.config;
     });
     const utils = useUtils();
-
-    useEffect(() => {
-        const queryObj = getQueryObj();
-        if (queryObj.type === 'vin' && queryObj.code) {
-            dispatch(vinSearchCreator.doVinSearch({
-                code: queryObj.code
-            }));
-        } else if (queryObj.type === 'vsn' && queryObj.code && queryObj.m_4) {
-            dispatch(vinSearchCreator.doVsnSearch({
-                code: queryObj.code,
-                model: queryObj.m_4
-            }));
-        }
-    }, []);
 
     function handleClose() {
         dispatch(vinDetailCreator.setIsShowVinDetail({
@@ -72,6 +60,24 @@ export function VinDetail(props) {
         }));
     }
 
+    function vinLegend() {
+        const mappings = Object.assign({}, data.mappings, {
+            type,
+            code: data.code
+        });
+        const isNeedManualRefresh = isAtPateUsage();
+        history.push({
+            pathname: '/usage',
+            search: queryString.stringify(mappings)
+        });
+        if (isNeedManualRefresh) {
+            dispatch(usageCreator.initUsage());
+        }
+        dispatch(vinDetailCreator.setIsShowVinDetail({
+            isShow: false
+        }));
+    }
+
     return (
         <Drawer
             closable={false}
@@ -84,9 +90,12 @@ export function VinDetail(props) {
            <div className={styles.vinDetail}>
                <div className="drawer-title">
                    <span>{utils.getText('vin.a1')}</span>
-                   {
-                       !isSearchShow && <Button type="primary" onClick={doAdvanceQuery}>{utils.getText('vin.a4')}</Button>
-                   }
+                   <div className={'btns'}>
+                       <Button type="primary" onClick={vinLegend}>{utils.getText('vin.a19')}</Button>
+                       {
+                           !isSearchShow && <Button type="primary" onClick={doAdvanceQuery}>{utils.getText('vin.a4')}</Button>
+                       }
+                   </div>
                </div>
                <div className="drawer-content table-wrapper">
                    <table>

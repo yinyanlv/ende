@@ -66,8 +66,7 @@ export function Legends() {
                                                 {
                                                     item.legendNote && (
                                                         <>
-                                                            <span className="gap">-</span>
-                                                            <span title={item.legendNote}>{item.legendNote}</span>
+                                                            (<span title={item.legendNote}>{item.legendNote}</span>)
                                                         </>
                                                     )
                                                 }

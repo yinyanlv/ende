@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button, Table, InputNumber, Pagination} from 'antd';
+import Img from 'react-image';
 import {shoppingCartCreator} from './actions';
 import styles from './ShoppingCart.module.scss';
 import {Query} from './query';
@@ -19,11 +20,13 @@ export function ShoppingCart(props) {
     const {maxZIndex, resHost} = useSelector((state: any) => {
         return state.config;
     });
+    const {totalPrice} = useSelector((state: any) => {
+        return state.nav;
+    });
     const selectedKeys = selectedRecords.map((item) => {
         return item.id;
     });
     const utils = useUtils();
-
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -49,6 +52,7 @@ export function ShoppingCart(props) {
 
     function handleClickDelete(e, partCode) {
         e.stopPropagation();
+        (formRef.current as any).resetFields();
         dispatch(shoppingCartCreator.deleteFromCart({
             codes: [partCode]
         }));
@@ -117,6 +121,8 @@ export function ShoppingCart(props) {
     function handleDeleteSelected() {
         const partCodes = getSelectedPartCodes();
 
+        (formRef.current as any).resetFields();
+
         dispatch(shoppingCartCreator.deleteFromCart({
             codes: partCodes
         }));
@@ -148,6 +154,7 @@ export function ShoppingCart(props) {
         {
             title: utils.getText('part.a18'),
             dataIndex: 'partCode',
+            ellipsis: true,
             width: 450,
             render: (val, record) => {
                 const modelsString = getModelsString(record.applyList);
@@ -155,8 +162,12 @@ export function ShoppingCart(props) {
                     <div className="item">
                         <div className="image-box" onClick={(e) => {
                             handleClickPartCode(e, record.partCode);
-                        }}><img
-                            src={record.coverImageUri ? resHost + record.coverImageUri : '/images/pure_no_pic.png'} alt={record.partName}/></div>
+                        }}>
+                            <Img
+                                src={[resHost + record.coverImageUri, '/images/pure_no_pic.png']}
+                                alt={record.partName}
+                            />
+                        </div>
                         <div className="info-box">
                             <div className="title-line">
                                 <span className="text-btn"
@@ -183,18 +194,18 @@ export function ShoppingCart(props) {
             title: utils.getText('part.a10'),
             dataIndex: 'qty',
             width: 120,
+            ellipsis: true,
             render: (val, record) => {
                 return (
                     <div onClick={utils.stopPropagation}>
                         <InputNumber value={val}
                                      min={0}
-                                     max={9999}
                                      step={record.unitPkgPackage || 1}
                                      onChange={(val) => {
                                          try {
                                              val = parseInt(val as any);
-                                             if (val <= 9999 && val >= 0) {
-                                                 handleEditPartCartCount(record.partCode, val)
+                                             if (val >= 0) {
+                                                 handleEditPartCartCount(record.partCode, val);
                                              }
                                          } catch(err) {
                                          }
@@ -213,7 +224,8 @@ export function ShoppingCart(props) {
         },
         {
             title: utils.getText('operate.a5'),
-            width: 100,
+            width: 70,
+            ellipsis: true,
             dataIndex: 'operator',
             render: (val, record) => {
                 return (
@@ -239,6 +251,10 @@ export function ShoppingCart(props) {
             <div className={styles.shoppingCart}>
                 <div className="drawer-title">
                     <span>{utils.getText('cart.a1')}</span>
+                    <div className={'total-price-wrapper'}>
+                        {utils.getText('cart.a6')}:
+                        <span className={'total-price'}>{totalPrice}</span>
+                    </div>
                 </div>
                 <Query ref={formRef}/>
                 <Loading isLoading={isLoading}>

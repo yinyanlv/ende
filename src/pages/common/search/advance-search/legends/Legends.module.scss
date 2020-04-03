@@ -23,23 +23,28 @@ $table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
       align-items: center;
       justify-content: flex-start;
 
+      &:hover{
+        background: $table-row-hover-bg-color;
+      }
+
       &:last-child{
         height: 128px;
         border-bottom: 1px dotted $bd-color;
       }
 
       .image-box {
-        width: 78px;
-        height: 110px;
+        width: 120px;
+        height: 120px;
         border: 1px solid transparent;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        overflow: hidden;
 
         img {
-          max-width:66px;
-          max-height: 98px;
+          width:100%;
+          height:100%;
         }
       }
     }

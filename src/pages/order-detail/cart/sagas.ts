@@ -10,6 +10,7 @@ function* doQueryController(action) {
     try {
         yield put(actions.cartCreator.setIsLoading({isLoading: true}));
         yield put(actions.cartCreator.setQueryParams(action.payload));
+        action.payload.sorts = [{field: 'createdDate', asc: false}];
         const data = yield call(doQuery, action.payload);
         yield put(actions.cartCreator.setSelectedRecords([]));
         yield put(actions.cartCreator.setCart(data));
@@ -51,7 +52,7 @@ function* addPartController(action) {
            orderCode: action.payload.orderCode
         });
         yield put(actions.cartCreator.doQuery(buildQueryParams(filters)));
-        message.success(getText('msg.a11'));
+        message.success(getText('msg.a16'));
     } catch(err) {
         message.error(err.message);
     }

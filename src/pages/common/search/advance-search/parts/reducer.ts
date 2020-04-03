@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import {updateRecords} from '@/common/utils';
 
 const initialState = {
     isLoading: false,
@@ -23,6 +24,11 @@ export function partsReducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: action.payload.isLoading
+            };
+        case actions.UPDATE_RECORDS:
+            return {
+                ...state,
+                list: updateRecords(action.payload.partCodes, state.list, action.payload.value, 'code')
             };
         case actions.RESET_STATE:
             return {

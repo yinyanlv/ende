@@ -6,6 +6,40 @@
 
   :global {
 
+    .resize-handle-left{
+      & > div {
+        left: -10px !important;
+        transition: background .3s ease-in-out;
+
+        &:hover{
+          background: $table-row-active-bg-color;
+        }
+      }
+
+      &.active{
+        & > div {
+          background: $table-row-active-bg-color;
+        }
+      }
+    }
+
+    .resize-handle-right{
+      & > div {
+        right: -10px !important;
+        transition: background .3s ease-in-out;
+
+        &:hover{
+          background: $table-row-active-bg-color;
+        }
+      }
+
+      &.active{
+        & > div {
+          background: $table-row-active-bg-color;
+        }
+      }
+    }
+
     .panel {
       display: flex;
       flex-direction: column;
@@ -17,20 +51,23 @@
 
     .btn-arrow{
       position: absolute;
-      left: -17px;
+      left: -10px;
       top: 50%;
-      line-height: 24px;
+      line-height: 50px;
       background: #fff;
-      width: 14px;
-      height: 24px;
+      width: 10px;
+      height: 50px;
       cursor: pointer;
-      margin-top:-12px;
-      border-radius: 12px;
+      margin-top: -25px;
       text-align: center;
+      z-index: 1000;
+      font-size: 12px;
+      background: $primary-color;
+      border-radius: 2px;
 
-      i{
+      .anticon{
         margin-left:-1px;
-        color: $font-color;
+        color: #fff;
         font-size:12px;
       }
     }

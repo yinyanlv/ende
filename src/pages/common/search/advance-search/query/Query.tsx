@@ -56,7 +56,6 @@ export function Query() {
                 const newMaxZIndex = maxZIndex + 5;
                 dispatch(vinSearchCreator.doVsnSelectModel({
                     code,
-                    doNotRedirect: true,
                     advanceSearchParams: params,
                     zIndex: newMaxZIndex
                 }));
@@ -137,11 +136,10 @@ export function Query() {
 
         const result = checkAndGetType(code);
         if (result.isValid) {
+            const newMaxZIndex = maxZIndex + 5;
             if (result.type === 'vin') {
-                const newMaxZIndex = maxZIndex + 5;
                 dispatch(vinSearchCreator.doVinSearch({
                     code,
-                    doNotRedirect: true,
                     zIndex: newMaxZIndex
                 }));
                 dispatch(configCreator.setMaxZIndex({
@@ -150,7 +148,7 @@ export function Query() {
             } else if (result.type === 'vsn') {
                 dispatch(vinSearchCreator.doVsnSelectModel({
                     code,
-                    doNotRedirect: true
+                    zIndex: newMaxZIndex
                 }));
             }
         } else {
@@ -207,7 +205,7 @@ export function Query() {
                 initialValues={fieldsValue}
             >
                 <Row>
-                    <Col span={8}>
+                    <Col span={9}>
                         <div className="first-column vin-wrapper">
                             <FormItem label="VIN/VSN" name={'vinVsn'}>
                                 <Input placeholder={utils.getText('app.a2')} onChange={validateVinVsn}/>
@@ -217,15 +215,15 @@ export function Query() {
                             }
                         </div>
                     </Col>
-                    <Col span={16} className="model-wrapper">
+                    <Col span={15} className="model-wrapper">
                         <FormItem label={utils.getText('part.a11')} name={'model'}>
                             <Cascader options={modelOptions} loadData={handleLoadModel} placeholder={utils.getText('search.a3')}/>
                         </FormItem>
                     </Col>
-                    <Col span={8}>
+                    <Col span={9}>
                         <div className="first-column">
                             <FormItem label={utils.getText('part.a12')} name={'legendGroupCode'}>
-                                <Select placeholder={utils.getText('app.a3')} dropdownMatchSelectWidth={250} style={{width: 160}} allowClear={true}>
+                                <Select placeholder={utils.getText('app.a3')}  dropdownMatchSelectWidth={250} style={{width: 190}} allowClear={true}>
                                     {
                                         groupList.map((item) => {
                                             return <Option key={item.code} value={item.code} title={item.name}>{item.name}</Option>;
@@ -240,12 +238,12 @@ export function Query() {
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
-                    <Col span={8}>
+                    <Col span={7}>
                         <FormItem label={utils.getText('legend.a2')} name={'legendName'}>
                             <Input placeholder={utils.getText('app.a2')}/>
                         </FormItem>
                     </Col>
-                    <Col span={8}>
+                    <Col span={9}>
                         <div className={'first-column'}>
                             <FormItem label={utils.getText('part.a1')} name={'partCode'}>
                                 <Input placeholder={utils.getText('app.a2')}/>

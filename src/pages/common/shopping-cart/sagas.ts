@@ -10,6 +10,10 @@ import {orderDetailCreator} from '@/pages/order-detail/actions';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {getText} from '@/pages/common/intl';
 import {shoppingCartCreator} from './actions';
+import {applicabilityCreator} from '@/pages/common/search/advance-search/applicability/actions';
+import {partsCreator as searchPartsCreator} from '@/pages/common/search/advance-search/parts/actions';
+import {partsCreator} from '@/pages/usage/parts/actions';
+import {partInfoCreator} from '@/pages/common/part-detail/part-info/actions';
 
 function* doQueryController(action) {
     try {
@@ -35,16 +39,10 @@ function* addToCartController(action) {
         yield put(navCreator.loadCartCount());
         const params = buildQueryParams();
         yield put(actions.shoppingCartCreator.doQuery(params));
-        message.success(getText('msg.a11'));
-    } catch(err) {
-        message.error(err.message);
-    }
-}
+        const codes = [action.payload.partCode];
 
-function* addToCartNoQueryController(action) {
-    try {
-        yield call(addToCart, action.payload);
-        yield put(navCreator.loadCartCount());
+        yield* updateCartRelateData(codes, true);
+
         message.success(getText('msg.a11'));
     } catch(err) {
         message.error(err.message);
@@ -62,9 +60,33 @@ function* deleteFromCartController(action) {
         yield call(deleteFromCart, action.payload);
         yield put(navCreator.loadCartCount());
         yield put(actions.shoppingCartCreator.doQuery(buildQueryParams()));
+        const codes = action.payload.codes;
+        yield* updateCartRelateData(codes, false);
         message.success(getText('msg.a12'));
     } catch(err) {
         message.error(err.message);
+    }
+}
+
+function* updateCartRelateData(partCodes, value) {
+
+    yield put(applicabilityCreator.updateRecords({
+        partCodes: partCodes,
+        value
+    }));
+    yield put(searchPartsCreator.updateRecords({
+        partCodes: partCodes,
+        value
+    }));
+    yield put(partsCreator.updateRecords({
+        partCodes: partCodes,
+        value
+    }));
+    if (partCodes && partCodes.length) {
+        yield put(partInfoCreator.updatePartInfo({
+            code: partCodes[0],
+            cart: value
+        }));
     }
 }
 
@@ -83,12 +105,17 @@ function* editPartCartCountController(action) {
         if (tip) {
             message.success(tip);
         }
-        const newList = updateRecord(partCode, list, {
-            qty: data.qty,
-            amount: data.amount
-        });
 
-        yield put(actions.shoppingCartCreator.updateRecord(newList));
+        if (list && list.length) {
+            const newList = updateRecord(partCode, list, {
+                qty: data.qty,
+                amount: data.amount
+            });
+
+            yield put(actions.shoppingCartCreator.updateRecord(newList));
+        }
+
+        yield put(navCreator.loadCartCount());
     } catch(err) {
         message.error(err.message);
     }
@@ -154,7 +181,6 @@ function generateOrder() {
 function* shoppingCartSaga() {
     yield takeLatest(actions.DO_QUERY, doQueryController);
     yield takeLatest(actions.ADD_TO_CART, addToCartController);
-    yield takeLatest(actions.ADD_TO_CART_NO_QUERY, addToCartNoQueryController);
     yield takeLatest(actions.DELETE_FROM_CART, deleteFromCartController);
     yield takeLatest(actions.EDIT_PART_CART_COUNT, editPartCartCountController);
     yield takeLatest(actions.ADD_AND_SHOW_SHOPPING_CART, addAndShowShoppingCartController);

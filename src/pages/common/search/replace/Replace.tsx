@@ -7,18 +7,27 @@ import {partDetailCreator} from '@/pages/common/part-detail/actions';
 import {Loading} from "@/components/loading";
 import {useUtils} from '@/hooks';
 import {NoData} from '@/components/no-data';
+import {configCreator} from '@/store/config/actions';
 
 export function Replace() {
     const dispatch = useDispatch();
     const {list, isLoading} = useSelector((state: any) => {
         return state.search.replace.self;
     });
+    const {maxZIndex} = useSelector((state: any) => {
+        return state.config;
+    });
     const utils = useUtils();
 
     function handleClickPartCode(partCode) {
+        const newMaxZIndex = maxZIndex + 5;
         dispatch(partDetailCreator.loadAndShowPartDetail({
             partCode: partCode,
-            activeTab: 'replace'
+            activeTab: 'replace',
+            zIndex: newMaxZIndex
+        }));
+        dispatch(configCreator.setMaxZIndex({
+            maxZIndex: newMaxZIndex
         }));
     }
 

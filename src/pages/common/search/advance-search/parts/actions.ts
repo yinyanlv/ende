@@ -4,6 +4,7 @@ export const DO_QUERY = 'search:advance-search:parts:do-query';
 export const SET_PARTS = 'search:advance-search:parts:set-parts';
 export const IS_LOADING = 'search:advance-search:parts:is-loading';
 export const RESET_STATE = 'search:advance-search:parts:reset-state';
+export const UPDATE_RECORDS = 'search:advance-search:parts:update-records';
 
 export const partsCreator = {
     doQuery: (params) => {
@@ -17,5 +18,8 @@ export const partsCreator = {
     },
     resetState: () => {
         return createAction(RESET_STATE);
+    },
+    updateRecords: (params) => {
+        return createAction(UPDATE_RECORDS, params);
     }
 };

@@ -148,12 +148,11 @@ export function Cart(props) {
                     <div onClick={utils.stopPropagation}>
                         <InputNumber value={val}
                                      min={0}
-                                     max={9999}
                                      step={record.unitPkgQty || 1}
                                      onChange={(val) => {
                                          try {
                                              val = parseInt(val as any);
-                                             if (val <= 9999 && val >= 0) {
+                                             if (val >= 0) {
                                                  handleEditQty({
                                                      partCode: record.partCode,
                                                      qty: val

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Pagination, Table} from 'antd';
+import {Button, Pagination, Table, Tooltip} from 'antd';
+import {ShoppingCartOutlined} from '@ant-design/icons';
 import {useSelector, useDispatch} from 'react-redux';
 import queryString from 'query-string';
 import history from '@/common/history';
@@ -13,6 +14,7 @@ import {configCreator} from '@/store/config/actions';
 import {Application} from '@/pages/common/application';
 import {useUtils} from '@/hooks';
 import {NoData} from '@/components/no-data';
+import {Buy} from '@/pages/common/buy';
 
 export function Applicability() {
 
@@ -45,7 +47,7 @@ export function Applicability() {
             title: utils.getText('applicability.a2'),
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 160,
+            width: 110,
             render: (val, record) => {
                 return record && record.catalogueName ? `${val} - ${record.catalogueName}` : val;
             }
@@ -53,21 +55,29 @@ export function Applicability() {
         {
             title: utils.getText('part.a1'),
             dataIndex: 'partCode',
-            width: 120,
+            width: 150,
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <span className="text-btn" onClick={(e) => {
+                    <div className={'operator-wrapper'}>
+                    <span className="text-btn" title={val} onClick={(e) => {
                         handleClickPartCode(e, val);
                     }}>{val}</span>
+                        <span className="btns">
+                            {
+                                record.price && <Tooltip title={record.price}>
+                                    <i className={'iconfont icon-money'}/>
+                                </Tooltip>
+                            }
+                            {
+                                record.cart && <Tooltip title={utils.getText('cart.a7')}>
+                                    <i className={'iconfont icon-add-cart'}/>
+                                </Tooltip>
+                            }
+                        </span>
+                    </div>
                 );
             }
-        },
-        {
-            title: utils.getText('part.a2'),
-            dataIndex: 'partName',
-            ellipsis: true,
-            width: 140
         },
         {
             title: utils.getText('part.a8'),
@@ -76,15 +86,21 @@ export function Applicability() {
             width: 60
         },
         {
+            title: utils.getText('part.a2'),
+            dataIndex: 'partName',
+            ellipsis: true,
+            width: 160
+        },
+        {
             title: utils.getText('part.a9'),
             dataIndex: 'note',
             ellipsis: true,
-            width: 160,
+            width: 150,
             render: (val, record) => {
                 if (record.options && record.options.length) {
                     return (
                         <Application list={record.options}>
-                            <span  className={'ellipsis-text'} title={val}>{val}</span>
+                            <span className={'ellipsis-text'} title={val}>{val}</span>
                         </Application>
                     );
                 } else {
@@ -96,23 +112,32 @@ export function Applicability() {
             title: utils.getText('legend.a2'),
             dataIndex: 'legendName',
             ellipsis: true,
-            width: 200,
-            render: (val, record) => {
-                const note = record.legendNote ? `(${record.legendNote})` : '';
-                return val ? val + note : '';
-            }
+            width: 180
         },
         {
             title: utils.getText('part.a10'),
             dataIndex: 'qty',
             ellipsis: true,
-            width: 80
+            width: 60
         },
         {
             title: utils.getText('part.a13'),
             dataIndex: 'legendGroupName',
             ellipsis: true,
             width: 160
+        }, {
+            title: utils.getText('operate.a5'),
+            ellipsis: true,
+            width: 60,
+            fixed: 'right',
+            render: (val, record) => (
+                <Buy partCode={record.partCode} checkContainerScroll={true}
+                     containerSelector={'#search-applicability-container div.ant-table-body'}>
+                    <Button type="primary" title={utils.getText('operate.a4')}
+                            icon={<ShoppingCartOutlined/>}
+                            size={'small'}/>
+                </Buy>
+            )
         }
     ];
 
@@ -142,15 +167,15 @@ export function Applicability() {
 
     return (
         <Loading isLoading={isLoading}>
-            <div className={styles.applicability}>
+            <div className={styles.applicability} id={'search-applicability-container'}>
                 <Table
-                    columns={columns}
+                    columns={columns as any}
                     dataSource={list}
                     className={list.length > 0 ? 'hide-select-column' : 'hide-select-column empty-table'}
                     rowKey={'id'}
                     tableLayout={'fixed'}
                     locale={{
-                        emptyText: <NoData />
+                        emptyText: <NoData/>
                     }}
                     onRow={(record) => {
                         return {

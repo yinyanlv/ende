@@ -1,16 +1,16 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Button, Pagination} from 'antd';
+import {Button, Pagination, Tooltip} from 'antd';
 import {ShoppingCartOutlined} from '@ant-design/icons';
 import {Loading} from '@/components/loading';
 import {NoData} from '@/components/no-data';
 import {partDetailCreator} from '@/pages/common/part-detail/actions';
-import {shoppingCartCreator} from '@/pages/common/shopping-cart/actions';
 import styles from './Parts.module.scss';
 import {partsCreator} from './actions';
 import {configCreator} from '@/store/config/actions';
 import {useUtils} from '@/hooks';
 import Img from 'react-image';
+import {Buy} from '@/pages/common/buy';
 
 export function Parts() {
     const dispatch = useDispatch();
@@ -36,12 +36,6 @@ export function Parts() {
         }));
     }
 
-    function handleClickBuy(partCode) {
-        dispatch(shoppingCartCreator.addToCartNoQuery({
-            partCode
-        }));
-    }
-
     function doQuery(page, size) {
         queryParams.paging = {
             page,
@@ -53,7 +47,7 @@ export function Parts() {
 
     return (
         <Loading isLoading={isLoading}>
-            <div className={styles.parts}>
+            <div className={styles.parts} id={'search-parts-container'}>
                 <div className="inner-wrapper">
                     {
                         list && list.length > 0 ? list.map((item) => {
@@ -67,7 +61,15 @@ export function Parts() {
                                         <div className="info-box">
                                             <div className="title-line">
                                                 <span className="text-btn"
-                                                      onClick={handleClickPartCode.bind(null, item.code)}>{item.code}</span>
+                                                      onClick={handleClickPartCode.bind(null, item.code)}>{item.code}
+                                                </span>
+                                                {
+                                                    item.cart && <Tooltip title={utils.getText('cart.a7')}>
+                                                        <span className={'label-cart'}>
+                                                        <i className={'iconfont icon-add-cart'}/>
+                                                        </span>
+                                                    </Tooltip>
+                                                }
                                                 <span className="gap">-</span>
                                                 <span title={item.name}>{item.name}</span>
                                                 {
@@ -82,8 +84,12 @@ export function Parts() {
                                             </div>
                                         </div>
                                         <div className="btn-box">
-                                            <Button type="primary" icon={<ShoppingCartOutlined/>}
-                                                    onClick={handleClickBuy.bind(null, item.code)}>{utils.getText('operate.a4')}</Button>
+                                            <Buy partCode={item.code} checkContainerScroll={true}
+                                                 containerSelector={'#search-parts-container'}>
+                                                <Button type="primary" icon={<ShoppingCartOutlined/>}>
+                                                    {utils.getText('operate.a4')}
+                                                </Button>
+                                            </Buy>
                                         </div>
                                     </div>
                                 );

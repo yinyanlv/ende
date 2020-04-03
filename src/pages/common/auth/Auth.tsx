@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {storageService} from '@/common/storageService';
-import {getHashObj} from '@/common/utils';
+import {getHashObj, getQueryObj} from '@/common/utils';
 import {http} from '@/common/http';
 import history from '@/common/history';
 import {Loading} from '@/components/loading';
@@ -40,6 +40,18 @@ export function Auth(props) {
                     pathname: '/403'
                 });
             }
+        } else if (history.location.search.includes('locale=')) {  // passport退出登录时重定向至xxx?locale=xxx
+            const queryObj = getQueryObj();
+            if (queryObj && queryObj.locale) {
+                storageService.setLang(queryObj.locale.slice(0, 2) as string);
+            }
+            storageService.initHttpHeadersFromStorage();
+            // passport退出重定向时，会出现queryString拼接错误，因此，全部重定向至首页，避免其它页面因关键参数缺失而报错
+            history.push({
+                pathname: '/',
+                search: '',
+                hash: ''
+            });
         } else if (hashObj && hashObj.locale) {
             storageService.setLang(hashObj.locale.slice(0, 2) as string);
             storageService.initHttpHeadersFromStorage();
@@ -64,7 +76,7 @@ export function Auth(props) {
                 const res = err.response;
                 if (!res || (res && res.status !== 401)) {
                     setIsLoading(false);
-                    if (res.status === 403) {
+                    if (res && res.status === 403) {
                         history.push({
                             pathname: '/403'
                         });

@@ -1,33 +1,14 @@
 import {put, takeLatest, call} from 'redux-saga/effects';
 import {message} from 'antd';
-import queryString from 'query-string';
-import history from '@/common/history';
 import {http} from '@/common/http';
 import * as actions from './actions';
-import {isAtPateUsage} from '@/common/utils';
 import {vsnSelectorCreator} from '@/pages/common/vsn-selector/actions';
 import {vinDetailCreator} from '@/pages/common/vin-detail/actions';
-import {usageCreator} from '@/pages/usage/actions';
 import {queryCreator} from '@/pages/common/search/advance-search/query/actions';
 
 function* vinSearchController(action) {
     try {
         const data = yield call(doVinSearch, action.payload);
-        const mappings = Object.assign({}, data.mappings, {
-            type: 'vin',
-            code: action.payload.code
-        });
-
-        if (!action.payload.doNotRedirect) {
-            const isNeedManualRefresh = isAtPateUsage();
-            history.push({
-                pathname: '/usage',
-                search: queryString.stringify(mappings)
-            });
-            if (isNeedManualRefresh) {
-                yield put(usageCreator.initUsage());
-            }
-        }
 
         yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vin',
@@ -51,7 +32,9 @@ function* vsnSelectModelController(action) {
         const list = yield call(doVsnSelectModel, action.payload);
         const advanceSearchParams = action.payload.advanceSearchParams;
 
+        // vsn对应的车型唯一，直接显示vsn详情
         if (list.length === 1) {
+            // 该action来自高级查询，并且vin-selector只有一条数据，则带入参数，执行高级查询
             if (advanceSearchParams) {
                 advanceSearchParams.filters.push({
                     name: 'vsnModel',
@@ -64,13 +47,12 @@ function* vsnSelectModelController(action) {
             yield put(actions.vinSearchCreator.doVsnSearch({
                 code: action.payload.code,
                 model: list[0].modelId,
-                doNotRedirect: !!action.payload.doNotRedirect
+                zIndex: action.payload.zIndex
             }));
         } else if (list.length > 1) {
             yield put(vsnSelectorCreator.setIsShowVsnSelector({
                 isShow: true,
                 vsnCode: action.payload.code,
-                doNotRedirect: !!action.payload.doNotRedirect,
                 list,
                 advanceSearchParams,
                 zIndex: action.payload.zIndex
@@ -94,24 +76,11 @@ function* vsnSearchController(action) {
             isShow: false,
             list: []
         }));
-        const mappings = Object.assign({}, data.mappings, {
-            type: 'vsn',
-            code: action.payload.code
-        });
-        if (!action.payload.doNotRedirect) {
-            const isNeedManualRefresh = isAtPateUsage();
-            history.push({
-                pathname: '/usage',
-                search: queryString.stringify(mappings)
-            });
-            if (isNeedManualRefresh) {
-                yield put(usageCreator.initUsage());
-            }
-        }
         yield put(vinDetailCreator.setIsShowVinDetail({
             type: 'vsn',
             data: data,
-            isShow: true
+            isShow: true,
+            zIndex: action.payload.zIndex
         }));
     } catch (err) {
         message.error(err.message);

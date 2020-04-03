@@ -100,6 +100,16 @@ $empty-table-body-height: calc(100vh - 41px - 60px - 50px);
         }
       }
     }
+
+    .total-price-wrapper {
+      float:right;
+
+      .total-price {
+        color: $primary-color;
+        font-weight: bold;
+        margin-left:4px;
+      }
+    }
   }
 }
 

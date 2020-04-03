@@ -1,7 +1,7 @@
 @import "src/scss/sdk/index";
 
 $drawer-width: 900px;
-$table-inner-width: $drawer-width - 30px;
+$table-inner-width: $drawer-width - 30;
 $table-body-height: calc(100vh - 50px - 193px - 45px - 55px - 50px);
 $empty-table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
 
@@ -27,6 +27,32 @@ $empty-table-body-height: calc(100vh - 50px - 193px - 45px - 50px);
       .ant-table-tbody {
         display: block;
         height: $table-body-height !important;
+      }
+    }
+    .operator-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .text-btn {
+      width: 80px;
+      margin-right: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
+
+    .btns {
+      color: $primary-color;
+      .anticon, .iconfont {
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 3px;
+
+        &:last-child{
+          margin-right:0;
+        }
       }
     }
   }

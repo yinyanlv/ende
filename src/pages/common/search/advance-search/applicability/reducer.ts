@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import {updateRecords} from '@/common/utils';
 
 const initialState = {
     isLoading: false,
@@ -20,6 +21,11 @@ export function applicabilityReducer(state = initialState, action) {
                 pageSize: payload.pageSize,
                 total: payload.total
             };
+        case actions.UPDATE_RECORDS:
+            return {
+                ...state,
+                list: updateRecords(action.payload.partCodes, state.list, action.payload.value)
+            };
         case actions.IS_LOADING:
             return {
                 ...state,
@@ -38,3 +44,4 @@ export function applicabilityReducer(state = initialState, action) {
             return state;
     }
 }
+

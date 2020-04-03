@@ -25,12 +25,16 @@
                     return true;
                 }
             } else {
-                return true;
+                if (window.Intl) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         var isUsable = checkUsable();
         if (!isUsable) {
-            window.location.href = 'http://beta.sgmw.tis.dev.servision.com.cn/help/browser';
+            window.location.href = 'http://sgmw-tis.servision.com.cn/help/browser';
         }
     </script>
     <style>
@@ -57,7 +61,6 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            color: rgba(0, 0, 0, 0.65);
             font-size: 14px;
             font-variant: tabular-nums;
             line-height: 1.5;

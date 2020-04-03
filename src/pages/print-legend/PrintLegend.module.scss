@@ -1,13 +1,12 @@
 @import "src/scss/sdk/index";
 
 .printLegend {
-  display: flex;
   padding: 20px;
 
   :global {
 
     .image-wrapper {
-      width: 520px;
+      width: 100%;
       height: 640px;
       display: flex;
       align-items: center;
@@ -23,7 +22,24 @@
 
     .table-wrapper {
       flex: 1;
-      margin-left:20px;
+      margin-top: 20px;
+
+      table {
+        page-break-inside: auto;
+      }
+
+      tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      tfoot {
+        display: table-footer-group;
+      }
     }
   }
 }

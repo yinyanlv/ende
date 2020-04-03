@@ -38,7 +38,8 @@ export const enUS: any = {
         a7: 'Reset',
         a8: 'Cancel',
         a9: 'Save',
-        a10: 'Copy'
+        a10: 'Copy',
+        a11: 'Close'
     },
     search: {
         a1: 'Advance Search',
@@ -87,7 +88,12 @@ export const enUS: any = {
     },
     cart: {
         a1: 'Shopping Cart',
-        a2: 'Amount'
+        a2: 'Amount',
+        a3: 'Add To Shopping Cart',
+        a4: 'This part is not exist in shopping cart',
+        a5: 'Is add to shopping cart',
+        a6: 'Amount',
+        a7: 'Has added into shopping cart'
     },
     vin: {
         a1: 'VIN/VSN Detail',
@@ -107,7 +113,8 @@ export const enUS: any = {
         a15: 'Aircondition',
         a16: 'Batch No.',
         a17: 'Identifier',
-        a18: 'Production Date'
+        a18: 'Production Date',
+        a19: 'View Legend'
     },
     order: {
         a1: 'Orders',
@@ -168,6 +175,7 @@ export const enUS: any = {
         a12: 'Delete success',
         a13: 'Create success',
         a14: 'Save success',
-        a15: 'Uploading...'
+        a15: 'Uploading...',
+        a16: 'Add into the list success'
     }
 };

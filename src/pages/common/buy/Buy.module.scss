@@ -1,0 +1,53 @@
+@import "src/scss/sdk/index";
+
+.buy {
+  cursor: pointer;
+}
+
+:global{
+
+  .ant-popover-content{
+
+    .buy-wrapper{
+      width: 130px;
+
+      .line {
+        margin-top: 5px;
+        overflow: hidden;
+
+        & > span:last-child{
+          float:right;
+          color: $primary-color;
+        }
+
+        .ant-input-number{
+          width: 100% !important;
+        }
+      }
+
+      .amount-line{
+        & > span:last-child{
+          font-weight: bold;
+        }
+      }
+
+      .pkg-line {
+        & > span:last-child{
+          color: $font-color;
+        }
+      }
+
+      .btn-line {
+        margin-top: 8px;
+
+        .btns {
+          float: right;
+        }
+
+        button {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

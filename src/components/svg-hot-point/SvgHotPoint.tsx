@@ -166,7 +166,7 @@ export class SvgHotPoint extends SvgDragZoom<SvgHotPointProps> {
         circle.setAttribute('cy', cy);
         circle.setAttribute('r', r);
         circle.setAttribute('stroke', stroke);
-        circle.setAttribute('stroke-width', '3');
+        circle.setAttribute('stroke-width', '2');
         circle.setAttribute('fill', 'none');
 
         return circle;

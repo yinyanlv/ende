@@ -56,3 +56,8 @@ config-overrides.js增加配置removeModuleScopePlugin
 ```
 
 ## cross-env不可以使用&&
+
+## typescript默认不支持多层级生成器
+```text
+tsconfig.json修改配置，downlevelIteration: true
+```

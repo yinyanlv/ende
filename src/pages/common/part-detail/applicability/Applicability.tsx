@@ -23,22 +23,22 @@ export function Applicability() {
             title: utils.getText('applicability.a2'),
             dataIndex: 'catalogueCode',
             ellipsis: true,
-            width: 160,
+            width: 110,
             render: (val, record) => {
                 return record && record.catalogueName ? `${val} - ${record.catalogueName}` : val;
             }
-        },
-        {
-            title: utils.getText('part.a2'),
-            dataIndex: 'partName',
-            ellipsis: true,
-            width: 140
         },
         {
             title: utils.getText('part.a8'),
             dataIndex: 'handName',
             ellipsis: true,
             width: 60
+        },
+        {
+            title: utils.getText('part.a2'),
+            dataIndex: 'partName',
+            ellipsis: true,
+            width: 140
         },
         {
             title: utils.getText('part.a9'),
@@ -61,17 +61,13 @@ export function Applicability() {
             title: utils.getText('legend.a2'),
             dataIndex: 'legendName',
             ellipsis: true,
-            width: 200,
-            render: (val, record) => {
-                const note = record.legendNote ? `(${record.legendNote})` : '';
-                return val ? val + note : '';
-            }
+            width: 200
         },
         {
             title: utils.getText('part.a10'),
             dataIndex: 'qty',
             ellipsis: true,
-            width: 80
+            width: 60
         },
         {
             title: utils.getText('part.a13'),
