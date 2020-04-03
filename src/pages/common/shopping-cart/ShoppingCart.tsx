@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Drawer, Button, Table, InputNumber, Pagination} from 'antd';
 import Img from 'react-image';
@@ -14,6 +14,7 @@ import {NoData} from '@/components/no-data';
 export function ShoppingCart(props) {
     const dispatch = useDispatch();
     const formRef = useRef();
+    const dataRef = useRef();
     const {total, list, isGenerating, zIndex, pageNo, pageSize, isShow, queryParams, isLoading, selectedRecords} = useSelector((state: any) => {
         return state.shoppingCart.self;
     });
@@ -27,6 +28,10 @@ export function ShoppingCart(props) {
         return item.id;
     });
     const utils = useUtils();
+
+    useEffect(() => {
+        dataRef.current = selectedRecords;
+    });
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -75,11 +80,12 @@ export function ShoppingCart(props) {
 
     function handleSelect(record) {
         const key = record.id;
+        const curSelectedRecords: any = dataRef.current;
         const isIncluded = utils.isInclude({
             name: 'id',
             value: key
-        }, selectedRecords);
-        const rows = [...selectedRecords];
+        }, curSelectedRecords);
+        const rows = [...curSelectedRecords];
         let records: any[] = [];
 
         if (isIncluded) {
@@ -197,7 +203,7 @@ export function ShoppingCart(props) {
             ellipsis: true,
             render: (val, record) => {
                 return (
-                    <div onClick={utils.stopPropagation}>
+                    <span onClick={utils.stopPropagation}>
                         <InputNumber value={val}
                                      min={0}
                                      step={record.unitPkgPackage || 1}
@@ -210,7 +216,7 @@ export function ShoppingCart(props) {
                                          } catch(err) {
                                          }
                                      }}/>
-                    </div>
+                    </span>
                 );
             }
         },

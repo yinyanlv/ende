@@ -5,9 +5,10 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// if (process.env.NODE_ENV === 'development') {
-//     require('../mock');
-// }
+if (process.env.NODE_ENV === 'development') {
+    require('../mock');
+}
+
 console.log('%c APP VERSION: 0.1.1', 'color:red;font-weight:bold;');
 ReactDOM.render(<App />, document.getElementById('root'));
 

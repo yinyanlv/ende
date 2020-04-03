@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Table, InputNumber, Pagination, Button} from 'antd';
 import {Loading} from '@/components/loading';
@@ -24,6 +24,11 @@ export function Cart(props) {
     const utils = useUtils();
     const exported = isExported();
     const formRef = useRef();
+    const dataRef = useRef();
+
+    useEffect(() => {
+        dataRef.current = selectedRecords;
+    });
 
     function doQuery(page, size) {
         queryParams.paging = {
@@ -53,11 +58,13 @@ export function Cart(props) {
 
     function handleSelect(record) {
         const key = record.id;
+        const curSelectedRecords: any = dataRef.current;
+
         const isIncluded = utils.isInclude({
             name: 'id',
             value: key
-        }, selectedRecords);
-        const rows = [...selectedRecords];
+        }, curSelectedRecords);
+        const rows = [...curSelectedRecords];
         let records: any[] = [];
 
         if (isIncluded) {
@@ -145,7 +152,7 @@ export function Cart(props) {
                     return val;
                 }
                 return (
-                    <div onClick={utils.stopPropagation}>
+                    <span onClick={utils.stopPropagation}>
                         <InputNumber value={val}
                                      min={0}
                                      step={record.unitPkgQty || 1}
@@ -161,7 +168,7 @@ export function Cart(props) {
                                          } catch(err) {
                                          }
                                      }}/>
-                    </div>
+                    </span>
                 );
             }
         },

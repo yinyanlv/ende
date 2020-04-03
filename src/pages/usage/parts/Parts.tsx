@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Button, Table, Tooltip, message} from 'antd';
 import {ShoppingCartOutlined, CopyOutlined, RetweetOutlined, RightOutlined, LeftOutlined} from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
@@ -23,8 +23,8 @@ interface PartsProps {
 }
 
 function Parts(props: PartsProps) {
-
     const dispatch = useDispatch();
+    const dataRef = useRef();
     const {
         isPartsLoading,
         parts,
@@ -52,6 +52,9 @@ function Parts(props: PartsProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.activeCallout, isPartsLoading]);
 
+    useEffect(() => {
+       dataRef.current = selectedKeys;
+    });
 
     function showPartDetail(e, partCode) {
         e.stopPropagation();
@@ -80,8 +83,9 @@ function Parts(props: PartsProps) {
 
     function handleSelect(record) {
         const keys = getKeysByCallout(record.callout);
+        const curSelectedKeys: any = dataRef.current;
 
-        if (keys.length && selectedKeys.includes(keys[0])) {
+        if (keys.length && curSelectedKeys && curSelectedKeys.includes(keys[0])) {
             props.onSelectParts('');
             dispatch(partsCreator.setSelectedKeys([]));
         } else {
