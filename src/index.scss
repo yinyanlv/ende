@@ -1,6 +1,6 @@
 @import "scss/sdk/index";
 @import "scss/common/reset";
-@import "../public/styles/iconfont/iconfont.css";
+@import "~tis-icons/lib/iconfont.css";
 
 html, body {
   background: $body-bg-color !important;
